@@ -1,0 +1,67 @@
+.header {
+    width: 100%;
+    margin: 0 auto;
+    outline: 2px solid red;
+    @include flex(space-between);
+    padding: 18px 0;
+
+    &__wrapper {
+        @include flex(center);
+        color: $dark;
+
+        &-logo {
+            @include font(24px, 700, 36px);
+            margin-left: 8px;
+        }
+
+        &-item {
+            @include font(1em, 500, 1.5);
+            margin-right: 2.9vw;
+
+            @media screen and (min-width: 1920px) {
+                @include font(18px, 500, 27px);
+                margin-right: 80px;
+            }
+
+            &:nth-last-child() {
+                margin-right: 0;
+            }
+        }
+
+        &-input {
+            width: 8vw;
+            height: 2.5vh;
+            border: 2px solid $dark;
+            border-radius: 5px;
+            @media screen and (min-width: 1920px) {
+                width: 200px;
+            }
+        }
+
+        &-form {
+            @include flex(center);
+        }
+
+        &-button {
+            background-color: transparent;
+            border: none;
+        }
+        & > .header__wrapper-button {
+            margin: 0 3vw 0 1vw;
+            @media screen and (min-width: 1920px) {
+                margin: 0 58px 0 32px;
+            }
+        }
+
+        & .button {
+            @include font(1em, 700, 1.5);
+            margin: 0;
+            padding: 1.3vh 2vw;
+
+            @media screen and (min-width: 1920px) {
+                @include font(18px, 700, 27px);
+                padding: 16px 28px;
+            }
+        }
+    }
+}

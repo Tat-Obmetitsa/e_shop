@@ -1,0 +1,15 @@
+@mixin flex($content) {
+    display: flex;
+    align-items: center;
+    justify-content: $content;
+}
+
+@mixin font($size, $weight, $height) {
+    font-size: $size;
+    font-weight: $weight;
+    line-height: $height;
+}
+
+@mixin transition($type) {
+    transition: $type 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
