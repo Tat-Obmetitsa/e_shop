@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Valtech E-Shop</title>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css" />
 
 </head>
 
@@ -50,9 +51,46 @@
       </button>
     </div>
   </header>
-  <main>
-    <!-- <img src="./assets/banner1_l.jpg" alt=""> -->
+  <main class="banner">
+    <div class="banner__wrapper">
+      <h1 class="banner__wrapper-title">
+        Summer Sale <br /> 50% Off
+      </h1>
+      <p class="banner__wrapper-text">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna
+        aliqua.
+      </p>
+      <button class="button" type="button">
+        <span class="button__text">Show Now</span>
+        <svg width="48px" height="48px" aria-label="search">
+          <use href="./assets/sprite.svg#small-arrow"></use>
+        </svg>
+      </button>
+    </div>
+    <div class="banner__wrapper slick">
+      <div>
+        <img src="./assets/banner1_l.jpg" alt="">
+      </div>
+      <div>
+        <img src="./assets/banner3_l.png" alt="">
+      </div>
+      <div>
+        <img src="./assets/banner2_l.png" alt="">
+      </div>
+      <div>
+        <img src="./assets/banner4_l.jpg" alt="">
+      </div>
+      <div>
+        <img src="./assets/banner5_l.jpg" alt="">
+      </div>
+      <div>
+        <img src="./assets/banner6_l.png" alt="">
+      </div>
+    </div>
   </main>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
 </body>
 
 </html>

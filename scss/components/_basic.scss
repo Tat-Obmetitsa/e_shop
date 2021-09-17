@@ -1,4 +1,5 @@
 body {
+    margin: 0;
     box-sizing: border-box;
     background-color: $bg-light;
     color: $dark;
@@ -13,7 +14,8 @@ h1 {
     font-family: "Playfair Display", serif;
 }
 
-li {
+li,
+main {
     padding: 0;
     margin: 0;
     list-style: none;
@@ -25,7 +27,7 @@ a {
 
 img {
     display: block;
-
+    margin: 0;
     max-width: 100%;
     height: auto;
 }

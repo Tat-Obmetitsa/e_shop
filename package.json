@@ -1,7 +1,7 @@
 {
   "name": "e-shop",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -44,7 +44,10 @@
   },
   "dependencies": {
     "eslint-config-prettier": "^8.3.0",
-    "image-webpack-loader": "^7.0.1"
+    "image-webpack-loader": "^7.0.1",
+    "jquery": "^3.6.0",
+    "slick": "^1.12.2",
+    "slick-carousel": "^1.8.1"
   },
   "author": "",
   "description": ""
