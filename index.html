@@ -6,8 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Valtech E-Shop</title>
-  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css" />
-
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 </head>
 
 <body class="container">
@@ -18,21 +18,21 @@
       </svg>
       <span class="header__wrapper-logo">Elliye</span>
     </div>
-    <ul class="header__wrapper">
-      <li class="header__wrapper-item">
-        <a href="">Categories</a>
-      </li>
-      <li class="header__wrapper-item">
-        <a href="">New Arrival</a>
-      </li>
-      <li class="header__wrapper-item">
-        <a href="">Feautres</a>
-      </li>
-      <li class="header__wrapper-item">
-        <a href="">Collections</a>
-      </li>
-    </ul>
-    <div class="header__wrapper">
+    <div class="header__wrapper header__wrapper-desktop " id="header__wrapper-desktop" data-menu>
+      <ul class="header__wrapper">
+        <li class="header__wrapper-item">
+          <a href="">Categories</a>
+        </li>
+        <li class="header__wrapper-item">
+          <a href="">New Arrival</a>
+        </li>
+        <li class="header__wrapper-item">
+          <a href="">Feautres</a>
+        </li>
+        <li class="header__wrapper-item">
+          <a href="">Collections</a>
+        </li>
+      </ul>
       <form action="post" class="header__wrapper-form">
         <input class="header__wrapper-input" type="search" name="search" aria-label="search">
         <button type="button" class="header__wrapper-button">
@@ -46,8 +46,31 @@
           <use href="./assets/sprite.svg#cart"></use>
         </svg>
       </button>
+
       <button type="button" class="button">
         Login
+      </button>
+    </div>
+    <div class="header__wrapper-mobile">
+      <form action="post" class="header__wrapper-form">
+        <input class="header__wrapper-input" type="search" name="search" aria-label="search">
+        <button type="button" class="header__wrapper-button">
+          <svg width="24px" height="24px" aria-label="search">
+            <use href="./assets/sprite.svg#search"></use>
+          </svg>
+        </button>
+      </form>
+      <button type="button" class="header__wrapper-button">
+        <svg width="24px" height="24px" aria-label="cart">
+          <use href="./assets/sprite.svg#cart"></use>
+        </svg>
+      </button>
+      <button type="button" class="menu-button" aria-expanded="false" aria-controls="header__wrapper-desktop"
+        data-menu-button>
+        <svg width="20px" height="20px" aria-label="Menu switcher">
+          <use class="icon-menu" href="./assets/sprite.svg#menu"></use>
+          <use class="icon-cross" href="./assets/sprite.svg#cross"></use>
+        </svg>
       </button>
     </div>
   </header>
@@ -68,28 +91,33 @@
         </svg>
       </button>
     </div>
-    <div class="banner__wrapper slick">
-      <div>
-        <img src="./assets/banner1_l.jpg" alt="">
-      </div>
-      <div>
-        <img src="./assets/banner3_l.png" alt="">
-      </div>
-      <div>
-        <img src="./assets/banner2_l.png" alt="">
-      </div>
-      <div>
-        <img src="./assets/banner4_l.jpg" alt="">
-      </div>
-      <div>
-        <img src="./assets/banner5_l.jpg" alt="">
-      </div>
-      <div>
-        <img src="./assets/banner6_l.png" alt="">
+    <div class="banner__wrapper">
+      <div class="slick">
+        <div>
+          <img src="./assets/banner6_l.png" alt="">
+        </div>
+        <div>
+          <img src="./assets/banner3_l.png" alt="">
+        </div>
+        <div>
+          <img src="./assets/banner2_l.png" alt="">
+        </div>
+        <div>
+          <img src="./assets/banner4_l.jpg" alt="">
+        </div>
+        <div>
+          <img src="./assets/banner5_l.jpg" alt="">
+        </div>
+        <div>
+          <img src="./assets/banner1_l.jpg" alt="">
+        </div>
       </div>
     </div>
   </main>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
+
   <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
 </body>
 

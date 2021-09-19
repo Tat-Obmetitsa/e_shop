@@ -6,7 +6,6 @@
     .button {
         @include font(24px, 500, 36px);
         @include flex(center);
-        fill: white;
         width: 245px;
         height: 60px;
         text-align: center;
@@ -19,6 +18,9 @@
     &__wrapper {
         &-title {
             @include font(96px, 900, 128px);
+
+            letter-spacing: 0.16rem;
+            z-index: 20;
         }
 
         &-text {
@@ -27,48 +29,96 @@
             width: 525px;
         }
     }
+    & .banner__wrapper:first-child {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 720px;
+        height: 100%;
+        z-index: 3;
+    }
+
+    & .banner__wrapper:nth-child(2) {
+        width: 1200px;
+        margin: 0;
+        position: absolute;
+        top: 0;
+        right: -144px;
+        bottom: 0;
+        z-index: 1;
+    }
 }
-.banner__wrapper:first-child {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 720px;
-    height: 100%;
-    z-index: 3;
-}
-.banner__wrapper:nth-child(2) {
-    width: 1200px;
+
+.slick {
     position: relative;
-    margin: 0;
-    position: absolute;
-    top: 0;
-    right: -144px;
-    bottom: 0;
-    z-index: 1;
-}
 
-.slick-dots {
-    display: flex;
-    position: absolute;
-    bottom: 36px;
-    left: 205px;
-
-    & button,
-    li {
-        display: block;
-        width: 12px;
-        height: 12px;
+    &-dots {
+        width: 200px;
+        position: absolute;
+        bottom: 24px;
+        left: 0px;
+    }
+    & .slick-dots button::before {
+        bottom: 36px;
+        left: 205px;
+        font-size: 17px;
         margin-right: 8px;
-        background-color: $bg-light;
-        color: transparent;
-        font-size: 1px;
-        line-height: 0.1;
-        border-radius: 50%;
-        border-color: transparent;
-    }
-    & .slick-active {
-        background-color: $dark;
+
+        background-color: transparent;
+        color: $bg-light;
+        & .slick-active {
+            background-color: transparent;
+            color: $dark;
+        }
     }
 }
+
 .slick-arrow {
+    display: block;
+    width: 80px;
+    height: 48px;
+    background-color: $bg-light;
+    color: $text-gray;
+    background-size: auto 100%;
+    z-index: 10;
+    border: 3px solid $bg-light;
+    outline: 2px solid $bg-light;
+    transition-duration: 500ms;
+
+    &.slick-prev {
+        right: 222px;
+        left: inherit;
+        bottom: 0;
+        top: 96%;
+    }
+
+    &.slick-prev::before {
+        opacity: 1;
+        color: $text-gray;
+        content: url(../assets/arrow-prev.svg);
+
+        &:hover {
+            color: $text-gray;
+        }
+    }
+
+    &.slick-next {
+        right: 143px;
+        bottom: 0;
+        top: 96%;
+    }
+
+    &.slick-next::before {
+        opacity: 1;
+        content: url(../assets/arrow-next.svg);
+
+        &:hover {
+            color: $text-gray;
+        }
+    }
+}
+.slick-arrow:hover {
+    background-color: $bg-gray;
+    border: 3px solid $bg-gray;
+    outline: 2px solid $bg-gray;
 }

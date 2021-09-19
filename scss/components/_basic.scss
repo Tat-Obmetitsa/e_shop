@@ -23,6 +23,7 @@ main {
 
 a {
     text-decoration: none;
+    color: $dark;
 }
 
 img {
@@ -58,8 +59,18 @@ img {
 }
 
 .button {
-    border: none;
+    border: 3px solid transparent;
     background-color: $dark;
     color: $bg-light;
+    fill: $bg-light;
     text-align: center;
+    transition-duration: 500ms;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: $bg-light;
+    color: $dark;
+    border: 3px solid $dark;
+    fill: $dark;
 }
