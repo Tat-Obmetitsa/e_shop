@@ -21,10 +21,10 @@
     <div class="header__wrapper header__wrapper-desktop " id="header__wrapper-desktop" data-menu>
       <ul class="header__wrapper">
         <li class="header__wrapper-item">
-          <a href="">Categories</a>
+          <a href="#category">Categories</a>
         </li>
         <li class="header__wrapper-item">
-          <a href="">New Arrival</a>
+          <a href="#arrivals">New Arrival</a>
         </li>
         <li class="header__wrapper-item">
           <a href="">Feautres</a>
@@ -74,50 +74,130 @@
       </button>
     </div>
   </header>
-  <main class="banner">
-    <div class="banner__wrapper">
-      <h1 class="banner__wrapper-title">
-        Summer Sale <br /> 50% Off
-      </h1>
-      <p class="banner__wrapper-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna
-        aliqua.
-      </p>
-      <button class="button" type="button">
-        <span class="button__text">Show Now</span>
-        <svg width="48px" height="48px" aria-label="search">
-          <use href="./assets/sprite.svg#small-arrow"></use>
-        </svg>
-      </button>
-    </div>
-    <div class="banner__wrapper">
-      <div class="slick">
-        <div>
-          <img src="./assets/banner6_l.png" alt="">
-        </div>
-        <div>
-          <img src="./assets/banner3_l.png" alt="">
-        </div>
-        <div>
-          <img src="./assets/banner2_l.png" alt="">
-        </div>
-        <div>
-          <img src="./assets/banner4_l.jpg" alt="">
-        </div>
-        <div>
-          <img src="./assets/banner5_l.jpg" alt="">
-        </div>
-        <div>
-          <img src="./assets/banner1_l.jpg" alt="">
+  <main>
+    <section class="banner">
+      <div class="banner__wrapper">
+        <h1 class="banner__wrapper-title">
+          Summer Sale <br /> 50% Off
+        </h1>
+        <p class="banner__wrapper-text">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna
+          aliqua.
+        </p>
+        <button class="button" type="button">
+          <span class="button__text">Show Now</span>
+          <svg width="48px" height="48px" aria-label="search">
+            <use href="./assets/sprite.svg#small-arrow"></use>
+          </svg>
+        </button>
+      </div>
+      <div class="banner__wrapper">
+        <div class="slick">
+          <div>
+            <img src="./assets/banner6_l.png" alt="">
+          </div>
+          <div>
+            <img src="./assets/banner3_l.png" alt="">
+          </div>
+          <div>
+            <img src="./assets/banner2_l.png" alt="">
+          </div>
+          <div>
+            <img src="./assets/banner4_l.jpg" alt="">
+          </div>
+          <div>
+            <img src="./assets/banner5_l.jpg" alt="">
+          </div>
+          <div>
+            <img src="./assets/banner1_l.jpg" alt="">
+          </div>
         </div>
       </div>
-    </div>
+    </section>
+    <section class="section">
+      <div class="category" id="category">
+        <div class="section__wrapper">
+          <h2 class="section__title">Categories</h2>
+          <button type="button" class="section__view-button">
+            <span>View all</span>
+            <svg width="30px" height="30px" aria-label="search">
+              <use href="./assets/sprite.svg#small-arrow"></use>
+            </svg>
+          </button>
+        </div>
+        <ul class="category__list">
+          <li class="category__list-item">
+            <svg aria-label="search">
+              <use href="./assets/sprite.svg#category1"></use>
+            </svg>
+            <span>Jacket</span>
+          </li>
+          <li class="category__list-item">
+            <svg aria-label="search">
+              <use href="./assets/sprite.svg#category2"></use>
+            </svg>
+            <span>Shirt</span>
+          </li>
+          <li class="category__list-item">
+            <svg aria-label="search">
+              <use href="./assets/sprite.svg#category3"></use>
+            </svg>
+            <span>Pants</span>
+          </li>
+          <li class="category__list-item">
+            <svg aria-label="search">
+              <use href="./assets/sprite.svg#category4"></use>
+            </svg>
+            <span>Shoes</span>
+          </li>
+          <li class="category__list-item">
+            <svg aria-label="search">
+              <use href="./assets/sprite.svg#category5"></use>
+            </svg>
+            <span>Dress</span>
+          </li>
+          <li class="category__list-item">
+            <svg aria-label="search">
+              <use href="./assets/sprite.svg#category6"></use>
+            </svg>
+            <span>Accesories</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section class="section">
+      <div class="arrivals" id="arrivals">
+        <div class="section__wrapper">
+          <h2 class="section__title">New Arrivals</h2>
+          <button type="button" class="section__view-button">
+            <span>View all</span>
+            <svg width="30px" height="30px" aria-label="search">
+              <use href="./assets/sprite.svg#small-arrow"></use>
+            </svg>
+          </button>
+        </div>
+        <!-- <section class="gallery__section">
+          <div class="container">
+            <ul class="gallery__wrapper"></ul>
+
+          </div>
+        </section> -->
+        <!-- <ul class="arrivals__list">
+          <li class="arrivals__list-item">
+            <img src="" alt="">
+            <div>
+              <h3></h3>
+              <span></span>
+              <button></button>
+            </div>
+          </li>
+
+        </ul> -->
+      </div>
+    </section>
   </main>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-  <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
-
   <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
 </body>
 
