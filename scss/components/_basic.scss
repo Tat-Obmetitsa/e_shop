@@ -77,9 +77,9 @@ img {
 }
 
 .section {
-    padding: 50px 0;
+    margin: 50px 0;
     @media screen and (min-width: 1920px) {
-        padding: 100px 0;
+        margin: 100px 0;
     }
 
     &__title {

@@ -43,10 +43,15 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "base64-img": "^1.0.4",
     "eslint-config-prettier": "^8.3.0",
+    "fs": "0.0.1-security",
+    "fs-extra": "^10.0.0",
     "handlebars": "^4.7.7",
+    "handlebars-loader": "^1.7.1",
     "image-webpack-loader": "^7.0.1",
     "jquery": "^3.6.0",
+    "lazy-load": "0.0.2",
     "slick": "^1.12.2",
     "slick-carousel": "^1.8.1"
   },

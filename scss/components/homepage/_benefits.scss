@@ -1,0 +1,49 @@
+.benefits {
+    &__list {
+        margin-top: 32px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 1fr;
+        grid-column-gap: 32px;
+        background-color: $bg-gray;
+        &-item {
+            @include flex(center);
+            flex-direction: column;
+            padding: 60px 80px;
+            text-align: center;
+
+            & div {
+                position: relative;
+                width: 120px;
+                height: 120px;
+                border: 1px solid $text-gray;
+                border-radius: 50%;
+                fill: $dark;
+            }
+            & svg {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            &_title {
+                @include font(24px, 700, 1.7);
+                margin: 32px 0 16px 0;
+            }
+            &_text {
+                @include font(18px, 400, 1.5);
+            }
+        }
+    }
+}
+.benefints__wrapper {
+    @include flex(center);
+    margin-top: 100px;
+    margin: 0 auto;
+    &-item {
+        margin: 100px 80px 0 80px;
+        height: 70px;
+        max-width: 180px;
+    }
+}

@@ -1,6 +1,6 @@
 // import './smth'
 import '../scss/main.scss'
-
+import './gallery'
 import 'slick-carousel';
 $('.slick').slick({
     slidesToShow: 1,

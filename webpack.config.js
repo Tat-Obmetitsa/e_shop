@@ -138,11 +138,15 @@ module.exports = {
             loader: 'image-webpack-loader',
             options: {
               name: `./img/${filename('[ext]')}`,
-              bypassOnDebug: true, 
-              disable: true, 
+              bypassOnDebug: true,
+              disable: true,
             },
           },
         ],
+      },
+      {
+        test: /\.hbs$/,
+        use: 'handlebars-loader',
       },
       {
         test: /\.(?:|woff2)$/,
@@ -153,7 +157,6 @@ module.exports = {
           }
         }],
       },
-
     ]
   }
 };

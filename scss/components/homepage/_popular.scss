@@ -1,0 +1,37 @@
+.popular {
+    &__list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        grid-column-gap: 32px;
+        grid-row-gap: 32px;
+        &-item {
+            @include flex(flex-start);
+            padding: 22px 24px;
+
+            border: 3px solid transparent;
+            text-align: left;
+            transition-duration: 500ms;
+            & img {
+                width: 225px;
+            }
+        }
+    }
+}
+
+.wrapper__description {
+    margin-left: 16px;
+    @include font(24px, 500, 1.7);
+
+    &-text {
+        margin: 8px 0 16px 0;
+    }
+    &-icons {
+        fill: $text-gray;
+        transition-duration: 500ms;
+        & svg:hover {
+            fill: $hover-stars;
+            cursor: pointer;
+        }
+    }
+}

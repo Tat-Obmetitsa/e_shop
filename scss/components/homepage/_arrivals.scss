@@ -1,0 +1,57 @@
+.arrivals {
+    outline: 2px solid red;
+    &__list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-column-gap: 32px;
+        grid-row-gap: 32px;
+        &-item {
+            padding: 32px 50px;
+            text-align: center;
+            background-color: $bg-gray;
+
+            & img {
+                display: inline-block;
+                width: 177px;
+            }
+        }
+        &-item:nth-child(1) {
+            grid-area: 1 / 1 / 3 / 3;
+            @include flex(space-between);
+            padding: 5px 61px;
+
+            & img {
+                width: 384px;
+            }
+        }
+        & li:nth-child(4n-1) {
+            grid-area: 1 / 3 / 2 / 4;
+        }
+        & li:nth-child(4n + 4) {
+            grid-area: 2 / 3 / 3 / 4;
+        }
+        & li:last-child {
+            grid-area: 2 / 4 / 3 / 5;
+        }
+    }
+}
+
+.wrapper__description {
+    &-title {
+        @include font(24px, 500, 1.7);
+        margin: 16px 0 8px 0;
+    }
+
+    &-text {
+        @include font(18px, 500, 1.5);
+    }
+
+    & .add-button {
+        @include font(18px, 700, 1.5);
+        margin: 24px auto 0 auto;
+        width: 200px;
+        height: 60px;
+        text-align: center;
+    }
+}
