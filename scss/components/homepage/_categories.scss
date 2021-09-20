@@ -1,5 +1,4 @@
 .category {
-    outline: 2px solid red;
     &__list {
         @include flex(space-between);
 

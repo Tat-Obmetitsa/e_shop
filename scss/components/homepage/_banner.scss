@@ -2,6 +2,7 @@
     height: 627px;
     position: relative;
     outline: 2px solid red;
+    width: 100vw;
 
     .button {
         @include font(24px, 500, 36px);
@@ -16,6 +17,10 @@
     }
 
     &__wrapper {
+        &.section {
+            margin-top: 0;
+            margin-left: 0;
+        }
         &-title {
             @include font(96px, 900, 128px);
 
@@ -43,7 +48,7 @@
         margin: 0;
         position: absolute;
         top: 0;
-        right: -144px;
+        right: 0;
         bottom: 0;
         z-index: 1;
     }

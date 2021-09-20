@@ -1,0 +1,63 @@
+.footer {
+    padding: 64px 0 134px 0;
+    width: 100vw;
+    color: $bg-light;
+    background-color: $dark;
+    & .section {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    &__list {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: 1fr;
+        grid-column-gap: 130px;
+
+        &-item {
+            &_title {
+                @include font(24px, 700, 1.7);
+                margin-bottom: 24px;
+            }
+            & li {
+                @include font(18px, 400, 1.5);
+                margin: 10px 0;
+            }
+
+            & a {
+                color: $bg-light;
+            }
+        }
+    }
+}
+
+.footer__list-item {
+    & form {
+        @include flex(space-around);
+    }
+    & input {
+        width: 384px;
+        height: 60px;
+        padding-right: 50px;
+    }
+    & button {
+        background-color: transparent;
+        margin-left: -50px;
+        height: 100%;
+        // width: 50px;
+        fill: $dark;
+        border: 0;
+    }
+    & > p {
+        @include font(18px, 400, 1.5);
+        margin: 0 0 35px 0;
+    }
+    &_social {
+        @include flex(flex-start);
+        & li {
+            margin: 0 24px 0 0;
+        }
+        & svg {
+            fill: $bg-light;
+        }
+    }
+}

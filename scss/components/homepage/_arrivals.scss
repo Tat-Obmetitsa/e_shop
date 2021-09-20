@@ -1,5 +1,4 @@
 .arrivals {
-    outline: 2px solid red;
     &__list {
         display: grid;
         grid-template-columns: repeat(4, 1fr);

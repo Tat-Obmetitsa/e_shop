@@ -10,73 +10,75 @@
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 </head>
 
-<body class="container">
-  <header class="header">
-    <div class="header__wrapper">
-      <svg width="40px" height="24px" aria-label="logo">
-        <use href="./assets/sprite.svg#logo"></use>
-      </svg>
-      <span class="header__wrapper-logo">Elliye</span>
-    </div>
-    <div class="header__wrapper header__wrapper-desktop " id="header__wrapper-desktop" data-menu>
-      <ul class="header__wrapper">
-        <li class="header__wrapper-item">
-          <a href="#category">Categories</a>
-        </li>
-        <li class="header__wrapper-item">
-          <a href="#arrivals">New Arrival</a>
-        </li>
-        <li class="header__wrapper-item">
-          <a href="">Feautres</a>
-        </li>
-        <li class="header__wrapper-item">
-          <a href="">Collections</a>
-        </li>
-      </ul>
-      <form action="post" class="header__wrapper-form">
-        <input class="header__wrapper-input" type="search" name="search" aria-label="search">
+<body>
+  <header class="section">
+    <div class="header">
+      <div class="header__wrapper">
+        <svg width="40px" height="24px" aria-label="logo">
+          <use href="./assets/sprite.svg#logo"></use>
+        </svg>
+        <span class="header__wrapper-logo">Elliye</span>
+      </div>
+      <div class="header__wrapper header__wrapper-desktop " id="header__wrapper-desktop" data-menu>
+        <ul class="header__wrapper">
+          <li class="header__wrapper-item">
+            <a href="#category">Categories</a>
+          </li>
+          <li class="header__wrapper-item">
+            <a href="#arrivals">New Arrival</a>
+          </li>
+          <li class="header__wrapper-item">
+            <a href="">Feautres</a>
+          </li>
+          <li class="header__wrapper-item">
+            <a href="">Collections</a>
+          </li>
+        </ul>
+        <form action="post" class="header__wrapper-form">
+          <input class="header__wrapper-input" type="search" name="search" aria-label="search">
+          <button type="button" class="header__wrapper-button">
+            <svg width="24px" height="24px" aria-label="search">
+              <use href="./assets/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </form>
         <button type="button" class="header__wrapper-button">
-          <svg width="24px" height="24px" aria-label="search">
-            <use href="./assets/sprite.svg#search"></use>
+          <svg width="24px" height="24px" aria-label="cart">
+            <use href="./assets/sprite.svg#cart"></use>
           </svg>
         </button>
-      </form>
-      <button type="button" class="header__wrapper-button">
-        <svg width="24px" height="24px" aria-label="cart">
-          <use href="./assets/sprite.svg#cart"></use>
-        </svg>
-      </button>
 
-      <button type="button" class="button">
-        Login
-      </button>
-    </div>
-    <div class="header__wrapper-mobile">
-      <form action="post" class="header__wrapper-form">
-        <input class="header__wrapper-input" type="search" name="search" aria-label="search">
+        <button type="button" class="button">
+          Login
+        </button>
+      </div>
+      <div class="header__wrapper-mobile">
+        <form action="post" class="header__wrapper-form">
+          <input class="header__wrapper-input" type="search" name="search" aria-label="search">
+          <button type="button" class="header__wrapper-button">
+            <svg width="24px" height="24px" aria-label="search">
+              <use href="./assets/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </form>
         <button type="button" class="header__wrapper-button">
-          <svg width="24px" height="24px" aria-label="search">
-            <use href="./assets/sprite.svg#search"></use>
+          <svg width="24px" height="24px" aria-label="cart">
+            <use href="./assets/sprite.svg#cart"></use>
           </svg>
         </button>
-      </form>
-      <button type="button" class="header__wrapper-button">
-        <svg width="24px" height="24px" aria-label="cart">
-          <use href="./assets/sprite.svg#cart"></use>
-        </svg>
-      </button>
-      <button type="button" class="menu-button" aria-expanded="false" aria-controls="header__wrapper-desktop"
-        data-menu-button>
-        <svg width="20px" height="20px" aria-label="Menu switcher">
-          <use class="icon-menu" href="./assets/sprite.svg#menu"></use>
-          <use class="icon-cross" href="./assets/sprite.svg#cross"></use>
-        </svg>
-      </button>
+        <button type="button" class="menu-button" aria-expanded="false" aria-controls="header__wrapper-desktop"
+          data-menu-button>
+          <svg width="20px" height="20px" aria-label="Menu switcher">
+            <use class="icon-menu" href="./assets/sprite.svg#menu"></use>
+            <use class="icon-cross" href="./assets/sprite.svg#cross"></use>
+          </svg>
+        </button>
+      </div>
     </div>
   </header>
   <main>
     <section class="banner">
-      <div class="banner__wrapper">
+      <div class="banner__wrapper section">
         <h1 class="banner__wrapper-title">
           Summer Sale <br /> 50% Off
         </h1>
@@ -524,53 +526,55 @@
         </li>
       </ul>
     </section>
-    <section class="section benefits">
-      <div class="section__wrapper">
+    <section class="benefits">
+      <div class="section__wrapper section">
         <h2 class="section__title">Why Choose Us</h2>
       </div>
-      <ul class="benefits__list">
-        <li class="benefits__list-item">
-          <div>
-            <svg width="65px" height="65px" aria-label="search">
-              <use href="./assets/sprite.svg#why1"></use>
-            </svg>
-          </div>
-          <h3 class="benefits__list-item_title">Free Delivery</h3>
-          <p class="benefits__list-item_text">This free shipping
-            only for selected region</p>
-        </li>
-        <li class="benefits__list-item">
-          <div>
-            <svg width="65px" height="65px" aria-label="search">
-              <use href="./assets/sprite.svg#why2"></use>
-            </svg>
-          </div>
-          <h3 class="benefits__list-item_title">Payment Method</h3>
-          <p class="benefits__list-item_text">This free shipping
-            only for selected region</p>
-        </li>
-        <li class="benefits__list-item">
-          <div>
-            <svg width="65px" height="65px" aria-label="search">
-              <use href="./assets/sprite.svg#why3"></use>
-            </svg>
-          </div>
-          <h3 class="benefits__list-item_title">Warranty</h3>
-          <p class="benefits__list-item_text">This free shipping
-            only for selected region</p>
-        </li>
-        <li class="benefits__list-item">
-          <div>
-            <svg width="65px" height="65px" aria-label="search">
-              <use href="./assets/sprite.svg#why4"></use>
-            </svg>
-          </div>
-          <h3 class="benefits__list-item_title">Customer Support</h3>
-          <p class="benefits__list-item_text">This free shipping
-            only for selected region</p>
-        </li>
-      </ul>
-      <ul class="benefints__wrapper">
+      <div class="benefits__bg">
+        <ul class="benefits__list section">
+          <li class="benefits__list-item">
+            <div>
+              <svg width="65px" height="65px" aria-label="search">
+                <use href="./assets/sprite.svg#why1"></use>
+              </svg>
+            </div>
+            <h3 class="benefits__list-item_title">Free Delivery</h3>
+            <p class="benefits__list-item_text">This free shipping
+              only for selected region</p>
+          </li>
+          <li class="benefits__list-item">
+            <div>
+              <svg width="65px" height="65px" aria-label="search">
+                <use href="./assets/sprite.svg#why2"></use>
+              </svg>
+            </div>
+            <h3 class="benefits__list-item_title">Payment Method</h3>
+            <p class="benefits__list-item_text">This free shipping
+              only for selected region</p>
+          </li>
+          <li class="benefits__list-item">
+            <div>
+              <svg width="65px" height="65px" aria-label="search">
+                <use href="./assets/sprite.svg#why3"></use>
+              </svg>
+            </div>
+            <h3 class="benefits__list-item_title">Warranty</h3>
+            <p class="benefits__list-item_text">This free shipping
+              only for selected region</p>
+          </li>
+          <li class="benefits__list-item">
+            <div>
+              <svg width="65px" height="65px" aria-label="search">
+                <use href="./assets/sprite.svg#why4"></use>
+              </svg>
+            </div>
+            <h3 class="benefits__list-item_title">Customer Support</h3>
+            <p class="benefits__list-item_text">This free shipping
+              only for selected region</p>
+          </li>
+        </ul>
+      </div>
+      <ul class="benefints__wrapper section">
         <li class="benefints__wrapper-item"><img src="./assets/brand1.png" alt=""></li>
         <li class="benefints__wrapper-item"><img src="./assets/brand2.png" alt=""></li>
         <li class="benefints__wrapper-item"><img src="./assets/brand3.png" alt=""></li>
@@ -578,6 +582,103 @@
       </ul>
     </section>
   </main>
+  <footer class="footer">
+    <ul class="footer__list section">
+      <li class="footer__list-item">
+        <h3 class="footer__list-item_title">Join our Newsletter</h3>
+        <p class="footer__list-item_text">Drop your email below to get update about us,
+          lastest news, tips, and more!</p>
+        <form action="post">
+          <input type="email" placeholder="Enter your email" pattern=".+@globex\.com" size="30" required>
+          <button type="submit">
+            <svg width="30px" height="30px" aria-label="search">
+              <use href="./assets/sprite.svg#small-arrow"></use>
+            </svg>
+          </button>
+        </form>
+      </li>
+      <li class="footer__list-item">
+        <h3 class="footer__list-item_title">Product Links</h3>
+        <ul>
+          <li>
+            <a href="#category">Categories</a>
+          </li>
+          <li>
+            <a href="#arrivals">New Arrival</a>
+          </li>
+          <li>
+            <a href="featured">Feautres</a>
+          </li>
+          <li>
+            <a href="">Collections</a>
+          </li>
+        </ul>
+      </li>
+      <li class="footer__list-item">
+        <h3 class="footer__list-item_title">Company</h3>
+        <ul>
+          <li>
+            <a href="#category">About</a>
+          </li>
+          <li>
+            <a href="#arrivals">Blog</a>
+          </li>
+          <li>
+            <a href="featured">Careers</a>
+          </li>
+          <li>
+            <a href="">Contact</a>
+          </li>
+          <li>
+            <a href="#">Services</a>
+          </li>
+        </ul>
+      </li>
+      <li class="footer__list-item">
+        <h3 class="footer__list-item_title">Support</h3>
+        <ul>
+          <li>
+            <a href="#category">Support Center</a>
+          </li>
+          <li>
+            <a href="#arrivals">FAQ</a>
+          </li>
+          <li>
+            <a href="featured">Privacy Policy</a>
+          </li>
+          <li>
+            <a href="">Terms of Service</a>
+          </li>
+        </ul>
+      </li>
+      <li class="footer__list-item">
+        <h3 class="footer__list-item_title">Get in Touch</h3>
+        <ul class="footer__list-item_social">
+          <li>
+            <a href="#category">
+              <svg width="24px" height="24px" aria-label="search">
+                <use href="./assets/sprite.svg#instagram"></use>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="#category">
+              <svg width="24px" height="24px" aria-label="search">
+                <use href="./assets/sprite.svg#twitter"></use>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="#category">
+              <svg width="24px" height="24px" aria-label="search">
+                <use href="./assets/sprite.svg#facebook"></use>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </footer>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
