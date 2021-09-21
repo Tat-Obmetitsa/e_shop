@@ -23,7 +23,7 @@ body {
 
 * {
     box-sizing: border-box;
-    // outline: 1px solid blue;
+    outline: 1px solid blue;
 }
 body.modal-open {
     overflow: hidden;
@@ -105,7 +105,11 @@ img {
     }
 
     &__title {
-        @include font(36px, 700, 2);
+        @include font(1.8em, 700, 1.7);
+
+        @media screen and (min-width: 1920px) {
+            @include font(36px, 700, 2);
+        }
     }
 
     &__wrapper {
@@ -113,13 +117,17 @@ img {
     }
 
     & .section__view-button {
-        @include font(18px, 500, 1.5);
+        @include font(1rem, 500, 1.5);
         @include flex(center);
-        padding: 10px;
+        padding: 0.4em;
         text-align: center;
         background-color: transparent;
         border: 2px solid transparent;
 
+        @media screen and (min-width: 1920px) {
+            @include font(18px, 500, 1.5);
+            padding: 10px;
+        }
         &:hover {
             border: 2px solid $dark;
         }

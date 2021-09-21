@@ -1,8 +1,8 @@
-import refs from './refs.js';
-import galleryTemlate from '../templates/arrivalsSection.hbs';
-const { galleryBox, img } = refs;
+// import refs from './refs.js';
+// import galleryTemlate from '../templates/arrivalsSection.hbs';
+// const { galleryBox, img } = refs;
 
 
-(() => {
-    galleryBox.insertAdjacentHTML('beforeend', galleryTemlate(img));
-})();
+// (() => {
+//     galleryBox.insertAdjacentHTML('beforeend', galleryTemlate(img));
+// })();

@@ -1,0 +1,66 @@
+.collections {
+    height: 426px;
+    padding-top: 46px;
+    background-color: $dark;
+
+    & .section__title {
+        color: $bg-light;
+    }
+    & .section {
+        position: relative;
+        height: 426px;
+        padding-top: 46px;
+        background-color: $dark;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    & .slider__wrapper {
+        position: absolute;
+        bottom: -118px;
+        margin: 0;
+        left: 0;
+    }
+
+    & .slider {
+        width: inherit;
+        &__item {
+            margin: 0;
+            &-title {
+                @include font(36px, 700, 2);
+                display: block;
+                position: absolute;
+                top: 5px;
+                left: 60px;
+                color: $bg-light;
+            }
+            &-img {
+                width: 523px;
+                height: 400px;
+                margin: 0;
+            }
+        }
+        & .slick-arrow {
+            position: absolute;
+            display: block;
+            width: 60px;
+            height: 60px;
+            top: 50%;
+            background-color: $bg-light;
+            z-index: 150;
+            &.slick-prev {
+                left: -30px;
+            }
+            &.slick-next {
+                right: -30px;
+            }
+        }
+        & .slick-slide,
+        & .slick-track,
+        & .slick-list,
+        & .slick-slide-fade {
+            position: relative;
+            z-index: 100;
+            float: left;
+        }
+    }
+}

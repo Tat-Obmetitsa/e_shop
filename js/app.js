@@ -7,33 +7,37 @@ $('.slick').slick({
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
-    dots: true,
+    dots: false,
+    arrows: false,
+    lazyLoad: 'progressive',
+    mobileFirst: true,
+    slidesToShow: 1,
+    infinite: true,
+    responsive: [{
+
+        breakpoint: 1200,
+        settings: {
+            arrows: true,
+            dots: true,
+        }
+
+    }]
+});
+
+$('.slider').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: false,
+    autoplaySpeed: 2000,
+    dots: false,
     arrows: true,
     lazyLoad: 'progressive',
     mobileFirst: true,
-    // responsive: [{
 
-    //     breakpoint: 1024,
-    //     settings: {
-    //         slidesToShow: 1,
-    //         infinite: true
-    //     }
-
-    // }, {
-
-    //     breakpoint: 600,
-    //     settings: {
-    //         slidesToShow: 3,
-    //         dots: true
-    //     }
-
-    // }, {
-
-    //     breakpoint: 300,
-    //     settings: "unslick" // destroys slick
-
-    // }]
 });
+
+
+
 
 (() => {
     const menuBtnRef = document.querySelector("[data-menu-button]");
