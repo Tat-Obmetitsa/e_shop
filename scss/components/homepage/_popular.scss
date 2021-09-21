@@ -17,21 +17,20 @@
             }
         }
     }
-}
+    & .wrapper__description {
+        margin-left: 16px;
+        @include font(24px, 500, 1.7);
 
-.wrapper__description {
-    margin-left: 16px;
-    @include font(24px, 500, 1.7);
-
-    &-text {
-        margin: 8px 0 16px 0;
-    }
-    &-icons {
-        fill: $text-gray;
-        transition-duration: 500ms;
-        & svg:hover {
-            fill: $hover-stars;
-            cursor: pointer;
+        &-text {
+            margin: 8px 0 16px 0;
+        }
+        &-icons {
+            fill: $text-gray;
+            transition-duration: 500ms;
+            & svg:hover {
+                fill: $hover-stars;
+                cursor: pointer;
+            }
         }
     }
 }
