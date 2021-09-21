@@ -24,14 +24,24 @@ $('.slick').slick({
 });
 
 $('.slider').slick({
-    slidesToShow: 3,
-    slidesToScroll: 1,
+    slidesToShow: 1,
     autoplay: false,
     autoplaySpeed: 2000,
     dots: false,
     arrows: true,
     lazyLoad: 'progressive',
     mobileFirst: true,
+    responsive: [{
+        breakpoint: 765,
+        settings: {
+            slidesToShow: 2,
+        },
+
+        breakpoint: 1200,
+        settings: {
+            slidesToShow: 3,
+        }
+    }]
 
 });
 

@@ -85,6 +85,8 @@
         }
     }
     & .wrapper__description-title {
+        @include font(24px, 500, 1.5);
+        margin-top: 16px;
         @media screen and (max-width: 1919px) {
             font-size: 1rem;
         }

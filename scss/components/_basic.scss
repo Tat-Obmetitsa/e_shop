@@ -21,6 +21,25 @@ body {
     box-sizing: border-box;
     outline: 1px solid blue;
 }
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.97);
+    background-color: $bg-gray;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    background-image: -webkit-linear-gradient(90deg, $dark 30%, $hover-stars 50%, $dark 70%);
+}
 body.modal-open {
     overflow: hidden;
 }
@@ -52,31 +71,6 @@ img {
     height: auto;
 }
 
-// .container {
-//     // width: 100vw;
-//     margin-left: auto;
-//     margin-right: auto;
-
-//     @media screen and (max-width: 360px) {
-//         width: 360px;
-//         padding-left: 20px;
-//         padding-right: 20px;
-//     }
-
-//     @media screen and (min-width: 361px) and (max-width: 1919px) {
-//         width: 96vw;
-//         padding-left: 4vw;
-//         padding-right: 4vw;
-//     }
-
-//     @media screen and (min-width: 1920px) {
-//         min-width: 1920px;
-
-//         padding-left: 144px;
-//         padding-right: 144px;
-//     }
-// }
-
 .button {
     border: 3px solid transparent;
     background-color: $dark;
@@ -105,8 +99,8 @@ img {
     }
 
     @media screen and (min-width: 361px) and (max-width: 1919px) {
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-left: 40px;
+        padding-right: 40px;
     }
 
     @media screen and (min-width: 1920px) {

@@ -170,7 +170,10 @@
         opacity: 1;
         color: $text-gray;
         content: url(../assets/arrow-prev.svg);
-
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         &:hover {
             color: $text-gray;
         }
@@ -184,8 +187,12 @@
 
     &.slick-next::before {
         opacity: 1;
+        text-align: center;
         content: url(../assets/arrow-next.svg);
-
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         &:hover {
             color: $text-gray;
         }
