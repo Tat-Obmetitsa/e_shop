@@ -12,10 +12,6 @@ body {
         width: 360px;
     }
 
-    @media screen and (min-width: 361px) and (max-width: 1919px) {
-        width: 96vw;
-    }
-
     @media screen and (min-width: 1920px) {
         min-width: 1920px;
     }
@@ -99,9 +95,25 @@ img {
 }
 
 .section {
-    margin: 50px 0;
+    width: 100vw;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media screen and (max-width: 360px) {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    @media screen and (min-width: 361px) and (max-width: 1919px) {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
     @media screen and (min-width: 1920px) {
-        margin: 100px 0;
+        min-width: 1920px;
+
+        padding-left: 144px;
+        padding-right: 144px;
     }
 
     &__title {
@@ -132,26 +144,7 @@ img {
             border: 2px solid $dark;
         }
     }
-
-    margin-left: auto;
-    margin-right: auto;
-
-    @media screen and (max-width: 360px) {
-        width: 360px;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-    @media screen and (min-width: 361px) and (max-width: 1919px) {
-        width: 96vw;
-        padding-left: 4vw;
-        padding-right: 4vw;
-    }
-
-    @media screen and (min-width: 1920px) {
-        min-width: 1920px;
-
-        padding-left: 144px;
-        padding-right: 144px;
-    }
+}
+.hidden {
+    visibility: hidden;
 }

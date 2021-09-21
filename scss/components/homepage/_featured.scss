@@ -62,11 +62,26 @@
         }
     }
     & .add-button {
+        @include font(13px, 700, 1.5);
         margin: 0 auto;
+        width: 6.5rem;
+        height: 2rem;
         opacity: 0;
+        text-align: center;
         @media screen and (max-width: 764px) {
             opacity: 1;
             padding: 3% 4%;
+        }
+        @media screen and (min-width: 1200px) and (max-width: 1919px) {
+            width: 8rem;
+            height: 3rem;
+            @include font(18px, 700, 1.5);
+        }
+        @media screen and (min-width: 1920px) {
+            @include font(18px, 700, 1.5);
+            margin: 24px auto 0 auto;
+            width: 200px;
+            height: 60px;
         }
     }
     & .wrapper__description-title {

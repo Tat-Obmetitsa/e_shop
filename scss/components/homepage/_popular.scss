@@ -1,4 +1,9 @@
 .popular {
+    & .section__title {
+        @media screen and (max-width: 764px) {
+            @include font(1.5rem, 700, 1.4);
+        }
+    }
     &__list {
         display: grid;
 
@@ -61,13 +66,16 @@
             }
         }
     }
+
     & .wrapper__description {
         @include font(0.6rem, 500, 1.7);
+
         @media screen and (min-width: 1200px) {
             margin-left: 16px;
         }
         &-title {
             @include font(1.2rem, 500, 1.7);
+
             @media screen and (min-width: 1200px) {
                 @include font(24px, 500, 1.7);
             }
@@ -75,6 +83,7 @@
         &-text {
             @include font(0.8rem, 500, 1.7);
             margin: 8px 0 16px 0;
+            color: $text-gray;
             @media screen and (min-width: 1200px) {
                 @include font(24px, 500, 1.7);
             }

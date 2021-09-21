@@ -1,4 +1,3 @@
-// import './smth'
 import '../scss/main.scss'
 import './gallery'
 import 'slick-carousel';
@@ -37,7 +36,7 @@ $('.slider').slick({
 });
 
 
-
+// burger menu appearing click
 
 (() => {
     const menuBtnRef = document.querySelector("[data-menu-button]");
@@ -54,3 +53,17 @@ $('.slider').slick({
     });
 })();
 
+// input appearing click
+
+(() => {
+    const searchBtn = document.querySelectorAll('.header__wrapper-button');
+    const input = document.querySelectorAll('.header__wrapper-input')
+    searchBtn.forEach(e => {
+        e.addEventListener('click', () => {
+            input.forEach(e => {
+                e.classList.toggle('hidden')
+            });
+
+        })
+    })
+})();

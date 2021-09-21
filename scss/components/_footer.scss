@@ -1,8 +1,11 @@
 .footer {
-    padding: 64px 0 134px 0;
+    padding: 3vh 0 5vh 0;
     width: 100vw;
     color: $bg-light;
     background-color: $dark;
+    @media screen and (min-width: 1920px) {
+        padding: 64px 0 134px 0;
+    }
     & .section {
         margin-top: 0;
         margin-bottom: 0;
@@ -73,15 +76,22 @@
 .footer__list-item {
     & form {
         @include flex(space-around);
+        @media screen and (min-width: 1920px) {
+            width: 384px;
+        }
     }
     & input {
         width: 100%;
-        height: 35px;
-        padding-right: 2vw;
+        height: 50px;
+        padding-right: 50px;
+        margin-right: auto;
+
         @media screen and (max-width: 764px) {
             @include font(0.8rem, 400, 1.5);
+            padding-right: 2vw;
+            height: 35px;
         }
-        @media screen and (min-width: 1200px) {
+        @media screen and (min-width: 1920px) {
             width: 384px;
             height: 60px;
             padding-right: 50px;
@@ -89,17 +99,15 @@
     }
     & button {
         background-color: transparent;
-        margin-left: -50px;
+        margin-left: -60px;
         height: 100%;
         fill: $dark;
         border: 0;
     }
     & > p {
         @include font(0.9rem, 400, 1.5);
-        margin: 0 0 1vh 0;
+        margin: 0 0 2vh 0;
 
-        @include font(0.8rem, 400, 1.5);
-        margin: 7px 0;
         @media screen and (min-width: 1200px) {
             @include font(18px, 400, 1.5);
             margin: 0 0 35px 0;
@@ -113,6 +121,11 @@
         }
         & svg {
             fill: $bg-light;
+        }
+    }
+    &:first-child {
+        @media screen and (min-width: 1920px) {
+            width: 420px;
         }
     }
 }
