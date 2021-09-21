@@ -28,10 +28,10 @@
             <a href="#arrivals">New Arrival</a>
           </li>
           <li class="header__wrapper-item">
-            <a href="">Feautres</a>
+            <a href="#featured">Feautres</a>
           </li>
           <li class="header__wrapper-item">
-            <a href="">Collections</a>
+            <a href="#collections">Collections</a>
           </li>
         </ul>
         <form action="post" class="header__wrapper-form">
@@ -215,7 +215,7 @@
         </li>
       </ul>
     </section>
-    <section class="section featured">
+    <section class="section featured" id="featured">
       <div class="section__wrapper">
         <h2 class="section__title">Featured</h2>
         <button type="button" class="section__view-button">
@@ -324,7 +324,7 @@
         </li>
       </ul>
     </section>
-    <!-- <section class="collections">
+    <!-- <section class="collections" id="collections">
       <div class="section">
         <h2 class="section__title">Summer Collections</h2>
         <div class="slider__wrapper">
@@ -607,14 +607,15 @@
       </ul>
     </section>
   </main>
-  <!-- <footer class="footer">
+  <footer class="footer">
     <ul class="footer__list section">
       <li class="footer__list-item">
         <h3 class="footer__list-item_title">Join our Newsletter</h3>
         <p class="footer__list-item_text">Drop your email below to get update about us,
           lastest news, tips, and more!</p>
         <form action="post">
-          <input type="email" placeholder="Enter your email" pattern=".+@globex\.com" size="30" required>
+          <input type="email" placeholder="Enter your email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" size="30"
+            required>
           <button type="submit">
             <svg width="30px" height="30px" aria-label="search">
               <use href="./assets/sprite.svg#small-arrow"></use>
@@ -635,7 +636,7 @@
             <a href="featured">Feautres</a>
           </li>
           <li>
-            <a href="">Collections</a>
+            <a href="#collections">Collections</a>
           </li>
         </ul>
       </li>
@@ -680,22 +681,22 @@
         <h3 class="footer__list-item_title">Get in Touch</h3>
         <ul class="footer__list-item_social">
           <li>
-            <a href="#category">
-              <svg width="24px" height="24px" aria-label="search">
+            <a href="https://www.instagram.com/">
+              <svg width="24px" height="24px" aria-label="instagram icon">
                 <use href="./assets/sprite.svg#instagram"></use>
               </svg>
             </a>
           </li>
           <li>
-            <a href="#category">
-              <svg width="24px" height="24px" aria-label="search">
+            <a href="https://twitter.com/">
+              <svg width="24px" height="24px" aria-label="twitter icon">
                 <use href="./assets/sprite.svg#twitter"></use>
               </svg>
             </a>
           </li>
           <li>
-            <a href="#category">
-              <svg width="24px" height="24px" aria-label="search">
+            <a href="https://www.facebook.com/">
+              <svg width="24px" height="24px" aria-label="facebook icon">
                 <use href="./assets/sprite.svg#facebook"></use>
               </svg>
             </a>
@@ -703,7 +704,7 @@
         </ul>
       </li>
     </ul>
-  </footer> -->
+  </footer>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
