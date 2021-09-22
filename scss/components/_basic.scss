@@ -19,7 +19,7 @@ body {
 
 * {
     box-sizing: border-box;
-    outline: 1px solid blue;
+    // outline: 1px solid blue;
 }
 html {
     scroll-behavior: smooth;
@@ -99,13 +99,14 @@ img {
     }
 
     @media screen and (min-width: 361px) and (max-width: 1919px) {
+        margin: 50px auto;
         padding-left: 40px;
         padding-right: 40px;
     }
 
     @media screen and (min-width: 1920px) {
         min-width: 1920px;
-
+        margin: 100px auto;
         padding-left: 144px;
         padding-right: 144px;
     }
