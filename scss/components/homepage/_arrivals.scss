@@ -89,14 +89,6 @@
             }
         }
 
-        &-text {
-            @include font(12px, 500, 1.5);
-
-            @media screen and (min-width: 1200px) {
-                @include font(18px, 500, 1.5);
-            }
-        }
-
         & .add-button {
             @include font(13px, 700, 1.5);
 
