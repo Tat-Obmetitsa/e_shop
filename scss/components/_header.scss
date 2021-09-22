@@ -1,12 +1,14 @@
 .header {
     width: 100%;
     margin: 0 auto;
-    position: relative;
-    @include flex(space-between);
     padding: 18px 0;
+    position: relative;
+
+    @include flex(space-between);
 
     &__wrapper {
         @include flex(center);
+
         color: $dark;
 
         &-logo {
@@ -16,6 +18,8 @@
 
         &-item {
             @include font(1em, 500, 1.5);
+            position: relative;
+            padding: 15px 0;
             margin-right: 2.9vw;
 
             @media screen and (min-width: 1920px) {
@@ -26,14 +30,47 @@
             &:nth-last-child() {
                 margin-right: 0;
             }
+
+            &::after {
+                content: " ";
+                transition: width 0.3s ease-out;
+                display: block;
+                width: 0%;
+                height: 4px;
+                border-radius: 2px;
+                background-color: $dark;
+                &:hover {
+                    border-color: red;
+                }
+                @media screen and (max-width: 764px) {
+                    position: absolute;
+                    bottom: 24px;
+                    left: 0;
+                }
+                @media screen and (min-width: 765px) and (max-width: 1199px) {
+                    position: absolute;
+                    bottom: 3px;
+                    left: 0;
+                }
+                @media screen and (min-width: 1200px) {
+                    position: absolute;
+                    bottom: 3px;
+                    left: 0;
+                }
+            }
+            &:hover::after {
+                width: 100%;
+            }
         }
 
         &-input {
             width: 30vw;
             height: 2.5vh;
+
             border: 2px solid $dark;
             border-radius: 5px;
             cursor: pointer;
+
             @media screen and (min-width: 1200px) {
                 width: 200px;
             }
@@ -50,6 +87,7 @@
         }
         & > .header__wrapper-button {
             margin: 0 3vw 0 1vw;
+
             @media screen and (min-width: 1920px) {
                 margin: 0 58px 0 32px;
             }
@@ -57,6 +95,7 @@
 
         & .button {
             @include font(1em, 700, 1.5);
+
             margin: 0;
             padding: 1.3vh 2vw;
 
@@ -74,10 +113,12 @@
         display: flex;
         justify-content: space-between;
     }
+
     @media screen and (min-width: 1200px) {
         display: none;
     }
 }
+
 .header__wrapper-desktop {
     @media screen and (max-width: 1199px) {
         display: none;
@@ -111,8 +152,8 @@
     align-items: flex-end;
     position: absolute;
     width: 100%;
-    height: fit-content;
     top: 100%;
+    left: 0;
     z-index: 50;
 
     background-color: $bg-light;
@@ -120,6 +161,7 @@
     & form + button {
         display: none;
     }
+
     & ul {
         padding: 0;
         width: 100%;
@@ -127,10 +169,12 @@
         align-items: flex-end;
         justify-content: flex-end;
     }
+
     & li {
-        margin: 0 0 25px 0;
+        margin: 0 0 22px 0;
     }
 }
+
 header.section {
     margin: 0;
 }

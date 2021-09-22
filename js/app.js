@@ -25,10 +25,10 @@ $('.slick').slick({
 
 $('.slider').slick({
     slidesToShow: 1,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 2000,
     dots: false,
-    arrows: true,
+    arrows: false,
     lazyLoad: 'progressive',
     mobileFirst: true,
     responsive: [{
@@ -40,6 +40,7 @@ $('.slider').slick({
         breakpoint: 1200,
         settings: {
             slidesToShow: 3,
+            arrows: true,
         }
     }]
 
