@@ -99,7 +99,9 @@
             margin: 0 auto;
             padding: 1vh 3vh 2vw 3vh;
         }
-
+        @media screen and (min-width: 1200px) and (max-width: 1919px) {
+            width: 35%;
+        }
         @media screen and (min-width: 1920px) {
             width: 720px;
             height: 100%;

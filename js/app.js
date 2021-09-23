@@ -67,14 +67,17 @@ $('.slider').slick({
 // input appearing click
 
 (() => {
-    const searchBtn = document.querySelectorAll('.header__wrapper-button');
+    const searchBtn = document.querySelectorAll('.search');
     const input = document.querySelectorAll('.header__wrapper-input')
     searchBtn.forEach(e => {
         e.addEventListener('click', () => {
             input.forEach(e => {
                 e.classList.toggle('hidden')
+                console.log(searchBtn)
             });
 
         })
+
     })
+
 })();
