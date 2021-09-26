@@ -1,0 +1,150 @@
+body {
+    margin: 0 auto;
+    font-family: "Poppins", sans-serif;
+    background-color: $bg-light;
+    color: $dark;
+    box-sizing: border-box;
+    transition: 250ms box-shadow cubic-bezier(0.4, 0, 0.2, 1);
+
+    @media screen and (max-width: 360px) {
+        width: 360px;
+    }
+
+    @media screen and (min-width: 1920px) {
+        min-width: 1920px;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    // outline: 1px solid blue;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.97);
+    background-color: $bg-gray;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    background-image: -webkit-linear-gradient(90deg, $dark 30%, $hover-stars 50%, $dark 70%);
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+h1 {
+    font-family: "Playfair Display", serif;
+}
+
+button {
+    transition-duration: 500ms;
+}
+
+footer,
+header,
+li,
+main,
+ul {
+    display: block;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: $dark;
+}
+
+img {
+    display: block;
+    margin: 0;
+    max-width: 100%;
+    height: auto;
+}
+
+.button {
+    border: 3px solid transparent;
+    background-color: $dark;
+    color: $bg-light;
+    fill: $bg-light;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $bg-light;
+        color: $dark;
+        border: 3px solid $dark;
+        fill: $dark;
+    }
+}
+
+.section {
+    width: 100vw;
+    margin: 30px auto;
+
+    @media screen and (max-width: 360px) {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    @media screen and (min-width: 361px) and (max-width: 1919px) {
+        margin: 50px auto;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    @media screen and (min-width: 1920px) {
+        min-width: 1920px;
+        margin: 100px auto;
+        padding-left: 144px;
+        padding-right: 144px;
+    }
+
+    &__title {
+        @include font(1.8em, 700, 1.7);
+
+        @media screen and (min-width: 1920px) {
+            @include font(36px, 700, 2);
+        }
+    }
+
+    &__wrapper {
+        @include flex(space-between);
+    }
+
+    & .section__view-button {
+        @include font(1rem, 500, 1.5);
+        @include flex(center);
+
+        padding: 0.4em;
+        text-align: center;
+        background-color: transparent;
+        border: 2px solid transparent;
+
+        @media screen and (min-width: 1920px) {
+            @include font(18px, 500, 1.5);
+            padding: 10px;
+        }
+        &:hover {
+            border: 2px solid $dark;
+        }
+    }
+}
+
+.hidden {
+    visibility: hidden;
+}

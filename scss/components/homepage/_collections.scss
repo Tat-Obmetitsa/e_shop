@@ -1,0 +1,122 @@
+.collections {
+    height: 40vh;
+    margin-bottom: 10vw;
+    padding-top: 1rem;
+
+    background-color: $dark;
+
+    @media screen and (max-width: 440px) {
+        height: 280px;
+        margin-bottom: 75px;
+    }
+
+    @media screen and (min-width: 1200px) {
+        height: 426px;
+        margin-bottom: 200px;
+        padding-top: 46px;
+    }
+
+    & .section__title {
+        color: $bg-light;
+
+        @media screen and (max-width: 1199px) {
+            text-align: center;
+        }
+    }
+    & .section {
+        position: relative;
+        padding-top: 1rem;
+        margin-top: 0;
+        margin-bottom: 0;
+
+        @media screen and (min-width: 1200px) {
+            height: 426px;
+        }
+    }
+    & .slider__wrapper {
+        bottom: -118px;
+        margin: 0 auto;
+        left: 0;
+
+        @media screen and (min-width: 440px) and (max-width: 1199px) {
+            width: 368px;
+        }
+    }
+
+    & .slider {
+        width: inherit;
+
+        &__item {
+            margin: 0;
+
+            &-title {
+                @include font(1.7rem, 700, 2);
+
+                display: block;
+                position: absolute;
+                top: 5px;
+                left: 1rem;
+
+                color: $bg-light;
+
+                @media screen and (min-width: 1920px) {
+                    @include font(36px, 700, 2);
+                    left: 60px;
+                }
+            }
+            &-img {
+                width: 100%;
+                margin: 0;
+
+                @media screen and (min-width: 440px) and (max-width: 1199px) {
+                    max-width: 368px;
+                }
+
+                @media screen and (min-width: 1200px) {
+                    width: 95%;
+                }
+
+                @media screen and (min-width: 1920px) {
+                    width: 523px;
+                    height: 400px;
+                }
+            }
+        }
+        & .slick-arrow {
+            width: 30px;
+            height: 30px;
+
+            position: absolute;
+            display: block;
+            top: 72%;
+
+            background-color: $bg-light;
+            z-index: 150;
+            transform: scale(0.8);
+
+            &.slick-prev {
+                left: -30px;
+            }
+
+            &.slick-next {
+                right: -15px;
+            }
+
+            @media screen and (min-width: 1199px) {
+                width: 60px;
+                height: 60px;
+                top: 50%;
+                transform: scale(1);
+            }
+        }
+
+        & .slick-slide,
+        & .slick-track,
+        & .slick-list,
+        & .slick-slide-fade {
+            position: relative;
+            overflow: hidden;
+            z-index: 100;
+        }
+    }
+}

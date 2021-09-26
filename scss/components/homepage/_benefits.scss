@@ -1,0 +1,112 @@
+.benefits {
+    width: 100vw;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+
+    & .section {
+        width: 100%;
+    }
+    & .benefits__bg {
+        background-color: $bg-gray;
+    }
+    & .section__wrapper {
+        margin: 0;
+    }
+
+    &__list {
+        margin: 32px auto 32px auto;
+
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 1fr;
+        grid-column-gap: 32px;
+        @media screen and (max-width: 1199px) {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            grid-column-gap: 15px;
+            margin: 2vh auto 3vh auto;
+        }
+
+        &-item {
+            @include flex(flex-start);
+
+            flex-direction: column;
+            padding: 1vh 1vw;
+            text-align: center;
+
+            @media screen and (min-width: 1920px) {
+                padding: 60px 80px;
+            }
+
+            & div {
+                position: relative;
+                width: 120px;
+                height: 120px;
+
+                border: 1px solid $text-gray;
+                border-radius: 50%;
+                fill: $dark;
+                @media screen and (max-width: 764px) {
+                    width: 80px;
+                    height: 80px;
+                }
+            }
+            & svg {
+                width: 35px;
+                height: 35px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                @media screen and (min-width: 765px) {
+                    width: 65px;
+                    height: 65px;
+                }
+            }
+
+            &_title {
+                @include font(0.8rem, 700, 1.2);
+
+                margin: 2vh 0 1vh 0;
+
+                @media screen and (min-width: 1920px) {
+                    @include font(24px, 700, 1.7);
+                }
+
+                @media screen and (min-width: 1920px) {
+                    @include font(24px, 700, 1.7);
+                    margin: 32px 0 16px 0;
+                }
+            }
+
+            &_text {
+                @include font(1rem, 400, 1.2);
+
+                @media screen and (min-width: 1920px) {
+                    @include font(18px, 400, 1.5);
+                }
+            }
+        }
+    }
+}
+.benefints__wrapper {
+    @include flex(center);
+    align-items: flex-start;
+    margin: 3vh auto;
+
+    &-item {
+        margin: 0 4vw;
+        max-width: 180px;
+
+        @media screen and (min-width: 1920px) {
+            height: 70px;
+            margin: 0 80px;
+        }
+    }
+
+    @media screen and (min-width: 1920px) {
+        margin: 100px auto;
+    }
+}
