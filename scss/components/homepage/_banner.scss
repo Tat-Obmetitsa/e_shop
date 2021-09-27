@@ -188,7 +188,7 @@
         transform: translate(-50%, -50%);
         opacity: 1;
         color: $text-gray;
-        content: url(../assets/arrow-prev.svg);
+        content: url(../assets/homepage/arrow-prev.svg);
 
         &:hover {
             color: $text-gray;
@@ -208,7 +208,7 @@
 
         opacity: 1;
         text-align: center;
-        content: url(../assets/arrow-next.svg);
+        content: url(../assets/homepage/arrow-next.svg);
         transform: translate(-50%, -50%);
         &:hover {
             color: $text-gray;
