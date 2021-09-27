@@ -1,5 +1,4 @@
 import '../../scss/main.scss'
-import './gallery'
 import 'slick-carousel';
 
 

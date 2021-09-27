@@ -237,6 +237,35 @@
             }
         }
     }
+    & input:invalid {
+        border: 1px solid red;
+    }
+
+    & input:focus:invalid {
+        box-shadow: 0 0 5px 1px red;
+        border: 1px solid transparent;
+    }
+
+    & input:focus:valid {
+        box-shadow: 0 0 5px 1px green;
+        border: 1px solid transparent;
+    }
+
+    & input:valid {
+        box-shadow: 0 0 5px 1px green;
+    }
+    & #notifyType:before {
+        display: block;
+        margin-top: 15px;
+    }
+
+    & .active {
+        height: 50px;
+    }
+
+    & .success:before {
+        content: "Aww Yeaaaaa! Success!";
+    }
 }
 
 // card

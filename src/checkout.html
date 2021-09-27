@@ -9,7 +9,6 @@
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
-
 </head>
 
 <body>
@@ -88,39 +87,47 @@
             </ul>
         </section>
         <section class="section">
-            <form class="form" action="post" id="form" novalidate="novalidate">
+            <form class="form" action="post" id="form">
                 <fieldset class="form__field">
                     <legend class="form__field-title">Buyer Info</legend>
-                    <label for="name">Full Name<input type="text" placeholder="Name" class="name" id="name"
-                            required></label>
+                    <label for="name">Full Name
+                        <input type="text" placeholder="Name" class="name" minlength="2" id="name" required>
+                    </label>
+                    <label for="address">Address
+                        <input type="text" id="address" name="address" required>
+                    </label>
+                    <label for="contact">Contact
+                        <input type="tel" name="contact" autocomplete="off" id="contact" required>
 
-                    <label for="address">Address<input type="text" id="address" required></label>
+                    </label>
 
-                    <label for="contact">Contact<input type="tel" id="contact" autocomplete="cc-number"
-                            required></label>
-
-                    <label for="city">City<input type="text" id="city" pattern="/[a-zA-Z]/"></label>
+                    <label for="city">City
+                        <input type="text" name="city" address id="city" required>
+                    </label>
 
                     <div class="form__field-wrap">
                         <label for="state-choice">State<input placeholder="Select State" list="state" id="state-choice"
-                                required name="state-choice" autocomplete="country" /></label>
+                                pattern="^(State1|State2|State3|State4|State5)$" required name="state-choice"
+                                title="Choose the State from the list below" autocomplete="country" /></label>
                         <datalist id="state">
-                            <option class="state-option">State1</option>
-                            <option class="state-option">State2</option>
-                            <option class="state-option">State3</option>
-                            <option class="state-option">State4</option>
-                            <option class="state-option">State5</option>
+                            <option value="State1" class="state-option">State1</option>
+                            <option value="State2" class="state-option">State2</option>
+                            <option value="State3" class="state-option">State3</option>
+                            <option value="State4" class="state-option">State4</option>
+                            <option value="State5" class="state-option">State5</option>
                         </datalist>
-                        <label for="code">Zip Code<input type="number" id="code" autocomplete="postal-code"
-                                required></label>
+                        <label for="code">Zip Code<input type="number" id="code" minlength="5" maxlength="5"
+                                autocomplete="postal-code" required></label>
                     </div>
                     <div class="form__field-date">
                         <input type="text" class="datepick" placeholder="Select Delivery Date" id="req_date" required>
                         <div>
-                            <input type="checkbox" id="agreement" required>
+                            <input type="checkbox" name="checkbox" id="agreement" required title="Must be checked">
+
                             <label for="agreement"> I agree to have my personal data processed</label>
                         </div>
                     </div>
+
                 </fieldset>
                 <fieldset class="form__field">
                     <legend class="form__field-title">Payment Method</legend>
@@ -150,24 +157,34 @@
                             <label for="radio-4">Paypal</label>
                         </div>
                     </div>
-                    <label for="card-name">Name on Card<input type="text" name="nameSurname" id="card-name"
-                            required></label>
+                    <label for="card-name">Name on Card
+                        <input type="text" name="nameSurname"
+                            title="Can contain 2 or more words with special signs(- ') and no digits"
+                            pattern="^([A-Z][a-z]+([ ]?[a-z]?['-]?[A-Z][a-z]+)*)$" id="card-name" required>
+
+                    </label>
 
                     <div class="form__field-wrap ">
-                        <label for="card-number">Card Number<input name="cardNumber" id="card-number" required></label>
+                        <label for="card-number">Card Number
+                            <input name="cardNumber" pattern="^(?:\d[\s]*?){16,19}$"
+                                title="Can contain only 16 digits ans spaces" id="card-number" required>
 
-                        <label for="cvv">cvv<input type="number" class="cvv" id="cvv"></label>
+                        </label>
+
+                        <label for="cvv">cvv
+                            <input type="number" class="cvv" pattern="^[0-9]{3}$" title="Must contain only 3 digits"
+                                required id="cvv">
+                        </label>
 
                     </div>
                     <div class="form__field-wrap ">
-                        <select name="expirationMonth" id="month" required>
+                        <select name="expirationMonth" id="month" minlength="2" title="Must be seleced" required>
                             <option value="" selected disabled>Month</option>
                         </select>
-                        <select id="year" name="expirationYear" required>
+
+                        <select id="year" name="expirationYear" minlength="2" required>
                             <option value="" selected disabled>Year</option>
                         </select>
-
-
                     </div>
                     <div></div>
                     <div class="card">
@@ -185,7 +202,7 @@
                         </div>
                     </div>
                 </fieldset>
-                <input class="form__field-btn" type="button" value="Checkout">
+                <button class="form__field-btn">Checkout</button>
             </form>
         </section>
     </main>
@@ -199,7 +216,7 @@
                 <form action="post">
                     <input type="email" placeholder="Enter your email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                         size="30" required />
-                    <button type="submit">
+                    <button type="submit" form="form" formtarget="_top">
                         <svg width="40px" height="40px" aria-label="next">
                             <use href="../assets/homepage/sprite.svg#small-arrow"></use>
                         </svg>
@@ -291,7 +308,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-
 </body>
 
 </html>

@@ -5,6 +5,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack');
+const CopyPlugin = require("copy-webpack-plugin");
+
 
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
@@ -31,31 +33,6 @@ const optimization = () => {
 };
 
 const plugins = () => {
-  // const basePlugins = [ 
-  //   new HtmlWebpackPlugin({
-  //     filename: 'index.html',
-  //     template: 'src/index.html',
-  //     chunks: ['app']
-  //   }),
-  //   new HtmlWebpackPlugin({
-  //     filename: 'checkout.html',
-  //     template: 'src/checkout.html',
-  //     chunks: ['checkoutEntry']
-  //   }),
-  //   // new HTMLWebpackPlugin({
-  //   //   template: path.resolve(__dirname, './src/index.html'),
-  //   //   filename: 'index.html',
-  //   //   minify: {
-  //   //     collapseWhitespace: isProd
-  //   //   }
-  //   // }),
-  //   new CleanWebpackPlugin(),
-  //   new MiniCssExtractPlugin({
-  //     filename: `./css/${filename('css')}`
-  //   }),
-  // ];
-
-
   const basePlugins = [
     new HtmlWebpackPlugin({
       chunks: ['index'],

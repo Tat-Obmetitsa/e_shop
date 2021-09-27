@@ -1,5 +1,7 @@
 import '../../scss/main.scss'
+import flatpickr from "flatpickr";
 
+// add mask
 $(document).ready(function () {
     $('#contact').mask('+38(000) 000 0000');
     $('#code').mask('00000');
@@ -27,6 +29,7 @@ $(document).ready(function () {
 });
 
 
+// year and month select, short forms
 (() => {
     const monthList = document.getElementById('month');
     const yearList = document.getElementById('year');
@@ -51,7 +54,6 @@ $(document).ready(function () {
         yearList.appendChild(el)
     }
 })();
-
 
 // add value to card
 
@@ -89,43 +91,19 @@ cvvInput.oninput = function () {
 
 
 // validation 
-const regName = /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/
-const regPhoneNum = /^\+[0-9]{2}\([0-9]{3}\)\s\d{3}\s\d{4}/;
-const regCardNum = /[\d][0-9]{15}/g
-const regCvv = /[\d][0-9]{2}/g
-const regMonthYear = /[\d][0-9]{1}/g
-const regZip = /[0-9]{5}/g
-const regCity = /^[a-zA-Z]+([ ]?[a-zA-Z])+[,]{1,}[ ]?[a-zA-Z]+([ ]?[a-zA-Z])*$/g
+const regName = /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
+const regCvv = /^[0-9]{3}$/;
+const regMonthYear = /[\d][0-9]{1}/;
+const regZip = /^[0-9]{5}$/;
+const regCity = /^[a-zA-Z\s]+/;
+const regCard = /^(?:\d[\s]*?){16,19}$/;
 
-let info = {}
-let buyer = {
-
-    name: '',
-    address: '',
-    contact: '',
-    city: '',
-    zip: '',
-    delivery: '',
-    agreement: ''
-
-}
-let payment = {
-    method: '',
-    card_name: '',
-    card_number: '',
-    month: '',
-    year: '',
-    cvv: ''
-
-}
 const checkBtn = document.querySelector('.form__field-btn')
 const fullName = document.querySelector('.name')
 const address = document.getElementById('address')
 const contact = document.getElementById('contact')
 const city = document.getElementById('city')
-const state = document.getElementById('state-choice')
-const stateOption = document.querySelectorAll('.state-option')
-let zip = document.getElementById('code')
+const zip = document.getElementById('code')
 const checkbox = document.getElementById('agreement')
 const radio = document.querySelectorAll('.radio_btn')
 const datepick = document.getElementById('req_date')
@@ -137,73 +115,126 @@ radio.forEach(el => {
     el.addEventListener('click', e => updateValue(e))
 });
 
+function showError(el) {
+    if (el.validity.valueMissing) {
+        el.setCustomValidity('You need to fill in the field');
+    } else if (el.validity.tooShort) {
+        el.setCustomValidity(`The field should contain at least ${el.minLength} characters(or words); you've entered ${el.value.length}.`);
+    } else if (el.validity.tooLong) {
+        el.setCustomValidity(`The field should not contain more than ${el.minLength} characters(or words); you've entered ${el.value.length}.`);
+    }
+}
 
-const error = ["Please, fill in form: "]
+
+fullName.addEventListener("input", function () {
+    if (fullName.value !== '' && fullName.validity.valid) {
+        fullName.setCustomValidity('');
+    } else if (!regName.test(fullName.value)) {
+        fullName.setCustomValidity("Fill in your full name(min.2 words). It can have letters, - ' ");
+        showError(fullName);
+    }
+}
+)
+address.addEventListener("input", function () {
+    if (address.value !== '' && address.validity.valid) {
+        address.setCustomValidity('');
+    } else {
+        showError(address);
+    }
+}
+)
+contact.addEventListener("input", function () {
+    if (contact.value !== '' && contact.validity.valid) {
+        contact.setCustomValidity('');
+    } else {
+        showError(contact);
+    }
+}
+)
+city.addEventListener("input", function () {
+    console.log(regCity.test(city.value))
+    if (city.value !== '' && city.validity.valid) {
+        city.setCustomValidity('');
+    } else if (!regCity.test(city.value)) {
+        city.setCustomValidity("Can contain only letters, - ' ");
+    } else {
+        showError(city);
+    }
+}
+)
+
+zip.addEventListener("input", function () {
+    if (zip.value !== '' && zip.validity.valid) {
+        zip.setCustomValidity('');
+    } else if (!regZip.test(zip.value)) {
+        zip.setCustomValidity("Must contain 5 digits");
+    } else {
+        showError(zip);
+    }
+}
+)
+
+datepick.addEventListener("input", function () {
+    if (datepick.value !== '' && datepick.validity.valid) {
+        datepick.setCustomValidity('');
+    } else {
+        showError(datepick);
+    }
+}
+)
+
+nameInput.addEventListener("input", function () {
+    if (nameInput.value !== '' && nameInput.validity.valid) {
+        nameInput.setCustomValidity('');
+    } else {
+        showError(nameInput);
+    }
+}
+)
+
+numInput.addEventListener("input", function () {
+    console.log(numInput.value)
+    if (numInput.value !== '' && numInput.validity.valid) {
+        numInput.setCustomValidity('');
+    } else {
+        showError(numInput);
+    }
+}
+)
+cvvInput.addEventListener("input", function () {
+    if (cvvInput.value !== '' && cvvInput.validity.valid) {
+        cvvInput.setCustomValidity('');
+    } else if (!regCvv.test(cvvInput.value)) {
+        cvvInput.setCustomValidity("Must contain 3 digits");
+    } else {
+        showError(cvvInput);
+    }
+}
+)
+yearSelect.addEventListener("input", function () {
+    if (yearSelect.value !== '' && yearSelect.validity.valid) {
+        yearSelect.setCustomValidity('');
+    } else if (!regMonthYear.test(yearSelect.value)) {
+        yearSelect.setCustomValidity("Fill in your full name(min.2 words). It can have letters, - ' ");
+    } else {
+        showError(yearSelect);
+    }
+}
+)
+monthSelect.addEventListener("input", function () {
+    if (monthSelect.value !== '' && monthSelect.validity.valid) {
+        monthSelect.setCustomValidity('');
+    } else if (!regMonthYear.test(monthSelect.value)) {
+        monthSelect.setCustomValidity("Fill in your full name(min.2 words). It can have letters, - ' ");
+    } else {
+        showError(monthSelect);
+    }
+}
+)
 checkBtn.addEventListener('click', () => {
-    if (fullName.value !== '' && fullName.value.match(regName)) {
-        buyer.name = fullName.value
-    } else { error.push('Full Name'); }
-    if (address.value !== '') {
-        buyer.address = address.value
-    } else { error.push('Address') }
-    if (contact.value !== '' && contact.value.match(regPhoneNum)) {
-        buyer.contact = contact.value
-    } else { error.push('Phone Number') }
-    if (city.value !== '' && city.value.match(regName)) {
-        buyer.city = city.value
-    } else { error.push('City') }
-    if (zip.value !== '' && zip.value.match(regZip)) {
-        buyer.zip = zip.value
-    } else { error.push('Zip Code') }
-    if (datepick.value !== '') {
-        buyer.delivery = datepick.value
-    } else { error.push('choose delivery date') }
-
-    // stateOption.forEach((el) => {
-    //     if (state.value === el) {
-    //         buyer.state = state.value
-    //     } else { console.log('error') }
-    //     console.log(state.value)
-    // })
-
-    // payment
-
-
-    if (nameInput.value !== '' && nameInput.value.match(regName)) {
-        payment.card_name = nameInput.value
-    } else { error.push('Card Name') }
-
-    if (numInput.value !== '' && numInput.value.match(regCardNum)) {
-        payment.card_number = numInput.value
-    } else { error.push('Card Number') }
-
-    if (cvvInput.value !== '' && cvvInput.value.match(regCvv)) {
-        payment.cvv = cvvInput.value
-    } else { error.push('CVV') }
-
-
-    if (monthSelect.value !== '' && monthSelect.value.match(regMonthYear)) {
-        payment.month = monthSelect.value
-    } else { error.push('Month') }
-
-    if (yearSelect.value !== '' && yearSelect.value.match(regMonthYear)) {
-        payment.year = yearSelect.value
-    } else { error.push('Year') }
-
-    for (let i = 0; i < radio.length; i++) {
-        if (radio[i].type == "radio" && radio[i].checked) {
-            payment.method = radio[i].value;
-        } else { error.push('choose payment method') }
+    if (regName.test(fullName.value) && address.validity.valid && contact.validity.valid && regCity.test(city.value) && regZip.test(zip.value) && datepick.value !== '' && nameInput.validity.valid && numInput.validity.valid && regCvv.test(cvvInput.value) && regMonthYear.test(yearSelect.value) && regMonthYear.test(monthSelect.value) && checkbox.checked) {
+        alert('Submit successful!')
+    } else {
+        alert('Something is wrong!')
     }
-
-    if (checkbox.checked) {
-        buyer.agreement = true
-    } else { error.push('check the agreement') }
-
-    if (error.length > 1) {
-        alert(error.join(', '))
-    }
-    info = Object.assign({ buyer }, { payment })
-    console.log(info)
-
-})
+});
