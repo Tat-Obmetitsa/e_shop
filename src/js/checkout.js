@@ -1,5 +1,4 @@
-
-import flatpickr from "flatpickr";
+import '../../scss/main.scss'
 
 $(document).ready(function () {
     $('#contact').mask('+38(000) 000 0000');

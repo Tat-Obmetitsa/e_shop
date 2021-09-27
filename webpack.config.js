@@ -1,5 +1,5 @@
 const path = require('path');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetWebpackPlugin = require('optimize-css-assets-webpack-plugin');
@@ -10,6 +10,8 @@ const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
 
 const filename = (ext) => isDev ? `[name].${ext}` : `[name].[contenthash].${ext}`;
+
+
 
 const optimization = () => {
   const configObj = {
@@ -29,27 +31,47 @@ const optimization = () => {
 };
 
 const plugins = () => {
+  // const basePlugins = [ 
+  //   new HtmlWebpackPlugin({
+  //     filename: 'index.html',
+  //     template: 'src/index.html',
+  //     chunks: ['app']
+  //   }),
+  //   new HtmlWebpackPlugin({
+  //     filename: 'checkout.html',
+  //     template: 'src/checkout.html',
+  //     chunks: ['checkoutEntry']
+  //   }),
+  //   // new HTMLWebpackPlugin({
+  //   //   template: path.resolve(__dirname, './src/index.html'),
+  //   //   filename: 'index.html',
+  //   //   minify: {
+  //   //     collapseWhitespace: isProd
+  //   //   }
+  //   // }),
+  //   new CleanWebpackPlugin(),
+  //   new MiniCssExtractPlugin({
+  //     filename: `./css/${filename('css')}`
+  //   }),
+  // ];
+
+
   const basePlugins = [
-    new HTMLWebpackPlugin({
-      template: path.resolve(__dirname, './index.html'),
+    new HtmlWebpackPlugin({
+      chunks: ['index'],
+      template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',
-      minify: {
-        collapseWhitespace: isProd
-      }
     }),
-    new HTMLWebpackPlugin({
+    new HtmlWebpackPlugin({
+      // inject: false,
+      chunks: ['checkout'],
+      template: path.resolve(__dirname, './src/checkout.html'),
       filename: 'checkout.html',
-      template: path.resolve(__dirname, './checkout.html'),
-      minify: {
-        collapseWhitespace: isProd
-      }
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: `./css/${filename('css')}`
-    }),
-  ];
-
+    })];
   if (isProd) {
     basePlugins.push(
       new ImageminPlugin({
@@ -82,7 +104,12 @@ const plugins = () => {
 module.exports = {
   context: path.resolve(__dirname, './'),
   mode: 'development',
-  entry: './js/app.js',
+  entry: {
+    index: './src/js/index.js',
+    checkout: './src/js/checkout.js',
+    //... repeat until example 4
+  },
+  // entry: './src/js/app.js',
   output: {
     filename: `./js/${filename('js')}`,
     path: path.resolve(__dirname, 'dist'),
@@ -90,7 +117,7 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: path.resolve(__dirname, 'app'),
+    contentBase: path.resolve(__dirname, 'index'),
     open: true,
     compress: true,
     hot: true,

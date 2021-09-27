@@ -1,17 +1,8 @@
-import '../scss/main.scss'
+import '../../scss/main.scss'
 import './gallery'
 import 'slick-carousel';
 
-function showNotification(text) {
-    myStack.close(true);
-    error({
-        type: 'error',
-        styling: 'angeler',
-        text: text,
-        stack: myStack,
-        delay: 1000,
-    });
-}
+
 $('.slick').slick({
     slidesToShow: 1,
     slidesToScroll: 1,
