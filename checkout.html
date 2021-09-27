@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valtech E-Shop</title>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
+
+</head>
+
+<body>
+    <header class="section">
+        <div class="header">
+            <div class="header__wrapper">
+                <svg width="40px" height="24px" aria-label="logo">
+                    <use href="./assets/sprite.svg#logo"></use>
+                </svg>
+                <span class="header__wrapper-logo">Elliye</span>
+            </div>
+            <div class="header__wrapper header__wrapper-desktop" id="header__wrapper-desktop">
+
+                <button type="button" class="header__wrapper-button cart">
+                    <a href="./checkout.html"><svg width="24px" height="24px" aria-label="cart">
+                            <use href="./assets/sprite.svg#cart"></use>
+                        </svg></a>
+                </button>
+                <button type="button" class="header__wrapper-button cart">
+                    <a href="./checkout.html"><svg width="24px" height="24px" aria-label="envelope">
+                            <use href="./assets/checkout/sprite-checkout.svg#email"></use>
+                        </svg></a>
+                </button>
+
+                <button type="button" class="button">Login</button>
+            </div>
+            <div class="header__wrapper-mobile">
+
+                <button type="button" class="header__wrapper-button cart">
+                    <a href="./checkout.html"><svg width="24px" height="24px" aria-label="cart">
+                            <use href="./assets/sprite.svg#cart"></use>
+                        </svg></a>
+                </button>
+                <button type="button" class="header__wrapper-button cart">
+                    <a href="./checkout.html"><svg width="24px" height="24px" aria-label="envelope">
+                            <use href="./assets/checkout/sprite-checkout.svg#email"></use>
+                        </svg></a>
+                </button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="progress section">
+            <ul class="progress__list">
+                <li class="progress__list-item">
+                    <a href="#">Home</a>
+                </li>
+                <li class="progress__list-item">
+                    <a href="#">Shopping Cart</a>
+                </li>
+                <li class="progress__list-item active">
+                    <a href="./checkout.html">Checkout</a>
+                </li>
+            </ul>
+            <h2 class="section__title">Checkout</h2>
+            <ul class="progress__list">
+                <li class="progress__list-item active">
+                    <div class="number">
+                        <span>1</span>
+                    </div>
+                    <span class="text">Shopping Cart</span>
+
+                </li>
+                <li class="progress__list-item active">
+                    <div class="number">
+                        <span>2</span>
+                    </div>
+                    <span class="text">Checkout</span>
+                </li>
+                <li class="progress__list-item">
+                    <div class="number">
+                        <span>3</span>
+                    </div>
+                    <span class="text">Completed</span>
+                </li>
+            </ul>
+        </section>
+        <section class="section">
+            <form class="form" action="post" id="form" novalidate="novalidate">
+                <fieldset class="form__field">
+                    <legend class="form__field-title">Buyer Info</legend>
+                    <label for="name">Full Name<input type="text" placeholder="Name" class="name" id="name"
+                            required></label>
+
+                    <label for="address">Address<input type="text" id="address" required></label>
+
+                    <label for="contact">Contact<input type="tel" id="contact" autocomplete="cc-number"
+                            required></label>
+
+                    <label for="city">City<input type="text" id="city" pattern="/[a-zA-Z]/"></label>
+
+                    <div class="form__field-wrap">
+                        <label for="state-choice">State<input placeholder="Select State" list="state" id="state-choice"
+                                required name="state-choice" autocomplete="country" /></label>
+                        <datalist id="state">
+                            <option class="state-option">State1</option>
+                            <option class="state-option">State2</option>
+                            <option class="state-option">State3</option>
+                            <option class="state-option">State4</option>
+                            <option class="state-option">State5</option>
+                        </datalist>
+                        <label for="code">Zip Code<input type="number" id="code" autocomplete="postal-code"
+                                required></label>
+                    </div>
+                    <div class="form__field-date">
+                        <input type="text" class="datepick" placeholder="Select Delivery Date" id="req_date" required>
+                        <div>
+                            <input type="checkbox" id="agreement" required>
+                            <label for="agreement"> I agree to have my personal data processed</label>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="form__field">
+                    <legend class="form__field-title">Payment Method</legend>
+                    <div class="form__field-payment">
+                        <div class="form__radio-btn">
+
+                            <input id="radio_1" type="radio" class="radio_btn" name="radio" value="Credit Card">
+                            <svg width="40px" height="40px" aria-label="next">
+                                <use href="./assets/checkout/sprite-checkout.svg#card"></use>
+                            </svg>
+                            <label for="radio-1">Credit Card</label>
+                        </div>
+                        <div class="form__radio-btn">
+
+                            <input id="radio-2" type="radio" class="radio_btn" name="radio" value="Bank Transfer">
+                            <svg width="40px" height="40px" aria-label="next">
+                                <use href="./assets/checkout/sprite-checkout.svg#transfer"></use>
+                            </svg>
+                            <label for="radio-2">Bank Transfer</label>
+                        </div>
+                        <div class="form__radio-btn">
+
+                            <input id="radio-3" type="radio" class="radio_btn" name="radio" value="Paypal">
+                            <svg width="40px" height="40px" aria-label="next">
+                                <use href="./assets/checkout/sprite-checkout.svg#paypal"></use>
+                            </svg>
+                            <label for="radio-4">Paypal</label>
+                        </div>
+                    </div>
+                    <label for="card-name">Name on Card<input type="text" name="nameSurname" id="card-name"
+                            required></label>
+
+                    <div class="form__field-wrap ">
+                        <label for="card-number">Card Number<input name="cardNumber" id="card-number" required></label>
+
+                        <label for="cvv">cvv<input type="number" class="cvv" id="cvv"></label>
+
+                    </div>
+                    <div class="form__field-wrap ">
+                        <select name="expirationMonth" id="month" required>
+                            <option value="" selected disabled>Month</option>
+                        </select>
+                        <select id="year" name="expirationYear" required>
+                            <option value="" selected disabled>Year</option>
+                        </select>
+
+
+                    </div>
+                    <div></div>
+                    <div class="card">
+                        <div class="front">
+                            <div class="magnetic"></div>
+                            <div><span class="card-number">**** **** **** ****</span></div>
+                            <div> <span class="name-surname">NAME SURNAME</span> </div>
+                            <div class="expiration-date"><span class="expiration-month">**</span>/<span
+                                    class="expiration-year">**</span>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="strip"></div>
+                            <div class="cvv-card">***</div>
+                        </div>
+                    </div>
+                </fieldset>
+                <input class="form__field-btn" type="button" value="Checkout">
+            </form>
+        </section>
+    </main>
+    <footer class="footer">
+        <ul class="footer__list section">
+            <li class="footer__list-item">
+                <h3 class="footer__list-item_title">Join our Newsletter</h3>
+                <p class="footer__list-item_text">
+                    Drop your email below to get update about us, lastest news, tips, and more!
+                </p>
+                <form action="post">
+                    <input type="email" placeholder="Enter your email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                        size="30" required />
+                    <button type="submit">
+                        <svg width="40px" height="40px" aria-label="next">
+                            <use href="./assets/sprite.svg#small-arrow"></use>
+                        </svg>
+                    </button>
+                </form>
+            </li>
+            <li class="footer__list-item">
+                <h3 class="footer__list-item_title">Product Links</h3>
+                <ul>
+                    <li>
+                        <a href="#category">Categories</a>
+                    </li>
+                    <li>
+                        <a href="#arrivals">New Arrival</a>
+                    </li>
+                    <li>
+                        <a href="featured">Feautres</a>
+                    </li>
+                    <li>
+                        <a href="#collections">Collections</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="footer__list-item">
+                <h3 class="footer__list-item_title">Company</h3>
+                <ul>
+                    <li>
+                        <a href="#category">About</a>
+                    </li>
+                    <li>
+                        <a href="#arrivals">Blog</a>
+                    </li>
+                    <li>
+                        <a href="featured">Careers</a>
+                    </li>
+                    <li>
+                        <a href="">Contact</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="footer__list-item">
+                <h3 class="footer__list-item_title">Support</h3>
+                <ul>
+                    <li>
+                        <a href="#category">Support Center</a>
+                    </li>
+                    <li>
+                        <a href="#arrivals">FAQ</a>
+                    </li>
+                    <li>
+                        <a href="featured">Privacy Policy</a>
+                    </li>
+                    <li>
+                        <a href="">Terms of Service</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="footer__list-item">
+                <h3 class="footer__list-item_title">Get in Touch</h3>
+                <ul class="footer__list-item_social">
+                    <li>
+                        <a href="https://www.instagram.com/">
+                            <svg width="24px" height="24px" aria-label="instagram icon">
+                                <use href="./assets/sprite.svg#instagram"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/">
+                            <svg width="24px" height="24px" aria-label="twitter icon">
+                                <use href="./assets/sprite.svg#twitter"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.facebook.com/">
+                            <svg width="24px" height="24px" aria-label="facebook icon">
+                                <use href="./assets/sprite.svg#facebook"></use>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+
+</body>
+
+</html>

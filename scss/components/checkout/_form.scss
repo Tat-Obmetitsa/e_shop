@@ -1,0 +1,370 @@
+.form {
+    color: $text-gray;
+    position: relative;
+    padding-bottom: 8vh;
+    display: grid;
+    align-items: start;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(max-content, max-content) repeat(2, 100%);
+    grid-row-gap: 20px;
+    @media screen and (min-width: 1200px) {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+        grid-column-gap: 62px;
+        padding: 0;
+    }
+
+    &__field {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-row-gap: 10px;
+        align-items: end;
+
+        @media screen and (min-width: 1200px) {
+            padding: 32px 0;
+            grid-template-rows: minmax(80px, max-content) repeat(6, 130px) 20%;
+        }
+
+        &-title {
+            @include font(18px, 500, 1.5);
+            display: inline-block;
+            width: 100%;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid $text-gray;
+            color: $dark;
+
+            @media screen and (min-width: 1200px) {
+                padding-bottom: 20px;
+                margin-bottom: 10px;
+            }
+        }
+        & label {
+            @include font(13px, 400, 1.5);
+            width: 100%;
+
+            @media screen and (min-width: 1200px) {
+                @include font(18px, 400, 1.5);
+                width: 100%;
+            }
+
+            & input {
+                padding: 4px;
+                margin-top: 4px;
+                width: 100%;
+                height: 5vh;
+                background-color: $bg-light;
+                border: 1px solid $text-gray;
+                cursor: pointer;
+                transition-duration: 500ms;
+                @media screen and (min-width: 1200px) {
+                    padding: 7px;
+                    height: 60px;
+                    margin-top: 7px;
+                }
+
+                &:hover {
+                    color: $dark;
+                    border: 2px solid $dark;
+                }
+            }
+        }
+        & input[type="checkbox"] {
+            width: 15px;
+            height: 15px;
+            transition-duration: 500ms;
+            & + label {
+                margin-left: 20px;
+                @include font(20px, 400, 1.5);
+            }
+        }
+        &-payment {
+            @include flex(space-between);
+            width: 100%;
+            text-align: center;
+            & label {
+                margin: 0;
+                width: 50%;
+                text-align: center;
+            }
+            & .form__radio-btn {
+                position: relative;
+            }
+            & .form__radio-btn {
+                @include flex(center);
+                width: 32%;
+                height: 8vh;
+                padding: 5px;
+                background-color: $bg-light;
+                border-radius: 0;
+                border: 1px solid $text-gray;
+                cursor: pointer;
+
+                @media screen and (min-width: 1200px) {
+                    padding: 5px 6px;
+                    height: 80px;
+                }
+                & label {
+                    @include font(18px, 400, 1.5);
+                    display: inline-block;
+
+                    padding-left: 5px;
+                    user-select: none;
+
+                    @media screen and (max-width: 1199px) {
+                        display: none;
+                    }
+                    @media screen and (max-width: 1919px) {
+                        @include font(14px, 400, 1.5);
+                    }
+                }
+                & svg {
+                    fill: $text-gray;
+                }
+
+                &:hover {
+                    background-color: $bg-light;
+                    color: $dark;
+                    border: 3px solid $text-gray;
+                    & svg {
+                        fill: $dark;
+                    }
+                }
+
+                & input[type="radio"] {
+                    -webkit-appearance: none;
+                    position: absolute;
+                    margin: 0 5px;
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    cursor: pointer;
+                    transition: border 0.2s ease;
+                    filter: grayscale(100%);
+                    transition-duration: 500ms;
+                    background-color: transparent;
+                    overflow: hidden;
+
+                    &:hover,
+                    &:checked {
+                        background-color: rgba(128, 128, 128, 0.137);
+                        border: 3px solid $dark;
+                        filter: grayscale(0);
+                        & + svg {
+                            fill: $dark;
+                        }
+                    }
+
+                    &:focus {
+                        outline: 0;
+                    }
+                }
+            }
+        }
+    }
+    & .form__field-btn {
+        @include font(14px, 400, 1.5);
+        position: absolute;
+        bottom: 0;
+
+        left: 50%;
+        transform: translateX(-50%);
+        width: 10rem;
+        height: 4rem;
+        background-color: $dark;
+        color: $bg-light;
+        @media screen and (min-width: 1200px) {
+            @include font(18px, 500, 1.5);
+
+            width: 245px;
+            height: 80px;
+        }
+        &:hover {
+            background-color: $bg-light;
+            color: $dark;
+            border: 3px solid $text-gray;
+        }
+    }
+    & div {
+        width: 100%;
+    }
+    & .form__field-wrap {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: 1fr;
+        grid-column-gap: 5%;
+        background-color: $bg-light;
+    }
+    & select {
+        padding: 4px;
+        margin-top: 4px;
+        width: 100%;
+        height: 5vh;
+        background-color: $bg-light;
+        border: 1px solid $text-gray;
+        cursor: pointer;
+
+        @media screen and (min-width: 1200px) {
+            padding: 7px;
+            height: 60px;
+            margin-top: 7px;
+        }
+
+        &:hover {
+            color: $dark;
+            border: 2px solid $dark;
+        }
+    }
+    & .form__field-date {
+        & .datepick {
+            padding: 4px;
+            margin: 4px 0 10px 0;
+            width: 50%;
+            height: 4vh;
+            background-color: $bg-light;
+            border: 1px solid $text-gray;
+            cursor: pointer;
+
+            @media screen and (min-width: 1200px) {
+                padding: 7px;
+                height: 40px;
+                margin: 7px 0 20px 0;
+            }
+
+            &:hover {
+                color: $dark;
+                border: 2px solid $dark;
+            }
+        }
+    }
+}
+
+// card
+.card {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    transition-duration: 500ms;
+    @media screen and (min-width: 1200px) {
+        width: 60%;
+        height: 250px;
+    }
+
+    & .front {
+        width: 100%;
+        height: 200px;
+        background: #eee;
+        border: solid 2px #ddd;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 2;
+        @media screen and (min-width: 1200px) {
+            width: 60%;
+            height: 250px;
+        }
+    }
+
+    & .back {
+        width: 100%;
+        height: 200px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        background: $bg-gray;
+        border-radius: 10px;
+
+        @media screen and (min-width: 1200px) {
+            width: 60%;
+            height: 250px;
+        }
+    }
+    & .magnetic {
+        width: 60px;
+        height: 40px;
+        position: absolute;
+        left: 20px;
+        top: 20px;
+
+        background: rgb(94, 93, 93);
+        border: solid 2px $bg-light;
+        border-radius: 10px;
+    }
+    &-number {
+        @include font(18px, 400, 1.5);
+
+        width: 100%;
+        height: 40px;
+        padding: 0px 20px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        @media screen and (min-width: 1200px) {
+            @include font(30px, 400, 1.5);
+        }
+    }
+    & .name-surname {
+        @include font(14px, 600, 1.5);
+
+        height: 30px;
+        position: absolute;
+        left: 20px;
+        bottom: 20px;
+        right: 20px;
+        overflow: hidden;
+        color: $dark;
+
+        @media screen and (min-width: 1200px) {
+            @include font(20px, 600, 1.5);
+        }
+    }
+    & .expiration-date {
+        @include font(14px, 600, 1.5);
+        width: 100%;
+        height: 20px;
+        position: absolute;
+        left: 0px;
+        bottom: 60px;
+        text-align: center;
+
+        @media screen and (min-width: 1200px) {
+            @include font(20px, 600, 1.5);
+        }
+    }
+    & .strip {
+        width: 100%;
+        height: 40px;
+        position: absolute;
+        left: 0px;
+        top: 40px;
+        background: rgb(95, 94, 94);
+    }
+    & .cvv-card {
+        @include font(20px, 600, 1.5);
+        width: 100%;
+        height: 30px;
+        position: absolute;
+        right: 5%;
+        top: 90px;
+        font-style: italic;
+        transform: rotateY(180deg);
+
+        @media screen and (min-width: 1200px) {
+            @include font(18px, 400, 1.5);
+        }
+    }
+
+    &.flipped {
+        transform: rotateY(180deg);
+        transition-duration: 500ms;
+        & .front {
+            z-index: 0;
+        }
+    }
+}

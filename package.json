@@ -21,7 +21,7 @@
     "eslint": "^7.30.0",
     "file-loader": "^6.2.0",
     "html-loader": "^1.3.2",
-    "html-webpack-plugin": "^4.5.0",
+    "html-webpack-plugin": "^4.5.2",
     "imagemin-gifsicle": "^7.0.0",
     "imagemin-jpegtran": "^7.0.0",
     "imagemin-mozjpeg": "^9.0.0",
@@ -43,14 +43,11 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "base64-img": "^1.0.4",
     "eslint-config-prettier": "^8.3.0",
-    "fs": "0.0.1-security",
-    "fs-extra": "^10.0.0",
-    "handlebars": "^4.7.7",
-    "handlebars-loader": "^1.7.1",
+    "flatpickr": "^4.6.9",
     "image-webpack-loader": "^7.0.1",
     "jquery": "^3.6.0",
+    "jquery-mask-plugin": "^1.14.16",
     "lazy-load": "0.0.2",
     "slick": "^1.12.2",
     "slick-carousel": "^1.8.1"

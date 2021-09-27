@@ -37,6 +37,13 @@ const plugins = () => {
         collapseWhitespace: isProd
       }
     }),
+    new HTMLWebpackPlugin({
+      filename: 'checkout.html',
+      template: path.resolve(__dirname, './checkout.html'),
+      minify: {
+        collapseWhitespace: isProd
+      }
+    }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: `./css/${filename('css')}`
