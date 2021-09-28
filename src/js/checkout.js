@@ -1,4 +1,4 @@
-import '../../scss/main.scss'
+import '../scss/main.scss'
 import flatpickr from "flatpickr";
 
 // add mask
@@ -234,7 +234,5 @@ monthSelect.addEventListener("input", function () {
 checkBtn.addEventListener('click', () => {
     if (regName.test(fullName.value) && address.validity.valid && contact.validity.valid && regCity.test(city.value) && regZip.test(zip.value) && datepick.value !== '' && nameInput.validity.valid && numInput.validity.valid && regCvv.test(cvvInput.value) && regMonthYear.test(yearSelect.value) && regMonthYear.test(monthSelect.value) && checkbox.checked) {
         alert('Submit successful!')
-    } else {
-        alert('Something is wrong!')
     }
 });

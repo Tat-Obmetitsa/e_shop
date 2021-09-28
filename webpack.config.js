@@ -1,19 +1,15 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack');
-const CopyPlugin = require("copy-webpack-plugin");
-
 
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
 
 const filename = (ext) => isDev ? `[name].${ext}` : `[name].[contenthash].${ext}`;
-
-
 
 const optimization = () => {
   const configObj = {
@@ -34,21 +30,28 @@ const optimization = () => {
 
 const plugins = () => {
   const basePlugins = [
-    new HtmlWebpackPlugin({
+    new HTMLWebpackPlugin({
       chunks: ['index'],
       template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',
+      minify: {
+        collapseWhitespace: isProd
+      }
     }),
-    new HtmlWebpackPlugin({
-      // inject: false,
+    new HTMLWebpackPlugin({
       chunks: ['checkout'],
       template: path.resolve(__dirname, './src/checkout.html'),
       filename: 'checkout.html',
+      minify: {
+        collapseWhitespace: isProd
+      }
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: `./css/${filename('css')}`
-    })];
+    }),
+  ];
+
   if (isProd) {
     basePlugins.push(
       new ImageminPlugin({
@@ -84,9 +87,7 @@ module.exports = {
   entry: {
     index: './src/js/index.js',
     checkout: './src/js/checkout.js',
-    //... repeat until example 4
   },
-  // entry: './src/js/app.js',
   output: {
     filename: `./js/${filename('js')}`,
     path: path.resolve(__dirname, 'dist'),
@@ -94,7 +95,7 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: path.resolve(__dirname, 'index'),
+    contentBase: path.resolve(__dirname, 'app'),
     open: true,
     compress: true,
     hot: true,
@@ -171,3 +172,4 @@ module.exports = {
     ]
   }
 };
+
