@@ -145,16 +145,21 @@ module.exports = {
       {
         test: /\.(gif|png|jpe?g|svg)$/i,
         use: [
-          'file-loader',
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: './images/'
+            }
+          },
           {
             loader: 'image-webpack-loader',
             options: {
-              name: `./img/${filename('[ext]')}`,
+              name: `${filename('[ext]')}`,
               bypassOnDebug: true,
               disable: true,
             },
-          },
-        ],
+          }
+        ]
       },
       {
         test: /\.hbs$/,
