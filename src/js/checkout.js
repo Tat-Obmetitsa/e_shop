@@ -2,8 +2,9 @@ import '../scss/main.scss'
 import flatpickr from "flatpickr";
 
 // add mask
+
 $(document).ready(function () {
-    $('#contact').mask('+38(000) 000 0000');
+    $('#contact').mask('+380 00 000 0000');
     $('#code').mask('00000');
     $("#card-number").mask("0000 0000 0000 0000");
     $("#cvv").mask('000')
@@ -25,6 +26,7 @@ $(document).ready(function () {
         maxDate: new Date().fp_incr(14),
         minTime: "09:00",
         maxTime: "20:30",
+        allowInput: true,
     });
 });
 
@@ -85,18 +87,22 @@ yearSelect.onchange = function () {
 const cvvInput = document.getElementById('cvv')
 const cvvCard = document.querySelector('.cvv-card')
 cvvInput.oninput = function () {
+    if (cvvInput.value.length > 3) {
+        cvvInput.value = cvvInput.value.slice(0, 3)
+    }
     cvvCard.textContent = cvvInput.value.toLocaleUpperCase();
 };
 
 
 
-// validation 
+// validation  
 const regName = /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
 const regCvv = /^[0-9]{3}$/;
 const regMonthYear = /[\d][0-9]{1}/;
 const regZip = /^[0-9]{5}$/;
 const regCity = /^[a-zA-Z\s]+/;
-const regCard = /^(?:\d[\s]*?){16,19}$/;
+const regCard = /^[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}$/;
+const regPhone = /(?=.*\+[0-9]{3}\s?[0-9]{2}\s?[0-9]{3}\s?[0-9]{4,5}$)/;
 
 const checkBtn = document.querySelector('.form__field-btn')
 const fullName = document.querySelector('.name')
@@ -107,7 +113,6 @@ const zip = document.getElementById('code')
 const checkbox = document.getElementById('agreement')
 const radio = document.querySelectorAll('.radio_btn')
 const datepick = document.getElementById('req_date')
-
 
 const updateValue = e => e.target.setAttribute('checked', 'checked');
 radio.forEach(el => {
@@ -127,16 +132,21 @@ function showError(el) {
 
 
 fullName.addEventListener("input", function () {
-    if (fullName.value !== '' && fullName.validity.valid) {
+    fullName.value.trim();
+    fullName.value.replace(/[0-9]/g, '');
+    if (fullName.value !== '' && regName.test(fullName.value)) {
         fullName.setCustomValidity('');
-    } else if (!regName.test(fullName.value)) {
+    }
+    else if (!regName.test(fullName.value)) {
         fullName.setCustomValidity("Fill in your full name(min.2 words). It can have letters, - ' ");
+    } else {
         showError(fullName);
     }
 }
 )
 address.addEventListener("input", function () {
-    if (address.value !== '' && address.validity.valid) {
+    address.value.trim()
+    if (address.value !== '' && regName.test(address.value)) {
         address.setCustomValidity('');
     } else {
         showError(address);
@@ -144,18 +154,24 @@ address.addEventListener("input", function () {
 }
 )
 contact.addEventListener("input", function () {
-    if (contact.value !== '' && contact.validity.valid) {
+    if (contact.value !== '' && regPhone.test(contact.value)) {
         contact.setCustomValidity('');
-    } else {
+
+    } else if (contact.value.length > 17) {
+        contact.value = contact.value.slice(0, 17)
+    } else if (contact.value.length < 17) {
+
         showError(contact);
     }
 }
 )
 city.addEventListener("input", function () {
-    console.log(regCity.test(city.value))
-    if (city.value !== '' && city.validity.valid) {
+    city.value.trim()
+    city.value.replace(/[0-9]/g, '');
+    if (city.value !== '' && regName.test(city.value)) {
         city.setCustomValidity('');
-    } else if (!regCity.test(city.value)) {
+    }
+    else if (!regName.test(city.value)) {
         city.setCustomValidity("Can contain only letters, - ' ");
     } else {
         showError(city);
@@ -164,9 +180,12 @@ city.addEventListener("input", function () {
 )
 
 zip.addEventListener("input", function () {
-    if (zip.value !== '' && zip.validity.valid) {
+    if (zip.value !== '' && regZip.test(zip.value)) {
         zip.setCustomValidity('');
-    } else if (!regZip.test(zip.value)) {
+    } else if (zip.value.length > 5) {
+        zip.value = zip.value.slice(0, 5)
+    }
+    else if (!regZip.test(zip.value)) {
         zip.setCustomValidity("Must contain 5 digits");
     } else {
         showError(zip);
@@ -175,7 +194,7 @@ zip.addEventListener("input", function () {
 )
 
 datepick.addEventListener("input", function () {
-    if (datepick.value !== '' && datepick.validity.valid) {
+    if (datepick.value !== '') {
         datepick.setCustomValidity('');
     } else {
         showError(datepick);
@@ -184,8 +203,13 @@ datepick.addEventListener("input", function () {
 )
 
 nameInput.addEventListener("input", function () {
-    if (nameInput.value !== '' && nameInput.validity.valid) {
+    nameInput.value.trim()
+    nameInput.value.replace(/[0-9]/g, '');
+    if (nameInput.value !== '' && regName.test(nameInput.value)) {
         nameInput.setCustomValidity('');
+    }
+    else if (!regName.test(nameInput.value)) {
+        nameInput.setCustomValidity("Fill in your full name(min.2 words). It can have letters, - ' ");
     } else {
         showError(nameInput);
     }
@@ -193,25 +217,34 @@ nameInput.addEventListener("input", function () {
 )
 
 numInput.addEventListener("input", function () {
-    console.log(numInput.value)
-    if (numInput.value !== '' && numInput.validity.valid) {
+    if (numInput.value !== '' && regCard.test(numInput.value)) {
         numInput.setCustomValidity('');
-    } else {
+
+    } else if (numInput.value.length > 19) {
+        numInput.value = contact.numInput.slice(0, 19)
+    } else if (numInput.value.length < 19) {
+
         showError(numInput);
     }
+
 }
 )
 cvvInput.addEventListener("input", function () {
-    if (cvvInput.value !== '' && cvvInput.validity.valid) {
+    if (cvvInput.value !== '' && regCvv.test(cvvInput.value)) {
         cvvInput.setCustomValidity('');
-    } else if (!regCvv.test(cvvInput.value)) {
-        cvvInput.setCustomValidity("Must contain 3 digits");
+    } else if (cvvInput.value.length > 3) {
+        cvvInput.value = cvvInput.value.slice(0, 3)
+    }
+    else if (!regCvv.test(cvvInput.value)) {
+        cvvInput.setCustomValidity("Must contain only 3 digits");
     } else {
         showError(cvvInput);
     }
 }
 )
+
 yearSelect.addEventListener("input", function () {
+
     if (yearSelect.value !== '' && yearSelect.validity.valid) {
         yearSelect.setCustomValidity('');
     } else if (!regMonthYear.test(yearSelect.value)) {

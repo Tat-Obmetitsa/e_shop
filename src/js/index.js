@@ -74,7 +74,6 @@ $('.slider').slick({
         e.addEventListener('click', () => {
             input.forEach(e => {
                 e.classList.toggle('hidden')
-                console.log(searchBtn)
             });
 
         })

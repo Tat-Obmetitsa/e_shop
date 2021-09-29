@@ -238,17 +238,20 @@
         }
     }
 
-    & input:focus:invalid {
+    & input:focus:invalid,
+    & select:focus:invalid {
         box-shadow: 0 0 5px 1px red;
         border: 1px solid transparent;
     }
 
-    & input:focus:valid {
+    & input:focus:valid,
+    & select:focus:valid {
         box-shadow: 0 0 5px 1px green;
         border: 1px solid transparent;
     }
 
-    & input:valid {
+    & input:valid,
+    & select:valid {
         box-shadow: 0 0 5px 1px green;
     }
     & #notifyType:before {

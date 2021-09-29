@@ -97,7 +97,7 @@
                         <input type="text" id="address" name="address" required>
                     </label>
                     <label for="contact">Contact
-                        <input type="tel" name="contact" autocomplete="off" id="contact" required>
+                        <input name="contact" autocomplete="off" id="contact" minlength="16" required>
 
                     </label>
 
@@ -116,11 +116,12 @@
                             <option value="State4" class="state-option">State4</option>
                             <option value="State5" class="state-option">State5</option>
                         </datalist>
-                        <label for="code">Zip Code<input type="number" id="code" minlength="5" maxlength="5"
-                                autocomplete="postal-code" required></label>
+                        <label for="code">Zip Code<input type="number" id="code" autocomplete="postal-code"
+                                required></label>
                     </div>
                     <div class="form__field-date">
-                        <input type="text" class="datepick" placeholder="Select Delivery Date" id="req_date" required>
+                        <input type="datetime" class="datepick" readonly
+                            placeholder="Select Delivery Date from the Calendar" id="req_date" minlength="1" required>
                         <div>
                             <input type="checkbox" name="checkbox" id="agreement" required title="Must be checked">
 
@@ -159,21 +160,20 @@
                     </div>
                     <label for="card-name">Name on Card
                         <input type="text" name="nameSurname"
-                            title="Can contain 2 or more words with special signs(- ') and no digits"
-                            pattern="^([A-Z][a-z]+([ ]?[a-z]?['-]?[A-Z][a-z]+)*)$" id="card-name" required>
+                            title="Can contain 2 or more words with special signs(- ') and no digits" id="card-name"
+                            required>
 
                     </label>
 
                     <div class="form__field-wrap ">
                         <label for="card-number">Card Number
-                            <input name="cardNumber" pattern="^(?:\d[\s]*?){16,19}$"
-                                title="Can contain only 16 digits ans spaces" id="card-number" required>
+                            <input name="cardNumber" minlength="19" pattern="^[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}$"
+                                title="Can contain only 16 digits and spaces" id="card-number" required>
 
                         </label>
 
                         <label for="cvv">cvv
-                            <input type="number" class="cvv" pattern="^[0-9]{3}$" title="Must contain only 3 digits"
-                                required id="cvv">
+                            <input type="number" class="cvv" title="Must contain only 3 digits" required id="cvv">
                         </label>
 
                     </div>
