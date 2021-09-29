@@ -31,8 +31,17 @@ const optimization = () => {
 const plugins = () => {
   const basePlugins = [
     new HTMLWebpackPlugin({
-      template: path.resolve(__dirname, './index.html'),
+      chunks: ['index'],
+      template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',
+      minify: {
+        collapseWhitespace: isProd
+      }
+    }),
+    new HTMLWebpackPlugin({
+      chunks: ['checkout'],
+      template: path.resolve(__dirname, './src/checkout.html'),
+      filename: 'checkout.html',
       minify: {
         collapseWhitespace: isProd
       }
@@ -75,7 +84,10 @@ const plugins = () => {
 module.exports = {
   context: path.resolve(__dirname, './'),
   mode: 'development',
-  entry: './js/app.js',
+  entry: {
+    index: './src/js/index.js',
+    checkout: './src/js/checkout.js',
+  },
   output: {
     filename: `./js/${filename('js')}`,
     path: path.resolve(__dirname, 'dist'),
@@ -133,16 +145,21 @@ module.exports = {
       {
         test: /\.(gif|png|jpe?g|svg)$/i,
         use: [
-          'file-loader',
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: './images/'
+            }
+          },
           {
             loader: 'image-webpack-loader',
             options: {
-              name: `./img/${filename('[ext]')}`,
+              name: `${filename('[ext]')}`,
               bypassOnDebug: true,
               disable: true,
             },
-          },
-        ],
+          }
+        ]
       },
       {
         test: /\.hbs$/,
@@ -160,3 +177,4 @@ module.exports = {
     ]
   }
 };
+
