@@ -1,7 +1,7 @@
 import '../scss/main.scss'
 import 'slick-carousel';
 
-
+// homepage sliders
 $('.slick').slick({
     slidesToShow: 1,
     slidesToScroll: 1,
