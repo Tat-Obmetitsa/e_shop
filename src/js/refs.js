@@ -22,6 +22,13 @@ export const datepick = getElement('.datepick')
 export const state = getElement('.state-choice')
 export const stateOptions = document.querySelectorAll('.state-option')
 
+// form notification
+export const detailsBuyer = getElement('.details-buyer')
+export const detailsPayment = getElement('.details-payment')
+export const formOverlay = getElement('.form-overlay');
+export const closeFormBtn = getElement('.form-close');
+
+
 //  variables for card in form
 export const nameInput = getElement('.card-name')
 export const nameCard = getElement('.name-surname')

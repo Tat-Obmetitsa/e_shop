@@ -87,7 +87,7 @@
             </ul>
         </section>
         <section class="section">
-            <form class="form" action="post" id="form">
+            <form class="form" action="javascript:;" id="form">
                 <fieldset class="form__field">
                     <legend class="form__field-title">Buyer Info</legend>
                     <label for="name">Full Name
@@ -206,7 +206,21 @@
                         </div>
                     </div>
                 </fieldset>
-                <button class="form__field-btn">Checkout</button>
+                <button type="submit" class="form__field-btn">Checkout</button>
+                <div class="form-overlay">
+                    <div class="form-details">
+                        <button type="click" class="form-close" aria-expanded="false">
+                            <svg width="20px" height="20px">
+                                <use class="icon-cross" href="./assets/homepage/sprite.svg#cross"></use>
+                            </svg>
+                        </button>
+                        <h2>Success! Purchase details:</h2>
+                        <div class="dayils-list">
+                            <ul class="details-buyer"></ul>
+                            <ul class="details-payment"></ul>
+                        </div>
+                    </div>
+                </div>
             </form>
         </section>
     </main>

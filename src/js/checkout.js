@@ -1,5 +1,6 @@
 import '../scss/main.scss'
 import flatpickr from "flatpickr";
+import { getElement } from './utils.js';
 import {
     checkBtn,
     contact,
@@ -23,10 +24,12 @@ import {
     regZip,
     regCard,
     regPhone,
-    checkbox
-
+    checkbox,
+    detailsBuyer,
+    detailsPayment,
+    formOverlay,
+    closeFormBtn
 } from './refs'
-
 
 let buyer = {
     name: "",
@@ -190,16 +193,49 @@ form.addEventListener('input', (e) => {
         }
     }
 
+    checkbox.checked ? buyer.agreement = true : buyer.agreement = false
 
 })
 
+// add into to notification card
 
-checkBtn.addEventListener('click', (e) => {
-    e.preventDefault()
-    checkbox.checked ? buyer.agreement = true : buyer.agreement = false
+function checkInputs() {
+    detailsBuyer.innerHTML = `
+    <li><h3>Full Name:</h3><span>${buyer.name}</span></li>
+    <li><h3>Address:</h3><span>${buyer.address}</span></li>
+    <li><h3>Contact</h3><span>${buyer.contact}</span></li>
+    <li><h3>City:</h3><span>${buyer.city}</span></li>
+    <li><h3>State:</h3><span>${buyer.state}</span></li>
+    <li><h3>Zip Code:</h3><span>${buyer.zip}</span></li>
+    <li><h3>Delivery date</h3><span>${buyer.delivery_date}</span></li>
+    `
+    detailsPayment.innerHTML = `
+    <li><h3>Payment Method:</h3><span>${payment.method}</span></li>
+    <li><h3>Name on Card:</h3><span>${payment.card_name}</span></li>
+    <li><h3>Card Number:</h3><span>${payment.card_num}</span></li>
+    <li><h3>CVV Code:</h3><span>${payment.cvv}</span></li>
+    <li><h3>Expiration Month:</h3><span>${payment.exp_month}</span></li>
+    <li><h3>Expiration Year:</h3><span>${payment.exp_year}</span></li>
+    `
+    let b = Object.values(buyer).every(e => e !== '')
+    let p = Object.values(payment).every(e => e !== '')
+    if (b && p && checkbox.checked) {
+        formOverlay.classList.add('show')
+    }
+    return false;
+}
 
+
+checkBtn.addEventListener('click', () => {
+    checkInputs()
+})
+
+// on close notification
+
+closeFormBtn.addEventListener('click', () => {
+    formOverlay.classList.remove('show');
+    form.action = "index.html"
 });
-
 
 // add mask on inputs
 
@@ -229,3 +265,5 @@ $(document).ready(function () {
         allowInput: true,
     });
 });
+
+
