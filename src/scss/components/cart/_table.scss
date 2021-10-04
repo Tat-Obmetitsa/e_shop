@@ -79,14 +79,39 @@
             & span {
                 display: block;
                 width: 100%;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
             }
         }
     }
+    .table__item-counter {
+        @include flex(flex-start);
+        flex-direction: row;
 
+        @media screen and (min-width: 1200px) {
+            width: 200px;
+        }
+        & .counter-amount {
+            @include font(1em, 500, 1.5);
+            width: 60px;
+
+            text-align: center;
+
+            @media screen and (min-width: 1200px) {
+                width: 75px;
+                @include font(1.8em, 500, 2);
+            }
+        }
+
+        & .button {
+            position: relative;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            @media screen and (min-width: 1200px) {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    }
     & .table__price {
         color: $text-gray;
 

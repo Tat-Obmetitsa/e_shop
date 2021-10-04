@@ -115,6 +115,10 @@ img {
         border: 3px solid $dark;
         fill: $dark;
     }
+
+    & span {
+        @include centerAbsolute();
+    }
 }
 
 .section {
