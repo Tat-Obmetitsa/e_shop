@@ -1,13 +1,16 @@
 .table {
     @include flex(flex-start);
     flex-direction: column;
-    &__wrapper {
-        width: 100%;
+    align-items: end;
 
+    &__wrapper-desktop {
+        width: 100%;
+        display: table;
+        @media screen and (max-width: 1199px) {
+            display: none;
+        }
         & .table__heading {
-            @media screen and (min-width: 1200px) {
-                height: 65px;
-            }
+            height: 65px;
 
             & th {
                 color: $text-gray;
@@ -19,13 +22,10 @@
             padding: 32px 0;
 
             & td {
+                height: 265px;
                 text-align: start;
                 border-top: 1px solid $bg-gray;
                 border-bottom: 1px solid $bg-gray;
-
-                @media screen and (min-width: 1200px) {
-                    height: 265px;
-                }
 
                 &:last-child {
                     text-align: end;
@@ -34,10 +34,27 @@
         }
     }
 
+    &__wrapper-mobile {
+        display: none;
+
+        & tr {
+            height: 40px;
+        }
+        @media screen and (max-width: 1199px) {
+            display: table;
+        }
+        & .table__heading {
+            width: 15%;
+            border-right: 1px solid $bg-gray;
+        }
+        & .cross {
+            text-align: end;
+        }
+    }
+
     & .table-btn {
         @include flex(flex-end);
         flex-direction: row;
-        margin-left: auto;
         margin-top: 20px;
 
         @media screen and (min-width: 1200px) {
@@ -45,9 +62,15 @@
         }
 
         & .button {
+            @include font(0.8rem, 500, 1.2);
+
             position: relative;
             margin-left: 10px;
+            width: 8rem;
+            height: 3rem;
+
             @media screen and (min-width: 1200px) {
+                @include font(18px, 500, 1.5);
                 height: 50px;
                 width: 180px;
                 margin-left: 32px;

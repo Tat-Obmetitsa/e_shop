@@ -81,7 +81,7 @@
             </ul>
         </section>
         <section class="table section">
-            <table class="table__wrapper">
+            <table class="table__wrapper-desktop">
                 <tr class="table__heading">
                     <th>Product</th>
                     <th>Quantity</th>
@@ -98,14 +98,36 @@
                         </svg>
                     </td>
                 </tr>
-                <tr class="table__price">
-                    <td colspan="3"></td>
+            </table>
+            <table class="table__wrapper-mobile">
+                <tr class="cross">
+                    <td colspan="1" class="table__heading"></td>
                     <td>
-                        <span>Total</span>
-                        <span class="price">$00.00</span>
+                        <svg width="20px" height="20px" aria-label="Menu switcher">
+                            <use class="icon-cross" href="./assets/homepage/sprite.svg#cross"></use>
+                        </svg>
                     </td>
                 </tr>
+                <tr>
+                    <td class="table__heading">Product</td>
+                    <td class="table__item-card">here is a product card</td>
+
+                </tr>
+                <tr>
+                    <td class="table__heading">Quantity</td>
+                    <td>here is counter</td>
+
+                </tr>
+                <tr>
+                    <td class="table__heading">Price</td>
+                    <td>here is price</td>
+
+                </tr>
             </table>
+            <div class="table__price">
+                <span>Total</span>
+                <span class="price">$00.00</span>
+            </div>
             <div class="table-btn">
                 <a type="button" class="button" href="./"><span>Continue Shopping</span></a>
                 <a type="button" class="button" href="./checkout.html"><span>Checkout</span></a>
