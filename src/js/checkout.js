@@ -243,9 +243,6 @@ closeFormBtn.addEventListener('click', () => {
     form.action = "checkout.html"
 });
 
-// completeBtn.addEventListener('click', () => {
-
-// })
 // add mask on inputs
 
 $(document).ready(function () {

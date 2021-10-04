@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+</head>
+
+<body>
+    <header class="section">
+        <div class="header">
+            <div class="header__wrapper">
+                <svg width="40px" height="24px" aria-label="logo">
+                    <use href="./assets/homepage/sprite.svg#logo"></use>
+                </svg>
+                <span class="header__wrapper-logo">Elliye</span>
+            </div>
+            <div class="header__wrapper header__wrapper-desktop" id="header__wrapper-desktop">
+
+                <button type="button" class="header__wrapper-button cart">
+                    <a href="./checkout.html"><svg width="24px" height="24px" aria-label="cart">
+                            <use href="./assets/homepage/sprite.svg#cart"></use>
+                        </svg></a>
+                </button>
+                <button type="button" class="header__wrapper-button cart">
+                    <a href="./checkout.html"><svg width="24px" height="24px" aria-label="envelope">
+                            <use href="./assets/checkout/sprite-checkout.svg#email"></use>
+                        </svg></a>
+                </button>
+
+                <button type="button" class="button">Login</button>
+            </div>
+            <div class="header__wrapper-mobile">
+
+                <button type="button" class="header__wrapper-button cart">
+                    <a href="./checkout.html"><svg width="24px" height="24px" aria-label="cart">
+                            <use href="./assets/homepage/sprite.svg#cart"></use>
+                        </svg></a>
+                </button>
+                <button type="button" class="header__wrapper-button cart">
+                    <a href="./checkout.html"><svg width="24px" height="24px" aria-label="envelope">
+                            <use href="./assets/checkout/sprite-checkout.svg#email"></use>
+                        </svg></a>
+                </button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="progress section">
+            <ul class="progress__list">
+                <li class="progress__list-item">
+                    <a href="./">Home</a>
+                </li>
+                <li class="progress__list-item active">
+                    <a href="#">Shopping Cart</a>
+                </li>
+            </ul>
+            <h2 class="section__title">Shopping Cart</h2>
+            <ul class="progress__list">
+                <li class="progress__list-item active">
+                    <div class="number">
+                        <span>1</span>
+                    </div>
+                    <span class="text">Shopping Cart</span>
+
+                </li>
+                <li class="progress__list-item">
+                    <div class="number">
+                        <span>2</span>
+                    </div>
+                    <span class="text">Checkout</span>
+                </li>
+                <li class="progress__list-item">
+                    <div class="number">
+                        <span>3</span>
+                    </div>
+                    <span class="text">Completed</span>
+                </li>
+            </ul>
+        </section>
+        <section class="table section">
+            <table class="table__wrapper">
+                <tr class="table__heading">
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+                <tr class="table__item">
+                    <td class="table__item-card">here is a product card</td>
+                    <td>here is counter</td>
+                    <td>here is price</td>
+                    <td>
+                        <svg width="20px" height="20px" aria-label="Menu switcher">
+                            <use class="icon-cross" href="./assets/homepage/sprite.svg#cross"></use>
+                        </svg>
+                    </td>
+                </tr>
+                <tr class="table__price">
+                    <td colspan="3"></td>
+                    <td>
+                        <span>Total</span>
+                        <span class="price">$00.00</span>
+                    </td>
+                </tr>
+            </table>
+            <div class="table-btn">
+                <a type="button" class="button" href="./"><span>Continue Shopping</span></a>
+                <a type="button" class="button" href="./checkout.html"><span>Checkout</span></a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <ul class="footer__list section">
+            <li class="footer__list-item">
+                <h3 class="footer__list-item_title">Join our Newsletter</h3>
+                <p class="footer__list-item_text">
+                    Drop your email below to get update about us, lastest news, tips, and more!
+                </p>
+                <form action="post">
+                    <input type="email" placeholder="Enter your email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                        size="30" required />
+                    <button type="submit" form="form" formtarget="_top">
+                        <svg width="40px" height="40px" aria-label="next">
+                            <use href="./assets/homepage/sprite.svg#small-arrow"></use>
+                        </svg>
+                    </button>
+                </form>
+            </li>
+            <li class="footer__list-item">
+                <h3 class="footer__list-item_title">Product Links</h3>
+                <ul>
+                    <li>
+                        <a href="#category">Categories</a>
+                    </li>
+                    <li>
+                        <a href="#arrivals">New Arrival</a>
+                    </li>
+                    <li>
+                        <a href="featured">Feautres</a>
+                    </li>
+                    <li>
+                        <a href="#collections">Collections</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="footer__list-item">
+                <h3 class="footer__list-item_title">Company</h3>
+                <ul>
+                    <li>
+                        <a href="#category">About</a>
+                    </li>
+                    <li>
+                        <a href="#arrivals">Blog</a>
+                    </li>
+                    <li>
+                        <a href="featured">Careers</a>
+                    </li>
+                    <li>
+                        <a href="">Contact</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="footer__list-item">
+                <h3 class="footer__list-item_title">Support</h3>
+                <ul>
+                    <li>
+                        <a href="#category">Support Center</a>
+                    </li>
+                    <li>
+                        <a href="#arrivals">FAQ</a>
+                    </li>
+                    <li>
+                        <a href="featured">Privacy Policy</a>
+                    </li>
+                    <li>
+                        <a href="">Terms of Service</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="footer__list-item">
+                <h3 class="footer__list-item_title">Get in Touch</h3>
+                <ul class="footer__list-item_social">
+                    <li>
+                        <a href="https://www.instagram.com/">
+                            <svg width="24px" height="24px" aria-label="instagram icon">
+                                <use href="./assets/homepage/sprite.svg#instagram"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/">
+                            <svg width="24px" height="24px" aria-label="twitter icon">
+                                <use href="./assets/homepage/sprite.svg#twitter"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.facebook.com/">
+                            <svg width="24px" height="24px" aria-label="facebook icon">
+                                <use href="./assets/homepage/sprite.svg#facebook"></use>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+</body>
+
+</html>

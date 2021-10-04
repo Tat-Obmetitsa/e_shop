@@ -48,3 +48,12 @@
 .form.hide {
     display: none;
 }
+
+.table__item {
+    &-card {
+        width: 50%;
+    }
+    & td:not(:first-child) {
+        width: 16%;
+    }
+}
