@@ -27,6 +27,10 @@ export const detailsBuyer = getElement('.details-buyer')
 export const detailsPayment = getElement('.details-payment')
 export const formOverlay = getElement('.form-overlay');
 export const closeFormBtn = getElement('.form-close');
+export const completeWrapper = getElement('.complete__wrapper')
+export const sectionTitle = getElement('.section__title')
+export const spans = document.querySelectorAll('.progress__list span')
+export const completeBtn = getElement('.complete__wrapper-button')
 
 
 //  variables for card in form

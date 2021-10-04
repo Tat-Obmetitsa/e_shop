@@ -1,6 +1,5 @@
 import '../scss/main.scss'
 import flatpickr from "flatpickr";
-import { getElement } from './utils.js';
 import {
     checkBtn,
     contact,
@@ -28,7 +27,11 @@ import {
     detailsBuyer,
     detailsPayment,
     formOverlay,
-    closeFormBtn
+    closeFormBtn,
+    completeWrapper,
+    sectionTitle,
+    spans,
+    completeBtn
 } from './refs'
 
 let buyer = {
@@ -194,7 +197,6 @@ form.addEventListener('input', (e) => {
     }
 
     checkbox.checked ? buyer.agreement = true : buyer.agreement = false
-
 })
 
 // add into to notification card
@@ -221,6 +223,10 @@ function checkInputs() {
     let p = Object.values(payment).every(e => e !== '')
     if (b && p && checkbox.checked) {
         formOverlay.classList.add('show')
+        completeWrapper.classList.add('show')
+        form.classList.add('hide')
+        sectionTitle.classList.add('hidden')
+        spans.forEach(el => el.classList.add('active'))
     }
     return false;
 }
@@ -234,9 +240,12 @@ checkBtn.addEventListener('click', () => {
 
 closeFormBtn.addEventListener('click', () => {
     formOverlay.classList.remove('show');
-    form.action = "index.html"
+    form.action = "checkout.html"
 });
 
+// completeBtn.addEventListener('click', () => {
+
+// })
 // add mask on inputs
 
 $(document).ready(function () {
