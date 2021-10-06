@@ -1,38 +1,6 @@
 import '../scss/main.scss'
 import flatpickr from "flatpickr";
-import {
-    checkBtn,
-    contact,
-    radio,
-    state,
-    form,
-    nameInput,
-    nameCard,
-    numInput,
-    numCard,
-    monthSelect,
-    monthCard,
-    yearSelect,
-    yearCard,
-    cvvInput,
-    cvvCard,
-    stateOptions,
-    regName,
-    regCvv,
-    regMonthYear,
-    regZip,
-    regCard,
-    regPhone,
-    checkbox,
-    detailsBuyer,
-    detailsPayment,
-    formOverlay,
-    closeFormBtn,
-    completeWrapper,
-    sectionTitle,
-    spans,
-    completeBtn
-} from './refs'
+import refs from './refs'
 
 let buyer = {
     name: "",
@@ -65,47 +33,47 @@ let payment = {
         const el = document.createElement('option')
         el.textContent += monthsArr[i];
         el.setAttribute('value', monthsArr[i])
-        monthSelect.appendChild(el)
+        refs.monthSelect.appendChild(el)
     }
     for (let i = 0; i < 9; i++) {
         const el = document.createElement('option')
         let shortYear = yearArr[i].toString().slice(2)
         el.textContent += Number(shortYear)
         el.setAttribute('value', shortYear)
-        yearSelect.appendChild(el)
+        refs.yearSelect.appendChild(el)
     }
 })();
 
 // add value to card
 
-nameInput.oninput = function () {
-    nameCard.textContent = nameInput.value.toLocaleUpperCase();
+refs.nameInput.oninput = function () {
+    refs.nameCard.textContent = refs.nameInput.value.toLocaleUpperCase();
 };
 
-numInput.oninput = function () {
-    $(numInput).mask("0000 0000 0000 0000");
-    numCard.textContent = numInput.value;
+refs.numInput.oninput = function () {
+    $('.card-number').mask("0000 0000 0000 0000");
+    refs.numCard.textContent = refs.numInput.value;
 };
 
-monthSelect.onchange = function () {
-    monthCard.textContent = monthSelect.value
+refs.monthSelect.onchange = function () {
+    refs.monthCard.textContent = refs.monthSelect.value
 };
 
-yearSelect.onchange = function () {
-    yearCard.textContent = yearSelect.value
+refs.yearSelect.onchange = function () {
+    refs.yearCard.textContent = refs.yearSelect.value
 };
 
-cvvInput.oninput = function () {
-    if (cvvInput.value.length > 3) {
-        cvvInput.value = cvvInput.value.slice(0, 3)
+refs.cvvInput.oninput = function () {
+    if (refs.cvvInput.value.length > 3) {
+        refs.cvvInput.value = refs.cvvInput.value.slice(0, 3)
     }
-    cvvCard.textContent = cvvInput.value.toLocaleUpperCase();
+    refs.cvvCard.textContent = refs.cvvInput.value.toLocaleUpperCase();
 };
 
 
 // validation  
 
-form.addEventListener('input', (e) => {
+refs.form.addEventListener('input', (e) => {
     let el = e.target;
     let elValue = e.target.value;
     elValue.trim();
@@ -114,33 +82,33 @@ form.addEventListener('input', (e) => {
     if (el.classList.contains("name")) {
         elValue.replace(/[0-9]/g, '');
 
-        regName.test(elValue) ? (el.setCustomValidity(''), buyer.name = elValue) : el.setCustomValidity("Fill in your full name(min.2 words). It can have letters, - ' ");
+        refs.regName.test(elValue) ? (el.setCustomValidity(''), buyer.name = elValue) : el.setCustomValidity("Fill in your full name(min.2 words). It can have letters, - ' ");
 
     } else if (el.classList.contains("address")) {
-        elValue.value !== '' && regName.test(elValue) ? (el.setCustomValidity(''), buyer.address = elValue) : el.setCustomValidity("Fill in the information");
+        elValue.value !== '' && refs.regName.test(elValue) ? (el.setCustomValidity(''), buyer.address = elValue) : el.setCustomValidity("Fill in the information");
 
     } else if (el.classList.contains("city")) {
         elValue.replace(/[0-9]/g, '');
-        elValue.value !== '' && regName.test(elValue) ? (el.setCustomValidity(''), buyer.city = elValue) : el.setCustomValidity("Can contain only letters, - ' ");
+        elValue.value !== '' && refs.regName.test(elValue) ? (el.setCustomValidity(''), buyer.city = elValue) : el.setCustomValidity("Can contain only letters, - ' ");
 
     } else if (el.classList.contains("contact")) {
-        if (contact.value !== '' && regPhone.test(contact.value)) {
+        if (refs.contact.value !== '' && refs.regPhone.test(refs.contact.value)) {
             el.setCustomValidity('');
             buyer.contact = elValue;
-        } else if (contact.value.length > 17) {
+        } else if (refs.contact.value.length > 17) {
             elValue = elValue.slice(0, 17);
-        } else if (contact.value.length < 17) {
+        } else if (refs.contact.value.length < 17) {
             el.setCustomValidity("Number is too short");
         }
 
     } else if (el.classList.contains("code")) {
-        if (elValue !== '' && regZip.test(elValue)) {
+        if (elValue !== '' && refs.regZip.test(elValue)) {
             el.setCustomValidity('');
             buyer.zip = elValue;
         } else if (elValue.length > 5) {
             elValue = elValue.slice(0, 5);
         }
-        else if (!regZip.test(elValue)) {
+        else if (!refs.regZip.test(elValue)) {
             el.setCustomValidity("Must contain 5 digits");
         }
 
@@ -150,59 +118,59 @@ form.addEventListener('input', (e) => {
         // payment
     } else if (el.classList.contains("card-name")) {
         elValue.replace(/[0-9]/g, '');
-        elValue !== '' && regName.test(elValue) ? (el.setCustomValidity(''), payment.card_name = elValue) : el.setCustomValidity("Fill in your full name(min.2 words). It can have letters, - ' ");
+        elValue !== '' && refs.regName.test(elValue) ? (el.setCustomValidity(''), payment.card_name = elValue) : el.setCustomValidity("Fill in your full name(min.2 words). It can have letters, - ' ");
 
     } else if (el.classList.contains("card-number")) {
-        if (elValue !== '' && regCard.test(elValue)) {
-            numInput.setCustomValidity('');
+        if (elValue !== '' && refs.regCard.test(elValue)) {
+            refs.numInput.setCustomValidity('');
             payment.card_num = elValue;
         } else if (elValue.length > 19) {
             elValue = elValue.slice(0, 19);
         }
 
     } else if (el.classList.contains("cvv")) {
-        if (elValue !== '' && regCvv.test(elValue)) {
+        if (elValue !== '' && refs.regCvv.test(elValue)) {
             el.setCustomValidity('');
             payment.cvv = elValue
         } else if (elValue.length > 3) {
             elValue = elValue.slice(0, 3);
         }
-        else if (!regCvv.test(elValue)) {
+        else if (!refs.regCvv.test(elValue)) {
             el.setCustomValidity("Must contain only 3 digits");
         }
 
     } else if (el.classList.contains("month")) {
-        elValue !== '' && regMonthYear.test(elValue) ? (el.setCustomValidity(''), payment.exp_month = elValue) : el.setCustomValidity("Select expiration month");
+        elValue !== '' && refs.regMonthYear.test(elValue) ? (el.setCustomValidity(''), payment.exp_month = elValue) : el.setCustomValidity("Select expiration month");
 
     } else if (el.classList.contains("year")) {
-        elValue !== '' && regMonthYear.test(elValue) ? (el.setCustomValidity(''), payment.exp_year = elValue) : el.setCustomValidity("Select expiration year");
+        elValue !== '' && refs.regMonthYear.test(elValue) ? (el.setCustomValidity(''), payment.exp_year = elValue) : el.setCustomValidity("Select expiration year");
 
     };
 
-    radio.forEach(el => {
+    refs.radio.forEach(el => {
         if (el.checked) {
             payment.method = el.value
         }
     });
 
     // check if input === option in datalist
-    for (const opt of stateOptions) {
-        if (state.value === opt.value) {
-            state.setCustomValidity("");
+    for (const opt of refs.stateOptions) {
+        if (refs.state.value === opt.value) {
+            refs.state.setCustomValidity("");
             buyer.state = state.value
             break;
         } else {
-            state.setCustomValidity("Choose your city from the list below");
+            refs.state.setCustomValidity("Choose your city from the list below");
         }
     }
 
-    checkbox.checked ? buyer.agreement = true : buyer.agreement = false
+    refs.checkbox.checked ? buyer.agreement = true : buyer.agreement = false
 })
 
 // add into to notification card
 
 function checkInputs() {
-    detailsBuyer.innerHTML = `
+    refs.detailsBuyer.innerHTML = `
     <li><h3>Full Name:</h3><span>${buyer.name}</span></li>
     <li><h3>Address:</h3><span>${buyer.address}</span></li>
     <li><h3>Contact</h3><span>${buyer.contact}</span></li>
@@ -211,7 +179,7 @@ function checkInputs() {
     <li><h3>Zip Code:</h3><span>${buyer.zip}</span></li>
     <li><h3>Delivery date</h3><span>${buyer.delivery_date}</span></li>
     `
-    detailsPayment.innerHTML = `
+    refs.detailsPayment.innerHTML = `
     <li><h3>Payment Method:</h3><span>${payment.method}</span></li>
     <li><h3>Name on Card:</h3><span>${payment.card_name}</span></li>
     <li><h3>Card Number:</h3><span>${payment.card_num}</span></li>
@@ -221,26 +189,26 @@ function checkInputs() {
     `
     let b = Object.values(buyer).every(e => e !== '')
     let p = Object.values(payment).every(e => e !== '')
-    if (b && p && checkbox.checked) {
-        formOverlay.classList.add('show')
-        completeWrapper.classList.add('show')
-        form.classList.add('hide')
-        sectionTitle.classList.add('hidden')
-        spans.forEach(el => el.classList.add('active'))
+    if (b && p && refs.checkbox.checked) {
+        refs.formOverlay.classList.add('show')
+        refs.completeWrapper.classList.add('show')
+        refs.form.classList.add('hide')
+        refs.sectionTitle.classList.add('hidden')
+        refs.spans.forEach(el => el.classList.add('active'))
     }
     return false;
 }
 
 
-checkBtn.addEventListener('click', () => {
+refs.checkBtn.addEventListener('click', () => {
     checkInputs()
 })
 
 // on close notification
 
-closeFormBtn.addEventListener('click', () => {
-    formOverlay.classList.remove('show');
-    form.action = "checkout.html"
+refs.closeFormBtn.addEventListener('click', () => {
+    refs.formOverlay.classList.remove('show');
+    refs.form.action = "checkout.html"
 });
 
 // add mask on inputs
