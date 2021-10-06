@@ -5,9 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Valtech E-Shop</title>
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <title>Checkout</title>
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
 </head>
 
@@ -54,10 +52,10 @@
         <section class="progress section">
             <ul class="progress__list">
                 <li class="progress__list-item">
-                    <a href="#">Home</a>
+                    <a href="./">Home</a>
                 </li>
                 <li class="progress__list-item">
-                    <a href="#">Shopping Cart</a>
+                    <a href="./cart.html">Shopping Cart</a>
                 </li>
                 <li class="progress__list-item active">
                     <a href="./checkout.html">Checkout</a>
@@ -87,28 +85,28 @@
             </ul>
         </section>
         <section class="section">
-            <form class="form" action="post" id="form">
+            <form class="form" action="javascript:;" id="form">
                 <fieldset class="form__field">
                     <legend class="form__field-title">Buyer Info</legend>
                     <label for="name">Full Name
-                        <input type="text" placeholder="Name" class="name" minlength="2" id="name" required>
+                        <input type="text" placeholder="Full Name" class="name" minlength="2" id="name" required>
                     </label>
                     <label for="address">Address
-                        <input type="text" id="address" name="address" required>
+                        <input type="text" id="address" class="address" name="address" required>
                     </label>
                     <label for="contact">Contact
-                        <input name="contact" autocomplete="off" id="contact" minlength="16" required>
+                        <input name="contact" autocomplete="off" class="contact" id="contact" minlength="16" required>
 
                     </label>
 
                     <label for="city">City
-                        <input type="text" name="city" address id="city" required>
+                        <input type="text" name="city" class="city" id="city" required>
                     </label>
 
                     <div class="form__field-wrap">
                         <label for="state-choice">State<input placeholder="Select State" list="state" id="state-choice"
-                                pattern="^(State1|State2|State3|State4|State5)$" required name="state-choice"
-                                title="Choose the State from the list below" autocomplete="country" /></label>
+                                required class="state-choice" title="Choose the State from the list below"
+                                autocomplete="country" /></label>
                         <datalist id="state">
                             <option value="State1" class="state-option">State1</option>
                             <option value="State2" class="state-option">State2</option>
@@ -116,14 +114,15 @@
                             <option value="State4" class="state-option">State4</option>
                             <option value="State5" class="state-option">State5</option>
                         </datalist>
-                        <label for="code">Zip Code<input type="number" id="code" autocomplete="postal-code"
+                        <label for="code">Zip Code<input class="code" id="code" autocomplete="postal-code"
                                 required></label>
                     </div>
                     <div class="form__field-date">
                         <input type="datetime" class="datepick" readonly
                             placeholder="Select Delivery Date from the Calendar" id="req_date" minlength="1" required>
                         <div>
-                            <input type="checkbox" name="checkbox" id="agreement" required title="Must be checked">
+                            <input type="checkbox" name="checkbox" id="agreement" class="agreement" required
+                                title="Must be checked">
 
                             <label for="agreement"> I agree to have my personal data processed</label>
                         </div>
@@ -143,7 +142,8 @@
                         </div>
                         <div class="form__radio-btn">
 
-                            <input id="radio-2" type="radio" class="radio_btn" name="radio" value="Bank Transfer">
+                            <input id="radio-2" type="radio" class="radio_btn" checked name="radio"
+                                value="Bank Transfer">
                             <svg width="40px" height="40px" aria-label="next">
                                 <use href="./assets/checkout/sprite-checkout.svg#transfer"></use>
                             </svg>
@@ -160,29 +160,31 @@
                     </div>
                     <label for="card-name">Name on Card
                         <input type="text" name="nameSurname"
-                            title="Can contain 2 or more words with special signs(- ') and no digits" id="card-name"
-                            required>
+                            title="Can contain 2 or more words with special signs(- ') and no digits" class="card-name"
+                            id="card-name" required>
 
                     </label>
 
                     <div class="form__field-wrap ">
                         <label for="card-number">Card Number
                             <input name="cardNumber" minlength="19" pattern="^[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}$"
-                                title="Can contain only 16 digits and spaces" id="card-number" required>
+                                title="Can contain only 16 digits and spaces" class="card-number" id="card-number"
+                                required>
 
                         </label>
 
                         <label for="cvv">cvv
-                            <input type="number" class="cvv" title="Must contain only 3 digits" required id="cvv">
+                            <input class="cvv" title="Must contain only 3 digits" required id="cvv">
                         </label>
 
                     </div>
                     <div class="form__field-wrap ">
-                        <select name="expirationMonth" id="month" minlength="2" title="Must be seleced" required>
+                        <select name="expirationMonth" class="month" id="month" minlength="2" title="Must be seleced"
+                            required>
                             <option value="" selected disabled>Month</option>
                         </select>
 
-                        <select id="year" name="expirationYear" minlength="2" required>
+                        <select id="year" class="year" name="expirationYear" minlength="2" required>
                             <option value="" selected disabled>Year</option>
                         </select>
                     </div>
@@ -190,7 +192,7 @@
                     <div class="card">
                         <div class="front">
                             <div class="magnetic"></div>
-                            <div><span class="card-number">**** **** **** ****</span></div>
+                            <div><span class="card-number_input">**** **** **** ****</span></div>
                             <div> <span class="name-surname">NAME SURNAME</span> </div>
                             <div class="expiration-date"><span class="expiration-month">**</span>/<span
                                     class="expiration-year">**</span>
@@ -202,8 +204,30 @@
                         </div>
                     </div>
                 </fieldset>
-                <button class="form__field-btn">Checkout</button>
+                <button type="submit" class="form__field-btn">Checkout</button>
             </form>
+            <div class="form-overlay">
+                <div class="form-details">
+                    <button type="click" class="form-close" aria-expanded="false">
+                        <svg width="20px" height="20px">
+                            <use class="icon-cross" href="./assets/homepage/sprite.svg#cross"></use>
+                        </svg>
+                    </button>
+                    <h2>Success! Purchase details:</h2>
+                    <div class="dayils-list">
+                        <ul class="details-buyer"></ul>
+                        <ul class="details-payment"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="complete__wrapper">
+                <h2 class="complete__wrapper-title">Checkout Complete!</h2>
+                <p class="complete__wrapper-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.</p>
+                <a class="complete__wrapper-button button" type="button" href="./"><span>Go Shopping
+                        Again</span></a>
+            </div>
         </section>
     </main>
     <footer class="footer">
@@ -304,6 +328,7 @@
                 </ul>
             </li>
         </ul>
+
     </footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>

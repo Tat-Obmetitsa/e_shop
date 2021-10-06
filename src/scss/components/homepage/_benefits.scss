@@ -54,12 +54,9 @@
                 }
             }
             & svg {
+                @include centerAbsolute();
                 width: 35px;
                 height: 35px;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
                 @media screen and (min-width: 765px) {
                     width: 65px;
                     height: 65px;
