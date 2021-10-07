@@ -1,25 +1,8 @@
 import '../scss/main.scss'
 import flatpickr from "flatpickr";
 import refs from './refs'
-
-let buyer = {
-    name: "",
-    address: "",
-    contact: "",
-    city: "",
-    state: "",
-    zip: "",
-    delivery_date: "",
-    agreement: ''
-};
-let payment = {
-    method: "",
-    card_name: "",
-    card_num: "",
-    cvv: "",
-    exp_month: "",
-    exp_year: ""
-};
+let formData = new FormData(form);
+var object = {};
 
 // year and month select, short forms
 (() => {
@@ -82,19 +65,19 @@ refs.form.addEventListener('input', (e) => {
     if (el.classList.contains("name")) {
         elValue.replace(/[0-9]/g, '');
 
-        refs.regName.test(elValue) ? (el.setCustomValidity(''), buyer.name = elValue) : el.setCustomValidity("Fill in your full name(min.2 words). It can have letters, - ' ");
+        refs.regName.test(elValue) ? (el.setCustomValidity(''), formData.append('name', elValue)) : el.setCustomValidity("Fill in your full name(min.2 words). It can have letters, - ' ");
 
     } else if (el.classList.contains("address")) {
-        elValue.value !== '' && refs.regName.test(elValue) ? (el.setCustomValidity(''), buyer.address = elValue) : el.setCustomValidity("Fill in the information");
+        elValue.value !== '' && refs.regName.test(elValue) ? (el.setCustomValidity(''), formData.append('address', elValue)) : el.setCustomValidity("Fill in the information");
 
     } else if (el.classList.contains("city")) {
         elValue.replace(/[0-9]/g, '');
-        elValue.value !== '' && refs.regName.test(elValue) ? (el.setCustomValidity(''), buyer.city = elValue) : el.setCustomValidity("Can contain only letters, - ' ");
+        elValue.value !== '' && refs.regName.test(elValue) ? (el.setCustomValidity(''), formData.append('city', elValue)) : el.setCustomValidity("Can contain only letters, - ' ");
 
     } else if (el.classList.contains("contact")) {
         if (refs.contact.value !== '' && refs.regPhone.test(refs.contact.value)) {
             el.setCustomValidity('');
-            buyer.contact = elValue;
+            formData.append('contact', elValue);
         } else if (refs.contact.value.length > 17) {
             elValue = elValue.slice(0, 17);
         } else if (refs.contact.value.length < 17) {
@@ -104,7 +87,7 @@ refs.form.addEventListener('input', (e) => {
     } else if (el.classList.contains("code")) {
         if (elValue !== '' && refs.regZip.test(elValue)) {
             el.setCustomValidity('');
-            buyer.zip = elValue;
+            formData.append('zip', elValue);
         } else if (elValue.length > 5) {
             elValue = elValue.slice(0, 5);
         }
@@ -113,17 +96,17 @@ refs.form.addEventListener('input', (e) => {
         }
 
     } else if (el.classList.contains("datepick")) {
-        buyer.delivery_date = elValue
+        formData.append('delivery_date', elValue);
 
         // payment
     } else if (el.classList.contains("card-name")) {
         elValue.replace(/[0-9]/g, '');
-        elValue !== '' && refs.regName.test(elValue) ? (el.setCustomValidity(''), payment.card_name = elValue) : el.setCustomValidity("Fill in your full name(min.2 words). It can have letters, - ' ");
+        elValue !== '' && refs.regName.test(elValue) ? (el.setCustomValidity(''), formData.append('nameSurname', elValue)) : el.setCustomValidity("Fill in your full name(min.2 words). It can have letters, - ' ");
 
     } else if (el.classList.contains("card-number")) {
         if (elValue !== '' && refs.regCard.test(elValue)) {
             refs.numInput.setCustomValidity('');
-            payment.card_num = elValue;
+            formData.append('cardNumber', elValue);
         } else if (elValue.length > 19) {
             elValue = elValue.slice(0, 19);
         }
@@ -131,7 +114,7 @@ refs.form.addEventListener('input', (e) => {
     } else if (el.classList.contains("cvv")) {
         if (elValue !== '' && refs.regCvv.test(elValue)) {
             el.setCustomValidity('');
-            payment.cvv = elValue
+            formData.append('cvv', elValue);
         } else if (elValue.length > 3) {
             elValue = elValue.slice(0, 3);
         }
@@ -140,16 +123,16 @@ refs.form.addEventListener('input', (e) => {
         }
 
     } else if (el.classList.contains("month")) {
-        elValue !== '' && refs.regMonthYear.test(elValue) ? (el.setCustomValidity(''), payment.exp_month = elValue) : el.setCustomValidity("Select expiration month");
+        elValue !== '' && refs.regMonthYear.test(elValue) ? (el.setCustomValidity(''), formData.append('expirationMonth', elValue)) : el.setCustomValidity("Select expiration month");
 
     } else if (el.classList.contains("year")) {
-        elValue !== '' && refs.regMonthYear.test(elValue) ? (el.setCustomValidity(''), payment.exp_year = elValue) : el.setCustomValidity("Select expiration year");
+        elValue !== '' && refs.regMonthYear.test(elValue) ? (el.setCustomValidity(''), formData.append('expirationYear', elValue)) : el.setCustomValidity("Select expiration year");
 
     };
 
     refs.radio.forEach(el => {
         if (el.checked) {
-            payment.method = el.value
+            formData.append('radio', el.value);
         }
     });
 
@@ -157,51 +140,56 @@ refs.form.addEventListener('input', (e) => {
     for (const opt of refs.stateOptions) {
         if (refs.state.value === opt.value) {
             refs.state.setCustomValidity("");
-            buyer.state = state.value
+            formData.append('state', refs.state.value);
             break;
         } else {
             refs.state.setCustomValidity("Choose your city from the list below");
         }
     }
-
-    refs.checkbox.checked ? buyer.agreement = true : buyer.agreement = false
+    refs.checkbox.checked ? formData.append('checkbox', true) : formData.append('checkbox', false)
 })
 
 // add into to notification card
 
 function checkInputs() {
+    formData.forEach(function (value, key) {
+        object[key] = value;
+    });
+    const json = JSON.stringify(object);
+    console.log(json)
+
     refs.detailsBuyer.innerHTML = `
-    <li><h3>Full Name:</h3><span>${buyer.name}</span></li>
-    <li><h3>Address:</h3><span>${buyer.address}</span></li>
-    <li><h3>Contact</h3><span>${buyer.contact}</span></li>
-    <li><h3>City:</h3><span>${buyer.city}</span></li>
-    <li><h3>State:</h3><span>${buyer.state}</span></li>
-    <li><h3>Zip Code:</h3><span>${buyer.zip}</span></li>
-    <li><h3>Delivery date</h3><span>${buyer.delivery_date}</span></li>
+    <li><h3>Full Name:</h3><span>${object.name}</span></li>
+    <li><h3>Address:</h3><span>${object.address}</span></li>
+    <li><h3>Contact</h3><span>${object.contact}</span></li>
+    <li><h3>City:</h3><span>${object.city}</span></li>
+    <li><h3>State:</h3><span>${object.state}</span></li>
+    <li><h3>Zip Code:</h3><span>${object.zip}</span></li>
+    <li><h3>Delivery date</h3><span>${object.delivery_date}</span></li>
     `
     refs.detailsPayment.innerHTML = `
-    <li><h3>Payment Method:</h3><span>${payment.method}</span></li>
-    <li><h3>Name on Card:</h3><span>${payment.card_name}</span></li>
-    <li><h3>Card Number:</h3><span>${payment.card_num}</span></li>
-    <li><h3>CVV Code:</h3><span>${payment.cvv}</span></li>
-    <li><h3>Expiration Month:</h3><span>${payment.exp_month}</span></li>
-    <li><h3>Expiration Year:</h3><span>${payment.exp_year}</span></li>
+    <li><h3>Payment Method:</h3><span>${object.radio}</span></li>
+    <li><h3>Name on Card:</h3><span>${object.nameSurname}</span></li>
+    <li><h3>Card Number:</h3><span>${object.cardNumber}</span></li>
+    <li><h3>CVV Code:</h3><span>${object.cvv}</span></li>
+    <li><h3>Expiration Month:</h3><span>${object.expirationMonth}</span></li>
+    <li><h3>Expiration Year:</h3><span>${object.expirationYear}</span></li>
     `
-    let b = Object.values(buyer).every(e => e !== '')
-    let p = Object.values(payment).every(e => e !== '')
-    if (b && p && refs.checkbox.checked) {
+    let finalObj = Object.values(object).every(e => e !== '')
+    if (finalObj && refs.checkbox.checked) {
         refs.formOverlay.classList.add('show')
         refs.completeWrapper.classList.add('show')
         refs.form.classList.add('hide')
         refs.sectionTitle.classList.add('hidden')
         refs.spans.forEach(el => el.classList.add('active'))
     }
-    return false;
+
+
 }
 
 
 refs.checkBtn.addEventListener('click', () => {
-    checkInputs()
+    checkInputs();
 })
 
 // on close notification
@@ -239,5 +227,4 @@ $(document).ready(function () {
         allowInput: true,
     });
 });
-
 

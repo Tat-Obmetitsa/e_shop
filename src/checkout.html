@@ -89,7 +89,8 @@
                 <fieldset class="form__field">
                     <legend class="form__field-title">Buyer Info</legend>
                     <label for="name">Full Name
-                        <input type="text" placeholder="Full Name" class="name" minlength="2" id="name" required>
+                        <input type="text" placeholder="Full Name" name="name" class="name" minlength="2" id="name"
+                            required>
                     </label>
                     <label for="address">Address
                         <input type="text" id="address" class="address" name="address" required>
@@ -105,7 +106,7 @@
 
                     <div class="form__field-wrap">
                         <label for="state-choice">State<input placeholder="Select State" list="state" id="state-choice"
-                                required class="state-choice" title="Choose the State from the list below"
+                                required class="state-choice" title="Choose the State from the list below" name="state"
                                 autocomplete="country" /></label>
                         <datalist id="state">
                             <option value="State1" class="state-option">State1</option>
@@ -114,12 +115,13 @@
                             <option value="State4" class="state-option">State4</option>
                             <option value="State5" class="state-option">State5</option>
                         </datalist>
-                        <label for="code">Zip Code<input class="code" id="code" autocomplete="postal-code"
+                        <label for="code">Zip Code<input class="code" name="zip" id="code" autocomplete="postal-code"
                                 required></label>
                     </div>
                     <div class="form__field-date">
                         <input type="datetime" class="datepick" readonly
-                            placeholder="Select Delivery Date from the Calendar" id="req_date" minlength="1" required>
+                            placeholder="Select Delivery Date from the Calendar" name="delivery_date" id="req_date"
+                            minlength="1" required>
                         <div>
                             <input type="checkbox" name="checkbox" id="agreement" class="agreement" required
                                 title="Must be checked">
@@ -134,7 +136,8 @@
                     <div class="form__field-payment">
                         <div class="form__radio-btn">
 
-                            <input id="radio_1" type="radio" class="radio_btn" name="radio" value="Credit Card">
+                            <input id="radio_1" type="radio" class="radio_btn" required name="radio"
+                                value="Credit Card">
                             <svg width="40px" height="40px" aria-label="next">
                                 <use href="./assets/checkout/sprite-checkout.svg#card"></use>
                             </svg>
@@ -142,7 +145,7 @@
                         </div>
                         <div class="form__radio-btn">
 
-                            <input id="radio-2" type="radio" class="radio_btn" checked name="radio"
+                            <input id="radio-2" type="radio" class="radio_btn" required checked name="radio"
                                 value="Bank Transfer">
                             <svg width="40px" height="40px" aria-label="next">
                                 <use href="./assets/checkout/sprite-checkout.svg#transfer"></use>
@@ -151,7 +154,7 @@
                         </div>
                         <div class="form__radio-btn">
 
-                            <input id="radio-3" type="radio" class="radio_btn" name="radio" value="Paypal">
+                            <input id="radio-3" type="radio" class="radio_btn" required name="radio" value="Paypal">
                             <svg width="40px" height="40px" aria-label="next">
                                 <use href="./assets/checkout/sprite-checkout.svg#paypal"></use>
                             </svg>
@@ -174,7 +177,7 @@
                         </label>
 
                         <label for="cvv">cvv
-                            <input class="cvv" title="Must contain only 3 digits" required id="cvv">
+                            <input class="cvv" name="cvv" title="Must contain only 3 digits" required id="cvv">
                         </label>
 
                     </div>
@@ -208,7 +211,7 @@
             </form>
             <div class="form-overlay">
                 <div class="form-details">
-                    <button type="click" class="form-close" aria-expanded="false">
+                    <button type="button" class="form-close" aria-expanded="false">
                         <svg width="20px" height="20px">
                             <use class="icon-cross" href="./assets/homepage/sprite.svg#cross"></use>
                         </svg>
