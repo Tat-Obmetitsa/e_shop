@@ -1,5 +1,6 @@
 import { getElement } from './utils'
 
+const featuredGallery = getElement('.featured__list')
 
 // Checkout Page
 

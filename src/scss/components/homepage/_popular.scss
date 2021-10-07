@@ -106,6 +106,8 @@
         &-icons {
             fill: $text-gray;
             transition-duration: 500ms;
+            @include flex(flex-start);
+
             & svg:hover {
                 fill: $hover-stars;
                 cursor: pointer;
