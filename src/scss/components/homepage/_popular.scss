@@ -74,6 +74,7 @@
 
                 @media screen and (min-width: 1920px) {
                     width: 225px;
+                    height: 175px;
                 }
             }
         }
@@ -104,6 +105,10 @@
         }
 
         &-icons {
+            & img {
+                width: 24px;
+                height: 24px;
+            }
             fill: $text-gray;
             transition-duration: 500ms;
             @include flex(flex-start);

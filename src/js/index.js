@@ -1,6 +1,9 @@
 import '../scss/main.scss'
 import 'slick-carousel';
 import 'regenerator-runtime/runtime.js';
+import { getElement } from './utils'
+import render from './renderService';
+
 // homepage sliders
 $('.slick').slick({
     slidesToShow: 1,
@@ -47,7 +50,6 @@ $('.slider').slick({
 
 });
 
-import render from './renderService';
 window.addEventListener('DOMContentLoaded', render.init);
 
 
@@ -84,3 +86,4 @@ window.addEventListener('DOMContentLoaded', render.init);
     })
 
 })();
+

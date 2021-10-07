@@ -24,10 +24,10 @@ function appendPicsMarkup(hits) {
     popularGallery.insertAdjacentHTML('beforeend', popularTpl(hits));
 }
 
-
+// from local api
 
 const fetchFeatured = async () => {
-    const params = `products?$limit=12`;
+    const params = `products?name[$like]=*over-the-ear*&$limit=12`;
     let url = baseUrl + params;
     const response = await fetch(url).catch((err) => console.log(err));
     if (response) {
@@ -35,6 +35,8 @@ const fetchFeatured = async () => {
     }
     return response;
 };
+
+// from pixabay
 
 const fetchPopular = async () => {
     const params = `products?$sort[upc]=1&$limit=9`;

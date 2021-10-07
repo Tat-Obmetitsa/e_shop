@@ -1,8 +1,23 @@
 import '../scss/main.scss'
 import flatpickr from "flatpickr";
-import refs from './refs'
+import refs from './refs';
 let formData = new FormData(form);
-var object = {};
+let object = {
+    "name": "",
+    "address": "",
+    "contact": "",
+    "city": "",
+    "state": "",
+    "zip": "",
+    "delivery_date": "",
+    "checkbox": "",
+    "radio": "",
+    "nameSurname": "",
+    "cardNumber": "",
+    "cvv": "",
+    "expirationMonth": "",
+    "expirationYear": ""
+};
 
 // year and month select, short forms
 (() => {
@@ -60,7 +75,6 @@ refs.form.addEventListener('input', (e) => {
     let el = e.target;
     let elValue = e.target.value;
     elValue.trim();
-
     // buyer
     if (el.classList.contains("name")) {
         elValue.replace(/[0-9]/g, '');
@@ -175,7 +189,8 @@ function checkInputs() {
     <li><h3>Expiration Month:</h3><span>${object.expirationMonth}</span></li>
     <li><h3>Expiration Year:</h3><span>${object.expirationYear}</span></li>
     `
-    let finalObj = Object.values(object).every(e => e !== '')
+    let finalObj = Object.values(object).every(e => e !== "" && e !== undefined)
+
     if (finalObj && refs.checkbox.checked) {
         refs.formOverlay.classList.add('show')
         refs.completeWrapper.classList.add('show')
