@@ -1,5 +1,8 @@
 import '../scss/main.scss'
 import 'slick-carousel';
+import 'regenerator-runtime/runtime.js';
+import { getElement } from './utils'
+import render from './renderService';
 
 // homepage sliders
 $('.slick').slick({
@@ -47,6 +50,8 @@ $('.slider').slick({
 
 });
 
+window.addEventListener('DOMContentLoaded', render.init);
+
 
 // burger menu appearing click
 
@@ -81,3 +86,4 @@ $('.slider').slick({
     })
 
 })();
+
