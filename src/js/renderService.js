@@ -8,8 +8,8 @@ const featuredGallery = getElement('.featured__list');
 
 const init = async () => {
     const featuredProducts = await API.fetchFeatured();
-    const popularProducts = await API.fetchPics();
-    const priceProfucts = await API.fetchPopular();
+    const popularProducts = API.fetchPics();
+    const priceProfucts = API.fetchPopular();
 
     Promise.all([popularProducts, priceProfucts]).then(values => {
         popularGallery.insertAdjacentHTML('beforeend', popularTpl(...values))

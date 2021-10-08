@@ -1,5 +1,5 @@
 const baseUrl = 'http://localhost:3030/';
-
+import { setStorageItem } from './utils'
 const baseImgUrl = 'https://pixabay.com/api/'
 const apiKeyImg = '19817444-e2944238b0133b6bab479e2af';
 
@@ -16,13 +16,14 @@ const fetchPics = async () => {
 };
 
 
-// from local api
-
+// from local api 
 const fetchFeatured = async () => {
     const params = `products?name[$like]=*over-the-ear*&$limit=12`;
     let url = baseUrl + params;
     const response = await fetch(url).then(response => response.json())
         .then(({ data }) => {
+            setStorageItem("item", data)
+
             return data;
         }).catch((err) => console.log(err));
 
