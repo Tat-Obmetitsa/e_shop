@@ -54,6 +54,14 @@ const plugins = () => {
         collapseWhitespace: isProd
       }
     }),
+    new HTMLWebpackPlugin({
+      chunks: ['productList'],
+      template: path.resolve(__dirname, './src/productList.html'),
+      filename: 'productList.html',
+      minify: {
+        collapseWhitespace: isProd
+      }
+    }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: `./css/${filename('css')}`
@@ -96,6 +104,7 @@ module.exports = {
     index: './src/js/index.js',
     checkout: './src/js/checkout.js',
     cart: './src/js/cart.js',
+    productList: './src/js/productList.js',
   },
   output: {
     filename: `./js/${filename('js')}`,

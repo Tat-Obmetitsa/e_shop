@@ -98,13 +98,21 @@ window.addEventListener('click', e => {
     }
     let store = getStorageItem("item");
     let chosen = Number(getStorageItem("chosen"));
-    console.log(typeof chosen)
     store.map((el) => {
         if (el.id === chosen) {
-            console.log("found")
             setStorageItem('cartItem', el)
         }
 
     })
 
 });
+
+
+// shift to Product List
+
+// (() => {
+
+//     const viewAllCategories = document.querySelector(".category .section__view-button");
+//     viewAllCategories.addEventListener('click')
+
+// })();
