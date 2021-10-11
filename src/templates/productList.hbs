@@ -1,7 +1,9 @@
 {{#each this}}
 <li class="list__gallery-item">
-    <img class="list__gallery-img" src="{{previewURL}}" alt="{{tags}}">
-    <h4 class="list__gallery-title">{{tags}}</h4>
-    <p class="list__gallery-price">{{price}}</p>
+    <img class="list__gallery-img" src="{{previewURL}}" alt="{{tags}}" data={{id}}>
+    <div class="list__gallery-content">
+        <h4 class="list__gallery-title" data={{id}}>{{tags}}</h4>
+        <p class="list__gallery-price" data={{id}}>&dollar;{{price}}</p>
+    </div>
 </li>
 {{/each}}

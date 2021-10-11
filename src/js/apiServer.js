@@ -2,11 +2,13 @@ const baseUrl = 'http://localhost:3030/';
 import { setStorageItem } from './utils'
 const baseImgUrl = 'https://pixabay.com/api/'
 const apiKeyImg = '19817444-e2944238b0133b6bab479e2af';
+let limit;
 
-// from pixabay
 
-const fetchPics = async () => {
-    const url = `${baseImgUrl}?image_type=photo&category=industry&q=fashion&page=1&per_page=9&key=${apiKeyImg}`;
+// from pixabay "popular"
+
+const fetchPics = async (query, limit) => {
+    const url = `${baseImgUrl}?image_type=photo&orientation=horizontal&category=industry&q=${query}&page=1&per_page=${limit}&key=${apiKeyImg}`;
     const response = await fetch(url).then(response => response.json()).catch((err) => console.log(err));
 
     return response;
@@ -14,8 +16,8 @@ const fetchPics = async () => {
 
 
 // from local api 
-const fetchFeatured = async () => {
-    const params = `products?name[$like]=*over-the-ear*&$limit=12`;
+const fetchFeatured = async (limit) => {
+    const params = `products?name[$like]=*over-the-ear*&$limit=${limit}`;
     let url = baseUrl + params;
     const response = await fetch(url).then(response => response.json())
         .then(({ data }) => {
@@ -28,8 +30,9 @@ const fetchFeatured = async () => {
 };
 
 
-const fetchPopular = async () => {
-    const params = `products?$sort[upc]=1&$limit=9`;
+// from local "popular"
+const fetchPopular = async (limit) => {
+    const params = `products?$sort[upc]=1&$limit=${limit}`;
     let url = baseUrl + params;
     const response = await fetch(url).then(response => response.json()).catch((err) => console.log(err));
 

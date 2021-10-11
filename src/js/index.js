@@ -1,4 +1,4 @@
-import '../scss/main.scss'
+import '../scss/main.scss';
 import 'slick-carousel';
 import 'regenerator-runtime/runtime.js';
 import { getStorageItem, setStorageItem } from './utils'
@@ -110,9 +110,30 @@ window.addEventListener('click', e => {
 
 // shift to Product List
 
-// (() => {
+(() => {
 
-//     const viewAllCategories = document.querySelector(".category .section__view-button");
-//     viewAllCategories.addEventListener('click')
+    const viewAllFeatured = document.querySelector(".featured .section__view-button");
+    const viewAllPopular = document.querySelector(".popular .section__view-button");
+    const viewAllNew = document.querySelector(".arrivals .section__view-button");
+    const viewAllSales = document.querySelector(".banner .button");
 
-// })();
+
+
+    viewAllFeatured.addEventListener('click', () => {
+        setStorageItem('sort', 'featured');
+        setStorageItem('category', 'all');
+    })
+    viewAllPopular.addEventListener('click', () => {
+        setStorageItem('sort', 'popular');
+        setStorageItem('category', 'all');
+    })
+    viewAllNew.addEventListener('click', () => {
+        setStorageItem('sort', 'new');
+        setStorageItem('category', 'all');
+    })
+    viewAllSales.addEventListener('click', () => {
+        setStorageItem('sort', 'sales');
+        setStorageItem('category', 'all');
+    })
+
+})();

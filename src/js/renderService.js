@@ -1,18 +1,14 @@
 import { getElement } from './utils'
 import API from './apiServer';
-const Handlebars = require("handlebars");
 import popularTpl from '../templates/popularGallery.hbs';
 import featuredTpl from '../templates/featuredGallery.hbs';
+
+
 const popularGallery = getElement('.popular__list');
 const featuredGallery = getElement('.featured__list');
 
-
-const init = async () => {
-    const featuredProducts = await API.fetchFeatured();
-    const popularProducts = API.fetchPics();
-    const priceProfucts = API.fetchPopular();
-
-    Promise.all([popularProducts, priceProfucts]).then(values => {
+function getCommonData(a, b, gallery, tpl) {
+    Promise.all([a, b]).then(values => {
         let hitsObj = values[0].hits;
         let dataObj = values[1].data;
         let arrPrices = []
@@ -29,8 +25,18 @@ const init = async () => {
             }
 
         }
-        popularGallery.insertAdjacentHTML('beforeend', popularTpl(hitsObj));
+        gallery.insertAdjacentHTML('beforeend', tpl(hitsObj));
     })
+
+}
+const init = async () => {
+    const featuredProducts = await API.fetchFeatured(12);
+    const popularProducts = await API.fetchPics('fashion', 9);
+    const priceProfucts = await API.fetchPopular(9);
+
+
+
+    getCommonData(popularProducts, priceProfucts, popularGallery, popularTpl);
 
 
     featuredGallery.insertAdjacentHTML('beforeend', featuredTpl(featuredProducts));

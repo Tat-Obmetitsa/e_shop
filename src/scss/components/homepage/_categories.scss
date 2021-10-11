@@ -61,5 +61,8 @@
                 }
             }
         }
+        & .section__view-button {
+            flex-direction: column;
+        }
     }
 }

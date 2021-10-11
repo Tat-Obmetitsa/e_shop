@@ -1,11 +1,57 @@
 .list.section {
     @include flex(flex-start);
+    align-items: flex-start;
     flex-direction: row;
-    & .list__filter {
-        width: 15%;
 
+    & .list__filter {
+        margin-right: 32px;
+        width: 15%;
         & + section {
             width: 85%;
+        }
+    }
+
+    & .list__view {
+        @include flex(space-between);
+    }
+
+    & .list__gallery {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        grid-column-gap: 32px;
+        grid-row-gap: 32px;
+
+        &-item {
+            @include flex(space-between);
+            width: 100%;
+            height: 100%;
+
+            flex-direction: column;
+            text-align: center;
+        }
+        &-img {
+            width: 100%;
+            height: 50%;
+            object-fit: cover;
+        }
+        &-content {
+            width: 100%;
+            height: 50%;
+            @include flex(space-between);
+
+            flex-direction: column;
+            text-align: center;
+        }
+        &-title {
+            @include font(20px, 500, 1.2);
+            margin: 22px 0;
+            height: 50%;
+        }
+        &-price {
+            @include font(18px, 500, 1.2);
+            margin-bottom: 32px;
+            color: $text-gray;
         }
     }
 }
