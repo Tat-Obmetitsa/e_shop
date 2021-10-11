@@ -1,8 +1,9 @@
 import '../scss/main.scss'
 import 'slick-carousel';
 import 'regenerator-runtime/runtime.js';
-import { getElement } from './utils'
+import { getStorageItem, setStorageItem } from './utils'
 import render from './renderService';
+
 
 // homepage sliders
 $('.slick').slick({
@@ -87,3 +88,31 @@ window.addEventListener('DOMContentLoaded', render.init);
 
 })();
 
+
+// add to storage
+window.addEventListener('click', e => {
+
+    if (e.target.classList.contains("add-button")) {
+        setStorageItem("chosen", e.target.parentElement.dataset.id)
+
+    }
+    let store = getStorageItem("item");
+    let chosen = Number(getStorageItem("chosen"));
+    store.map((el) => {
+        if (el.id === chosen) {
+            setStorageItem('cartItem', el)
+        }
+
+    })
+
+});
+
+
+// shift to Product List
+
+// (() => {
+
+//     const viewAllCategories = document.querySelector(".category .section__view-button");
+//     viewAllCategories.addEventListener('click')
+
+// })();

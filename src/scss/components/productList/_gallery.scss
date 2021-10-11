@@ -1,0 +1,11 @@
+.list.section {
+    @include flex(flex-start);
+    flex-direction: row;
+    & .list__filter {
+        width: 15%;
+
+        & + section {
+            width: 85%;
+        }
+    }
+}

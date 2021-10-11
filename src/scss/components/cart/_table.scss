@@ -32,6 +32,17 @@
                 }
             }
         }
+        & .table__item-card {
+            @include flex(flex-start);
+            flex-direction: row;
+            & img {
+                height: 200px;
+            }
+            & h3 {
+                @include font(22px, 500, 1);
+                margin-left: 50px;
+            }
+        }
     }
 
     &__wrapper-mobile {
