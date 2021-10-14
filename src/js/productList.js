@@ -3,9 +3,13 @@ import 'regenerator-runtime/runtime.js';
 import { getElement } from './utils';
 import API from './apiServer';
 import productListTpl from '../templates/productList.hbs';
+import { get } from 'jquery';
 // let priceMax = document.querySelectorAll('.active + label .price_num high')
 // let priceMin = document.querySelectorAll('.active + label')
-
+const priceSortBtn = getElement('.sort-btn-price')
+const priceSortBtnSpan = getElement('.sort-btn-price span')
+const upBtn = getElement('.up')
+const downBtn = getElement('.down')
 // // .price_num high
 // // .price_num low
 
@@ -14,6 +18,15 @@ const viewNum = getElement('.list__view-results')
 const categoriesBtns = document.querySelectorAll('.categories-btn.button')
 const priceCheck = document.querySelectorAll(".list__filter-item_list input")
 let commonArray = []
+
+function sortUp(array) {
+    if (array !== undefined) return array.sort((a, b) => a.price - b.price);
+}
+function sortDown(array,) {
+    if (array !== undefined) return array.sort((a, b) => b.price - a.price);
+}
+
+
 
 function getCommonData(a, b, gallery, view, tpl,) {
     let itemsNum;
@@ -36,6 +49,23 @@ function getCommonData(a, b, gallery, view, tpl,) {
 
         }
         commonArray.push(...hitsObj)
+        upBtn.addEventListener('click', () => {
+            productGallery.innerHTML = '';
+
+            let arr = sortUp(commonArray)
+            productGallery.insertAdjacentHTML('beforeend', productListTpl(arr));
+
+
+
+        })
+        downBtn.addEventListener('click', () => {
+            productGallery.innerHTML = '';
+            let arr = sortDown(commonArray)
+            productGallery.insertAdjacentHTML('beforeend', productListTpl(arr));
+
+
+
+        })
 
         gallery.insertAdjacentHTML('beforeend', tpl(commonArray));
         view.textContent = `${itemsNum} of ${values[0].total}`
@@ -48,18 +78,16 @@ const sort = async () => {
     let query = 'clothes';
     const popularPics = await API.getAllPics(200, query);
     const popularPrice = await API.getAllPrice(200);
+
+    renderCategories()
     getCommonData(popularPics, popularPrice, productGallery, viewNum, productListTpl)
 
 
-    renderCategories()
-
 }
-
-
-
 
 function renderCategories() {
     let arr;
+
 
     categoriesBtns[0].addEventListener('click', () => {
         productGallery.innerHTML = '';
@@ -100,9 +128,32 @@ function renderCategories() {
         viewNum.textContent = `${16} of ${arr.length}`
     })
 
+    categoriesBtns.forEach(e => {
+        e.addEventListener('click', () => {
+            upBtn.addEventListener('click', () => {
+                productGallery.innerHTML = '';
 
+                let array = sortUp(arr)
+                productGallery.insertAdjacentHTML('beforeend', productListTpl(array));
+
+
+
+            })
+            downBtn.addEventListener('click', () => {
+                productGallery.innerHTML = '';
+                let array = sortDown(arr)
+                productGallery.insertAdjacentHTML('beforeend', productListTpl(array));
+
+
+
+            })
+
+        })
+    })
 
 
 }
+
+
 
 window.addEventListener('DOMContentLoaded', sort);
