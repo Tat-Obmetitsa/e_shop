@@ -9,7 +9,7 @@ const featuredGallery = getElement('.featured__list');
 
 function getCommonData(a, b, gallery, tpl) {
     Promise.all([a, b]).then(values => {
-        let hitsObj = values[0].hits;
+        let hitsObj = values[0].hits
         let dataObj = values[1].data;
         let arrPrices = []
         for (const key in dataObj) {
@@ -40,6 +40,7 @@ const init = async () => {
     getCommonData(featuredPics, featuredPrice, featuredGallery, featuredTpl);
 
 };
+
 
 
 export default { init };

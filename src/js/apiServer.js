@@ -1,5 +1,5 @@
 const baseUrl = 'http://localhost:3030/';
-const baseImgUrl = 'https://pixabay.com/api/'
+const baseImgUrl = 'https://pixabay.com/api/?image_type=photo&orientation=horizontal&category=fashion'
 const apiKeyImg = '19817444-e2944238b0133b6bab479e2af';
 
 function makeRequest(method, url) {
@@ -42,7 +42,7 @@ function getFeaturedPrice() {
 }
 
 function getFeaturedPics(limit) {
-    const urlImg = `${baseImgUrl}?image_type=photo&orientation=horizontal&category=industry&page=1&per_page=${limit}&key=${apiKeyImg}`;
+    const urlImg = `${baseImgUrl}&category=industry&page=1&per_page=${limit}&key=${apiKeyImg}`;
     let featuredPics = makeRequest('GET', urlImg)
         .then(function (datums) {
             return datums
@@ -55,8 +55,8 @@ function getFeaturedPics(limit) {
 
 //  popular products 
 
-function getPopularPrice() {
-    const params = `products?$sort[upc]=1&$limit=9`;
+function getPopularPrice(limit) {
+    const params = `products?$sort[upc]=1&$limit=${limit}`;
     let url = baseUrl + params;
     let popularPrice = makeRequest('GET', url)
         .then(function (datums) {
@@ -69,7 +69,7 @@ function getPopularPrice() {
 }
 
 function getPopularPics(query, limit) {
-    const url = `${baseImgUrl}?image_type=photo&orientation=horizontal&category=fashion&q=${query}&page=1&per_page=${limit}&key=${apiKeyImg}`;
+    const url = `${baseImgUrl}&q=${query}&page=1&per_page=${limit}&key=${apiKeyImg}`;
     let popularPics = makeRequest('GET', url)
         .then(function (datums) {
             return datums
@@ -80,6 +80,30 @@ function getPopularPics(query, limit) {
     return popularPics
 }
 
+// get all products pics
+function getAllPics(limit, query) {
+    let picsJ = makeRequest('GET', `${baseImgUrl}&q=${query}&per_page=${limit}&key=${apiKeyImg}`)
+        .then(function (datums) {
+            datums.category = `${query}`
+            return datums
+        })
+        .catch(function (err) {
+            console.error('Augh, there was an error!', err.statusText);
+        });
 
+    return picsJ
+}
+function getAllPrice(limit) {
+    const params = `products?$limit=${limit}`;
+    let url = baseUrl + params;
+    let allPrice = makeRequest('GET', url)
+        .then(function (datums) {
+            return datums
+        })
+        .catch(function (err) {
+            console.error('Augh, there was an error!', err.statusText);
+        });
+    return allPrice
+}
 
-export default { getFeaturedPrice, getFeaturedPics, getPopularPrice, getPopularPics };
+export default { getAllPics, getAllPrice, getFeaturedPrice, getFeaturedPics, getPopularPrice, getPopularPics };
