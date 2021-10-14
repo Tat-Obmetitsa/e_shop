@@ -1,43 +1,85 @@
 const baseUrl = 'http://localhost:3030/';
-import { setStorageItem } from './utils'
 const baseImgUrl = 'https://pixabay.com/api/'
 const apiKeyImg = '19817444-e2944238b0133b6bab479e2af';
-let limit;
 
+function makeRequest(method, url) {
+    return new Promise(function (resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.open(method, url);
+        xhr.onload = function () {
+            if (this.status >= 200 && this.status < 300) {
+                resolve(JSON.parse(xhr.responseText));
+            } else {
+                reject({
+                    status: this.status,
+                    statusText: xhr.statusText
+                });
+            }
+        };
+        xhr.onerror = function () {
+            reject({
+                status: this.status,
+                statusText: xhr.statusText
+            });
+        };
+        xhr.send();
+    });
+}
 
-// from pixabay "popular"
+//  featured products 
 
-const fetchPics = async (query, limit) => {
-    const url = `${baseImgUrl}?image_type=photo&orientation=horizontal&category=industry&q=${query}&page=1&per_page=${limit}&key=${apiKeyImg}`;
-    const response = await fetch(url).then(response => response.json()).catch((err) => console.log(err));
-
-    return response;
-};
-
-
-// from local api 
-const fetchFeatured = async (limit) => {
-    const params = `products?name[$like]=*over-the-ear*&$limit=${limit}`;
+function getFeaturedPrice() {
+    const params = `products?$sort[upc]=1&$limit=12`;
     let url = baseUrl + params;
-    const response = await fetch(url).then(response => response.json())
-        .then(({ data }) => {
-            setStorageItem("item", data)
+    let featuredPrice = makeRequest('GET', url)
+        .then(function (datums) {
+            return datums
+        })
+        .catch(function (err) {
+            console.error('Augh, there was an error!', err.statusText);
+        });
+    return featuredPrice
+}
 
-            return data;
-        }).catch((err) => console.log(err));
+function getFeaturedPics(limit) {
+    const urlImg = `${baseImgUrl}?image_type=photo&orientation=horizontal&category=industry&page=1&per_page=${limit}&key=${apiKeyImg}`;
+    let featuredPics = makeRequest('GET', urlImg)
+        .then(function (datums) {
+            return datums
+        })
+        .catch(function (err) {
+            console.error('Augh, there was an error!', err.statusText);
+        });
+    return featuredPics
+}
 
-    return response;
-};
+//  popular products 
 
-
-// from local "popular"
-const fetchPopular = async (limit) => {
-    const params = `products?$sort[upc]=1&$limit=${limit}`;
+function getPopularPrice() {
+    const params = `products?$sort[upc]=1&$limit=9`;
     let url = baseUrl + params;
-    const response = await fetch(url).then(response => response.json()).catch((err) => console.log(err));
+    let popularPrice = makeRequest('GET', url)
+        .then(function (datums) {
+            return datums
+        })
+        .catch(function (err) {
+            console.error('Augh, there was an error!', err.statusText);
+        });
+    return popularPrice
+}
 
-    return response;
-};
+function getPopularPics(query, limit) {
+    const url = `${baseImgUrl}?image_type=photo&orientation=horizontal&category=fashion&q=${query}&page=1&per_page=${limit}&key=${apiKeyImg}`;
+    let popularPics = makeRequest('GET', url)
+        .then(function (datums) {
+            return datums
+        })
+        .catch(function (err) {
+            console.error('Augh, there was an error!', err.statusText);
+        });
+    return popularPics
+}
 
 
-export default { fetchFeatured, fetchPopular, fetchPics };
+
+export default { getFeaturedPrice, getFeaturedPics, getPopularPrice, getPopularPics };

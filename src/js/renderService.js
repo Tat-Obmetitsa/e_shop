@@ -30,16 +30,15 @@ function getCommonData(a, b, gallery, tpl) {
 
 }
 const init = async () => {
-    const featuredProducts = await API.fetchFeatured(12);
-    const popularProducts = await API.fetchPics('fashion', 9);
-    const priceProfucts = await API.fetchPopular(9);
+    const featuredPics = await API.getFeaturedPics(12);
+    const featuredPrice = await API.getFeaturedPrice();
+    const popularPics = await API.getPopularPics('outfit', 9);
+    const popularPrice = await API.getPopularPrice();
 
 
+    getCommonData(popularPics, popularPrice, popularGallery, popularTpl);
+    getCommonData(featuredPics, featuredPrice, featuredGallery, featuredTpl);
 
-    getCommonData(popularProducts, priceProfucts, popularGallery, popularTpl);
-
-
-    featuredGallery.insertAdjacentHTML('beforeend', featuredTpl(featuredProducts));
 };
 
 
