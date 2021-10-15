@@ -1,9 +1,13 @@
 import '../scss/main.scss'
 import 'regenerator-runtime/runtime.js';
 import { getElement } from './utils';
-import API from './apiServer';
+// import API from './apiServer';
+import ApiService from './apiServer';
+
+const apiService = new ApiService();
+
 import productListTpl from '../templates/productList.hbs';
-import { get } from 'jquery';
+import './header';
 // let priceMax = document.querySelectorAll('.active + label .price_num high')
 // let priceMin = document.querySelectorAll('.active + label')
 const priceSortBtn = getElement('.sort-btn-price')
@@ -75,9 +79,8 @@ function getCommonData(a, b, gallery, view, tpl,) {
 }
 
 const sort = async () => {
-    let query = 'clothes';
-    const popularPics = await API.getAllPics(200, query);
-    const popularPrice = await API.getAllPrice(200);
+    const popularPics = await apiService.getPics(200, 'clothes');
+    const popularPrice = await apiService.getPrice(200);
 
     renderCategories()
     getCommonData(popularPics, popularPrice, productGallery, viewNum, productListTpl)

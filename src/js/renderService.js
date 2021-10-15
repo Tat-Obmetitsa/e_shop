@@ -1,11 +1,13 @@
 import { getElement } from './utils'
-import API from './apiServer';
 import popularTpl from '../templates/popularGallery.hbs';
 import featuredTpl from '../templates/featuredGallery.hbs';
+import ApiService from './apiServer';
 
+const apiService = new ApiService();
 
 const popularGallery = getElement('.popular__list');
 const featuredGallery = getElement('.featured__list');
+
 
 function getCommonData(a, b, gallery, tpl) {
     Promise.all([a, b]).then(values => {
@@ -30,10 +32,10 @@ function getCommonData(a, b, gallery, tpl) {
 
 }
 const init = async () => {
-    const featuredPics = await API.getFeaturedPics(12);
-    const featuredPrice = await API.getFeaturedPrice();
-    const popularPics = await API.getPopularPics('outfit', 9);
-    const popularPrice = await API.getPopularPrice();
+    const featuredPics = await apiService.getPics(12, 'cloth');
+    const featuredPrice = await apiService.getPrice(12);
+    const popularPics = await apiService.getPics(9, 'outfit');
+    const popularPrice = await apiService.getPrice(9);
 
 
     getCommonData(popularPics, popularPrice, popularGallery, popularTpl);
