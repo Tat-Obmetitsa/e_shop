@@ -50,8 +50,28 @@ $('.slider').slick({
     }]
 
 });
+import RenderService from './render';
 
-window.addEventListener('DOMContentLoaded', render.init);
+
+import popularTpl from '../templates/popularGallery.hbs';
+import featuredTpl from '../templates/featuredGallery.hbs';
+const popularGallery = document.querySelector('.popular__list')
+const featuredGallery = document.querySelector('.featured__list')
+
+
+const init = async () => {
+    await render.init()
+
+    const renderService = new RenderService(render.commonArray);
+
+    await renderService.getCategoryHome(popularGallery, popularTpl, 'fashion', 9)
+    await renderService.getCategoryHome(featuredGallery, featuredTpl, 'cloth', 12)
+
+};
+
+
+
+window.addEventListener('DOMContentLoaded', init);
 
 
 

@@ -25,7 +25,6 @@ function makeRequest(method, url) {
         xhr.send();
     });
 }
-
 export default class ApiService {
     constructor() {
         this.searchQuery = '';

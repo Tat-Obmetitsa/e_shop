@@ -1,6 +1,7 @@
 
 
 
+
 // burger menu appearing click
 
 (() => {
@@ -20,36 +21,40 @@
 
 // input appearing click
 
+
+
 (() => {
     const searchBtn = document.querySelectorAll('.search');
     const input = document.querySelectorAll('.header__wrapper-input')
+
     searchBtn.forEach(e => {
         e.addEventListener('click', () => {
             input.forEach(e => {
                 e.classList.toggle('hidden')
+                if (e !== '') {
+
+                    onSearch
+                }
             });
 
         })
-
     })
-
-
-    function onSearch(evt) {
-        evt.preventDefault();
-
-        picsApiService.query = evt.currentTarget.elements.query.value;
-        clearPicsGallery();
-        if (picsApiService.query === '') {
-            loadMoreBtn.hide();
-            return alert({
-                text: 'Try again :)',
-            });
-        }
-
-        loadMoreBtn.show();
-        picsApiService.resetPage();
-        clearPicsGallery();
-        getPics();
-    }
-
 })();
+
+
+export default function onSearch(evt) {
+    evt.preventDefault();
+    apiService.query = evt.currentTarget.elements.query.value;
+    // gallery.innerHTML = '';
+
+    if (apiService.query === '') {
+        return alert({
+            text: 'Try again :)',
+        });
+    }
+    apiService.resetPage();
+    // gallery.innerHTML = '';
+    apiService.getSearchPics(200);
+    apiService.getPrice(200);
+    console.log('s')
+}

@@ -1,16 +1,20 @@
-import { getElement } from './utils'
+
 import popularTpl from '../templates/popularGallery.hbs';
 import featuredTpl from '../templates/featuredGallery.hbs';
 import ApiService from './apiServer';
 
 const apiService = new ApiService();
-
-const popularGallery = getElement('.popular__list');
-const featuredGallery = getElement('.featured__list');
+import RenderService from './render';
 
 
-function getCommonData(a, b, gallery, tpl) {
-    Promise.all([a, b]).then(values => {
+
+const commonArray = []
+const getCommonData = async () => {
+    const popularPics = apiService.getPics(200, 'clothes');
+    const popularPrice = apiService.getPrice(200);
+    // let itemsNum;
+    await Promise.all([popularPics, popularPrice]).then(values => {
+        // itemsNum = 16;
         let hitsObj = values[0].hits
         let dataObj = values[1].data;
         let arrPrices = []
@@ -27,22 +31,35 @@ function getCommonData(a, b, gallery, tpl) {
             }
 
         }
-        gallery.insertAdjacentHTML('beforeend', tpl(hitsObj));
+
+        commonArray.push(...hitsObj)
+        // upBtn.addEventListener('click', () => {
+        //     productGallery.innerHTML = '';
+
+        //     let arr = sortUp(commonArray)
+        //     productGallery.insertAdjacentHTML('beforeend', productListTpl(arr));
+
+
+
+        // })
+        // downBtn.addEventListener('click', () => {
+        //     productGallery.innerHTML = '';
+        //     let arr = sortDown(commonArray)
+        //     productGallery.insertAdjacentHTML('beforeend', productListTpl(arr));
+
+
+
+        // })
+
+        // view.textContent = `${itemsNum} of ${values[0].total}`
+
+        return commonArray
     })
-
 }
+
+
 const init = async () => {
-    const featuredPics = await apiService.getPics(12, 'cloth');
-    const featuredPrice = await apiService.getPrice(12);
-    const popularPics = await apiService.getPics(9, 'outfit');
-    const popularPrice = await apiService.getPrice(9);
-
-
-    getCommonData(popularPics, popularPrice, popularGallery, popularTpl);
-    getCommonData(featuredPics, featuredPrice, featuredGallery, featuredTpl);
-
+    await getCommonData()
 };
 
-
-
-export default { init };
+export default { init, commonArray };
