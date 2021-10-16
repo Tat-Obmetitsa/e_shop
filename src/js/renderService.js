@@ -3,6 +3,7 @@ import popularTpl from '../templates/popularGallery.hbs';
 import featuredTpl from '../templates/featuredGallery.hbs';
 import ApiService from './apiServer';
 
+import 'regenerator-runtime/runtime.js';
 const apiService = new ApiService();
 import RenderService from './render';
 

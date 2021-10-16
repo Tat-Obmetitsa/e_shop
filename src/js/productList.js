@@ -1,5 +1,5 @@
 import '../scss/main.scss'
-import './header';
+// import search from './header';
 import 'regenerator-runtime/runtime.js';
 import render from './renderService';
 import RenderService from './render';
@@ -7,7 +7,8 @@ const renderService = new RenderService(render.commonArray);
 
 import productListTpl from '../templates/productList.hbs';
 const productGallery = document.querySelector('.list__gallery');
-
+const searchBtn = document.querySelectorAll('.search');
+const input = document.querySelectorAll('.header__wrapper-input')
 
 
 
@@ -47,9 +48,20 @@ const sort = async () => {
     await renderCategories()
 
 }
-function searchData() {
-    onSearch()
+function searchData(evt) {
 
+    evt.preventDefault();
+    renderService.query = evt.currentTarget.value;
+    // gallery.innerHTML = '';
+
+    if (renderService.query === '') {
+        return alert('Nothing was found ');
+    }
+    // renderService.resetPage();
+    // gallery.innerHTML = '';
+
+
+    renderService.getSearch(productGallery, productListTpl, `${renderService.query}`)
 }
 
 function renderCategories() {
@@ -92,5 +104,33 @@ function renderCategories() {
 }
 
 
+input.forEach(el => {
+    el.addEventListener('keyup', searchData)
+});
+
+
+
+
 
 window.addEventListener('DOMContentLoaded', sort);
+
+
+
+
+
+// burger menu appearing click
+
+(() => {
+    const menuBtnRef = document.querySelector("[data-menu-button]");
+    const mobileMenuRef = document.querySelector("[data-menu]");
+
+    menuBtnRef.addEventListener("click", () => {
+        const expanded =
+            menuBtnRef.getAttribute("aria-expanded") === "true" || false;
+
+        menuBtnRef.classList.toggle("is-open");
+        menuBtnRef.setAttribute("aria-expanded", !expanded);
+
+        mobileMenuRef.classList.toggle("is-open");
+    });
+})();

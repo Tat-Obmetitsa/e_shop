@@ -3,63 +3,16 @@ import 'slick-carousel';
 import 'regenerator-runtime/runtime.js';
 import { getStorageItem, setStorageItem } from './utils'
 import render from './renderService';
-import './header';
-
-// homepage sliders
-$('.slick').slick({
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    dots: false,
-    arrows: false,
-    lazyLoad: 'progressive',
-    mobileFirst: true,
-    slidesToShow: 1,
-    infinite: true,
-    responsive: [{
-
-        breakpoint: 1200,
-        settings: {
-            arrows: true,
-            dots: true,
-        }
-
-    }]
-});
-
-$('.slider').slick({
-    slidesToShow: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    dots: false,
-    arrows: false,
-    lazyLoad: 'progressive',
-    mobileFirst: true,
-    responsive: [{
-        breakpoint: 765,
-        settings: {
-            slidesToShow: 2,
-        },
-
-        breakpoint: 1200,
-        settings: {
-            slidesToShow: 3,
-            arrows: true,
-        }
-    }]
-
-});
 import RenderService from './render';
-
-
 import popularTpl from '../templates/popularGallery.hbs';
 import featuredTpl from '../templates/featuredGallery.hbs';
-const popularGallery = document.querySelector('.popular__list')
-const featuredGallery = document.querySelector('.featured__list')
+
 
 
 const init = async () => {
+    const popularGallery = document.querySelector('.popular__list')
+    const featuredGallery = document.querySelector('.featured__list')
+
     await render.init()
 
     const renderService = new RenderService(render.commonArray);
@@ -108,20 +61,102 @@ window.addEventListener('click', e => {
 
 
     viewAllFeatured.addEventListener('click', () => {
-        setStorageItem('sort', 'featured');
-        setStorageItem('category', 'all');
+        category = 'featured';
     })
-    viewAllPopular.addEventListener('click', () => {
-        setStorageItem('sort', 'popular');
-        setStorageItem('category', 'all');
-    })
-    viewAllNew.addEventListener('click', () => {
-        setStorageItem('sort', 'new');
-        setStorageItem('category', 'all');
-    })
-    viewAllSales.addEventListener('click', () => {
-        setStorageItem('sort', 'sales');
-        setStorageItem('category', 'all');
-    })
+    // viewAllPopular.addEventListener('click', () => {
+    //     setStorageItem('sort', 'popular');
+    //     setStorageItem('category', 'all');
+    // })
+    // viewAllNew.addEventListener('click', () => {
+    //     setStorageItem('sort', 'new');
+    //     setStorageItem('category', 'all');
+    // })
+    // viewAllSales.addEventListener('click', () => {
+    //     setStorageItem('sort', 'sales');
+    //     setStorageItem('category', 'all');
+    // })
 
 })();
+
+
+// burger menu appearing click
+
+(() => {
+    const menuBtnRef = document.querySelector("[data-menu-button]");
+    const mobileMenuRef = document.querySelector("[data-menu]");
+
+    menuBtnRef.addEventListener("click", () => {
+        const expanded =
+            menuBtnRef.getAttribute("aria-expanded") === "true" || false;
+
+        menuBtnRef.classList.toggle("is-open");
+        menuBtnRef.setAttribute("aria-expanded", !expanded);
+
+        mobileMenuRef.classList.toggle("is-open");
+    });
+})();
+
+// input appearing click
+
+
+(() => {
+    const searchBtn = document.querySelectorAll('.search');
+    const input = document.querySelectorAll('.header__wrapper-input')
+
+    searchBtn.forEach(e => {
+        e.addEventListener('click', () => {
+            input.forEach(e => {
+                e.classList.toggle('hidden')
+
+            });
+
+        })
+    })
+})();
+
+
+// homepage sliders
+$('.slick').slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    dots: false,
+    arrows: false,
+    lazyLoad: 'progressive',
+    mobileFirst: true,
+    slidesToShow: 1,
+    infinite: true,
+    responsive: [{
+
+        breakpoint: 1200,
+        settings: {
+            arrows: true,
+            dots: true,
+        }
+
+    }]
+});
+
+$('.slider').slick({
+    slidesToShow: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    dots: false,
+    arrows: false,
+    lazyLoad: 'progressive',
+    mobileFirst: true,
+    responsive: [{
+        breakpoint: 765,
+        settings: {
+            slidesToShow: 2,
+        },
+
+        breakpoint: 1200,
+        settings: {
+            slidesToShow: 3,
+            arrows: true,
+        }
+    }]
+
+});

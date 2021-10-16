@@ -31,17 +31,7 @@ export default class ApiService {
         this.page = 1;
     }
 
-    getSearchPics(limit) {
-        const urlImg = `${baseImgUrl}&page=${this.page}&q=${this.searchQuery}&per_page=${limit}&key=${apiKeyImg}`;
 
-        return makeRequest('GET', urlImg)
-            .then(function (datums) {
-                return datums
-            })
-            .catch(function (err) {
-                console.error('Augh, there was an error!', err.statusText);
-            });
-    }
     getPics(limit, search) {
         const urlImg = `${baseImgUrl}&page=${this.page}&q=${search}&per_page=${limit}&key=${apiKeyImg}`;
 
@@ -72,11 +62,5 @@ export default class ApiService {
         this.page = 1;
     }
 
-    get query() {
-        return this.searchQuery;
-    }
 
-    set query(newQuery) {
-        this.searchQuery = newQuery;
-    }
 }
