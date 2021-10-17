@@ -31,28 +31,28 @@ const getCommonData = async () => {
     })
 }
 
-let index = 0
-let pages = []
+// let index = 0
+// let pages = []
 
-function displayButtons(container, page, activeIndex) {
-    let btns = page.map((_, pageIndex) => {
-        return `<button class="page-btn ${activeIndex === pageIndex ? 'active-btn' : 'null '
-            }" data-index="${pageIndex}">
-                        ${pageIndex + 1}
-                        </button>`
-    })
+// function displayButtons(container, page, activeIndex) {
+//     let btns = page.map((_, pageIndex) => {
+//         return `<button class="page-btn ${activeIndex === pageIndex ? 'active-btn' : 'null '
+//             }" data-index="${pageIndex}">
+//                         ${pageIndex + 1}
+//                         </button>`
+//     })
 
-    btns.push(`<button class="next-btn">next</button>`)
-    btns.unshift(`<button class="prev-btn">prev</button>`)
-    container.innerHTML = btns.join('')
-}
+//     btns.push(`<button class="next-btn">next</button>`)
+//     btns.unshift(`<button class="prev-btn">prev</button>`)
+//     container.innerHTML = btns.join('')
+// }
 
 const init = async () => {
     await getCommonData();
-    const renderService = new RenderService(commonArray);
-    let response = await renderService.paginate()
-    pages.push(...response)
+    // const renderService = new RenderService(commonArray);
+    // let response = await renderService.paginate()
+    // pages.push(...response)
 }
 
 
-export default { init, commonArray, displayButtons, pages, index };
+export default { init, commonArray, };

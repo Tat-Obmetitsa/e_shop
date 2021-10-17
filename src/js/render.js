@@ -21,14 +21,17 @@ export default class RenderService {
         // viewNum.textContent = `${newArray.length} items`
 
     }
-    getCategoryAll(gallery, tpl, searchQuery) {
+    getCategoryAll(gallery, tpl, array) {
         gallery.innerHTML = '';
+        gallery.insertAdjacentHTML('beforeend', tpl(array));
+        // viewNum.textContent = `${newArray.length} items`
+
+    }
+    getCat(searchQuery) {
         this.filtered = this.arr.filter(e =>
             e.tags.includes(`${searchQuery}`)
         )
-        gallery.insertAdjacentHTML('beforeend', tpl(this.filtered));
-        // viewNum.textContent = `${newArray.length} items`
-
+        return this.filtered
     }
     getSearch(gallery, tpl, query) {
         gallery.innerHTML = '';
@@ -48,12 +51,11 @@ export default class RenderService {
 
     paginate() {
         const itemsPerPage = 9;
-        console.log(this.arr)
-        const numberOfPages = Math.ceil(this.arr.length / itemsPerPage)
+        const numberOfPages = Math.ceil(this.filtered.length / itemsPerPage)
 
         const newPages = Array.from({ length: numberOfPages }, (_, index) => {
             const start = index * itemsPerPage;
-            return this.arr.slice(start, start + itemsPerPage)
+            return this.filtered.slice(start, start + itemsPerPage)
         })
         return newPages
     }
