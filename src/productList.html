@@ -17,15 +17,17 @@
                 </svg>
                 <span class="header__wrapper-logo">Elliye</span>
             </div>
+            <form action="post" class="header__wrapper-form">
+                <input class="header__wrapper-input product" type="search" name="search" placeholder="Search..."
+                    aria-label="search" />
+                <button type="button" class="header__wrapper-button search">
+                    <svg width="24px" height="24px" aria-label="search">
+                        <use href="./assets/homepage/sprite.svg#search"></use>
+                    </svg>
+                </button>
+            </form>
             <div class="header__wrapper header__wrapper-desktop" id="header__wrapper-desktop" data-menu>
-                <form action="post" class="header__wrapper-form">
-                    <input class="header__wrapper-input" type="search" name="search" aria-label="search" />
-                    <button type="button" class="header__wrapper-button search">
-                        <svg width="24px" height="24px" aria-label="search">
-                            <use href="./assets/homepage/sprite.svg#search"></use>
-                        </svg>
-                    </button>
-                </form>
+
                 <a href="./cart.html" class="header__wrapper-button cart">
                     <svg width="24px" height="24px" aria-label="cart">
                         <use href="./assets/homepage/sprite.svg#cart"></use>
@@ -35,14 +37,7 @@
                 <button type="button" class="button">Login</button>
             </div>
             <div class="header__wrapper-mobile">
-                <form action="post" class="header__wrapper-form">
-                    <input class="header__wrapper-input hidden" type="search" name="search" aria-label="search" />
-                    <button type="button" class="header__wrapper-button search">
-                        <svg width="24px" height="24px" aria-label="search">
-                            <use href="./assets/homepage/sprite.svg#search"></use>
-                        </svg>
-                    </button>
-                </form>
+
                 <a href="./checkout.html" class="header__wrapper-button cart">
                     <svg width="24px" height="24px" aria-label="cart">
                         <use href="./assets/homepage/sprite.svg#cart"></use>
@@ -159,21 +154,18 @@
             <section>
                 <div class="list__view">
                     <p>Viewing <span class="list__view-results"> results</span> </p>
-                    <p>Sort by
-                    <ul>
-                        <li>
-                            <button type="button" class="sort-btn-price button up  ">Price<span
-                                    class="arrow-up ">&#8593;</span><span class="arrow-down">&#8595;</span>
-                            </button>
-                            <button type="button" class="sort-btn-price down button">Price<span
-                                    class="arrow-down hidden">&#8595;</span>
-                            </button>
-                        </li>
-                    </ul>
-                    </p>
+                    <div class="list__view-sort">
+                        <p>Sort by</p>
+                        <button type="button" class="sort-btn-price button up  ">Price <span
+                                class="arrow-up ">&#8593;</span>
+                        </button>
+                        <button type="button" class="sort-btn-price down button hidden">Price <span
+                                class="arrow-down ">&#8595;</span>
+                        </button>
+                    </div>
 
                 </div>
-                <ul class="list__gallery"></ul>
+                <ul id="gallery" class="list__gallery"></ul>
                 <div class="pagination"></div>
             </section>
         </div>

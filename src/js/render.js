@@ -12,39 +12,22 @@ export default class RenderService {
         gallery.insertAdjacentHTML('beforeend', tpl(this.filtered.slice(0, amount)));
     }
 
-    getAll(gallery, tpl, searchQuery, array) {
-        gallery.innerHTML = '';
-        this.filtered = array.filter(e =>
-            e.tags.includes(`${searchQuery}`)
-        )
-        gallery.insertAdjacentHTML('beforeend', tpl(this.filtered));
-        // viewNum.textContent = `${newArray.length} items`
-
-    }
     getCategoryAll(gallery, tpl, array) {
         gallery.innerHTML = '';
         gallery.insertAdjacentHTML('beforeend', tpl(array));
-        // viewNum.textContent = `${newArray.length} items`
-
     }
-    getCat(searchQuery) {
+
+    getFiltered(searchQuery) {
         this.filtered = this.arr.filter(e =>
             e.tags.includes(`${searchQuery}`)
         )
         return this.filtered
     }
-    getSearch(gallery, tpl, query) {
-        gallery.innerHTML = '';
-        this.filtered = this.arr.filter(e =>
-            e.tags.includes(`${query}`)
-        )
-        gallery.insertAdjacentHTML('beforeend', tpl(this.filtered));
-        // viewNum.textContent = `${newArray.length} items`
-    }
 
     sortUp() {
         if (this.filtered !== undefined) return this.filtered.sort((a, b) => a.price - b.price);
     }
+
     sortDown() {
         if (this.filtered !== undefined) return this.filtered.sort((a, b) => b.price - a.price);
     }
@@ -57,6 +40,7 @@ export default class RenderService {
             const start = index * itemsPerPage;
             return this.filtered.slice(start, start + itemsPerPage)
         })
+
         return newPages
     }
 

@@ -69,8 +69,15 @@
             & .wrapper__description {
                 max-width: 100%;
 
+                object-fit: cover;
+
+                @media screen and (max-width: 450px) {
+                    width: 150px;
+                }
                 @media screen and (min-width: 1200px) and (max-width: 1919px) {
                     max-width: 60%;
+                    height: 100%;
+                    object-fit: cover;
                 }
 
                 @media screen and (min-width: 1920px) {

@@ -6,12 +6,13 @@ import render from './renderService';
 import RenderService from './render';
 import popularTpl from '../templates/popularGallery.hbs';
 import featuredTpl from '../templates/featuredGallery.hbs';
-
+import arrivalsTpl from '../templates/arrivalsGallery.hbs';
 
 
 const init = async () => {
-    const popularGallery = document.querySelector('.popular__list')
-    const featuredGallery = document.querySelector('.featured__list')
+    const popularGallery = document.querySelector('.popular__list');
+    const featuredGallery = document.querySelector('.featured__list');
+    const arrivalsGallery = document.getElementById('arrivals__list');
 
     await render.init()
 
@@ -19,6 +20,7 @@ const init = async () => {
 
     await renderService.getCategoryHome(popularGallery, popularTpl, 'fashion', 9)
     await renderService.getCategoryHome(featuredGallery, featuredTpl, 'cloth', 12)
+    await renderService.getCategoryHome(arrivalsGallery, arrivalsTpl, 'cloth', 4)
 
 };
 

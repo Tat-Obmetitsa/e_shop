@@ -13,17 +13,25 @@
 
     & .list__view {
         @include flex(space-between);
+        @include font(1em, 400, 1.5);
         margin-bottom: 32px;
+        text-align: center;
 
         & .sort-btn-price.button span {
             position: static;
+        }
+        & .sort-btn-price {
+            @include font(1.5em, 400, 1.5);
+            width: 8rem;
+            height: 3rem;
+            transition-duration: 0ms;
         }
     }
 
     & .list__gallery {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-rows: repeat(auto-fill, 1fr);
         grid-column-gap: 32px;
         grid-row-gap: 32px;
 
@@ -59,5 +67,19 @@
             margin-top: 10px;
             color: $text-gray;
         }
+    }
+}
+
+.pagination {
+    @include flex(center);
+    margin: 32px 0;
+    .button {
+        margin-right: 10px;
+    }
+
+    .active-btn {
+        background-color: #fff;
+        color: $dark;
+        border: $dark;
     }
 }

@@ -1,40 +1,35 @@
 import '../scss/main.scss'
-// import search from './header';
 import 'regenerator-runtime/runtime.js';
 import render from './renderService';
 import RenderService from './render';
-const renderService = new RenderService(render.commonArray);
-const paginationContainer = document.querySelector('.pagination')
 import productListTpl from '../templates/productList.hbs';
+
+const renderService = new RenderService(render.commonArray);
+
+const paginationContainer = document.querySelector('.pagination');
 const productGallery = document.querySelector('.list__gallery');
-const searchBtn = document.querySelectorAll('.search');
-const input = document.querySelectorAll('.header__wrapper-input')
+const input = document.querySelectorAll('.header__wrapper-input');
 
-let index = 0
-let pages = []
-
-
-// let priceMax = document.querySelectorAll('.active + label .price_num high')
-// let priceMin = document.querySelectorAll('.active + label')
-const priceSortBtn = document.querySelector('.sort-btn-price')
-const priceSortBtnSpan = document.querySelector('.sort-btn-price span')
 const upBtn = document.querySelector('.up')
 const downBtn = document.querySelector('.down')
-// // .price_num high
-// // .price_num low
-
 
 const viewNum = document.querySelector('.list__view-results')
 const categoriesBtns = document.querySelectorAll('.categories-btn.button')
-const priceCheck = document.querySelectorAll(".list__filter-item_list input")
 
-// const setupUI = () => {
-//     renderService.getAll(productGallery, productListTpl, '', pages[index]);
-//     render.displayButtons(paginationContainer, pages, index)
-// }
+let index = 0
+let pages = []
+let data;
 
+// let priceMax = document.querySelectorAll('.active + label .price_num high')
+// let priceMin = document.querySelectorAll('.active + label')
+// const searchBtn = document.querySelectorAll('.search');
+// const priceCheck = document.querySelectorAll(".list__filter-item_list input")
+
+
+// pagination  
 
 paginationContainer.addEventListener('click', function (e) {
+
     if (e.target.classList.contains('pagination')) return
     if (e.target.classList.contains('page-btn')) {
         index = parseInt(e.target.dataset.index)
@@ -51,36 +46,40 @@ paginationContainer.addEventListener('click', function (e) {
             index = pages.length - 1
         }
     }
-    // setupUI()
+    viewNumItems(index, data.length, 9)
+    getData()
     renderCategories()
 })
 
 
-let data = []
+// sort by price and render
 
 const sort = async () => {
-
     await render.init();
-    // setupUI()
-
+    // viewNum.textContent = ` ${count} of ${data.length} items`
     upBtn.addEventListener('click', () => {
         productGallery.innerHTML = '';
+        upBtn.classList.add("hidden")
+        downBtn.classList.remove("hidden")
         let array = renderService.sortUp()
         productGallery.insertAdjacentHTML('beforeend', productListTpl(array));
+
     })
     downBtn.addEventListener('click', () => {
         productGallery.innerHTML = '';
+        downBtn.classList.add("hidden")
+        upBtn.classList.remove("hidden")
         let array = renderService.sortDown()
         productGallery.insertAdjacentHTML('beforeend', productListTpl(array));
     })
-
-
+    await getCategory('')
     await getData()
-    // await renderService.getCategoryAll(productGallery, productListTpl, '');
-
     await renderCategories()
 
 }
+
+// add search on Product Page
+
 function searchData(evt) {
 
     evt.preventDefault();
@@ -89,29 +88,50 @@ function searchData(evt) {
     if (renderService.query === '') {
         return alert('Nothing was found ');
     }
-
-
-    renderService.getSearch(productGallery, productListTpl, `${renderService.query}`)
+    getCategory(renderService.query)
+    renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
 }
-const getData = async () => {
-    await getF('')
-    categoriesBtns[0].addEventListener('click', () => getF('jacket'))
-    categoriesBtns[1].addEventListener('click', () => getF('shirt'))
-    categoriesBtns[2].addEventListener('click', () => getF('jeans'))
-    categoriesBtns[3].addEventListener('click', () => getF('shoes'))
-    categoriesBtns[4].addEventListener('click', () => getF('dress'))
-    categoriesBtns[5].addEventListener('click', () => getF('woman'))
+
+input.forEach(el => {
+    el.addEventListener('keyup', searchData)
+});
+
+//  get categories
+
+const getData = () => {
+
+    categoriesBtns[0].addEventListener('click', () => getCategory('jacket'))
+    categoriesBtns[1].addEventListener('click', () => getCategory('shirt'))
+    categoriesBtns[2].addEventListener('click', () => getCategory('jeans'))
+    categoriesBtns[3].addEventListener('click', () => getCategory('shoes'))
+    categoriesBtns[4].addEventListener('click', () => getCategory('dress'))
+    categoriesBtns[5].addEventListener('click', () => getCategory('woman'))
+
 }
-const getF = async (query) => {
+
+const getCategory = async (query) => {
     data = []
-    data = await renderService.getCat(query)
-    let response = renderService.paginate(data)
+    data = renderService.getFiltered(query)
+    let response = renderService.paginate()
     pages = []
     pages.push(...response)
-    console.log(pages)
+    viewNumItems(index, data.length, 9)
+    displayButtons(paginationContainer, pages, index)
+
 }
+
+const viewNumItems = (page, total, itemsOnPage) => {
+    page = page + 1
+    let start = (page - 1) * itemsOnPage + 1;
+    let end = Math.min(page * itemsOnPage, total);
+    viewNum.textContent = `${start} to ${end} of ${total} `
+    return viewNum
+};
+
 function renderCategories() {
+
     renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
+
     categoriesBtns.forEach(e => {
         e.addEventListener('click', () => {
             upBtn.addEventListener('click', () => {
@@ -124,32 +144,34 @@ function renderCategories() {
                 let array = renderService.sortDown()
                 productGallery.insertAdjacentHTML('beforeend', productListTpl(array));
             })
+            index = 0;
             renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
+
         })
     })
     displayButtons(paginationContainer, pages, index)
 
+
 }
-
-
-input.forEach(el => {
-    el.addEventListener('keyup', searchData)
-});
-
 
 window.addEventListener('DOMContentLoaded', sort);
 
 
+// pagination btns
+
 function displayButtons(container, page, activeIndex) {
     let btns = page.map((_, pageIndex) => {
-        return `<button class="page-btn ${activeIndex === pageIndex ? 'active-btn' : 'null '
+        return `<button class="page-btn button ${activeIndex === pageIndex ? 'active-btn' : 'null '
             }" data-index="${pageIndex}">
                         ${pageIndex + 1}
                         </button>`
-    })
 
-    btns.push(`<button class="next-btn">next</button>`)
-    btns.unshift(`<button class="prev-btn">prev</button>`)
+    })
+    // let activePage = activeIndex + 1
+    // let numOnPage = data.length / pages.length
+    // viewNum.textContent = `${Math.ceil(activePage * numOnPage)} of ${data.length} items`
+    btns.push(`<button class="next-btn button">&#10095;</button>`)
+    btns.unshift(`<button class="prev-btn button">&#10094;</button>`)
     container.innerHTML = btns.join('')
 }
 
