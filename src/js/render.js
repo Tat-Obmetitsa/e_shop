@@ -43,6 +43,17 @@ export default class RenderService {
 
         return newPages
     }
+    filteredPaginate(array) {
+        const itemsPerPage = 9;
+        const numberOfPages = Math.ceil(array.length / itemsPerPage)
+
+        const newPages = Array.from({ length: numberOfPages }, (_, index) => {
+            const start = index * itemsPerPage;
+            return array.slice(start, start + itemsPerPage)
+        })
+
+        return newPages
+    }
 
     get query() {
         return this.searchQuery;

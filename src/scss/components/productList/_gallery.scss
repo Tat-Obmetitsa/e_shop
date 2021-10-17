@@ -73,13 +73,28 @@
 .pagination {
     @include flex(center);
     margin: 32px 0;
-    .button {
-        margin-right: 10px;
+    & .button {
+        width: 32px;
+        height: 32px;
+        margin: 10px;
     }
-
-    .active-btn {
-        background-color: #fff;
+    & .prev-btn,
+    & .next-btn {
+        margin: 40px;
+    }
+    & .page-btn {
+        display: none;
+    }
+    & .active-btn {
+        display: block;
+        background-color: $bg-light;
         color: $dark;
-        border: $dark;
+        border: 2px solid $dark;
+        & + .page-btn {
+            display: block;
+            & + .page-btn {
+                display: block;
+            }
+        }
     }
 }

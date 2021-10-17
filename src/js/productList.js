@@ -56,21 +56,31 @@ paginationContainer.addEventListener('click', function (e) {
 
 const sort = async () => {
     await render.init();
-    // viewNum.textContent = ` ${count} of ${data.length} items`
     upBtn.addEventListener('click', () => {
         productGallery.innerHTML = '';
         upBtn.classList.add("hidden")
         downBtn.classList.remove("hidden")
-        let array = renderService.sortUp()
-        productGallery.insertAdjacentHTML('beforeend', productListTpl(array));
+        data = renderService.sortUp()
+        let response = renderService.paginate()
+        pages = []
+        pages.push(...response)
+        viewNumItems(index, data.length, 9)
+        displayButtons(paginationContainer, pages, index)
+        renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
+
 
     })
     downBtn.addEventListener('click', () => {
         productGallery.innerHTML = '';
         downBtn.classList.add("hidden")
         upBtn.classList.remove("hidden")
-        let array = renderService.sortDown()
-        productGallery.insertAdjacentHTML('beforeend', productListTpl(array));
+        data = renderService.sortDown()
+        let response = renderService.paginate()
+        pages = []
+        pages.push(...response)
+        viewNumItems(index, data.length, 9)
+        displayButtons(paginationContainer, pages, index)
+        renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
     })
     await getCategory('')
     await getData()
@@ -105,7 +115,7 @@ const getData = () => {
     categoriesBtns[2].addEventListener('click', () => getCategory('jeans'))
     categoriesBtns[3].addEventListener('click', () => getCategory('shoes'))
     categoriesBtns[4].addEventListener('click', () => getCategory('dress'))
-    categoriesBtns[5].addEventListener('click', () => getCategory('woman'))
+    categoriesBtns[5].addEventListener('click', () => getCategory('fashion'))
 
 }
 
@@ -136,18 +146,35 @@ function renderCategories() {
         e.addEventListener('click', () => {
             upBtn.addEventListener('click', () => {
                 productGallery.innerHTML = '';
-                let array = renderService.sortUp()
-                productGallery.insertAdjacentHTML('beforeend', productListTpl(array));
+                upBtn.classList.add("hidden")
+                downBtn.classList.remove("hidden")
+                data = renderService.sortUp()
+                let response = renderService.paginate()
+                pages = []
+                pages.push(...response)
+                viewNumItems(index, data.length, 9)
+                displayButtons(paginationContainer, pages, index)
+                renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
+
+
             })
             downBtn.addEventListener('click', () => {
                 productGallery.innerHTML = '';
-                let array = renderService.sortDown()
-                productGallery.insertAdjacentHTML('beforeend', productListTpl(array));
+                downBtn.classList.add("hidden")
+                upBtn.classList.remove("hidden")
+                data = renderService.sortDown()
+                let response = renderService.paginate()
+                pages = []
+                pages.push(...response)
+                viewNumItems(index, data.length, 9)
+                displayButtons(paginationContainer, pages, index)
+                renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
             })
             index = 0;
             renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
 
         })
+
     })
     displayButtons(paginationContainer, pages, index)
 
@@ -167,9 +194,6 @@ function displayButtons(container, page, activeIndex) {
                         </button>`
 
     })
-    // let activePage = activeIndex + 1
-    // let numOnPage = data.length / pages.length
-    // viewNum.textContent = `${Math.ceil(activePage * numOnPage)} of ${data.length} items`
     btns.push(`<button class="next-btn button">&#10095;</button>`)
     btns.unshift(`<button class="prev-btn button">&#10094;</button>`)
     container.innerHTML = btns.join('')

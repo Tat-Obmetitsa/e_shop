@@ -20,16 +20,12 @@ const init = async () => {
 
     await renderService.getCategoryHome(popularGallery, popularTpl, 'fashion', 9)
     await renderService.getCategoryHome(featuredGallery, featuredTpl, 'cloth', 12)
-    await renderService.getCategoryHome(arrivalsGallery, arrivalsTpl, 'cloth', 4)
+    await renderService.getCategoryHome(arrivalsGallery, arrivalsTpl, 'dress', 4)
 
 };
 
 
-
 window.addEventListener('DOMContentLoaded', init);
-
-
-
 
 
 // add to storage
