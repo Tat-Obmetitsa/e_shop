@@ -1,13 +1,7 @@
-
-import popularTpl from '../templates/popularGallery.hbs';
-import featuredTpl from '../templates/featuredGallery.hbs';
-import ApiService from './apiServer';
-
 import 'regenerator-runtime/runtime.js';
-const apiService = new ApiService();
+import ApiService from './apiServer';
 import RenderService from './render';
-
-
+const apiService = new ApiService();
 
 const commonArray = []
 const getCommonData = async () => {
@@ -32,35 +26,33 @@ const getCommonData = async () => {
             }
 
         }
-
         commonArray.push(...hitsObj)
-        // upBtn.addEventListener('click', () => {
-        //     productGallery.innerHTML = '';
-
-        //     let arr = sortUp(commonArray)
-        //     productGallery.insertAdjacentHTML('beforeend', productListTpl(arr));
-
-
-
-        // })
-        // downBtn.addEventListener('click', () => {
-        //     productGallery.innerHTML = '';
-        //     let arr = sortDown(commonArray)
-        //     productGallery.insertAdjacentHTML('beforeend', productListTpl(arr));
-
-
-
-        // })
-
-        // view.textContent = `${itemsNum} of ${values[0].total}`
-
         return commonArray
     })
 }
 
+let index = 0
+let pages = []
+
+function displayButtons(container, page, activeIndex) {
+    let btns = page.map((_, pageIndex) => {
+        return `<button class="page-btn ${activeIndex === pageIndex ? 'active-btn' : 'null '
+            }" data-index="${pageIndex}">
+                        ${pageIndex + 1}
+                        </button>`
+    })
+
+    btns.push(`<button class="next-btn">next</button>`)
+    btns.unshift(`<button class="prev-btn">prev</button>`)
+    container.innerHTML = btns.join('')
+}
 
 const init = async () => {
-    await getCommonData()
-};
+    await getCommonData();
+    const renderService = new RenderService(commonArray);
+    let response = await renderService.paginate()
+    pages.push(...response)
+}
 
-export default { init, commonArray };
+
+export default { init, commonArray, displayButtons, pages, index };

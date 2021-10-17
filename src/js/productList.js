@@ -4,7 +4,7 @@ import 'regenerator-runtime/runtime.js';
 import render from './renderService';
 import RenderService from './render';
 const renderService = new RenderService(render.commonArray);
-
+const paginationContainer = document.querySelector('.pagination')
 import productListTpl from '../templates/productList.hbs';
 const productGallery = document.querySelector('.list__gallery');
 const searchBtn = document.querySelectorAll('.search');
@@ -26,10 +26,39 @@ const viewNum = document.querySelector('.list__view-results')
 const categoriesBtns = document.querySelectorAll('.categories-btn.button')
 const priceCheck = document.querySelectorAll(".list__filter-item_list input")
 
+// const setupUI = () => {
+//     renderService.getAll(productGallery, productListTpl, '', render.pages[render.index]);
+//     render.displayButtons(paginationContainer, render.pages, render.index)
+// }
+
+
+paginationContainer.addEventListener('click', function (e) {
+    if (e.target.classList.contains('pagination')) return
+    if (e.target.classList.contains('page-btn')) {
+        render.index = parseInt(e.target.dataset.index)
+    }
+    if (e.target.classList.contains('next-btn')) {
+        render.index++
+        if (render.index > render.pages.length - 1) {
+            render.index = 0
+        }
+    }
+    if (e.target.classList.contains('prev-btn')) {
+        render.index--
+        if (render.index < 0) {
+            render.index = render.pages.length - 1
+        }
+    }
+    // setupUI()
+    renderCategories()
+})
+
+
 
 
 const sort = async () => {
     await render.init();
+    // setupUI()
 
     upBtn.addEventListener('click', () => {
         productGallery.innerHTML = '';
@@ -43,7 +72,7 @@ const sort = async () => {
     })
 
 
-    await renderService.getCategoryAll(productGallery, productListTpl, '');
+    // await renderService.getCategoryAll(productGallery, productListTpl, '');
 
     await renderCategories()
 
@@ -52,21 +81,21 @@ function searchData(evt) {
 
     evt.preventDefault();
     renderService.query = evt.currentTarget.value;
-    // gallery.innerHTML = '';
 
     if (renderService.query === '') {
         return alert('Nothing was found ');
     }
-    // renderService.resetPage();
-    // gallery.innerHTML = '';
 
 
     renderService.getSearch(productGallery, productListTpl, `${renderService.query}`)
 }
 
 function renderCategories() {
+    renderService.getAll(productGallery, productListTpl, '', render.pages[render.index]);
+
+
     categoriesBtns[0].addEventListener('click', () => {
-        renderService.getCategoryAll(productGallery, productListTpl, 'jacket');
+        renderService.getCategoryAll(productGallery, productListTpl, 'jacket',);
     })
     categoriesBtns[1].addEventListener('click', () => {
         renderService.getCategoryAll(productGallery, productListTpl, 'shirt');
@@ -99,7 +128,7 @@ function renderCategories() {
 
         })
     })
-
+    render.displayButtons(paginationContainer, render.pages, render.index)
 
 }
 
@@ -107,9 +136,6 @@ function renderCategories() {
 input.forEach(el => {
     el.addEventListener('keyup', searchData)
 });
-
-
-
 
 
 window.addEventListener('DOMContentLoaded', sort);
@@ -134,3 +160,8 @@ window.addEventListener('DOMContentLoaded', sort);
         mobileMenuRef.classList.toggle("is-open");
     });
 })();
+
+
+
+
+
