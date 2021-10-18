@@ -24,35 +24,40 @@ export default class RenderService {
         return this.filtered
     }
 
-    sortUp() {
-        if (this.filtered !== undefined) return this.filtered.sort((a, b) => a.price - b.price);
+    sortUp(array) {
+        if (array !== undefined) array.sort((a, b) => a.price - b.price);
+
+        return array
     }
 
-    sortDown() {
-        if (this.filtered !== undefined) return this.filtered.sort((a, b) => b.price - a.price);
+    sortDown(array) {
+        if (array !== undefined) array.sort((a, b) => b.price - a.price);
+
+        return array
     }
 
-    paginate() {
-        const itemsPerPage = 9;
-        const numberOfPages = Math.ceil(this.filtered.length / itemsPerPage)
-
-        const newPages = Array.from({ length: numberOfPages }, (_, index) => {
-            const start = index * itemsPerPage;
-            return this.filtered.slice(start, start + itemsPerPage)
-        })
-
-        return newPages
-    }
-    filteredPaginate(array) {
+    paginate(array) {
         const itemsPerPage = 9;
         const numberOfPages = Math.ceil(array.length / itemsPerPage)
 
         const newPages = Array.from({ length: numberOfPages }, (_, index) => {
             const start = index * itemsPerPage;
-            return array.slice(start, start + itemsPerPage)
+            let newArray = array.slice(start, start + itemsPerPage)
+            return newArray
         })
 
         return newPages
+    }
+    sortPrice(price1, price2) {
+        let newArray = []
+
+        for (let j = 0; j < price2.length; j++) {
+            let pr1 = price1[j];
+            let pr2 = price2[j];
+            let array = this.filtered.filter((items) => items.price > pr1 && items.price < pr2)
+            newArray.push(...array);
+        }
+        return newArray
     }
 
     get query() {

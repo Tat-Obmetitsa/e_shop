@@ -170,7 +170,8 @@ function checkInputs() {
         object[key] = value;
     });
     const json = JSON.stringify(object);
-    console.log(json)
+    //  json with data for future submit
+    // console.log(json)
 
     refs.detailsBuyer.innerHTML = `
     <li><h3>Full Name:</h3><span>${object.name}</span></li>

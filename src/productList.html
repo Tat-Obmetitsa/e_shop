@@ -123,30 +123,25 @@
                 <article class="list__filter-item">
                     <h3 class="list__filter-item_title">Filter by Price</h3>
                     <ul class="list__filter-item_list">
-                        <li>
-                            <input type="checkbox" name="price_list" id="check1" value="0, 5000"
-                                class="price_list active" checked><label for="check1">All Price</label>
+                        <li class="list__filter-item_price">
+                            <input type="checkbox" name="price_list" id="check1" data-minvalue="0" data-maxvalue="100"
+                                class="price_list "> <span class="label">Less than 100</span>
                         </li>
-                        <li>
-                            <input type="checkbox" name="price_list" id="check2" value="100, 250"
-                                class="price_list"><label for="check2">&dollar;<span
-                                    class="price_num low">100</span>-<span class="price_num high">250</span></label>
+                        <li class="list__filter-item_price">
+                            <input type="checkbox" name="price_list" id="check2" data-minvalue="100" data-maxvalue="250"
+                                class="price_list  "> <span>&dollar;100-250</span>
                         </li>
-                        <li>
-                            <input type="checkbox" name="price_list" id="check3" class="price_list"
-                                value="250, 500"><label for="check3">&dollar;<span
-                                    class="price_num low">250</span>-<span class="price_num high">500</span></label>
+                        <li class="list__filter-item_price">
+                            <input type="checkbox" name="price_list" id="check3" class="price_list" data-minvalue="250"
+                                data-maxvalue="500"> <span>&dollar;250 - 500</span>
                         </li>
-                        <li>
-                            <input type="checkbox" name="price_list" id="check4" class="price_list"
-                                value="750, 1000"><label for="check4">&dollar;<span
-                                    class="price_num low">750</span>-<span class="price_num high">1000</span></label>
+                        <li class="list__filter-item_price">
+                            <input type="checkbox" name="price_list" id="check4" class="price_list" data-minvalue="500"
+                                data-maxvalue="1000"> <span>&dollar;500-1000</span>
                         </li>
-                        <li>
-                            <input type="checkbox" name="price_list" id="check5" class="price_list"
-                                value="1000, 5000"><label for="check5">&dollar;<span class="price_num low">1000</span>
-                                and
-                                more</label>
+                        <li class="list__filter-item_price">
+                            <input type="checkbox" name="price_list" id="check5" class="price_list" data-minvalue="1000"
+                                data-maxvalue="1000000"> <span>&dollar;1000 and more</span>
                         </li>
                     </ul>
                 </article>
@@ -271,6 +266,7 @@
 
     </footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </body>
 
 </html>

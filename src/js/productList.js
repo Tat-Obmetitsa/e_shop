@@ -3,7 +3,6 @@ import 'regenerator-runtime/runtime.js';
 import render from './renderService';
 import RenderService from './render';
 import productListTpl from '../templates/productList.hbs';
-
 const renderService = new RenderService(render.commonArray);
 
 const paginationContainer = document.querySelector('.pagination');
@@ -19,11 +18,13 @@ const categoriesBtns = document.querySelectorAll('.categories-btn.button')
 let index = 0
 let pages = []
 let data;
+let active = []
+let minPrice = [];
+let maxPrice = [];
 
-// let priceMax = document.querySelectorAll('.active + label .price_num high')
-// let priceMin = document.querySelectorAll('.active + label')
-// const searchBtn = document.querySelectorAll('.search');
-// const priceCheck = document.querySelectorAll(".list__filter-item_list input")
+const priceItem = document.querySelectorAll('.list__filter-item_price .price_list')
+
+
 
 
 // pagination  
@@ -60,28 +61,60 @@ const sort = async () => {
         productGallery.innerHTML = '';
         upBtn.classList.add("hidden")
         downBtn.classList.remove("hidden")
-        data = renderService.sortUp()
-        let response = renderService.paginate()
+
+
+        if (active.length > 0) {
+            priceSort()
+        }
+        data = renderService.sortUp(data)
+
+        let response = renderService.paginate(data)
         pages = []
         pages.push(...response)
         viewNumItems(index, data.length, 9)
         displayButtons(paginationContainer, pages, index)
         renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
-
 
     })
     downBtn.addEventListener('click', () => {
         productGallery.innerHTML = '';
         downBtn.classList.add("hidden")
         upBtn.classList.remove("hidden")
-        data = renderService.sortDown()
-        let response = renderService.paginate()
+        if (active.length > 0) {
+            priceSort()
+        }
+        data = renderService.sortDown(data)
+        let response = renderService.paginate(data)
         pages = []
         pages.push(...response)
         viewNumItems(index, data.length, 9)
         displayButtons(paginationContainer, pages, index)
         renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
+
     })
+
+
+    priceItem.forEach(e => {
+        e.addEventListener('click', (ev) => {
+            let element = ev.target;
+            if (!element.classList.contains('active')) {
+                element.classList.add('active')
+            } else {
+                element.classList.remove('active');
+            }
+            if (active.find(item => item == element)) {
+                active.forEach(function (item, i) {
+                    if (item == element) {
+                        active.splice(i, 1);
+                    }
+                });
+            } else {
+                active.push(element);
+            }
+            priceSort()
+        })
+    })
+
     await getCategory('')
     await getData()
     await renderCategories()
@@ -106,10 +139,31 @@ input.forEach(el => {
     el.addEventListener('keyup', searchData)
 });
 
+function priceSort() {
+    minPrice = []
+    maxPrice = []
+    active.forEach(e => {
+        minPrice.push(Number(e.dataset.minvalue))
+        maxPrice.push(Number(e.dataset.maxvalue))
+
+    })
+    let setMin = new Set(minPrice);
+    let setMax = new Set(maxPrice);
+    let min = Array.from(setMin)
+    let max = Array.from(setMax)
+    productGallery.innerHTML = '';
+    data = renderService.sortPrice(min, max)
+    let response = renderService.paginate(data)
+    pages = []
+    pages.push(...response)
+    viewNumItems(index, data.length, 9)
+    displayButtons(paginationContainer, pages, index)
+    renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
+
+}
 //  get categories
 
 const getData = () => {
-
     categoriesBtns[0].addEventListener('click', () => getCategory('jacket'))
     categoriesBtns[1].addEventListener('click', () => getCategory('shirt'))
     categoriesBtns[2].addEventListener('click', () => getCategory('jeans'))
@@ -117,17 +171,22 @@ const getData = () => {
     categoriesBtns[4].addEventListener('click', () => getCategory('dress'))
     categoriesBtns[5].addEventListener('click', () => getCategory('fashion'))
 
+
+
 }
 
 const getCategory = async (query) => {
     data = []
     data = renderService.getFiltered(query)
-    let response = renderService.paginate()
+    let response = renderService.paginate(data)
     pages = []
     pages.push(...response)
     viewNumItems(index, data.length, 9)
     displayButtons(paginationContainer, pages, index)
+    if (active.length > 0) {
+        priceSort()
 
+    }
 }
 
 const viewNumItems = (page, total, itemsOnPage) => {
@@ -144,35 +203,8 @@ function renderCategories() {
 
     categoriesBtns.forEach(e => {
         e.addEventListener('click', () => {
-            upBtn.addEventListener('click', () => {
-                productGallery.innerHTML = '';
-                upBtn.classList.add("hidden")
-                downBtn.classList.remove("hidden")
-                data = renderService.sortUp()
-                let response = renderService.paginate()
-                pages = []
-                pages.push(...response)
-                viewNumItems(index, data.length, 9)
-                displayButtons(paginationContainer, pages, index)
-                renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
-
-
-            })
-            downBtn.addEventListener('click', () => {
-                productGallery.innerHTML = '';
-                downBtn.classList.add("hidden")
-                upBtn.classList.remove("hidden")
-                data = renderService.sortDown()
-                let response = renderService.paginate()
-                pages = []
-                pages.push(...response)
-                viewNumItems(index, data.length, 9)
-                displayButtons(paginationContainer, pages, index)
-                renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
-            })
             index = 0;
             renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
-
         })
 
     })

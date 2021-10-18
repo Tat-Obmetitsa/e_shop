@@ -47,34 +47,6 @@ window.addEventListener('click', e => {
 });
 
 
-// shift to Product List
-
-(() => {
-
-    const viewAllFeatured = document.querySelector(".featured .section__view-button");
-    const viewAllPopular = document.querySelector(".popular .section__view-button");
-    const viewAllNew = document.querySelector(".arrivals .section__view-button");
-    const viewAllSales = document.querySelector(".banner .button");
-
-
-
-    viewAllFeatured.addEventListener('click', () => {
-        category = 'featured';
-    })
-    // viewAllPopular.addEventListener('click', () => {
-    //     setStorageItem('sort', 'popular');
-    //     setStorageItem('category', 'all');
-    // })
-    // viewAllNew.addEventListener('click', () => {
-    //     setStorageItem('sort', 'new');
-    //     setStorageItem('category', 'all');
-    // })
-    // viewAllSales.addEventListener('click', () => {
-    //     setStorageItem('sort', 'sales');
-    //     setStorageItem('category', 'all');
-    // })
-
-})();
 
 
 // burger menu appearing click
