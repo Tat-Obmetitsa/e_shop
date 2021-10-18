@@ -15,16 +15,14 @@ const downBtn = document.querySelector('.down')
 const viewNum = document.querySelector('.list__view-results')
 const categoriesBtns = document.querySelectorAll('.categories-btn.button')
 
-let index = 0
-let pages = []
+let index = 0;
+let pages = [];
 let data;
 let active = []
 let minPrice = [];
 let maxPrice = [];
 
 const priceItem = document.querySelectorAll('.list__filter-item_price .price_list')
-
-
 
 
 // pagination  
@@ -57,6 +55,8 @@ paginationContainer.addEventListener('click', function (e) {
 
 const sort = async () => {
     await render.init();
+
+    // sort by price
     upBtn.addEventListener('click', () => {
         productGallery.innerHTML = '';
         upBtn.classList.add("hidden")
@@ -93,7 +93,7 @@ const sort = async () => {
 
     })
 
-
+    // filter by price
     priceItem.forEach(e => {
         e.addEventListener('click', (ev) => {
             let element = ev.target;
@@ -114,8 +114,42 @@ const sort = async () => {
             priceSort()
         })
     })
-
-    await getCategory('')
+    // open by clicking on homepage
+    switch (window.location.search) {
+        case '?=jacket':
+            await getCategory('jacket');
+            break;
+        case '?=shirt':
+            await getCategory('shirt');
+            break;
+        case '?=jeans':
+            await getCategory('jeans');
+            break;
+        case '?=shoes':
+            await getCategory('shoes');
+            break;
+        case '?=dress':
+            await getCategory('dress');
+            break;
+        case '?=fashion':
+            await getCategory('fashion');
+            break;
+        case '?=featured':
+            await getCategory('cloth');
+            break;
+        case '?=arrivals':
+            await getCategory('tie');
+            break;
+        case '?=popular':
+            await getCategory('fashion');
+            break;
+        case '':
+            await getCategory('');
+            break;
+        default:
+            await getCategory('window.location.search'.replaceAll("[^?=]", ""));
+            break;
+    }
     await getData()
     await renderCategories()
 

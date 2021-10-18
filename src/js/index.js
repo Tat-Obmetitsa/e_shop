@@ -20,7 +20,7 @@ const init = async () => {
 
     await renderService.getCategoryHome(popularGallery, popularTpl, 'fashion', 9)
     await renderService.getCategoryHome(featuredGallery, featuredTpl, 'cloth', 12)
-    await renderService.getCategoryHome(arrivalsGallery, arrivalsTpl, 'dress', 4)
+    await renderService.getCategoryHome(arrivalsGallery, arrivalsTpl, 'tie', 4)
 
 };
 
@@ -29,22 +29,43 @@ window.addEventListener('DOMContentLoaded', init);
 
 
 // add to storage
-window.addEventListener('click', e => {
+// window.addEventListener('click', e => {
 
-    if (e.target.classList.contains("add-button")) {
-        setStorageItem("chosen", e.target.parentElement.dataset.id)
+//     if (e.target.classList.contains("add-button")) {
+//         setStorageItem("chosen", e.target.parentElement.dataset.id)
 
-    }
-    let store = getStorageItem("item");
-    let chosen = Number(getStorageItem("chosen"));
-    store.map((el) => {
-        if (el.id === chosen) {
-            setStorageItem('cartItem', el)
-        }
+//     }
+//     let store = getStorageItem("item");
+//     let chosen = Number(getStorageItem("chosen"));
+//     store.map((el) => {
+//         if (el.id === chosen) {
+//             setStorageItem('cartItem', el)
+//         }
 
-    })
+//     })
 
-});
+// });
+
+
+(() => {
+    const featuredBtn = document.querySelector(".section__view-button.featured");
+    const arrivalsBtn = document.querySelector(".section__view-button.arrivals");
+    const popularBtn = document.querySelector('.section__view-button.popular');
+    const bannerBtn = document.querySelector(".button.all")
+    const categoriesBtns = document.querySelectorAll('.categories-btn')
+
+    featuredBtn.addEventListener('click', () => window.location.href = "http://localhost:3000/productList.html?=featured")
+    arrivalsBtn.addEventListener('click', () => window.location.href = "http://localhost:3000/productList.html?=arrivals")
+    popularBtn.addEventListener('click', () => window.location.href = "http://localhost:3000/productList.html?=popular")
+    bannerBtn.addEventListener('click', () => window.location.href = "http://localhost:3000/productList.html")
+
+    categoriesBtns[0].addEventListener('click', () => window.location.href = "http://localhost:3000/productList.html?=jacket")
+    categoriesBtns[1].addEventListener('click', () => window.location.href = "http://localhost:3000/productList.html?=shirt")
+    categoriesBtns[2].addEventListener('click', () => window.location.href = "http://localhost:3000/productList.html?=jeans")
+    categoriesBtns[3].addEventListener('click', () => window.location.href = "http://localhost:3000/productList.html?=shoes")
+    categoriesBtns[4].addEventListener('click', () => window.location.href = "http://localhost:3000/productList.html?=dress")
+    categoriesBtns[5].addEventListener('click', () => window.location.href = "http://localhost:3000/productList.html?=fashion")
+})();
 
 
 
@@ -73,10 +94,14 @@ window.addEventListener('click', e => {
     const searchBtn = document.querySelectorAll('.search');
     const input = document.querySelectorAll('.header__wrapper-input')
 
-    searchBtn.forEach(e => {
-        e.addEventListener('click', () => {
+    searchBtn.forEach(el => {
+        el.addEventListener('click', () => {
             input.forEach(e => {
                 e.classList.toggle('hidden')
+
+                // e.addEventListener('submit', () => {
+                //     window.location.href = `http://localhost:3000/productList.html?=${this.value}`
+                // });
 
             });
 
