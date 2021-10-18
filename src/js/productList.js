@@ -185,11 +185,15 @@ function priceSort() {
     let setMax = new Set(maxPrice);
     let min = Array.from(setMin)
     let max = Array.from(setMax)
+    if (min.length === 0) {
+        min.push(0); max.push(10000000)
+    }
     productGallery.innerHTML = '';
     data = renderService.sortPrice(min, max)
     let response = renderService.paginate(data)
     pages = []
     pages.push(...response)
+
     viewNumItems(index, data.length, 9)
     displayButtons(paginationContainer, pages, index)
     renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
@@ -227,7 +231,14 @@ const viewNumItems = (page, total, itemsOnPage) => {
     page = page + 1
     let start = (page - 1) * itemsOnPage + 1;
     let end = Math.min(page * itemsOnPage, total);
-    viewNum.textContent = `${start} to ${end} of ${total} `
+    if (data.length > 0) {
+        viewNum.textContent = `Viewing ${start} to ${end} of ${total} `
+        paginationContainer.classList.remove('hidden')
+    } else {
+        viewNum.textContent = `Nothing was found :( `;
+        paginationContainer.classList.add('hidden')
+    }
+
     return viewNum
 };
 

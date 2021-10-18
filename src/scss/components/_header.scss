@@ -12,8 +12,12 @@
         color: $dark;
 
         &-logo {
-            @include font(24px, 700, 36px);
+            @include font(18px, 700, 26px);
             margin-left: 8px;
+
+            @media screen and (min-width: 1200px) {
+                @include font(24px, 700, 36px);
+            }
         }
 
         &-item {
@@ -64,24 +68,22 @@
         }
 
         &-input {
-            width: 30vw;
-            height: 2.5vh;
-
-            border: 2px solid $dark;
+            width: 35vw;
+            height: 35px;
+            padding: 3px 10px;
+            border: 1px solid $text-gray;
             border-radius: 5px;
             cursor: pointer;
 
             @media screen and (min-width: 1200px) {
                 width: 200px;
+                height: 40px;
+                padding: 5px 20px;
             }
         }
         &-input.product {
             margin-left: auto;
-            width: 30vw;
-            height: 48px;
-            padding: 5px 20px;
-            border: 1px solid $text-gray;
-
+            width: 35vw;
             & + .header__wrapper-button {
                 position: absolute;
                 top: 50%;
@@ -93,6 +95,7 @@
         &-form {
             @include flex(center);
             position: relative;
+            margin-left: auto;
         }
 
         &-button {
