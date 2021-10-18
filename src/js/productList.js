@@ -147,7 +147,7 @@ const sort = async () => {
             await getCategory('');
             break;
         default:
-            await getCategory('window.location.search'.replaceAll("[^?=]", ""));
+            await getCategory(window.location.search.replace("?", "").replace("=", ""));
             break;
     }
     await getData()

@@ -97,12 +97,16 @@ window.addEventListener('DOMContentLoaded', init);
     searchBtn.forEach(el => {
         el.addEventListener('click', () => {
             input.forEach(e => {
+                e.addEventListener('keyup', (ev) => {
+                    ev.preventDefault();
+                    if (e.value !== '') {
+                        el.onclick = function () {
+                            window.location.href = `http://localhost:3000/productList.html?=${e.value}`
+                        };
+
+                    }
+                });
                 e.classList.toggle('hidden')
-
-                // e.addEventListener('submit', () => {
-                //     window.location.href = `http://localhost:3000/productList.html?=${this.value}`
-                // });
-
             });
 
         })
