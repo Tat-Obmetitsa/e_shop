@@ -21,6 +21,7 @@ const init = async () => {
     await renderService.getCategoryHome(popularGallery, popularTpl, 'fashion', 9)
     await renderService.getCategoryHome(featuredGallery, featuredTpl, 'cloth', 12)
     await renderService.getCategoryHome(arrivalsGallery, arrivalsTpl, 'tie', 4)
+    await getItems()
 
 };
 
@@ -66,7 +67,6 @@ window.addEventListener('DOMContentLoaded', init);
     categoriesBtns[4].addEventListener('click', () => window.location.href = "http://localhost:3000/productList.html?=dress")
     categoriesBtns[5].addEventListener('click', () => window.location.href = "http://localhost:3000/productList.html?=fashion")
 })();
-
 
 
 
@@ -159,3 +159,21 @@ $('.slider').slick({
     }]
 
 });
+
+
+
+
+// redirect to product page
+
+
+function getItems() {
+    const items = document.querySelectorAll(".wrapper__image");
+    items.forEach(item => {
+        item.addEventListener('click', () => {
+            window.location.href = `http://localhost:3000/productPage.html?=${item.dataset.id}`
+        })
+    })
+
+}
+
+

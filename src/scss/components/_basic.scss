@@ -116,9 +116,9 @@ img {
         fill: $dark;
     }
 
-    & span {
-        @include centerAbsolute();
-    }
+    // & span {
+    //     @include centerAbsolute();
+    // }
 }
 
 .section {

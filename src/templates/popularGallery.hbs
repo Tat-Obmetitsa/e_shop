@@ -1,10 +1,10 @@
 {{#each this}}
 <li class="popular__list-item">
-    <img class="wrapper__image" src="{{webformatURL}} " alt="{{tags}}" data={{id}} />
+    <img class="wrapper__image" src="{{webformatURL}} " alt="{{tags}}" data-id={{id}} />
     <div class="wrapper__description">
-        <h3 class="wrapper__description-title" data={{id}}>{{tags}}</h3>
+        <h3 class="wrapper__description-title" data-id={{id}}>{{tags}}</h3>
 
-        <span class="wrapper__description-text" data={{id}}>&dollar;{{price}}</span>
+        <span class="wrapper__description-text" data-id={{id}}>&dollar;{{price}}</span>
 
         <div class="wrapper__description-icons">
             <i width="24" height="24" class="fas fa-star"></i>

@@ -15,6 +15,7 @@ const downBtn = document.querySelector('.down')
 const viewNum = document.querySelector('.list__view-results')
 const categoriesBtns = document.querySelectorAll('.categories-btn.button')
 
+
 let index = 0;
 let pages = [];
 let data;
@@ -74,6 +75,7 @@ const sort = async () => {
         viewNumItems(index, data.length, 9)
         displayButtons(paginationContainer, pages, index)
         renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
+        getItems()
 
     })
     downBtn.addEventListener('click', () => {
@@ -90,6 +92,7 @@ const sort = async () => {
         viewNumItems(index, data.length, 9)
         displayButtons(paginationContainer, pages, index)
         renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
+        getItems()
 
     })
 
@@ -152,6 +155,7 @@ const sort = async () => {
     }
     await getData()
     await renderCategories()
+    await getItems()
 
 }
 
@@ -167,6 +171,7 @@ function searchData(evt) {
     }
     getCategory(renderService.query)
     renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
+    getItems()
 }
 
 input.forEach(el => {
@@ -197,6 +202,7 @@ function priceSort() {
     viewNumItems(index, data.length, 9)
     displayButtons(paginationContainer, pages, index)
     renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
+    getItems()
 
 }
 //  get categories
@@ -243,18 +249,17 @@ const viewNumItems = (page, total, itemsOnPage) => {
 };
 
 function renderCategories() {
-
     renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
 
     categoriesBtns.forEach(e => {
         e.addEventListener('click', () => {
             index = 0;
             renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
+            getItems()
         })
 
     })
     displayButtons(paginationContainer, pages, index)
-
 
 }
 
@@ -298,3 +303,12 @@ function displayButtons(container, page, activeIndex) {
 
 
 
+function getItems() {
+    const items = document.querySelectorAll(".list__gallery-img");
+    items.forEach(item => {
+        item.addEventListener('click', () => {
+            window.location.href = `http://localhost:3000/productPage.html?=${item.dataset.id}`
+        })
+    })
+
+}

@@ -10,15 +10,23 @@ const getCommonData = async () => {
         let hitsObj = values[0].hits
         let dataObj = values[1].data;
         let arrPrices = []
+        let arrDecriptions = []
+        let arrShipping = [0, 10, 20];
+        let arrShipp = []
+        let random = Math.floor(Math.random() * arrShipping.length);
+        let arrManufacturer = []
         for (const key in dataObj) {
             if (Object.hasOwnProperty.call(dataObj, key)) {
                 arrPrices.push(dataObj[key].price);
+                arrDecriptions.push(dataObj[key].description)
+                arrShipp.push(arrShipping[random])
+                arrManufacturer.push(dataObj[key].manufacturer)
             }
         }
         for (let i = 0; i < arrPrices.length;) {
 
             for (const jey in hitsObj) {
-                Object.assign(hitsObj[jey], { price: `${arrPrices[i]}` });
+                Object.assign(hitsObj[jey], { price: `${arrPrices[i]}`, description: `${arrDecriptions[i]}`, shipping: `${arrShipp[i]}`, manufacturer: `${arrManufacturer[i]}` });
                 i += 1
             }
         }
