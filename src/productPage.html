@@ -98,6 +98,37 @@
                 <div class="slides slides-recent"></div>
             </div>
         </section>
+        <section class="section">
+            <h3 class="section__title">Comments</h3>
+            <div class="reviews">
+
+                <ul class="reviews__wrapper">
+
+                </ul>
+                <form class="review__form" action="index.html">
+                    <fieldset>
+                        <legend class="form__field-title">Leave your comment</legend>
+                        <input type="text" placeholder="Name&#42;" name="name" class="name input" minlength="2"
+                            id="name" required>
+                        <input type="email" name="email" class="email input" placeholder="Email&#42;"
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" size="30" required />
+
+                        <div class="form__icons">
+                            <i width="24" height="24" class="fas fa-star"></i>
+                            <i width="24" height="24" class="fas fa-star"></i>
+                            <i width="24" height="24" class="fas fa-star"></i>
+                            <i width="24" height="24" class="fas fa-star"></i>
+                            <i width="24" height="24" class="fas fa-star"></i>
+                        </div>
+                        <textarea placeholder="Leave your comment&#42;" wrap="soft" name="comment" class="comment input"
+                            id="comment" cols="30" rows="10" maxlength="200" required></textarea>
+
+                        <input type="submit" class="button form__field-btn" value="Submit">
+                    </fieldset>
+                </form>
+            </div>
+
+        </section>
 
     </main>
     <footer class="footer">

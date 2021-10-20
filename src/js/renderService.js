@@ -15,6 +15,7 @@ const getCommonData = async () => {
         let arrShipp = []
         let random = Math.floor(Math.random() * arrShipping.length);
         let arrManufacturer = []
+
         for (const key in dataObj) {
             if (Object.hasOwnProperty.call(dataObj, key)) {
                 arrPrices.push(dataObj[key].price);
@@ -26,10 +27,26 @@ const getCommonData = async () => {
         for (let i = 0; i < arrPrices.length;) {
 
             for (const jey in hitsObj) {
-                Object.assign(hitsObj[jey], { price: `${arrPrices[i]}`, description: `${arrDecriptions[i]}`, shipping: `${arrShipp[i]}`, manufacturer: `${arrManufacturer[i]}` });
+
+                const maxObject = hitsObj.reduce((prev, current) => prev.likes > current.likes ? prev : current, {});
+                let maxLikes = maxObject.likes
+                let star = 0
+                if (hitsObj[jey].likes < ((maxLikes * 20) / 100)) {
+                    star = 1
+                } else if (hitsObj[jey].likes >= ((maxLikes * 20) / 100) && hitsObj[jey].likes < ((maxLikes * 40) / 100)) {
+                    star = 2
+                } else if (hitsObj[jey].likes >= ((maxLikes * 40) / 100) && hitsObj[jey].likes < ((maxLikes * 60) / 100)) {
+                    star = 3
+                } else if (hitsObj[jey].likes >= ((maxLikes * 60) / 100) && hitsObj[jey].likes < ((maxLikes * 80) / 100)) {
+                    star = 4
+                } else if (hitsObj[jey].likes >= ((maxLikes * 85) / 100)) {
+                    star = 5
+                }
+                Object.assign(hitsObj[jey], { price: `${arrPrices[i]}`, description: `${arrDecriptions[i]}`, shipping: `${arrShipp[i]}`, manufacturer: `${arrManufacturer[i]}`, star: `${star}` });
                 i += 1
             }
         }
+
         commonArray.push(...hitsObj)
         return commonArray
     })

@@ -1,0 +1,17 @@
+{{#each this}}
+<li class="reviews__wrapper-item">
+    <div>
+        <img src="{{{userImageURL}}}" class="user__image" data-id={{id}} alt="{{tags}}">
+        <h4 class="user__name">{{user}}</h4>
+        <div class="wrapper__description-icons" data-id={{id}}>
+            <i width="24" height="24" class="fas fa-star"></i>
+            <i width="24" height="24" class="fas fa-star"></i>
+            <i width="24" height="24" class="fas fa-star"></i>
+            <i width="24" height="24" class="fas fa-star"></i>
+            <i width="24" height="24" class="fas fa-star"></i>
+        </div>
+
+    </div>
+    <p class="user__review" data-id={{id}}>{{description}}</p>
+</li>
+{{/each}}

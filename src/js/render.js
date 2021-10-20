@@ -26,9 +26,18 @@ export default class RenderService {
 
 
     getById(id) {
-        let searchedObj = this.arr.find(e => {
-            if (e.id === id) return e
-        })
+        let searchedObj = []
+        for (let i = 0; i < this.arr.length; i++) {
+            const e = this.arr[i];
+            if (e.id === id && i < this.arr.length - 4) {
+                searchedObj.push(e, this.arr[i + 1], this.arr[i + 2], this.arr[i + 3])
+                break
+            } else if (e.id === id && i > this.arr.length - 4) {
+                searchedObj.push(e, this.arr[i - 5], this.arr[i + 4], this.arr[i + 3])
+                break
+            }
+
+        }
         return searchedObj
     }
 
