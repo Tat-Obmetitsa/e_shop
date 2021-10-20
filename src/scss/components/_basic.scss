@@ -171,6 +171,9 @@ img {
         &:hover {
             border: 2px solid $dark;
         }
+        & svg {
+            margin-top: 3px;
+        }
     }
 }
 

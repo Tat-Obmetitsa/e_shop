@@ -1,9 +1,9 @@
 {{#each this}}
 <div class="slider__item">
-    <img class="slider__item-img" src="{{{webformatURL}}}" alt="{{tags}}" data={{id}} />
-    <div class="slider__item-description" data={{id}}>
-        <h3 class="slider__item-title" data={{id}}>{{tags}}</h3>
-        <span class="slider__item-text" data={{id}}>&dollar;{{price}}</span>
+    <img class="slider__item-img" src="{{{webformatURL}}}" alt="{{tags}}" data-id={{id}} />
+    <div class="slider__item-description" data-id={{id}}>
+        <h3 class="slider__item-title" data-id={{id}}>{{tags}}</h3>
+        <span class="slider__item-text" data-id={{id}}>&dollar;{{price}}</span>
     </div>
 </div>
 {{/each}}

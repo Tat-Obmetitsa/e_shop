@@ -57,6 +57,52 @@ paginationContainer.addEventListener('click', function (e) {
 const sort = async () => {
     await render.init();
 
+    // open by clicking on homepage
+    switch (window.location.search) {
+        case '?=jacket':
+            await getCategory('jacket');
+            break;
+        case '?=shirt':
+            await getCategory('shirt');
+            break;
+        case '?=jeans':
+            await getCategory('jeans');
+            break;
+        case '?=shoes':
+            await getCategory('shoes');
+            break;
+        case '?=dress':
+            await getCategory('dress');
+            break;
+        case '?=fashion':
+            await getCategory('fashion');
+            break;
+        case '?=featured':
+            await getCategory('cloth');
+            break;
+        case '?=arrivals':
+            await getCategory('tie');
+            break;
+        case '?=popular':
+            await getCategory('fashion');
+            break;
+        case '?=viewed':
+            data = renderService.getHistoryById();
+            let response = renderService.paginate(data)
+            pages = []
+            pages.push(...response)
+            viewNumItems(index, data.length, 9)
+            displayButtons(paginationContainer, pages, index)
+            await (productGallery, productListTpl, pages[index]);
+            break;
+        case '':
+            await getCategory('');
+            break;
+        default:
+            await getCategory(window.location.search.replace("?", "").replace("=", ""));
+            break;
+    }
+
     // sort by price
     upBtn.addEventListener('click', () => {
         productGallery.innerHTML = '';
@@ -117,42 +163,7 @@ const sort = async () => {
             priceSort()
         })
     })
-    // open by clicking on homepage
-    switch (window.location.search) {
-        case '?=jacket':
-            await getCategory('jacket');
-            break;
-        case '?=shirt':
-            await getCategory('shirt');
-            break;
-        case '?=jeans':
-            await getCategory('jeans');
-            break;
-        case '?=shoes':
-            await getCategory('shoes');
-            break;
-        case '?=dress':
-            await getCategory('dress');
-            break;
-        case '?=fashion':
-            await getCategory('fashion');
-            break;
-        case '?=featured':
-            await getCategory('cloth');
-            break;
-        case '?=arrivals':
-            await getCategory('tie');
-            break;
-        case '?=popular':
-            await getCategory('fashion');
-            break;
-        case '':
-            await getCategory('');
-            break;
-        default:
-            await getCategory(window.location.search.replace("?", "").replace("=", ""));
-            break;
-    }
+
     await getData()
     await renderCategories()
     await getItems()

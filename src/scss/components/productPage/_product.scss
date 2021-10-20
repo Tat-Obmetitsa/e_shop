@@ -105,6 +105,10 @@
             @media screen and (max-width: 1199px) {
                 margin: 24px auto 0 auto;
             }
+
+            &:hover {
+                color: $dark;
+            }
         }
     }
 }

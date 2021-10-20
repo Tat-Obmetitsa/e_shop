@@ -24,12 +24,19 @@ export default class RenderService {
         return this.filtered
     }
 
+
     getById(id) {
         let searchedObj = this.arr.find(e => {
             if (e.id === id) return e
         })
         return searchedObj
     }
+
+    getHistoryById() {
+        let array = localStorage.getItem("viewed");
+        return this.arr.filter(el => array.indexOf(`${el.id}`) > -1);
+    }
+
 
     sortUp(array) {
         if (array !== undefined) array.sort((a, b) => a.price - b.price);

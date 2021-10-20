@@ -169,11 +169,17 @@ $('.slider').slick({
 function getItems() {
     const items = document.querySelectorAll(".wrapper__image");
     items.forEach(item => {
+
         item.addEventListener('click', () => {
+            // add viewed items' id
+            let viewedArray = JSON.parse(localStorage.getItem('viewed')) || [];
+            if (viewedArray.length > 5) { viewedArray.shift(); }
+            viewedArray.push(item.dataset.id);
+            localStorage.setItem('viewed', JSON.stringify(viewedArray));
+
             window.location.href = `http://localhost:3000/productPage.html?=${item.dataset.id}`
         })
     })
 
 }
-
 
