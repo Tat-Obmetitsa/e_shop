@@ -7,6 +7,7 @@ import RenderService from './render';
 import popularTpl from '../templates/popularGallery.hbs';
 import featuredTpl from '../templates/featuredGallery.hbs';
 import arrivalsTpl from '../templates/arrivalsGallery.hbs';
+import { isPlainObject } from 'jquery';
 
 
 const init = async () => {
@@ -17,11 +18,13 @@ const init = async () => {
     await render.init()
 
     const renderService = new RenderService(render.commonArray);
-
-    await renderService.getCategoryHome(popularGallery, popularTpl, 'fashion', 9)
+    const popularArr = await renderService.getHomeRating(popularGallery, popularTpl, 9)
     await renderService.getCategoryHome(featuredGallery, featuredTpl, 'cloth', 12)
     await renderService.getCategoryHome(arrivalsGallery, arrivalsTpl, 'tie', 4)
     await getItems()
+
+    const iconDiv = document.querySelectorAll(".wrapper__description-icons");
+    await generateStars(popularArr, iconDiv)
 
 };
 
@@ -184,3 +187,41 @@ function getItems() {
 
 }
 
+
+function generateStars(obj, wrapper) {
+    obj.forEach((e, i) => {
+
+        if (e.star == "1") {
+            wrapper[i].innerHTML = `
+             <i width="24" height="24" class="fas fa-star"></i>
+             `
+        } else if (e.star == "2") {
+            wrapper[i].innerHTML = `
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             `
+        } else if (e.star == "3") {
+            wrapper[i].innerHTML = `
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             `
+        } else if (e.star == "4") {
+            wrapper[i].innerHTML = `
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             `
+        } else if (e.star == "5") {
+            wrapper[i].innerHTML = `
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             `
+        }
+
+    })
+}

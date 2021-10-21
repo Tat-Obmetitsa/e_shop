@@ -11,6 +11,12 @@ export default class RenderService {
         this.filtered = this.arr.filter(e => e.tags.includes(`${searchQuery}`))
         gallery.insertAdjacentHTML('beforeend', tpl(this.filtered.slice(0, amount)));
     }
+    getHomeRating(gallery, tpl, amount) {
+        gallery.innerHTML = '';
+        this.filtered = this.arr.filter(e => Number(e.star) >= 3)
+        gallery.insertAdjacentHTML('beforeend', tpl(this.filtered.slice(0, amount)));
+        return this.filtered
+    }
 
     getCategoryAll(gallery, tpl, array) {
         gallery.innerHTML = '';
@@ -23,6 +29,11 @@ export default class RenderService {
         )
         return this.filtered
     }
+    // getHomeRating() {
+    //     this.filtered = this.arr.filter(e => Number(e.star) >= 3)
+    //     gallery.insertAdjacentHTML('beforeend', tpl(this.filtered.slice(0, amount)));
+    //     return this.filtered
+    // }
 
     getById(id) {
         return this.arr.find(el => el.id == id);
@@ -59,6 +70,7 @@ export default class RenderService {
 
         return newPages
     }
+
     sortPrice(price1, price2) {
         let newArray = []
 

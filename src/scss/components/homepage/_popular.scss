@@ -122,16 +122,11 @@
                 width: 24px;
                 height: 24px;
                 margin-right: 10px;
-                color: $text-gray;
+                color: $hover-stars;
             }
 
             transition-duration: 500ms;
             @include flex(flex-start);
-
-            & .fa-star:hover {
-                color: $hover-stars;
-                cursor: pointer;
-            }
         }
     }
 }
