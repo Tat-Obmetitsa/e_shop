@@ -318,6 +318,9 @@ function getItems() {
     const items = document.querySelectorAll(".list__gallery-img");
     items.forEach(item => {
         item.addEventListener('click', () => {
+            let viewedArray = JSON.parse(localStorage.getItem('viewed')) || [];
+            viewedArray.push(item.dataset.id)
+            localStorage.setItem('viewed', JSON.stringify(viewedArray));
             window.location.href = `http://localhost:3000/productPage.html?=${item.dataset.id}`
         })
     })

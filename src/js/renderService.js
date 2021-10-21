@@ -6,6 +6,7 @@ const commonArray = []
 const getCommonData = async () => {
     const popularPics = apiService.getPics(200, 'clothes');
     const popularPrice = apiService.getPrice(200);
+
     await Promise.all([popularPics, popularPrice]).then(values => {
         let hitsObj = values[0].hits
         let dataObj = values[1].data;
@@ -45,6 +46,8 @@ const getCommonData = async () => {
                     star = 5
                 }
 
+
+
                 Object.assign(hitsObj[jey], {
                     price: `${arrPrices[i]}`, description: `${arrDecriptions[i]}`,
                     reviews: [{ id: `${hitsObj[jey].id}`, user: `${hitsObj[jey].user}`, userImageURL: `${hitsObj[jey].userImageURL}`, description: `${arrDecriptions[i]}`, star: `${star}` }],
@@ -57,8 +60,20 @@ const getCommonData = async () => {
             }
         }
 
-        // , reviews: [`${ reviews[jey]}`] 
-        commonArray.push(...hitsObj)
+        commonArray.push(...hitsObj);
+        let commentArray = JSON.parse(localStorage.getItem('comment')) || [];
+        if (commentArray !== []) {
+            commentArray.forEach(el => {
+                commonArray.forEach(e => {
+                    if (el.id == e.id) {
+                        e.reviews.push(el)
+                        e.likes = e.likes + Number(el.star)
+                    }
+                    return commonArray
+                })
+
+            });
+        }
         return commonArray
     })
 }

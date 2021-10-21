@@ -54,17 +54,6 @@ export default class ApiService {
                 console.error('Augh, there was an error!', err.statusText);
             });
     }
-    // getComment() {
-
-    //     return makeRequest('GET', 'http://loripsum.net/api/10/short/headers')
-    //         .then(function (datums) {
-    //             console.log(datums)
-    //             return datums
-    //         })
-    //         .catch(function (err) {
-    //             console.error('Augh, there was an error!', err.statusText);
-    //         });
-    // }
 
     setPage() {
         this.page += 1;

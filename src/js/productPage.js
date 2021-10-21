@@ -4,7 +4,6 @@ import 'regenerator-runtime/runtime.js';
 import render from './renderService';
 import RenderService from './render';
 import productGalleryTpl from '../templates/productPageGallery.hbs';
-import reviewsTpl from '../templates/reviews.hbs';
 const renderService = new RenderService(render.commonArray);
 
 const sliderSimilar = document.querySelector('.slides-similar');
@@ -12,21 +11,28 @@ const sliderRecent = document.querySelector('.slides-recent');
 const reviewsSection = document.querySelector(".reviews__wrapper");
 const productSection = document.querySelector('.product.section');
 const getId = window.location.search.replace("?", "").replace("=", "")
-const iconsWrapper = document.querySelectorAll('.wrapper__description-icons')
+const submitBtn = document.querySelector(".form__field-btn");
+
+
+
 
 const init = async () => {
     await render.init();
-    const reviewedProducts = await renderService.getByIdReviws(Number(getId))
+    let reviewedProducts = await renderService.getByIdReviws(Number(getId))
     const product = await renderService.getById(Number(getId))
 
-    await renderProduct(product)
+    await renderProduct(product) // render product
     await counter()
-    await getItems()
+    await getItems()  //open products  from sliders
+
+    //render reviews
+    submitBtn.addEventListener('click', () => checkInputs(reviewedProducts))
     await renderReviews(reviewedProducts)
 
     const viewAllBtns = document.querySelectorAll('.section__view-button');
     viewAllBtns[0].addEventListener('click', () => window.location.href = `http://localhost:3000/productList.html?=${product.tags.split(', ')[0]}`)
     viewAllBtns[1].addEventListener('click', () => window.location.href = "http://localhost:3000/productList.html?=viewed");
+
 
 
 
@@ -50,6 +56,7 @@ const init = async () => {
 
 
 function renderProduct(obj) {
+
     productSection.innerHTML = `
             <img src=${obj.webformatURL} class="product__image" alt="" data-id=${obj.id}>
             <div class="product__info" >
@@ -81,43 +88,52 @@ function renderProduct(obj) {
 }
 
 function renderReviews(obj) {
-    obj.map(e => {
-        reviewsSection.innerHTML = `
-        <li class="reviews__wrapper-item" data-id=${e.id}>
-    <div class="reviews__wrapper-item_info">
-        <img src=${e.userImageURL} class="user__image"   alt="avatar">
-        <h4 class="user__name">${e.user}</h4>
-         <div class="wrapper__description-icons" data-id=${e.id}>
-</div >
-    </div>
-    <p class="user__review"  >${e.description}</p>
-</li>
-        
+    reviewsSection.innerHTML = " "
+    for (let i = 0; i < obj.length; i++) {
+        const e = obj[i];
+        let liItem = document.createElement('li')
+        if (e.userImageURL === undefined || e.userImageURL === null || e.userImageURL === "") {
+            e.userImageURL = "https://www.pikpng.com/pngl/m/80-805523_default-avatar-svg-png-icon-free-download-264157.png"
+        }
+        liItem.classList.add('reviews__wrapper-item');
+        liItem.innerHTML = `
+            <div class="reviews__wrapper-item_info">
+             <img src=${e.userImageURL} class="user__image"   alt="avatar">
+             <h4 class="user__name">${e.user}</h4>
+              <div class="wrapper__description-icons" data-id=${e.id}>
+     </div >
+        </div>
+        <p class="user__review"  >${e.description}</p>
         `
-        if (e.star == 1) {
-            document.querySelector(".wrapper__description-icons").innerHTML = `
+
+        reviewsSection.appendChild(liItem)
+        let iconWrapper = document.querySelectorAll(".wrapper__description-icons");
+
+
+        if (e.star == "1") {
+            iconWrapper[i].innerHTML = `
              <i width="24" height="24" class="fas fa-star"></i>
              `
-        } else if (e.star == 2) {
-            document.querySelector(".wrapper__description-icons").innerHTML = `
+        } else if (e.star == "2") {
+            iconWrapper[i].innerHTML = `
              <i width="24" height="24" class="fas fa-star"></i>
              <i width="24" height="24" class="fas fa-star"></i>
              `
-        } else if (e.star == 3) {
-            document.querySelector(".wrapper__description-icons").innerHTML = `
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             `
-        } else if (e.star == 4) {
-            document.querySelector(".wrapper__description-icons").innerHTML = `
-             <i width="24" height="24" class="fas fa-star"></i>
+        } else if (e.star == "3") {
+            iconWrapper[i].innerHTML = `
              <i width="24" height="24" class="fas fa-star"></i>
              <i width="24" height="24" class="fas fa-star"></i>
              <i width="24" height="24" class="fas fa-star"></i>
              `
-        } else if (e.star == 5) {
-            document.querySelector(".wrapper__description-icons").innerHTML = `
+        } else if (e.star == "4") {
+            iconWrapper[i].innerHTML = `
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             `
+        } else if (e.star == "5") {
+            iconWrapper[i].innerHTML = `
              <i width="24" height="24" class="fas fa-star"></i>
              <i width="24" height="24" class="fas fa-star"></i>
              <i width="24" height="24" class="fas fa-star"></i>
@@ -126,7 +142,9 @@ function renderReviews(obj) {
              `
         }
 
-    })
+    }
+
+
 }
 
 //  open products  from sliders
@@ -134,6 +152,8 @@ function getItems() {
     const items = document.querySelectorAll(".slider__item-img");
     items.forEach(item => {
         item.addEventListener('click', () => {
+            let viewedArray = JSON.parse(localStorage.getItem('viewed')) || [];
+            viewedArray.push(item.dataset.id)
             window.location.href = `http://localhost:3000/productPage.html?=${item.dataset.id}`
         })
     })
@@ -141,25 +161,6 @@ function getItems() {
 
 
 }
-
-function getStars(array) {
-    reviewedProducts.forEach(el => {
-
-
-        for (let i = 0; i <= el.star; i++) {
-            const element = iconsWrapper[i];
-
-            // element.innerHTML = `
-            // <i width="24" height="24" class="fas fa-star"></i>
-            // `
-        }
-    })
-
-
-}
-
-
-
 
 window.addEventListener('DOMContentLoaded', init);
 
@@ -185,105 +186,62 @@ const counter = () => {
 
 
 //  comment form
-(() => {
-    const formReview = document.querySelector(".review__form")
-    let formData = new FormData(formReview);
-    const inputs = document.querySelectorAll('.review__form input')
+
+const formReview = document.querySelector(".review__form")
+let formData = new FormData(formReview);
+const inputs = document.querySelectorAll('.review__form input')
+
+const radio = document.querySelectorAll('.radio')
+formReview.addEventListener('input', (e) => {
+    let el = e.target;
+    let elValue = e.target.value;
+    elValue.trim();
+    if (el.classList.contains("name") && el.validity.valid) {
+        formData.append("user", elValue);
+    }
+
+    if (el.classList.contains("email") && el.validity.valid) {
+        formData.append("email", elValue);
+    }
+    if (el.classList.contains("comment") && el.validity.valid) {
+        formData.append("description", elValue)
+    }
+
+
+})
+
+function checkInputs(ob) {
     let object = {
         "user": "",
         "email": "",
         "description": "",
-        "star": ""
+        "star": "",
+        "id": getId
     };
-
-    const radio = document.querySelectorAll('.radio')
-    formReview.addEventListener('input', (e) => {
-        let el = e.target;
-        let elValue = e.target.value;
-        elValue.trim();
-        if (el.classList.contains("name") && el.validity.valid) {
-            formData.append("user", elValue);
+    radio.forEach(el => {
+        if (el.checked) {
+            formData.append("star", el.value);
         }
+    });
+    formData.forEach(function (value, key) {
+        object[key] = value;
+    });
+    const json = JSON.stringify(object);
+    let finalObj = Object.values(object).every(e => e !== "")
+    if (finalObj) {
 
-        if (el.classList.contains("email") && el.validity.valid) {
-            formData.append("email", elValue);
-        }
-        if (el.classList.contains("comment") && el.validity.valid) {
-            formData.append("description", elValue)
-        }
-
-        radio.forEach(el => {
-            if (el.checked) {
-                formData.append("star", el.value);
-            }
-        });
-
-    })
-
-    const submitBtn = document.querySelector(".form__field-btn");
-    submitBtn.addEventListener('click', (evt) => {
-        evt.preventDefault();
-        checkInputs()
-        return false
-    })
-
-    function checkInputs() {
+        let commentArray = JSON.parse(localStorage.getItem('comment')) || [];
+        commentArray.push(object);
+        localStorage.setItem('comment', JSON.stringify(commentArray));
+        document.querySelector(".name.input").value = "";
+        document.querySelector(".email.input").value = "";
+        document.querySelector("textarea").value = "";
+        ob.push(object)
         formData.forEach(function (value, key) {
-            object[key] = value;
+            formData.delete(key)
         });
-        const json = JSON.stringify(object);
-        let finalObj = Object.values(object).every(e => e !== "")
+        renderReviews(ob)
 
-        if (finalObj) {
-            localStorage.setItem("comment", json);
-            inputs.forEach(e => e.value = '');
-
-
-            // add your comment
-            const reviewItem = document.createElement('li')
-            reviewItem.classList.add("reviews__wrapper-item", "my-review")
-            reviewsSection.appendChild(reviewItem);
-            reviewItem.innerHTML = `
-            <div class="reviews__wrapper-item_info"> 
-                <h4 class="user__name">${object.user}</h4>
-                <div class="wrapper__description-icons "></div >
-            </div>
-            <p class="user__review"  >${object.description}</p>
-            `
-
-            if (object.star == 1) {
-                document.querySelector(".my-review .wrapper__description-icons").innerHTML = `
-                 <i width="24" height="24" class="fas fa-star"></i>
-                 `
-            } else if (object.star == 2) {
-                document.querySelector(".my-review .wrapper__description-icons").innerHTML = `
-                 <i width="24" height="24" class="fas fa-star"></i>
-                 <i width="24" height="24" class="fas fa-star"></i>
-                 `
-            } else if (object.star == 3) {
-                document.querySelector(".my-review .wrapper__description-icons").innerHTML = `
-                 <i width="24" height="24" class="fas fa-star"></i>
-                 <i width="24" height="24" class="fas fa-star"></i>
-                 <i width="24" height="24" class="fas fa-star"></i>
-                 `
-            } else if (object.star == 4) {
-                document.querySelector(".my-review .wrapper__description-icons").innerHTML = `
-                 <i width="24" height="24" class="fas fa-star"></i>
-                 <i width="24" height="24" class="fas fa-star"></i>
-                 <i width="24" height="24" class="fas fa-star"></i>
-                 <i width="24" height="24" class="fas fa-star"></i>
-                 `
-            } else if (object.star == 5) {
-                document.querySelector(".my-review .wrapper__description-icons").innerHTML = `
-                 <i width="24" height="24" class="fas fa-star"></i>
-                 <i width="24" height="24" class="fas fa-star"></i>
-                 <i width="24" height="24" class="fas fa-star"></i>
-                 <i width="24" height="24" class="fas fa-star"></i>
-                 <i width="24" height="24" class="fas fa-star"></i>
-                 `
-            }
-
-            alert('Success!')
-        }
     }
-})();
+
+}
