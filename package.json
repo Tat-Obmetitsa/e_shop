@@ -53,6 +53,7 @@
     "jquery": "^3.6.0",
     "jquery-mask-plugin": "^1.14.16",
     "lazy-load": "0.0.2",
+    "lorem-ipsum": "^2.0.4",
     "slick": "^1.12.2",
     "slick-carousel": "^1.8.1"
   },

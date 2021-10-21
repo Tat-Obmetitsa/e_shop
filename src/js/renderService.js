@@ -1,6 +1,18 @@
 import 'regenerator-runtime/runtime.js';
 import ApiService from './apiServer';
 const apiService = new ApiService();
+import { LoremIpsum } from "lorem-ipsum";
+
+const lorem = new LoremIpsum({
+    sentencesPerParagraph: {
+        max: 8,
+        min: 4
+    },
+    wordsPerSentence: {
+        max: 16,
+        min: 4
+    }
+});
 
 const commonArray = []
 const getCommonData = async () => {
@@ -50,7 +62,12 @@ const getCommonData = async () => {
 
                 Object.assign(hitsObj[jey], {
                     price: `${arrPrices[i]}`, description: `${arrDecriptions[i]}`,
-                    reviews: [{ id: `${hitsObj[jey].id}`, user: `${hitsObj[jey].user}`, userImageURL: `${hitsObj[jey].userImageURL}`, description: `${arrDecriptions[i]}`, star: `${star}` }],
+                    reviews: [{
+                        id: `${hitsObj[jey].id}`, user: `${hitsObj[jey].user}`, userImageURL: `${hitsObj[jey].userImageURL}`, description: `${lorem.generateParagraphs(1)}`, star: `${star}`,
+                    },
+                    {
+                        id: `${hitsObj[jey].id}`, user: `MyComment`, userImageURL: "", description: `${lorem.generateSentences(2)}`, star: `${star < 5 ? star + 1 : star - 1}`,
+                    }],
                     shipping: `${arrShipp[i]}`,
                     manufacturer: `${arrManufacturer[i]}`,
                     star: `${star}`
