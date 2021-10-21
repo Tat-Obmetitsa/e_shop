@@ -29,11 +29,16 @@ export default class RenderService {
         )
         return this.filtered
     }
-    // getHomeRating() {
-    //     this.filtered = this.arr.filter(e => Number(e.star) >= 3)
-    //     gallery.insertAdjacentHTML('beforeend', tpl(this.filtered.slice(0, amount)));
-    //     return this.filtered
-    // }
+    getFilterRating(star) {
+        let newArray = []
+        for (let j = 0; j < star.length; j++) {
+            let pr1 = star[j];
+            let array = this.filtered.filter((items) => items.star == pr1)
+            newArray.push(...array);
+        }
+        return newArray
+
+    }
 
     getById(id) {
         return this.arr.find(el => el.id == id);
@@ -77,7 +82,7 @@ export default class RenderService {
         for (let j = 0; j < price2.length; j++) {
             let pr1 = price1[j];
             let pr2 = price2[j];
-            let array = this.filtered.filter((items) => items.price > pr1 && items.price < pr2)
+            let array = this.filtered.filter((items) => items.price >= pr1 && items.price <= pr2)
             newArray.push(...array);
         }
         return newArray

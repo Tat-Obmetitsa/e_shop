@@ -191,36 +191,17 @@ function getItems() {
 function generateStars(obj, wrapper) {
     obj.forEach((e, i) => {
 
+        const starSign = '<i width="24" height="24" class="fas fa-star"></i>'
         if (e.star == "1") {
-            wrapper[i].innerHTML = `
-             <i width="24" height="24" class="fas fa-star"></i>
-             `
+            wrapper[i].innerHTML = starSign;
         } else if (e.star == "2") {
-            wrapper[i].innerHTML = `
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             `
+            wrapper[i].innerHTML = starSign + starSign;
         } else if (e.star == "3") {
-            wrapper[i].innerHTML = `
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             `
+            wrapper[i].innerHTML = starSign + starSign + starSign;
         } else if (e.star == "4") {
-            wrapper[i].innerHTML = `
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             `
+            wrapper[i].innerHTML = starSign + starSign + starSign + starSign;
         } else if (e.star == "5") {
-            wrapper[i].innerHTML = `
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             `
+            wrapper[i].innerHTML = starSign + starSign + starSign + starSign + starSign;
         }
 
     })

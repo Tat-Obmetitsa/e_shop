@@ -48,11 +48,11 @@ const getCommonData = async () => {
 
                 if (hitsObj[jey].likes < ((maxLikes * 20) / 100)) {
                     star = 1
-                } else if (hitsObj[jey].likes >= ((maxLikes * 20) / 100) && hitsObj[jey].likes < ((maxLikes * 40) / 100)) {
+                } else if (hitsObj[jey].likes >= ((maxLikes * 30) / 100) && hitsObj[jey].likes < ((maxLikes * 40) / 100)) {
                     star = 2
-                } else if (hitsObj[jey].likes >= ((maxLikes * 30) / 100) && hitsObj[jey].likes < ((maxLikes * 50) / 100)) {
+                } else if (hitsObj[jey].likes >= ((maxLikes * 40) / 100) && hitsObj[jey].likes < ((maxLikes * 55) / 100)) {
                     star = 3
-                } else if (hitsObj[jey].likes >= ((maxLikes * 50) / 100) && hitsObj[jey].likes < ((maxLikes * 80) / 100)) {
+                } else if (hitsObj[jey].likes >= ((maxLikes * 55) / 100) && hitsObj[jey].likes < ((maxLikes * 80) / 100)) {
                     star = 4
                 } else if (hitsObj[jey].likes >= ((maxLikes * 80) / 100)) {
                     star = 5

@@ -20,11 +20,12 @@ let index = 0;
 let pages = [];
 let data;
 let active = []
+let activeRating = []
 let minPrice = [];
 let maxPrice = [];
-
+let stars = []
 const priceItem = document.querySelectorAll('.list__filter-item_price .price_list')
-
+const ratingItem = document.querySelectorAll('.list__filter-item_rating .rating_list')
 
 // pagination  
 
@@ -112,7 +113,10 @@ const sort = async () => {
 
         if (active.length > 0) {
             priceSort()
+        } else if (activeRating.length > 0) {
+            ratingFiltered()
         }
+
         data = renderService.sortUp(data)
 
         let response = renderService.paginate(data)
@@ -130,6 +134,8 @@ const sort = async () => {
         upBtn.classList.remove("hidden")
         if (active.length > 0) {
             priceSort()
+        } else if (activeRating.length > 0) {
+            ratingFiltered()
         }
         data = renderService.sortDown(data)
         let response = renderService.paginate(data)
@@ -161,6 +167,28 @@ const sort = async () => {
                 active.push(element);
             }
             priceSort()
+        })
+    })
+    // filter by rating
+
+    ratingItem.forEach(e => {
+        e.addEventListener('click', (ev) => {
+            let element = ev.target;
+            if (!element.classList.contains('active-rating')) {
+                element.classList.add('active-rating')
+            } else {
+                element.classList.remove('active-rating');
+            }
+            if (activeRating.find(item => item == element)) {
+                activeRating.forEach(function (item, i) {
+                    if (item == element) {
+                        activeRating.splice(i, 1);
+                    }
+                });
+            } else {
+                activeRating.push(element);
+            }
+            ratingFiltered()
         })
     })
 
@@ -216,6 +244,29 @@ function priceSort() {
     getItems()
 
 }
+function ratingFiltered() {
+    stars = []
+    activeRating.forEach(e => {
+        stars.push(Number(e.dataset.value))
+
+    })
+    let setStars = new Set(stars);
+    let min = Array.from(setStars)
+    if (min.length === 0) {
+        min.push(1, 2, 3, 4, 5)
+    }
+    productGallery.innerHTML = '';
+    data = renderService.getFilterRating(min)
+    let response = renderService.paginate(data)
+    pages = []
+    pages.push(...response)
+
+    viewNumItems(index, data.length, 9)
+    displayButtons(paginationContainer, pages, index)
+    renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
+    getItems()
+
+}
 //  get categories
 
 const getData = () => {
@@ -225,7 +276,7 @@ const getData = () => {
     categoriesBtns[3].addEventListener('click', () => getCategory('shoes'))
     categoriesBtns[4].addEventListener('click', () => getCategory('dress'))
     categoriesBtns[5].addEventListener('click', () => getCategory('fashion'))
-
+    categoriesBtns[6].addEventListener('click', () => getCategory(''))
 
 
 }
@@ -240,7 +291,8 @@ const getCategory = async (query) => {
     displayButtons(paginationContainer, pages, index)
     if (active.length > 0) {
         priceSort()
-
+    } else if (activeRating.length > 0) {
+        ratingFiltered()
     }
 }
 

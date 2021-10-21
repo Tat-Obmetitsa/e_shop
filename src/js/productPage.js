@@ -108,42 +108,20 @@ function renderReviews(obj) {
 
         reviewsSection.appendChild(liItem)
         let iconWrapper = document.querySelectorAll(".wrapper__description-icons");
-
-
+        const starSign = '<i width="24" height="24" class="fas fa-star"></i>'
         if (e.star == "1") {
-            iconWrapper[i].innerHTML = `
-             <i width="24" height="24" class="fas fa-star"></i>
-             `
+            iconWrapper[i].innerHTML = starSign;
         } else if (e.star == "2") {
-            iconWrapper[i].innerHTML = `
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             `
+            iconWrapper[i].innerHTML = starSign + starSign;
         } else if (e.star == "3") {
-            iconWrapper[i].innerHTML = `
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             `
+            iconWrapper[i].innerHTML = starSign + starSign + starSign;
         } else if (e.star == "4") {
-            iconWrapper[i].innerHTML = `
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             `
+            iconWrapper[i].innerHTML = starSign + starSign + starSign + starSign;
         } else if (e.star == "5") {
-            iconWrapper[i].innerHTML = `
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             <i width="24" height="24" class="fas fa-star"></i>
-             `
+            iconWrapper[i].innerHTML = starSign + starSign + starSign + starSign + starSign;
         }
 
     }
-
 
 }
 

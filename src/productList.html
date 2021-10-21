@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Product List</title>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script>
 </head>
 
 <body>
@@ -118,6 +119,12 @@
                                 <span>Accesories</span>
                             </button>
                         </li>
+                        <li>
+                            <button type="button" class="categories-btn button">
+                                <i class="fas fa-shopping-bag"></i>
+                                <span>View all</span>
+                            </button>
+                        </li>
                     </ul>
                 </article>
                 <article class="list__filter-item">
@@ -142,6 +149,31 @@
                         <li class="list__filter-item_price">
                             <input type="checkbox" name="price_list" id="check5" class="price_list" data-minvalue="1000"
                                 data-maxvalue="1000000"> <span>&dollar;1000 and more</span>
+                        </li>
+                    </ul>
+                </article>
+                <article class="list__filter-item">
+                    <h3 class="list__filter-item_title">Filter by Rating</h3>
+                    <ul class="list__filter-item_list">
+                        <li class="list__filter-item_rating">
+                            <input type="checkbox" name="rating_list" id="rate5" data-value="5"
+                                class="rating_list "><span class="label">&#9733; &#9733; &#9733; &#9733; &#9733;</span>
+                        </li>
+                        <li class="list__filter-item_rating">
+                            <input type="checkbox" name="rating_list" id="rate4" data-value="4"
+                                class="rating_list  "><span>&#9733; &#9733; &#9733; &#9733;</span>
+                        </li>
+                        <li class="list__filter-item_rating">
+                            <input type="checkbox" name="rating_list" id="rate3" class="rating_list"
+                                data-value="3"><span>&#9733; &#9733; &#9733;</span>
+                        </li>
+                        <li class="list__filter-item_rating">
+                            <input type="checkbox" name="rating_list" id="rate2" class="rating_list"
+                                data-value="2"><span>&#9733; &#9733;</span>
+                        </li>
+                        <li class="list__filter-item_rating">
+                            <input type="checkbox" name="rating_list" id="rate1" class="rating_list"
+                                data-value="1"><span>&#9733;</span>
                         </li>
                     </ul>
                 </article>
