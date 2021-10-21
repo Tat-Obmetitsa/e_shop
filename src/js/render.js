@@ -24,29 +24,17 @@ export default class RenderService {
         return this.filtered
     }
 
-
     getById(id) {
-        let searchedObj = []
-        for (let i = 0; i < this.arr.length; i++) {
-            const e = this.arr[i];
-            if (e.id === id && i < this.arr.length - 4) {
-                searchedObj.push(e, this.arr[i + 1], this.arr[i + 2], this.arr[i + 3])
-                break
-            } else if (e.id === id && i > this.arr.length - 4) {
-                searchedObj.push(e, this.arr[i - 5], this.arr[i + 4], this.arr[i + 3])
-                break
-            }
-
-        }
-        return searchedObj
+        return this.arr.find(el => el.id == id);
     }
-
+    getByIdReviws(id) {
+        let array = this.arr.find(el => el.id == id);
+        return [...array.reviews]
+    }
     getHistoryById() {
         let array = localStorage.getItem("viewed");
         return this.arr.filter(el => array.indexOf(`${el.id}`) > -1);
     }
-
-
     sortUp(array) {
         if (array !== undefined) array.sort((a, b) => a.price - b.price);
 

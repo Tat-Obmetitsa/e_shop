@@ -108,20 +108,26 @@
                 <form class="review__form" action="index.html">
                     <fieldset>
                         <legend class="form__field-title">Leave your comment</legend>
-                        <input type="text" placeholder="Name&#42;" name="name" class="name input" minlength="2"
-                            id="name" required>
+                        <input type="text" placeholder="Name&#42;" name="user" class="name input" minlength="2"
+                            id="user" required>
                         <input type="email" name="email" class="email input" placeholder="Email&#42;"
                             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" size="30" required />
+                        <div class="star">
+                            <input name="ratings" id="preco_2" value="2" class="radio radio-2" type="radio" required>
+                            <input name="ratings" id="preco_1" value="1" class="radio radio-1" type="radio">
+                            <input name="ratings" id="preco_3" value="3" class="radio radio-3" type="radio">
+                            <input name="ratings" id="preco_4" value="4" class="radio radio-4" type="radio">
+                            <input name="ratings" id="preco_5" value="5" class="radio radio-5" type="radio">
 
-                        <div class="form__icons">
-                            <i width="24" height="24" class="fas fa-star"></i>
-                            <i width="24" height="24" class="fas fa-star"></i>
-                            <i width="24" height="24" class="fas fa-star"></i>
-                            <i width="24" height="24" class="fas fa-star"></i>
-                            <i width="24" height="24" class="fas fa-star"></i>
+                            <label for="preco_1" class="star-item star-item-1">1</label>
+                            <label for="preco_2" class="star-item star-item-2">2</label>
+                            <label for="preco_3" class="star-item star-item-3">3</label>
+                            <label for="preco_4" class="star-item star-item-4">4</label>
+                            <label for="preco_5" class="star-item star-item-5">5</label>
                         </div>
-                        <textarea placeholder="Leave your comment&#42;" wrap="soft" name="comment" class="comment input"
-                            id="comment" cols="30" rows="10" maxlength="200" required></textarea>
+                        <textarea placeholder="Leave your comment&#42;" wrap="soft" name="description"
+                            class="comment input" id="description" cols="30" rows="10" maxlength="200"
+                            required></textarea>
 
                         <input type="submit" class="button form__field-btn" value="Submit">
                     </fieldset>

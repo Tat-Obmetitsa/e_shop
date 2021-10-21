@@ -180,3 +180,8 @@ img {
 .hidden {
     visibility: hidden;
 }
+
+.wrapper__image,
+.list__gallery-img {
+    cursor: pointer;
+}

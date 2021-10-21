@@ -16,14 +16,13 @@ const iconsWrapper = document.querySelectorAll('.wrapper__description-icons')
 
 const init = async () => {
     await render.init();
-    const reviewedProducts = await renderService.getById(Number(getId))
-    const product = reviewedProducts[0]
+    const reviewedProducts = await renderService.getByIdReviws(Number(getId))
+    const product = await renderService.getById(Number(getId))
+
     await renderProduct(product)
     await counter()
     await getItems()
-
-
-    await renderService.getCategoryAll(reviewsSection, reviewsTpl, reviewedProducts);
+    await renderReviews(reviewedProducts)
 
     const viewAllBtns = document.querySelectorAll('.section__view-button');
     viewAllBtns[0].addEventListener('click', () => window.location.href = `http://localhost:3000/productList.html?=${product.tags.split(', ')[0]}`)
@@ -79,9 +78,55 @@ function renderProduct(obj) {
     renderService.getCategoryAll(sliderSimilar, productGalleryTpl, similarProducts);
     renderService.getCategoryAll(sliderRecent, productGalleryTpl, recentProducts);
 
+}
 
+function renderReviews(obj) {
+    obj.map(e => {
+        reviewsSection.innerHTML = `
+        <li class="reviews__wrapper-item" data-id=${e.id}>
+    <div class="reviews__wrapper-item_info">
+        <img src=${e.userImageURL} class="user__image"   alt="avatar">
+        <h4 class="user__name">${e.user}</h4>
+         <div class="wrapper__description-icons" data-id=${e.id}>
+</div >
+    </div>
+    <p class="user__review"  >${e.description}</p>
+</li>
+        
+        `
+        if (e.star == 1) {
+            document.querySelector(".wrapper__description-icons").innerHTML = `
+             <i width="24" height="24" class="fas fa-star"></i>
+             `
+        } else if (e.star == 2) {
+            document.querySelector(".wrapper__description-icons").innerHTML = `
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             `
+        } else if (e.star == 3) {
+            document.querySelector(".wrapper__description-icons").innerHTML = `
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             `
+        } else if (e.star == 4) {
+            document.querySelector(".wrapper__description-icons").innerHTML = `
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             `
+        } else if (e.star == 5) {
+            document.querySelector(".wrapper__description-icons").innerHTML = `
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             <i width="24" height="24" class="fas fa-star"></i>
+             `
+        }
 
-
+    })
 }
 
 //  open products  from sliders
@@ -111,55 +156,6 @@ function getStars(array) {
     })
 
 
-
-
-
-
-
-
-
-
-    iconsWrapper.forEach(e => {
-        array.forEach(el => {
-            console.log(iconsWrapper)
-            // if (el.stars == 1) {
-            //     e.innerHTML = `
-            // <i width="24" height="24" class="fas fa-star"></i>
-            // `
-
-            // } else if (el.star == 2) {
-            //     e.innerHTML = `
-            // <i width="24" height="24" class="fas fa-star"></i>
-            // <i width="24" height="24" class="fas fa-star"></i>
-            // `
-
-            // } else if (el.star == 3) {
-            //     e.innerHTML = `
-            // <i width="24" height="24" class="fas fa-star"></i>
-            // <i width="24" height="24" class="fas fa-star"></i>
-            // <i width="24" height="24" class="fas fa-star"></i>
-            // `
-
-            // } else if (el.star == 4) {
-            //     e.innerHTML = `
-            // <i width="24" height="24" class="fas fa-star"></i>
-            // <i width="24" height="24" class="fas fa-star"></i>
-            // <i width="24" height="24" class="fas fa-star"></i>
-            // <i width="24" height="24" class="fas fa-star"></i>
-            // `
-
-            // } else if (el.star == 5) {
-            //     e.innerHTML = `
-            // <i width="24" height="24" class="fas fa-star"></i>
-            // <i width="24" height="24" class="fas fa-star"></i>
-            // <i width="24" height="24" class="fas fa-star"></i>
-            // <i width="24" height="24" class="fas fa-star"></i>
-            // <i width="24" height="24" class="fas fa-star"></i>
-            // `
-
-            // }
-        })
-    })
 }
 
 
@@ -189,50 +185,105 @@ const counter = () => {
 
 
 //  comment form
+(() => {
+    const formReview = document.querySelector(".review__form")
+    let formData = new FormData(formReview);
+    const inputs = document.querySelectorAll('.review__form input')
+    let object = {
+        "user": "",
+        "email": "",
+        "description": "",
+        "star": ""
+    };
 
-const formReview = document.querySelector(".review__form")
-let formData = new FormData(formReview);
-const inputs = document.querySelectorAll('.review__form input')
-let object = {
-    "name": "",
-    "email": "",
-    "comment": "",
-};
+    const radio = document.querySelectorAll('.radio')
+    formReview.addEventListener('input', (e) => {
+        let el = e.target;
+        let elValue = e.target.value;
+        elValue.trim();
+        if (el.classList.contains("name") && el.validity.valid) {
+            formData.append("user", elValue);
+        }
+
+        if (el.classList.contains("email") && el.validity.valid) {
+            formData.append("email", elValue);
+        }
+        if (el.classList.contains("comment") && el.validity.valid) {
+            formData.append("description", elValue)
+        }
+
+        radio.forEach(el => {
+            if (el.checked) {
+                formData.append("star", el.value);
+            }
+        });
+
+    })
+
+    const submitBtn = document.querySelector(".form__field-btn");
+    submitBtn.addEventListener('click', (evt) => {
+        evt.preventDefault();
+        checkInputs()
+        return false
+    })
+
+    function checkInputs() {
+        formData.forEach(function (value, key) {
+            object[key] = value;
+        });
+        const json = JSON.stringify(object);
+        let finalObj = Object.values(object).every(e => e !== "")
+
+        if (finalObj) {
+            localStorage.setItem("comment", json);
+            inputs.forEach(e => e.value = '');
 
 
-formReview.addEventListener('input', (e) => {
-    let el = e.target;
-    let elValue = e.target.value;
-    elValue.trim();
-    if (el.classList.contains("name") && el.validity.valid) {
-        formData.append('name', elValue);
+            // add your comment
+            const reviewItem = document.createElement('li')
+            reviewItem.classList.add("reviews__wrapper-item", "my-review")
+            reviewsSection.appendChild(reviewItem);
+            reviewItem.innerHTML = `
+            <div class="reviews__wrapper-item_info"> 
+                <h4 class="user__name">${object.user}</h4>
+                <div class="wrapper__description-icons "></div >
+            </div>
+            <p class="user__review"  >${object.description}</p>
+            `
+
+            if (object.star == 1) {
+                document.querySelector(".my-review .wrapper__description-icons").innerHTML = `
+                 <i width="24" height="24" class="fas fa-star"></i>
+                 `
+            } else if (object.star == 2) {
+                document.querySelector(".my-review .wrapper__description-icons").innerHTML = `
+                 <i width="24" height="24" class="fas fa-star"></i>
+                 <i width="24" height="24" class="fas fa-star"></i>
+                 `
+            } else if (object.star == 3) {
+                document.querySelector(".my-review .wrapper__description-icons").innerHTML = `
+                 <i width="24" height="24" class="fas fa-star"></i>
+                 <i width="24" height="24" class="fas fa-star"></i>
+                 <i width="24" height="24" class="fas fa-star"></i>
+                 `
+            } else if (object.star == 4) {
+                document.querySelector(".my-review .wrapper__description-icons").innerHTML = `
+                 <i width="24" height="24" class="fas fa-star"></i>
+                 <i width="24" height="24" class="fas fa-star"></i>
+                 <i width="24" height="24" class="fas fa-star"></i>
+                 <i width="24" height="24" class="fas fa-star"></i>
+                 `
+            } else if (object.star == 5) {
+                document.querySelector(".my-review .wrapper__description-icons").innerHTML = `
+                 <i width="24" height="24" class="fas fa-star"></i>
+                 <i width="24" height="24" class="fas fa-star"></i>
+                 <i width="24" height="24" class="fas fa-star"></i>
+                 <i width="24" height="24" class="fas fa-star"></i>
+                 <i width="24" height="24" class="fas fa-star"></i>
+                 `
+            }
+
+            alert('Success!')
+        }
     }
-
-    if (el.classList.contains("email") && el.validity.valid) {
-        formData.append('email', elValue);
-    }
-    if (el.classList.contains("comment") && el.validity.valid) {
-        formData.append('comment', elValue)
-    }
-
-})
-
-const submitBtn = document.querySelector(".form__field-btn");
-submitBtn.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    checkInputs()
-    return false
-})
-
-function checkInputs() {
-    formData.forEach(function (value, key) {
-        object[key] = value;
-    });
-    const json = JSON.stringify(object);
-    let finalObj = Object.values(object).every(e => e !== "")
-    if (finalObj) {
-        localStorage.setItem('comment', json);
-        inputs.forEach(e => e.value = '');
-        alert('Success!')
-    }
-}
+})();
