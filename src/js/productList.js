@@ -12,9 +12,10 @@ const input = document.querySelectorAll('.header__wrapper-input');
 const upBtn = document.querySelector('.up')
 const downBtn = document.querySelector('.down')
 
+
 const viewNum = document.querySelector('.list__view-results')
 const categoriesBtns = document.querySelectorAll('.categories-btn.button')
-
+var _ = undefined;
 
 let index = 0;
 let pages = [];
@@ -57,6 +58,8 @@ paginationContainer.addEventListener('click', function (e) {
 
 const sort = async () => {
     await render.init();
+    const manufacturers = renderService.getFilteredManufacturer();
+    renderManufacturers(manufacturers)
 
     // open by clicking on homepage
     switch (window.location.search) {
@@ -198,6 +201,20 @@ const sort = async () => {
 
 }
 
+function renderManufacturers(array) {
+    for (let i = 0; i < array.length; i++) {
+        const e = array[i];
+        let manufacturerBtn = document.createElement('button');
+        manufacturerBtn.classList.add('filter-manufacturer', 'button');
+        manufacturerBtn.value = e
+        manufacturerBtn.textContent = e
+        document.querySelector(".list__view-sort_manufacturer").appendChild(manufacturerBtn)
+    }
+
+
+
+}
+
 // add search on Product Page
 
 function searchData(evt) {
@@ -270,20 +287,29 @@ function ratingFiltered() {
 //  get categories
 
 const getData = () => {
-    categoriesBtns[0].addEventListener('click', () => getCategory('jacket'))
-    categoriesBtns[1].addEventListener('click', () => getCategory('shirt'))
-    categoriesBtns[2].addEventListener('click', () => getCategory('jeans'))
-    categoriesBtns[3].addEventListener('click', () => getCategory('shoes'))
-    categoriesBtns[4].addEventListener('click', () => getCategory('dress'))
-    categoriesBtns[5].addEventListener('click', () => getCategory('fashion'))
-    categoriesBtns[6].addEventListener('click', () => getCategory(''))
+
+    categoriesBtns[0].addEventListener('click', () => getCategory('jacket', _))
+    categoriesBtns[1].addEventListener('click', () => getCategory('shirt', _))
+    categoriesBtns[2].addEventListener('click', () => getCategory('jeans', _))
+    categoriesBtns[3].addEventListener('click', () => getCategory('shoes', _))
+    categoriesBtns[4].addEventListener('click', () => getCategory('dress', _))
+    categoriesBtns[5].addEventListener('click', () => getCategory('fashion', _))
+    categoriesBtns[6].addEventListener('click', () => getCategory('', _))
+    document.querySelectorAll(".filter-manufacturer").forEach(e => {
+        e.addEventListener("click", () => {
+            getCategory(_, e.value)
+        })
+
+    })
 
 
 }
 
-const getCategory = async (query) => {
+const getCategory = async (query, str) => {
     data = []
-    data = renderService.getFiltered(query)
+
+    data = renderService.getFiltered(query, str)
+
     let response = renderService.paginate(data)
     pages = []
     pages.push(...response)
@@ -316,6 +342,14 @@ function renderCategories() {
 
     categoriesBtns.forEach(e => {
         e.addEventListener('click', () => {
+            index = 0;
+            renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
+            getItems()
+        })
+
+    })
+    document.querySelectorAll(".filter-manufacturer").forEach(e => {
+        e.addEventListener("click", () => {
             index = 0;
             renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
             getItems()

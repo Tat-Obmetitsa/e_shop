@@ -23,10 +23,14 @@ export default class RenderService {
         gallery.insertAdjacentHTML('beforeend', tpl(array));
     }
 
-    getFiltered(searchQuery) {
-        this.filtered = this.arr.filter(e =>
-            e.tags.includes(`${searchQuery}`)
-        )
+    getFiltered(searchQuery, str) {
+        if (searchQuery !== undefined) {
+            this.filtered = this.arr.filter(e =>
+                e.tags.includes(`${searchQuery}`)
+            )
+        } else if (str !== undefined) { this.filtered = this.arr.filter(e => e.manufacturer == str) }
+
+
         return this.filtered
     }
     getFilterRating(star) {
@@ -39,7 +43,10 @@ export default class RenderService {
         return newArray
 
     }
-
+    getManufacturer(str) {
+        this.filtered = this.arr.filter(e => e.manufacturer == str)
+        return this.filtered
+    }
     getById(id) {
         return this.arr.find(el => el.id == id);
     }
@@ -87,7 +94,26 @@ export default class RenderService {
         }
         return newArray
     }
+    getFilteredManufacturer() {
+        let array = []
+        this.filtered = this.arr.forEach(e =>
+            array.push(e.manufacturer)
+        )
+        let result = array.reduce(function (acc, el) {
 
+            acc[el] = (acc[el] || 0) + 1;
+            array = []
+            return acc;
+        }, {});
+        for (const key in result) {
+            if (Object.hasOwnProperty.call(result, key)) {
+                const element = result[key];
+                if (element > 4) { array.push(key) }
+
+            }
+        }
+        return array
+    }
     get query() {
         return this.searchQuery;
     }
