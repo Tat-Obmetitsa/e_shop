@@ -54,12 +54,18 @@
 
             &:hover {
                 background-color: $dark;
-                color: $bg-light;
-
+                border: 0;
+                & a {
+                    border: 0;
+                    color: $bg-light;
+                }
                 & svg {
                     fill: $bg-light;
                 }
             }
+        }
+        & .section__view-button {
+            flex-direction: column;
         }
     }
 }

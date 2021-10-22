@@ -17,15 +17,17 @@
                 </svg>
                 <span class="header__wrapper-logo">Elliye</span>
             </div>
+            <form action="post" class="header__wrapper-form">
+                <input class="header__wrapper-input product" type="search" name="search" placeholder="Search..."
+                    aria-label="search" />
+                <button type="button" class="header__wrapper-button search">
+                    <svg width="24px" height="24px" aria-label="search">
+                        <use href="./assets/homepage/sprite.svg#search"></use>
+                    </svg>
+                </button>
+            </form>
             <div class="header__wrapper header__wrapper-desktop" id="header__wrapper-desktop" data-menu>
-                <form action="post" class="header__wrapper-form">
-                    <input class="header__wrapper-input" type="search" name="search" aria-label="search" />
-                    <button type="button" class="header__wrapper-button search">
-                        <svg width="24px" height="24px" aria-label="search">
-                            <use href="./assets/homepage/sprite.svg#search"></use>
-                        </svg>
-                    </button>
-                </form>
+
                 <a href="./cart.html" class="header__wrapper-button cart">
                     <svg width="24px" height="24px" aria-label="cart">
                         <use href="./assets/homepage/sprite.svg#cart"></use>
@@ -35,14 +37,7 @@
                 <button type="button" class="button">Login</button>
             </div>
             <div class="header__wrapper-mobile">
-                <form action="post" class="header__wrapper-form">
-                    <input class="header__wrapper-input hidden" type="search" name="search" aria-label="search" />
-                    <button type="button" class="header__wrapper-button search">
-                        <svg width="24px" height="24px" aria-label="search">
-                            <use href="./assets/homepage/sprite.svg#search"></use>
-                        </svg>
-                    </button>
-                </form>
+
                 <a href="./checkout.html" class="header__wrapper-button cart">
                     <svg width="24px" height="24px" aria-label="cart">
                         <use href="./assets/homepage/sprite.svg#cart"></use>
@@ -77,7 +72,7 @@
                     <ul class="list__filter-item_list">
                         <li>
                             <button type="button" class="categories-btn button">
-                                <svg aria-label="jacket" width="32" height="32">
+                                <svg aria-label="jacket">
                                     <use href="./assets/homepage/sprite.svg#category1"></use>
                                 </svg>
                                 <span>Jacket</span>
@@ -85,7 +80,7 @@
                         </li>
                         <li>
                             <button type="button" class="categories-btn button">
-                                <svg aria-label="shirt" width="32" height="32">
+                                <svg aria-label="shirt">
                                     <use href="./assets/homepage/sprite.svg#category2"></use>
                                 </svg>
                                 <span>Shirt</span>
@@ -93,7 +88,7 @@
                         </li>
                         <li>
                             <button type="button" class="categories-btn button">
-                                <svg aria-label="Pants" width="32" height="32">
+                                <svg aria-label="Pants">
                                     <use href="./assets/homepage/sprite.svg#category3"></use>
                                 </svg>
                                 <span>Pants</span>
@@ -101,7 +96,7 @@
                         </li>
                         <li>
                             <button type="button" class="categories-btn button">
-                                <svg aria-label="Shoes" width="32" height="32">
+                                <svg aria-label="Shoes">
                                     <use href="./assets/homepage/sprite.svg#category4"></use>
                                 </svg>
                                 <span>Shoes</span>
@@ -109,7 +104,7 @@
                         </li>
                         <li>
                             <button type="button" class="categories-btn button">
-                                <svg aria-label="Dress" width="32" height="32">
+                                <svg aria-label="Dress">
                                     <use href="./assets/homepage/sprite.svg#category5"></use>
                                 </svg>
                                 <span>Dress</span>
@@ -117,7 +112,7 @@
                         </li>
                         <li>
                             <button type="button" class="categories-btn button">
-                                <svg aria-label="Accesories" width="32" height="32">
+                                <svg aria-label="Accesories">
                                     <use href="./assets/homepage/sprite.svg#category6"></use>
                                 </svg>
                                 <span>Accesories</span>
@@ -128,41 +123,45 @@
                 <article class="list__filter-item">
                     <h3 class="list__filter-item_title">Filter by Price</h3>
                     <ul class="list__filter-item_list">
-                        <li>
-                            <input type="checkbox" name="price_list" id="check1"><label for="check1">All Price</label>
+                        <li class="list__filter-item_price">
+                            <input type="checkbox" name="price_list" id="check1" data-minvalue="0" data-maxvalue="100"
+                                class="price_list "> <span class="label">Less than 100</span>
                         </li>
-                        <li>
-                            <input type="checkbox" name="price_list" id="check2"><label for="check2">&dollar;<span
-                                    class="price_num low">100</span>-<span class="price_num high">250</span></label>
+                        <li class="list__filter-item_price">
+                            <input type="checkbox" name="price_list" id="check2" data-minvalue="100" data-maxvalue="250"
+                                class="price_list  "> <span>&dollar;100-250</span>
                         </li>
-                        <li>
-                            <input type="checkbox" name="price_list" id="check3"><label for="check3">&dollar;<span
-                                    class="price_num low">250</span>-<span class="price_num high">500</span></label>
+                        <li class="list__filter-item_price">
+                            <input type="checkbox" name="price_list" id="check3" class="price_list" data-minvalue="250"
+                                data-maxvalue="500"> <span>&dollar;250 - 500</span>
                         </li>
-                        <li>
-                            <input type="checkbox" name="price_list" id="check4"><label for="check4">&dollar;<span
-                                    class="price_num low">750</span>-<span class="price_num high">1000</span></label>
+                        <li class="list__filter-item_price">
+                            <input type="checkbox" name="price_list" id="check4" class="price_list" data-minvalue="500"
+                                data-maxvalue="1000"> <span>&dollar;500-1000</span>
                         </li>
-                        <li>
-                            <input type="checkbox" name="price_list" id="check5"><label for="check5">&dollar;<span
-                                    class="price_num low">1000</span> and
-                                more</label>
+                        <li class="list__filter-item_price">
+                            <input type="checkbox" name="price_list" id="check5" class="price_list" data-minvalue="1000"
+                                data-maxvalue="1000000"> <span>&dollar;1000 and more</span>
                         </li>
                     </ul>
                 </article>
             </aside>
             <section>
-                <div>
-                    <p>Viewing <span> results</span> </p>
-                    <p>Sort by
-                    <ul>
-                        <li><button type="button" class="sort-btn button">Price</button></li>
-                    </ul>
-                    </p>
-                    <span class="arrow-up">&#8593;</span>
-                    <span class="arrow-down">&#8595;</span>
+                <div class="list__view">
+                    <p class="list__view-results"></p>
+                    <div class="list__view-sort">
+                        <p>Sort by</p>
+                        <button type="button" class="sort-btn-price button up  ">Price <span
+                                class="arrow-up ">&#8593;</span>
+                        </button>
+                        <button type="button" class="sort-btn-price down button hidden">Price <span
+                                class="arrow-down ">&#8595;</span>
+                        </button>
+                    </div>
+
                 </div>
-                <ul class="list__gallery"></ul>
+                <ul id="gallery" class="list__gallery"></ul>
+                <div class="pagination"></div>
             </section>
         </div>
     </main>
@@ -264,8 +263,10 @@
                 </ul>
             </li>
         </ul>
+
     </footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </body>
 
 </html>

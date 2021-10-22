@@ -8,6 +8,7 @@
   <title>Valtech E-Shop</title>
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script>
 </head>
 
 <body>
@@ -34,7 +35,7 @@
             <a href="#collections">Collections</a>
           </li>
         </ul>
-        <form action="post" class="header__wrapper-form">
+        <form class="header__wrapper-form">
           <input class="header__wrapper-input hidden" type="search" name="search" aria-label="search" />
           <button type="button" class="header__wrapper-button search">
             <svg width="24px" height="24px" aria-label="search">
@@ -51,7 +52,7 @@
         <button type="button" class="button">Login</button>
       </div>
       <div class="header__wrapper-mobile">
-        <form action="post" class="header__wrapper-form">
+        <form class="header__wrapper-form">
           <input class="header__wrapper-input hidden" type="search" name="search" aria-label="search" />
           <button type="button" class="header__wrapper-button search">
             <svg width="24px" height="24px" aria-label="search">
@@ -85,12 +86,12 @@
           magna
           aliqua.
         </p>
-        <button class="button" type="button">
-          <span class="button__text">Show Now</span>
+        <a type="button" class="button all">
+          <span class="button__text">All goods</span>
           <svg width="48px" height="48px" aria-label="search">
             <use href="./assets/homepage/sprite.svg#small-arrow"></use>
           </svg>
-        </button>
+        </a>
       </div>
       <div class="banner__wrapper">
         <div class="slick">
@@ -118,110 +119,84 @@
     <section class="section category" id="category">
       <div class="section__wrapper">
         <h2 class="section__title">Categories</h2>
-        <a href="./productList.html" type="button" class="section__view-button">
-          <span>View all</span>
-          <svg width="30px" height="30px" aria-label="next">
-            <use href="./assets/homepage/sprite.svg#small-arrow"></use>
-          </svg>
-        </a>
       </div>
       <ul class="category__list">
         <li class="category__list-item">
-          <svg aria-label="jacket">
-            <use href="./assets/homepage/sprite.svg#category1"></use>
-          </svg>
-          <span>Jacket</span>
+          <a type="button" class="section__view-button categories-btn">
+            <svg aria-label="jacket">
+              <use href="./assets/homepage/sprite.svg#category1"></use>
+            </svg>
+            <span>Jacket</span>
+          </a>
         </li>
         <li class="category__list-item">
-          <svg aria-label="shirt">
-            <use href="./assets/homepage/sprite.svg#category2"></use>
-          </svg>
-          <span>Shirt</span>
+          <a type="button" class="section__view-button categories-btn">
+            <svg aria-label="shirt">
+              <use href="./assets/homepage/sprite.svg#category2"></use>
+            </svg>
+            <span>Shirt</span>
+          </a>
         </li>
         <li class="category__list-item">
-          <svg aria-label="pants">
-            <use href="./assets/homepage/sprite.svg#category3"></use>
-          </svg>
-          <span>Pants</span>
+          <a type="button" class="section__view-button categories-btn">
+            <svg aria-label="pants">
+              <use href="./assets/homepage/sprite.svg#category3"></use>
+            </svg>
+            <span>Pants</span>
+          </a>
         </li>
         <li class="category__list-item">
-          <svg aria-label="shoes">
-            <use href="./assets/homepage/sprite.svg#category4"></use>
-          </svg>
-          <span>Shoes</span>
+          <a type="button" class="section__view-button categories-btn">
+            <svg aria-label="shoes">
+              <use href="./assets/homepage/sprite.svg#category4"></use>
+            </svg>
+            <span>Shoes</span>
+          </a>
         </li>
         <li class="category__list-item">
-          <svg aria-label="dress">
-            <use href="./assets/homepage/sprite.svg#category5"></use>
-          </svg>
-          <span>Dress</span>
+          <a type="button" class="section__view-button categories-btn">
+            <svg aria-label="dress">
+              <use href="./assets/homepage/sprite.svg#category5"></use>
+            </svg>
+            <span>Dress</span>
+          </a>
         </li>
         <li class="category__list-item">
-          <svg aria-label="accesories">
-            <use href="./assets/homepage/sprite.svg#category6"></use>
-          </svg>
-          <span>Accesories</span>
+          <a type="button" class="section__view-button categories-btn">
+            <svg aria-label="accesories">
+              <use href="./assets/homepage/sprite.svg#category6"></use>
+            </svg>
+            <span>Stylish</span>
+          </a>
         </li>
       </ul>
     </section>
     <section class="section arrivals" id="arrivals">
       <div class="section__wrapper">
         <h2 class="section__title">New Arrivals</h2>
-        <button type="button" class="section__view-button">
+        <a type="button" class="section__view-button arrivals">
           <span>View all</span>
-          <svg width="30px" height="30px" aria-label="search">
+          <svg width="30px" height="30px" aria-label="next">
             <use href="./assets/homepage/sprite.svg#small-arrow"></use>
           </svg>
-        </button>
+        </a>
       </div>
-      <ul class="arrivals__list">
-        <li class="arrivals__list-item">
+      <div class="arrivals__list">
+        <div class="arrivals__list-wrapper">
           <img class="wrapper__image" src="./assets/homepage/new_m.jpg" alt="jacket" />
-          <div class="wrapper__description cart__card">
-            <h3 class="wrapper__description-title">Purple Warm Jacket</h3>
-            <span class="wrapper__description-text">&dollar;299</span>
-            <button type="button" class="button add-button">Add to Cart</button>
-          </div>
-        </li>
-        <li class="arrivals__list-item">
-          <img class="wrapper__image" src="./assets/homepage/new2.jpg" alt="bag" />
-          <div class="wrapper__description">
-            <h3 class="wrapper__description-title">Pink Bag</h3>
-            <span class="wrapper__description-text">&dollar;299</span>
-          </div>
-        </li>
-        <li class="arrivals__list-item">
-          <img class="wrapper__image" src="./assets/homepage/new1.jpg" alt="shirt" />
-          <div class="wrapper__description">
-            <h3 class="wrapper__description-title">V-neck T-Shirt</h3>
-            <span class="wrapper__description-text">&dollar;299</span>
-          </div>
-        </li>
-        <li class="arrivals__list-item">
-          <img class="wrapper__image" src="./assets/homepage/new3.jpg" alt="boots" />
-          <div class="wrapper__description">
-            <h3 class="wrapper__description-title">Purple Boots</h3>
-            <span class="wrapper__description-text">&dollar;299</span>
-          </div>
-        </li>
-        <li class="arrivals__list-item">
-          <img class="wrapper__image" src="./assets/homepage/new4.jpg" alt="trainers" />
-          <div class="wrapper__description">
-            <h3 class="wrapper__description-title">Cool Trainers</h3>
-            <span class="wrapper__description-text">&dollar;299</span>
-          </div>
-        </li>
-      </ul>
+        </div>
+        <ul id="arrivals__list" class="arrivals__list-wrapper"></ul>
+      </div>
     </section>
     <section class="section featured" id="featured">
       <div class="section__wrapper">
         <h2 class="section__title">Featured</h2>
-        <button type="button" class="section__view-button">
+        <a type="button" class="section__view-button featured">
           <span>View all</span>
-          <svg width="30px" height="30px" aria-label="search">
+          <svg width="30px" height="30px" aria-label="next">
             <use href="./assets/homepage/sprite.svg#small-arrow"></use>
           </svg>
-        </button>
+        </a>
       </div>
       <ul class="featured__list"></ul>
     </section>
@@ -265,12 +240,12 @@
     <section class="section popular" id="popular">
       <div class="section__wrapper">
         <h2 class="section__title">Popular This Week</h2>
-        <button type="button" class="section__view-button">
+        <a type="button" class="section__view-button popular">
           <span>View all</span>
           <svg width="30px" height="30px" aria-label="next">
             <use href="./assets/homepage/sprite.svg#small-arrow"></use>
           </svg>
-        </button>
+        </a>
       </div>
       <ul class="popular__list"></ul>
     </section>

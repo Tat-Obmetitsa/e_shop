@@ -1,40 +1,66 @@
 const baseUrl = 'http://localhost:3030/';
-import { setStorageItem } from './utils'
-const baseImgUrl = 'https://pixabay.com/api/'
+const baseImgUrl = 'https://pixabay.com/api/?image_type=photo&orientation=horizontal&category=fashion+industry'
 const apiKeyImg = '19817444-e2944238b0133b6bab479e2af';
 
-// from pixabay
-
-const fetchPics = async () => {
-    const url = `${baseImgUrl}?image_type=photo&category=industry&q=fashion&page=1&per_page=9&key=${apiKeyImg}`;
-    const response = await fetch(url).then(response => response.json()).catch((err) => console.log(err));
-
-    return response;
-};
-
-
-// from local api 
-const fetchFeatured = async () => {
-    const params = `products?name[$like]=*over-the-ear*&$limit=12`;
-    let url = baseUrl + params;
-    const response = await fetch(url).then(response => response.json())
-        .then(({ data }) => {
-            setStorageItem("item", data)
-
-            return data;
-        }).catch((err) => console.log(err));
-
-    return response;
-};
-
-
-const fetchPopular = async () => {
-    const params = `products?$sort[upc]=1&$limit=9`;
-    let url = baseUrl + params;
-    const response = await fetch(url).then(response => response.json()).catch((err) => console.log(err));
-
-    return response;
-};
+function makeRequest(method, url) {
+    return new Promise(function (resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.open(method, url);
+        xhr.onload = function () {
+            if (this.status >= 200 && this.status < 300) {
+                resolve(JSON.parse(xhr.responseText));
+            } else {
+                reject({
+                    status: this.status,
+                    statusText: xhr.statusText
+                });
+            }
+        };
+        xhr.onerror = function () {
+            reject({
+                status: this.status,
+                statusText: xhr.statusText
+            });
+        };
+        xhr.send();
+    });
+}
+export default class ApiService {
+    constructor() {
+        this.searchQuery = '';
+        this.page = 1;
+    }
 
 
-export default { fetchFeatured, fetchPopular, fetchPics };
+    getPics(limit, search) {
+        const urlImg = `${baseImgUrl}&page=${this.page}&q=${search}&per_page=${limit}&key=${apiKeyImg}`;
+
+        return makeRequest('GET', urlImg)
+            .then(function (datums) {
+                return datums
+            })
+            .catch(function (err) {
+                console.error('Augh, there was an error!', err.statusText);
+            });
+    }
+    getPrice(limit) {
+        const url = `${baseUrl}products?$sort[upc]=1&$limit=${limit}`;
+        return makeRequest('GET', url)
+            .then(function (datums) {
+                return datums
+            })
+            .catch(function (err) {
+                console.error('Augh, there was an error!', err.statusText);
+            });
+    }
+
+    setPage() {
+        this.page += 1;
+    }
+
+    resetPage() {
+        this.page = 1;
+    }
+
+
+}

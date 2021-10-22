@@ -1,19 +1,13 @@
-import { getElement } from './utils'
-import API from './apiServer';
-const Handlebars = require("handlebars");
-import popularTpl from '../templates/popularGallery.hbs';
-import featuredTpl from '../templates/featuredGallery.hbs';
-const popularGallery = getElement('.popular__list');
-const featuredGallery = getElement('.featured__list');
+import 'regenerator-runtime/runtime.js';
+import ApiService from './apiServer';
+const apiService = new ApiService();
 
-
-const init = async () => {
-    const featuredProducts = await API.fetchFeatured();
-    const popularProducts = API.fetchPics();
-    const priceProfucts = API.fetchPopular();
-
-    Promise.all([popularProducts, priceProfucts]).then(values => {
-        let hitsObj = values[0].hits;
+const commonArray = []
+const getCommonData = async () => {
+    const popularPics = apiService.getPics(200, 'clothes');
+    const popularPrice = apiService.getPrice(200);
+    await Promise.all([popularPics, popularPrice]).then(values => {
+        let hitsObj = values[0].hits
         let dataObj = values[1].data;
         let arrPrices = []
         for (const key in dataObj) {
@@ -27,14 +21,16 @@ const init = async () => {
                 Object.assign(hitsObj[jey], { price: `${arrPrices[i]}` });
                 i += 1
             }
-
         }
-        popularGallery.insertAdjacentHTML('beforeend', popularTpl(hitsObj));
+        commonArray.push(...hitsObj)
+        return commonArray
     })
+}
 
 
-    featuredGallery.insertAdjacentHTML('beforeend', featuredTpl(featuredProducts));
-};
+const init = async () => {
+    await getCommonData();
+}
 
 
-export default { init };
+export default { init, commonArray };
