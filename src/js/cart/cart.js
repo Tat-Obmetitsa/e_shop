@@ -1,5 +1,5 @@
-import '../scss/main.scss'
-import { getElement, setStorageItem, getStorageItem } from './utils.js';
+import '../../scss/main.scss'
+import { getElement, setStorageItem, getStorageItem, counter } from '../utils.js';
 
 
 let store = getStorageItem('store');
@@ -60,23 +60,4 @@ const addToDOM = () => {
 addToDOM()
 
 
-
-const counter = () => {
-    let counterValueRef = document.querySelector('.counter-amount');
-    let addCounter = document.querySelector('.counter-increase');
-    let removeCounter = document.querySelector('.counter-decrease');
-
-    let counterValue = 1;
-    function onIncrementClick() {
-        counterValueRef.textContent = counterValue += 1;
-    }
-    function onDecrementClick() {
-        if (counterValueRef.textContent > 1) {
-            counterValueRef.textContent = counterValue -= 1;
-        } else { counterValueRef.textContent = 1 }
-    }
-
-    addCounter.addEventListener('click', onIncrementClick);
-    removeCounter.addEventListener('click', onDecrementClick);
-};
 counter()

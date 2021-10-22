@@ -110,10 +110,10 @@ module.exports = {
   mode: 'development',
   entry: {
     index: './src/js/index.js',
-    checkout: './src/js/checkout.js',
-    cart: './src/js/cart.js',
-    productList: './src/js/productList.js',
-    productPage: './src/js/productPage.js',
+    checkout: './src/js/checkout/checkout.js',
+    cart: './src/js/cart/cart.js',
+    productList: './src/js/productList/productList.js',
+    productPage: './src/js/productPage/productPage.js',
   },
   output: {
     filename: `./js/${filename('js')}`,

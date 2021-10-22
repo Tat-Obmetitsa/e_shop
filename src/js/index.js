@@ -1,14 +1,11 @@
 import '../scss/main.scss';
 import 'slick-carousel';
 import 'regenerator-runtime/runtime.js';
-import { getStorageItem, setStorageItem } from './utils'
 import render from './renderService';
 import RenderService from './render';
 import popularTpl from '../templates/popularGallery.hbs';
 import featuredTpl from '../templates/featuredGallery.hbs';
 import arrivalsTpl from '../templates/arrivalsGallery.hbs';
-import { isPlainObject } from 'jquery';
-
 
 const init = async () => {
     const popularGallery = document.querySelector('.popular__list');
@@ -23,8 +20,8 @@ const init = async () => {
     await renderService.getCategoryHome(arrivalsGallery, arrivalsTpl, 'tie', 4)
     await getItems()
 
-    const iconDiv = document.querySelectorAll(".wrapper__description-icons");
-    await generateStars(popularArr, iconDiv)
+    await generateStars(popularArr, document.querySelectorAll(".wrapper__description-icons"))
+
 
 };
 
@@ -164,8 +161,6 @@ $('.slider').slick({
 });
 
 
-
-
 // redirect to product page
 
 
@@ -187,22 +182,23 @@ function getItems() {
 
 }
 
-
 function generateStars(obj, wrapper) {
-    obj.forEach((e, i) => {
 
+    obj.forEach((e) => {
         const starSign = '<i width="24" height="24" class="fas fa-star"></i>'
-        if (e.star == "1") {
-            wrapper[i].innerHTML = starSign;
-        } else if (e.star == "2") {
-            wrapper[i].innerHTML = starSign + starSign;
-        } else if (e.star == "3") {
-            wrapper[i].innerHTML = starSign + starSign + starSign;
-        } else if (e.star == "4") {
-            wrapper[i].innerHTML = starSign + starSign + starSign + starSign;
-        } else if (e.star == "5") {
-            wrapper[i].innerHTML = starSign + starSign + starSign + starSign + starSign;
-        }
 
+        if (e.star == "1") {
+            wrapper.innerHTML = starSign;
+        } else if (e.star == "2") {
+            wrapper.innerHTML = starSign + starSign;
+        } else if (e.star == "3") {
+            wrapper.innerHTML = starSign + starSign + starSign;
+        } else if (e.star == "4") {
+            wrapper.innerHTML = starSign + starSign + starSign + starSign;
+        } else if (e.star == "5") {
+            wrapper.innerHTML = starSign + starSign + starSign + starSign + starSign;
+        } else if (e.star == undefined) {
+            wrapper.innerHTML = starSign;
+        }
     })
 }

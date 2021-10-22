@@ -1,8 +1,8 @@
-import '../scss/main.scss'
+import '../../scss/main.scss'
 import 'regenerator-runtime/runtime.js';
-import render from './renderService';
-import RenderService from './render';
-import productListTpl from '../templates/productList.hbs';
+import render from '../renderService';
+import RenderService from '../render';
+import productListTpl from '../../templates/productList.hbs';
 const renderService = new RenderService(render.commonArray);
 
 const paginationContainer = document.querySelector('.pagination');
