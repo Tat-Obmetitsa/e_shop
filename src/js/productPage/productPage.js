@@ -1,6 +1,6 @@
 import '../../scss/main.scss'
 import 'regenerator-runtime/runtime.js';
-import { counter } from '../utils.js';
+import { counter, getItems } from '../utils.js';
 import form from './formProductPage';
 import { generateStars } from '../utils'
 
@@ -14,7 +14,7 @@ const sliderRecent = document.querySelector('.slides-recent');
 const productSection = document.querySelector('.product.section');
 const getId = window.location.search.replace("?", "").replace("=", "")
 const submitBtn = document.querySelector(".form__field-btn");
-
+const items = document.querySelectorAll(".slider__item-img");
 
 
 const init = async () => {
@@ -24,7 +24,7 @@ const init = async () => {
 
     await renderProduct(product) // render product
     await counter()
-    await getItems()  //open products  from sliders
+    await getItems(items)  //open products  from sliders
 
     //render reviews
     submitBtn.addEventListener('click', () => form.checkInputs(reviewedProducts))
@@ -86,15 +86,15 @@ function renderProduct(obj) {
 }
 
 //  open products  from sliders
-function getItems() {
-    const items = document.querySelectorAll(".slider__item-img");
-    items.forEach(item => {
-        item.addEventListener('click', () => {
-            let viewedArray = JSON.parse(localStorage.getItem('viewed')) || [];
-            viewedArray.push(item.dataset.id)
-            window.location.href = `http://localhost:3000/productPage.html?=${item.dataset.id}`
-        })
-    })
-}
+// function getItems(items) {
+//     const items = document.querySelectorAll(".slider__item-img");
+//     items.forEach(item => {
+//         item.addEventListener('click', () => {
+//             let viewedArray = JSON.parse(localStorage.getItem('viewed')) || [];
+//             viewedArray.push(item.dataset.id)
+//             window.location.href = `http://localhost:3000/productPage.html?=${item.dataset.id}`
+//         })
+//     })
+// }
 
 window.addEventListener('DOMContentLoaded', init);

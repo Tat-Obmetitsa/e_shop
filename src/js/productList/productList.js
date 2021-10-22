@@ -1,5 +1,7 @@
 import '../../scss/main.scss'
 import 'regenerator-runtime/runtime.js';
+import { getItems } from '../utils'
+import list from './renderList';
 import render from '../renderService';
 import RenderService from '../render';
 import productListTpl from '../../templates/productList.hbs';
@@ -12,6 +14,8 @@ const input = document.querySelectorAll('.header__wrapper-input');
 const upBtn = document.querySelector('.up')
 const downBtn = document.querySelector('.down')
 
+
+const items = document.querySelectorAll(".list__gallery-img");
 
 const viewNum = document.querySelector('.list__view-results')
 const categoriesBtns = document.querySelectorAll('.categories-btn.button')
@@ -59,7 +63,7 @@ paginationContainer.addEventListener('click', function (e) {
 const sort = async () => {
     await render.init();
     const manufacturers = renderService.getFilteredManufacturer();
-    renderManufacturers(manufacturers)
+    list.renderManufacturers(manufacturers)
 
     // open by clicking on homepage
     switch (window.location.search) {
@@ -96,7 +100,7 @@ const sort = async () => {
             pages = []
             pages.push(...response)
             viewNumItems(index, data.length, 9)
-            displayButtons(paginationContainer, pages, index)
+            list.displayButtons(paginationContainer, pages, index)
             await (productGallery, productListTpl, pages[index]);
             break;
         case '':
@@ -126,10 +130,8 @@ const sort = async () => {
         pages = []
         pages.push(...response)
         viewNumItems(index, data.length, 9)
-        displayButtons(paginationContainer, pages, index)
+        list.displayButtons(paginationContainer, pages, index)
         renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
-        getItems()
-
     })
     downBtn.addEventListener('click', () => {
         productGallery.innerHTML = '';
@@ -145,9 +147,9 @@ const sort = async () => {
         pages = []
         pages.push(...response)
         viewNumItems(index, data.length, 9)
-        displayButtons(paginationContainer, pages, index)
+        list.displayButtons(paginationContainer, pages, index)
         renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
-        getItems()
+        getItems(items)
 
     })
 
@@ -197,23 +199,10 @@ const sort = async () => {
 
     await getData()
     await renderCategories()
-    await getItems()
+    await getItems(items)
 
 }
 
-function renderManufacturers(array) {
-    for (let i = 0; i < array.length; i++) {
-        const e = array[i];
-        let manufacturerBtn = document.createElement('button');
-        manufacturerBtn.classList.add('filter-manufacturer', 'button');
-        manufacturerBtn.value = e
-        manufacturerBtn.textContent = e
-        document.querySelector(".list__view-sort_manufacturer").appendChild(manufacturerBtn)
-    }
-
-
-
-}
 
 // add search on Product Page
 
@@ -227,7 +216,7 @@ function searchData(evt) {
     }
     getCategory(renderService.query)
     renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
-    getItems()
+    getItems(items)
 }
 
 input.forEach(el => {
@@ -256,9 +245,9 @@ function priceSort() {
     pages.push(...response)
 
     viewNumItems(index, data.length, 9)
-    displayButtons(paginationContainer, pages, index)
+    list.displayButtons(paginationContainer, pages, index)
     renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
-    getItems()
+    getItems(items)
 
 }
 function ratingFiltered() {
@@ -279,9 +268,9 @@ function ratingFiltered() {
     pages.push(...response)
 
     viewNumItems(index, data.length, 9)
-    displayButtons(paginationContainer, pages, index)
+    list.displayButtons(paginationContainer, pages, index)
     renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
-    getItems()
+    getItems(items)
 
 }
 //  get categories
@@ -314,7 +303,7 @@ const getCategory = async (query, str) => {
     pages = []
     pages.push(...response)
     viewNumItems(index, data.length, 9)
-    displayButtons(paginationContainer, pages, index)
+    list.displayButtons(paginationContainer, pages, index)
     if (active.length > 0) {
         priceSort()
     } else if (activeRating.length > 0) {
@@ -344,7 +333,7 @@ function renderCategories() {
         e.addEventListener('click', () => {
             index = 0;
             renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
-            getItems()
+            getItems(items)
         })
 
     })
@@ -352,63 +341,12 @@ function renderCategories() {
         e.addEventListener("click", () => {
             index = 0;
             renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
-            getItems()
+            getItems(items)
         })
 
     })
-    displayButtons(paginationContainer, pages, index)
+    list.displayButtons(paginationContainer, pages, index)
 
 }
 
 window.addEventListener('DOMContentLoaded', sort);
-
-
-// pagination btns
-
-function displayButtons(container, page, activeIndex) {
-    let btns = page.map((_, pageIndex) => {
-        return `<button class="page-btn button ${activeIndex === pageIndex ? 'active-btn' : 'null '
-            }" data-index="${pageIndex}">
-                        ${pageIndex + 1}
-                        </button>`
-
-    })
-    btns.push(`<button class="next-btn button">&#10095;</button>`)
-    btns.unshift(`<button class="prev-btn button">&#10094;</button>`)
-    container.innerHTML = btns.join('')
-}
-
-
-// burger menu appearing click
-
-(() => {
-    const menuBtnRef = document.querySelector("[data-menu-button]");
-    const mobileMenuRef = document.querySelector("[data-menu]");
-
-    menuBtnRef.addEventListener("click", () => {
-        const expanded =
-            menuBtnRef.getAttribute("aria-expanded") === "true" || false;
-
-        menuBtnRef.classList.toggle("is-open");
-        menuBtnRef.setAttribute("aria-expanded", !expanded);
-
-        mobileMenuRef.classList.toggle("is-open");
-    });
-})();
-
-
-
-
-
-function getItems() {
-    const items = document.querySelectorAll(".list__gallery-img");
-    items.forEach(item => {
-        item.addEventListener('click', () => {
-            let viewedArray = JSON.parse(localStorage.getItem('viewed')) || [];
-            viewedArray.push(item.dataset.id)
-            localStorage.setItem('viewed', JSON.stringify(viewedArray));
-            window.location.href = `http://localhost:3000/productPage.html?=${item.dataset.id}`
-        })
-    })
-
-}
