@@ -1,6 +1,5 @@
 import '../../scss/main.scss'
 import 'regenerator-runtime/runtime.js';
-import { getItems } from '../utils'
 import list from './renderList';
 import render from '../renderService';
 import RenderService from '../render';
@@ -13,9 +12,6 @@ const input = document.querySelectorAll('.header__wrapper-input');
 
 const upBtn = document.querySelector('.up')
 const downBtn = document.querySelector('.down')
-
-
-const items = document.querySelectorAll(".list__gallery-img");
 
 const viewNum = document.querySelector('.list__view-results')
 const categoriesBtns = document.querySelectorAll('.categories-btn.button')
@@ -132,6 +128,7 @@ const sort = async () => {
         viewNumItems(index, data.length, 9)
         list.displayButtons(paginationContainer, pages, index)
         renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
+        getItems()
     })
     downBtn.addEventListener('click', () => {
         productGallery.innerHTML = '';
@@ -149,10 +146,10 @@ const sort = async () => {
         viewNumItems(index, data.length, 9)
         list.displayButtons(paginationContainer, pages, index)
         renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
-        getItems(items)
 
+        getItems()
     })
-
+    await getItems()
     // filter by price
     priceItem.forEach(e => {
         e.addEventListener('click', (ev) => {
@@ -199,7 +196,7 @@ const sort = async () => {
 
     await getData()
     await renderCategories()
-    await getItems(items)
+
 
 }
 
@@ -216,7 +213,7 @@ function searchData(evt) {
     }
     getCategory(renderService.query)
     renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
-    getItems(items)
+    getItems()
 }
 
 input.forEach(el => {
@@ -247,7 +244,7 @@ function priceSort() {
     viewNumItems(index, data.length, 9)
     list.displayButtons(paginationContainer, pages, index)
     renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
-    getItems(items)
+
 
 }
 function ratingFiltered() {
@@ -270,7 +267,7 @@ function ratingFiltered() {
     viewNumItems(index, data.length, 9)
     list.displayButtons(paginationContainer, pages, index)
     renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
-    getItems(items)
+    getItems()
 
 }
 //  get categories
@@ -333,7 +330,7 @@ function renderCategories() {
         e.addEventListener('click', () => {
             index = 0;
             renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
-            getItems(items)
+            getItems()
         })
 
     })
@@ -341,12 +338,25 @@ function renderCategories() {
         e.addEventListener("click", () => {
             index = 0;
             renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
-            getItems(items)
+            getItems()
         })
 
     })
+    getItems()
     list.displayButtons(paginationContainer, pages, index)
 
 }
+function getItems() {
+    const items = document.querySelectorAll(".list__gallery-img");
+    items.forEach(item => {
+        item.addEventListener('click', () => {
+            let viewedArray = JSON.parse(localStorage.getItem('viewed')) || [];
+            if (viewedArray.length > 5) { viewedArray.shift(); }
+            viewedArray.push(item.dataset.id);
+            localStorage.setItem('viewed', JSON.stringify(viewedArray));
+            window.location.href = `http://localhost:3000/productPage.html?=${item.dataset.id}`
+        })
+    })
 
+}
 window.addEventListener('DOMContentLoaded', sort);

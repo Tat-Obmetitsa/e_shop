@@ -56,7 +56,9 @@ export default class RenderService {
         return [...array.reviews]
     }
     getHistoryById() {
-        let array = localStorage.getItem("viewed");
+        let array = JSON.parse(localStorage.getItem('viewed')) || [];
+        if (array.length === 0) { array.push(window.location.search.replace("?", "").replace("=", "")); }
+        localStorage.setItem('viewed', JSON.stringify(array));
         return this.arr.filter(el => array.indexOf(`${el.id}`) > -1);
     }
     sortUp(array) {

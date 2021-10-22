@@ -1,7 +1,3 @@
-import { getItems } from '../utils';
-const items = document.querySelectorAll(".list__gallery-img");
-
-
 function renderManufacturers(array) {
     for (let i = 0; i < array.length; i++) {
         const e = array[i];
@@ -25,7 +21,6 @@ function displayButtons(container, page, activeIndex) {
     btns.push(`<button class="next-btn button">&#10095;</button>`)
     btns.unshift(`<button class="prev-btn button">&#10094;</button>`)
     container.innerHTML = btns.join('')
-    getItems(items)
 }
 
 
@@ -47,3 +42,4 @@ function displayButtons(container, page, activeIndex) {
 })();
 
 export default { renderManufacturers, displayButtons }
+

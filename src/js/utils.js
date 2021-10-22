@@ -56,19 +56,7 @@ function generateStars(obj, wrapper) {
 
     })
 }
-// open  product page
-function getItems(wrapper) {
-    wrapper.forEach(item => {
-        item.addEventListener('click', () => {
-            let viewedArray = JSON.parse(localStorage.getItem('viewed')) || [];
-            viewedArray.push(item.dataset.id)
-            localStorage.setItem('viewed', JSON.stringify(viewedArray));
-            window.location.href = `http://localhost:3000/productPage.html?=${item.dataset.id}`
-        })
-    })
-
-}
 
 export {
-    getElement, getStorageItem, setStorageItem, counter, generateStars, getItems
+    getElement, getStorageItem, setStorageItem, counter, generateStars
 }
