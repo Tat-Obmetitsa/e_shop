@@ -37,6 +37,26 @@ const counter = () => {
     removeCounter.addEventListener('click', onDecrementClick);
 };
 
+function generateStars(obj, wrapper) {
+
+    obj.forEach((e, i) => {
+
+        const starSign = '<i width="24" height="24" class="fas fa-star"></i>'
+        if (e.star == "1") {
+            wrapper[i].innerHTML = starSign;
+        } else if (e.star == "2") {
+            wrapper[i].innerHTML = starSign + starSign;
+        } else if (e.star == "3") {
+            wrapper[i].innerHTML = starSign + starSign + starSign;
+        } else if (e.star == "4") {
+            wrapper[i].innerHTML = starSign + starSign + starSign + starSign;
+        } else if (e.star == "5") {
+            wrapper[i].innerHTML = starSign + starSign + starSign + starSign + starSign;
+        }
+
+    })
+}
+
 export {
-    getElement, getStorageItem, setStorageItem, counter
+    getElement, getStorageItem, setStorageItem, counter, generateStars
 }

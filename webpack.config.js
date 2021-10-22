@@ -109,7 +109,7 @@ module.exports = {
   context: path.resolve(__dirname, './'),
   mode: 'development',
   entry: {
-    index: './src/js/index.js',
+    index: './src/js/homepage/index.js',
     checkout: './src/js/checkout/checkout.js',
     cart: './src/js/cart/cart.js',
     productList: './src/js/productList/productList.js',

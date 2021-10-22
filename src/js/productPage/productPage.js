@@ -1,7 +1,9 @@
 import '../../scss/main.scss'
 import 'regenerator-runtime/runtime.js';
 import { counter } from '../utils.js';
-import form from './formProductPage'
+import form from './formProductPage';
+import { generateStars } from '../utils'
+
 import render from '../renderService'
 import RenderService from '../render';
 import productGalleryTpl from '../../templates/productPageGallery.hbs'
@@ -12,6 +14,8 @@ const sliderRecent = document.querySelector('.slides-recent');
 const productSection = document.querySelector('.product.section');
 const getId = window.location.search.replace("?", "").replace("=", "")
 const submitBtn = document.querySelector(".form__field-btn");
+
+
 
 const init = async () => {
     await render.init();
@@ -25,6 +29,9 @@ const init = async () => {
     //render reviews
     submitBtn.addEventListener('click', () => form.checkInputs(reviewedProducts))
     await form.renderReviews(reviewedProducts)
+    let iconWrapper = document.querySelectorAll(".wrapper__description-icons");
+    await generateStars(reviewedProducts, iconWrapper)
+
 
     const viewAllBtns = document.querySelectorAll('.section__view-button');
     viewAllBtns[0].addEventListener('click', () => window.location.href = `http://localhost:3000/productList.html?=${product.tags.split(', ')[0]}`)

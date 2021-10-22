@@ -14,8 +14,9 @@ export default class RenderService {
     getHomeRating(gallery, tpl, amount) {
         gallery.innerHTML = '';
         this.filtered = this.arr.filter(e => Number(e.star) >= 3)
-        gallery.insertAdjacentHTML('beforeend', tpl(this.filtered.slice(0, amount)));
-        return this.filtered
+        const sliced = this.filtered.slice(0, amount)
+        gallery.insertAdjacentHTML('beforeend', tpl(sliced));
+        return sliced
     }
 
     getCategoryAll(gallery, tpl, array) {
