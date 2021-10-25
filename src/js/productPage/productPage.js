@@ -76,6 +76,15 @@ function renderProduct(obj) {
             </div>
     
     `
+    if (obj.quantity == 0) {
+        document.querySelector(".add-button span").textContent = "Is not available"
+    } else if (obj.quantity > 0 && obj.quantity <= 5) {
+        let quantityDOM = document.createElement('p');
+        quantityDOM.classList.add('quantity-text', 'free')
+        quantityDOM.textContent = 'Is running out!'
+        document.querySelector(".add-button").previousElementSibling.append(quantityDOM);
+    }
+    console.log(obj.quantity)
     // render similar   products by 1st word in tags and recent products
     const similarProducts = renderService.getFiltered(obj.tags.split(', ')[0]);
     const recentProducts = renderService.getHistoryById();

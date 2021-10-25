@@ -32,7 +32,12 @@ const getCommonData = async () => {
         const maxObject = hitsObj.reduce((prev, current) => prev.likes > current.likes ? prev : current, {});
         let maxLikes = maxObject.likes
         let star = 0
+        let quantity = 0
 
+        function randomInteger(min, max) {
+            let rand = min + Math.random() * (max + 1 - min);
+            return Math.floor(rand);
+        }
         for (const key in dataObj) {
             if (Object.hasOwnProperty.call(dataObj, key)) {
                 arrPrices.push(dataObj[key].price);
@@ -48,20 +53,26 @@ const getCommonData = async () => {
 
                 if (hitsObj[jey].likes < ((maxLikes * 20) / 100)) {
                     star = 1
+                    quantity = randomInteger(0, 1)
                 } else if (hitsObj[jey].likes >= ((maxLikes * 30) / 100) && hitsObj[jey].likes < ((maxLikes * 40) / 100)) {
                     star = 2
+                    quantity = randomInteger(0, 10)
                 } else if (hitsObj[jey].likes >= ((maxLikes * 40) / 100) && hitsObj[jey].likes < ((maxLikes * 55) / 100)) {
                     star = 3
+                    quantity = randomInteger(0, 10)
                 } else if (hitsObj[jey].likes >= ((maxLikes * 55) / 100) && hitsObj[jey].likes < ((maxLikes * 80) / 100)) {
                     star = 4
+                    quantity = randomInteger(0, 10)
                 } else if (hitsObj[jey].likes >= ((maxLikes * 80) / 100)) {
                     star = 5
+                    quantity = randomInteger(1, 5)
                 }
 
 
 
                 Object.assign(hitsObj[jey], {
                     price: `${arrPrices[i]}`, description: `${arrDecriptions[i]}`,
+                    quantity: quantity,
                     reviews: [{
                         id: `${hitsObj[jey].id}`, user: `${hitsObj[jey].user}`, userImageURL: `${hitsObj[jey].userImageURL}`, description: `${lorem.generateParagraphs(1)}`, star: `${star}`,
                     },
