@@ -27,11 +27,17 @@ const counter = (item) => {
         addCounter.classList.add('hidden');
         removeCounter.classList.add('hidden')
         return
+    } else if (counterValueRef.textContent == '1') {
+        removeCounter.classList.add("unavailable-btn")
     }
     let counterValue = 1;
+    if (counterValueRef.textContent == item.quantity) {
+        addCounter.classList.add("unavailable-btn")
+    }
     function onIncrementClick() {
         if (counterValueRef.textContent < item.quantity && item.quantity > 0) {
             counterValueRef.textContent = counterValue += 1;
+            removeCounter.classList.remove("unavailable-btn");
             if (counterValueRef.textContent == item.quantity) {
                 addCounter.classList.add("unavailable-btn")
             }
@@ -43,13 +49,12 @@ const counter = (item) => {
             if (addCounter.classList.contains("unavailable-btn")) {
                 addCounter.classList.remove("unavailable-btn")
             }
-        } else if (counterValueRef.textContent === 1 && item.quantity > 0) {
-            counterValueRef.textContent = 1
+        } else if (counterValueRef.textContent == '1' && item.quantity > 0) {
+            removeCounter.classList.add("unavailable-btn")
+            counterValueRef.textContent = '1'
         }
 
     }
-
-
     addCounter.addEventListener('click', onIncrementClick);
     removeCounter.addEventListener('click', onDecrementClick);
 };

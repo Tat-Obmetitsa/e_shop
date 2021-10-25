@@ -76,6 +76,7 @@ function renderProduct(obj) {
             </div>
     
     `
+
     if (obj.quantity == 0) {
         document.querySelector(".add-button span").textContent = "Is not available"
         document.querySelector(".add-button").classList.add('unavailable-btn')
