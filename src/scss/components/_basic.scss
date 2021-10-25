@@ -181,3 +181,15 @@ img {
 .list__gallery-img {
     cursor: pointer;
 }
+
+.unavailable-btn {
+    background-color: $bg-light;
+    color: $dark;
+    border-color: $bg-gray;
+    &:hover {
+        border-color: $bg-gray;
+    }
+    & span {
+        color: $dark;
+    }
+}

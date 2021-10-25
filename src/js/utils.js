@@ -18,20 +18,37 @@ const setStorageItem = (name, item) => {
 }
 
 
-const counter = () => {
+const counter = (item) => {
     let counterValueRef = document.querySelector('.counter-amount');
     let addCounter = document.querySelector('.counter-increase');
     let removeCounter = document.querySelector('.counter-decrease');
-
+    if (item.quantity == 0) {
+        counterValueRef.textContent = 0;
+        addCounter.classList.add('hidden');
+        removeCounter.classList.add('hidden')
+        return
+    }
     let counterValue = 1;
     function onIncrementClick() {
-        counterValueRef.textContent = counterValue += 1;
+        if (counterValueRef.textContent < item.quantity && item.quantity > 0) {
+            counterValueRef.textContent = counterValue += 1;
+            if (counterValueRef.textContent == item.quantity) {
+                addCounter.classList.add("unavailable-btn")
+            }
+        }
     }
     function onDecrementClick() {
-        if (counterValueRef.textContent > 1) {
+        if (counterValueRef.textContent > 1 && item.quantity > 0) {
             counterValueRef.textContent = counterValue -= 1;
-        } else { counterValueRef.textContent = 1 }
+            if (addCounter.classList.contains("unavailable-btn")) {
+                addCounter.classList.remove("unavailable-btn")
+            }
+        } else if (counterValueRef.textContent === 1 && item.quantity > 0) {
+            counterValueRef.textContent = 1
+        }
+
     }
+
 
     addCounter.addEventListener('click', onIncrementClick);
     removeCounter.addEventListener('click', onDecrementClick);

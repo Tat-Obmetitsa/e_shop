@@ -50,25 +50,22 @@ const getCommonData = async () => {
 
             for (const jey in hitsObj) {
 
-
                 if (hitsObj[jey].likes < ((maxLikes * 20) / 100)) {
                     star = 1
-                    quantity = randomInteger(0, 1)
+                    quantity = randomInteger(1, 5)
                 } else if (hitsObj[jey].likes >= ((maxLikes * 30) / 100) && hitsObj[jey].likes < ((maxLikes * 40) / 100)) {
                     star = 2
-                    quantity = randomInteger(0, 10)
+                    quantity = randomInteger(0, 0)
                 } else if (hitsObj[jey].likes >= ((maxLikes * 40) / 100) && hitsObj[jey].likes < ((maxLikes * 55) / 100)) {
                     star = 3
-                    quantity = randomInteger(0, 10)
+                    quantity = randomInteger(0, 0)
                 } else if (hitsObj[jey].likes >= ((maxLikes * 55) / 100) && hitsObj[jey].likes < ((maxLikes * 80) / 100)) {
                     star = 4
-                    quantity = randomInteger(0, 10)
+                    quantity = randomInteger(6, 10)
                 } else if (hitsObj[jey].likes >= ((maxLikes * 80) / 100)) {
                     star = 5
-                    quantity = randomInteger(1, 5)
+                    quantity = randomInteger(6, 10)
                 }
-
-
 
                 Object.assign(hitsObj[jey], {
                     price: `${arrPrices[i]}`, description: `${arrDecriptions[i]}`,

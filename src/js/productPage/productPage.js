@@ -22,7 +22,7 @@ const init = async () => {
     const product = await renderService.getById(Number(getId))
 
     await renderProduct(product) // render product 
-    await counter()
+    await counter(product)
     //open products  from sliders
 
     //render reviews
@@ -78,6 +78,7 @@ function renderProduct(obj) {
     `
     if (obj.quantity == 0) {
         document.querySelector(".add-button span").textContent = "Is not available"
+        document.querySelector(".add-button").classList.add('unavailable-btn')
     } else if (obj.quantity > 0 && obj.quantity <= 5) {
         let quantityDOM = document.createElement('p');
         quantityDOM.classList.add('quantity-text', 'free')
