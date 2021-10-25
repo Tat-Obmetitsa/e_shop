@@ -84,7 +84,6 @@ function renderProduct(obj) {
         quantityDOM.textContent = 'Is running out!'
         document.querySelector(".add-button").previousElementSibling.append(quantityDOM);
     }
-    console.log(obj.quantity)
     // render similar   products by 1st word in tags and recent products
     const similarProducts = renderService.getFiltered(obj.tags.split(', ')[0]);
     const recentProducts = renderService.getHistoryById();
