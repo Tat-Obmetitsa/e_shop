@@ -11,19 +11,56 @@ export default class RenderService {
         this.filtered = this.arr.filter(e => e.tags.includes(`${searchQuery}`))
         gallery.insertAdjacentHTML('beforeend', tpl(this.filtered.slice(0, amount)));
     }
+    getHomeRating(gallery, tpl, amount) {
+        gallery.innerHTML = '';
+        this.filtered = this.arr.filter(e => Number(e.star) >= 3)
+        const sliced = this.filtered.slice(0, amount)
+        gallery.insertAdjacentHTML('beforeend', tpl(sliced));
+        return sliced
+    }
 
     getCategoryAll(gallery, tpl, array) {
         gallery.innerHTML = '';
         gallery.insertAdjacentHTML('beforeend', tpl(array));
     }
 
-    getFiltered(searchQuery) {
-        this.filtered = this.arr.filter(e =>
-            e.tags.includes(`${searchQuery}`)
-        )
+    getFiltered(searchQuery, str) {
+        if (searchQuery !== undefined) {
+            this.filtered = this.arr.filter(e =>
+                e.tags.includes(`${searchQuery}`)
+            )
+        } else if (str !== undefined) { this.filtered = this.arr.filter(e => e.manufacturer == str) }
+
+
         return this.filtered
     }
+    getFilterRating(star) {
+        let newArray = []
+        for (let j = 0; j < star.length; j++) {
+            let pr1 = star[j];
+            let array = this.filtered.filter((items) => items.star == pr1)
+            newArray.push(...array);
+        }
+        return newArray
 
+    }
+    getManufacturer(str) {
+        this.filtered = this.arr.filter(e => e.manufacturer == str)
+        return this.filtered
+    }
+    getById(id) {
+        return this.arr.find(el => el.id == id);
+    }
+    getByIdReviws(id) {
+        let array = this.arr.find(el => el.id == id);
+        return [...array.reviews]
+    }
+    getHistoryById() {
+        let array = JSON.parse(localStorage.getItem('viewed')) || [];
+        if (array.length === 0) { array.push(window.location.search.replace("?", "").replace("=", "")); }
+        localStorage.setItem('viewed', JSON.stringify(array));
+        return this.arr.filter(el => array.indexOf(`${el.id}`) > -1);
+    }
     sortUp(array) {
         if (array !== undefined) array.sort((a, b) => a.price - b.price);
 
@@ -48,18 +85,38 @@ export default class RenderService {
 
         return newPages
     }
+
     sortPrice(price1, price2) {
         let newArray = []
 
         for (let j = 0; j < price2.length; j++) {
             let pr1 = price1[j];
             let pr2 = price2[j];
-            let array = this.filtered.filter((items) => items.price > pr1 && items.price < pr2)
+            let array = this.filtered.filter((items) => items.price >= pr1 && items.price <= pr2)
             newArray.push(...array);
         }
         return newArray
     }
+    getFilteredManufacturer() {
+        let array = []
+        this.filtered = this.arr.forEach(e =>
+            array.push(e.manufacturer)
+        )
+        let result = array.reduce(function (acc, el) {
 
+            acc[el] = (acc[el] || 0) + 1;
+            array = []
+            return acc;
+        }, {});
+        for (const key in result) {
+            if (Object.hasOwnProperty.call(result, key)) {
+                const element = result[key];
+                if (element > 4) { array.push(key) }
+
+            }
+        }
+        return array
+    }
     get query() {
         return this.searchQuery;
     }

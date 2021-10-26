@@ -90,6 +90,7 @@
             & span {
                 display: block;
                 width: 100%;
+                @include centerAbsolute();
             }
         }
     }
@@ -120,6 +121,9 @@
             @media screen and (min-width: 1200px) {
                 width: 40px;
                 height: 40px;
+            }
+            & span {
+                @include centerAbsolute();
             }
         }
     }

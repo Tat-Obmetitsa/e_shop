@@ -84,12 +84,6 @@
         &-input.product {
             margin-left: auto;
             width: 35vw;
-            & + .header__wrapper-button {
-                position: absolute;
-                top: 50%;
-                right: 2%;
-                transform: translate(-2%, -50%);
-            }
         }
 
         &-form {

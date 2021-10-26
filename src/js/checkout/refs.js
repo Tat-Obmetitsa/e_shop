@@ -1,5 +1,4 @@
-import { getElement } from './utils'
-
+import { getElement } from '../utils'
 
 // Checkout Page
 

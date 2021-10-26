@@ -1,4 +1,4 @@
-import '../scss/main.scss'
+import '../../scss/main.scss'
 import flatpickr from "flatpickr";
 import refs from './refs';
 let formData = new FormData(form);

@@ -1,5 +1,5 @@
-import '../scss/main.scss'
-import { getElement, setStorageItem, getStorageItem } from './utils.js';
+import '../../scss/main.scss'
+import { getElement, setStorageItem, getStorageItem, counter } from '../utils.js';
 
 
 let store = getStorageItem('store');
@@ -58,3 +58,6 @@ const addToDOM = () => {
 }
 
 addToDOM()
+
+
+counter()

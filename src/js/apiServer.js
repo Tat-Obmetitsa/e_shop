@@ -5,6 +5,7 @@ const apiKeyImg = '19817444-e2944238b0133b6bab479e2af';
 function makeRequest(method, url) {
     return new Promise(function (resolve, reject) {
         var xhr = new XMLHttpRequest();
+
         xhr.open(method, url);
         xhr.onload = function () {
             if (this.status >= 200 && this.status < 300) {

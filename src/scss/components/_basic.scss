@@ -27,8 +27,8 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.97);
-    background-color: $bg-gray;
+    // box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.97);
+    background-color: $bg-light;
 }
 
 ::-webkit-scrollbar {
@@ -115,10 +115,6 @@ img {
         border: 3px solid $dark;
         fill: $dark;
     }
-
-    & span {
-        @include centerAbsolute();
-    }
 }
 
 .section {
@@ -171,9 +167,29 @@ img {
         &:hover {
             border: 2px solid $dark;
         }
+        & svg {
+            margin-top: 3px;
+        }
     }
 }
 
 .hidden {
     visibility: hidden;
+}
+
+.wrapper__image,
+.list__gallery-img {
+    cursor: pointer;
+}
+
+.unavailable-btn {
+    background-color: $bg-light;
+    color: $dark;
+    border-color: $bg-gray;
+    &:hover {
+        border-color: $bg-gray;
+    }
+    & span {
+        color: $dark;
+    }
 }

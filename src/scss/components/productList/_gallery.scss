@@ -28,23 +28,32 @@
         & p {
             @include font(1em, 400, 1.5);
             @media screen and (min-width: 1200px) {
-                @include font(3em, 400, 1.5);
+                @include font(2em, 400, 1.5);
             }
         }
 
         & .sort-btn-price.button span {
             position: static;
         }
-        & .sort-btn-price {
+        & .sort-btn-price,
+        & .filter-manufacturer {
             @include font(1em, 400, 1.5);
             width: 4.5em;
             height: 2em;
             transition-duration: 0ms;
-
             @media screen and (min-width: 1200px) {
                 @include font(1.5em, 400, 1.5);
                 width: 8rem;
                 height: 3rem;
+            }
+        }
+        & .list__view-sort_manufacturer {
+            @include flex(center);
+            & button {
+                @include font(1em, 400, 1.5);
+                margin: 0 5px;
+
+                transition: all 500ms ease-out;
             }
         }
     }

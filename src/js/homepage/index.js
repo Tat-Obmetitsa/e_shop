@@ -1,12 +1,13 @@
-import '../scss/main.scss';
+import '../../scss/main.scss';
 import 'slick-carousel';
 import 'regenerator-runtime/runtime.js';
-import { getStorageItem, setStorageItem } from './utils'
-import render from './renderService';
-import RenderService from './render';
-import popularTpl from '../templates/popularGallery.hbs';
-import featuredTpl from '../templates/featuredGallery.hbs';
-import arrivalsTpl from '../templates/arrivalsGallery.hbs';
+import { getStorageItem, setStorageItem, generateStars } from '../utils'
+import render from '../renderService';
+import './sliders'
+import RenderService from '../render';
+import popularTpl from '../../templates/popularGallery.hbs';
+import featuredTpl from '../../templates/featuredGallery.hbs';
+import arrivalsTpl from '../../templates/arrivalsGallery.hbs';
 
 
 const init = async () => {
@@ -17,36 +18,39 @@ const init = async () => {
     await render.init()
 
     const renderService = new RenderService(render.commonArray);
+    const popularArr = await renderService.getHomeRating(popularGallery, popularTpl, 9)
 
-    await renderService.getCategoryHome(popularGallery, popularTpl, 'fashion', 9)
     await renderService.getCategoryHome(featuredGallery, featuredTpl, 'cloth', 12)
     await renderService.getCategoryHome(arrivalsGallery, arrivalsTpl, 'tie', 4)
+    await getItems()
+
+    const iconDiv = document.querySelectorAll(".wrapper__description-icons");
+    await generateStars(popularArr, iconDiv)
+
 
 };
 
-
 window.addEventListener('DOMContentLoaded', init);
 
+function getItems() {
+    const items = document.querySelectorAll(".wrapper__image");
+    items.forEach(item => {
 
-// add to storage
-// window.addEventListener('click', e => {
+        item.addEventListener('click', () => {
+            // add viewed items' id
+            let viewedArray = JSON.parse(localStorage.getItem('viewed')) || [];
+            let commentArray = JSON.parse(localStorage.getItem('comment')) || [];
+            if (viewedArray.length > 5) { viewedArray.shift(); }
+            viewedArray.push(item.dataset.id);
+            localStorage.setItem('viewed', JSON.stringify(viewedArray));
+            localStorage.setItem('comment', JSON.stringify(commentArray));
+            window.location.href = `http://localhost:3000/productPage.html?=${item.dataset.id}`
+        })
+    })
 
-//     if (e.target.classList.contains("add-button")) {
-//         setStorageItem("chosen", e.target.parentElement.dataset.id)
+}
 
-//     }
-//     let store = getStorageItem("item");
-//     let chosen = Number(getStorageItem("chosen"));
-//     store.map((el) => {
-//         if (el.id === chosen) {
-//             setStorageItem('cartItem', el)
-//         }
-
-//     })
-
-// });
-
-
+// redirect ro product list by "view all" btn
 (() => {
     const featuredBtn = document.querySelector(".section__view-button.featured");
     const arrivalsBtn = document.querySelector(".section__view-button.arrivals");
@@ -67,9 +71,6 @@ window.addEventListener('DOMContentLoaded', init);
     categoriesBtns[5].addEventListener('click', () => window.location.href = "http://localhost:3000/productList.html?=fashion")
 })();
 
-
-
-
 // burger menu appearing click
 
 (() => {
@@ -88,7 +89,6 @@ window.addEventListener('DOMContentLoaded', init);
 })();
 
 // input appearing click
-
 
 (() => {
     const searchBtn = document.querySelectorAll('.search');
@@ -113,49 +113,22 @@ window.addEventListener('DOMContentLoaded', init);
     })
 })();
 
+// add to storage
+// window.addEventListener('click', e => {
 
-// homepage sliders
-$('.slick').slick({
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    dots: false,
-    arrows: false,
-    lazyLoad: 'progressive',
-    mobileFirst: true,
-    slidesToShow: 1,
-    infinite: true,
-    responsive: [{
+//     if (e.target.classList.contains("add-button")) {
+//         setStorageItem("chosen", e.target.parentElement.dataset.id)
 
-        breakpoint: 1200,
-        settings: {
-            arrows: true,
-            dots: true,
-        }
+//     }
+//     let store = getStorageItem("item");
+//     let chosen = Number(getStorageItem("chosen"));
+//     store.map((el) => {
+//         if (el.id === chosen) {
+//             setStorageItem('cartItem', el)
+//         }
 
-    }]
-});
+//     })
 
-$('.slider').slick({
-    slidesToShow: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    dots: false,
-    arrows: false,
-    lazyLoad: 'progressive',
-    mobileFirst: true,
-    responsive: [{
-        breakpoint: 765,
-        settings: {
-            slidesToShow: 2,
-        },
+// });
 
-        breakpoint: 1200,
-        settings: {
-            slidesToShow: 3,
-            arrows: true,
-        }
-    }]
-
-});
+// redirect to product page

@@ -1,9 +1,9 @@
 {{#each this}}
 <li class="list__gallery-item">
-    <img class="list__gallery-img" src="{{webformatURL}}" alt="{{tags}}" data={{id}}>
+    <img class="list__gallery-img" src="{{webformatURL}}" alt="{{tags}}" data-id={{id}}>
     <div class="list__gallery-content">
-        <h4 class="list__gallery-title" data={{id}}>{{tags}}</h4>
-        <p class="list__gallery-price" data={{id}}>&dollar;{{price}}</p>
+        <h4 class="list__gallery-title" data-id={{id}}>{{tags}}</h4>
+        <p class="list__gallery-price" data-id={{id}}>&dollar;{{price}}</p>
     </div>
 </li>
 {{/each}}
