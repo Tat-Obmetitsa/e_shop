@@ -1,4 +1,5 @@
 //  comment form
+import { generateStars } from '../utils.js';
 const reviewsSection = document.querySelector(".reviews__wrapper");
 const formReview = document.querySelector(".review__form")
 let formData = new FormData(formReview);
@@ -34,14 +35,15 @@ function renderReviews(obj) {
             <div class="reviews__wrapper-item_info">
              <img src=${e.userImageURL} class="user__image"   alt="avatar">
              <h4 class="user__name">${e.user}</h4>
-              <div class="wrapper__description-icons" data-id=${e.id}>
-     </div >
+              <div class="wrapper__description-icons" data-id=${e.id}></div >
         </div>
         <p class="user__review"  >${e.description}</p>
         `
         reviewsSection.appendChild(liItem)
-    }
 
+    }
+    const starsWrapper = document.querySelectorAll(".wrapper__description-icons");
+    generateStars(obj, starsWrapper)
 }
 
 function checkInputs(ob) {
