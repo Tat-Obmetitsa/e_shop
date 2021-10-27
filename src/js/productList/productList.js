@@ -1,6 +1,6 @@
 import '../../scss/main.scss'
 import 'regenerator-runtime/runtime.js';
-import { displayCartItemCount } from '../utils.js';
+import utils from '../utils.js';
 import list from './renderList';
 import render from '../renderService';
 import RenderService from '../render';
@@ -170,6 +170,7 @@ const sort = async () => {
                 active.push(element);
             }
             priceSort()
+            getItems()
         })
     })
     // filter by rating
@@ -200,7 +201,7 @@ const sort = async () => {
 
     await getData()
     await renderCategories()
-    await displayCartItemCount()
+    await utils.displayCartItemCount()
     await getItems()
 
 }
@@ -386,21 +387,21 @@ function getItems() {
                     let newProduct = cartArray.every(cartItem => cartItem.id !== Number(parentElementID))
 
                     if (newProduct && product.quantity > 0) {
-                        cartArray.push({ "id": product.id, "price": product.price, "image": product.webformatURL, "name": product.tags, "amount": 1 });
+                        cartArray.push({ "id": product.id, "price": product.price, "image": product.webformatURL, "name": product.tags, "amount": 1, "shipping": product.shipping });
                         localStorage.setItem('cart', JSON.stringify(cartArray));
                         e.target.closest("button").classList.add("unavailable-btn", "valid")
                         e.target.closest("button").innerHTML = `<i class="fas fa-check  "></i>`
-                        displayCartItemCount()
+                        utils.displayCartItemCount()
 
                     } else return
 
                 } else if (cartArray.length === 0 && product.quantity > 0) {
-                    cartArray.push({ "id": product.id, "price": product.price, "image": product.webformatURL, "name": product.tags, "amount": 1 });
+                    cartArray.push({ "id": product.id, "price": product.price, "image": product.webformatURL, "name": product.tags, "amount": 1, "shipping": product.shipping });
                     localStorage.setItem('cart', JSON.stringify(cartArray));
 
                     e.target.closest("button").innerHTML = `<i class="fas fa-check unavailable-btn valid"></i>`
 
-                    displayCartItemCount()
+                    utils.displayCartItemCount()
                 }
             }
 

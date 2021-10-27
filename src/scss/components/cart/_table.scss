@@ -136,7 +136,7 @@
 .total.section {
     margin-top: 0;
     @include flex(space-between);
-    align-items: flex-start;
+    align-items: center;
     @media screen and (max-width: 1199px) {
         flex-direction: column;
         & div {
@@ -157,11 +157,11 @@
         }
 
         & .price {
-            @include font(1rem, 700, 1.4);
+            @include font(1rem, 700, 1);
             color: $dark;
 
             @media screen and (min-width: 1200px) {
-                @include font(36px, 700, 2);
+                @include font(36px, 700, 1);
             }
         }
     }
@@ -172,7 +172,7 @@
         margin-top: 60px;
 
         @media screen and (min-width: 1200px) {
-            margin-top: 120px;
+            margin-top: 200px;
         }
 
         & .button {
@@ -269,7 +269,17 @@
 }
 
 .similar__list {
-    @include flex(space-around);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 2vw;
+    grid-row-gap: 3vh;
+    @media screen and (max-width: 1199px) {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 1fr 1fr;
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
+    }
     & .list__gallery-item {
         height: 100%;
         padding: 32px;
@@ -283,6 +293,9 @@
         height: 250px;
         object-fit: cover;
         cursor: pointer;
+        @media screen and (max-width: 1199px) {
+            height: 100%;
+        }
     }
     & .list__gallery-content {
         text-align: center;

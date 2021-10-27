@@ -1,16 +1,16 @@
 import '../../scss/main.scss';
 import 'slick-carousel';
 import 'regenerator-runtime/runtime.js';
-import { getStorageItem, displayCartItemCount, generateStars } from '../utils'
+import utils from '../utils';
 import render from '../renderService';
 import './sliders'
 import RenderService from '../render';
 
-const renderService = new RenderService(render.commonArray);
+
 import popularTpl from '../../templates/popularGallery.hbs';
 import featuredTpl from '../../templates/featuredGallery.hbs';
 import arrivalsTpl from '../../templates/arrivalsGallery.hbs';
-
+const renderService = new RenderService(render.commonArray);
 
 const init = async () => {
     const popularGallery = document.querySelector('.popular__list');
@@ -26,9 +26,9 @@ const init = async () => {
     await getItems()
 
     const iconDiv = document.querySelectorAll(".wrapper__description-icons");
-    await generateStars(popularArr, iconDiv)
+    await utils.generateStars(popularArr, iconDiv)
     await addToCart()
-    await displayCartItemCount()
+    await utils.displayCartItemCount()
 };
 
 
@@ -77,22 +77,22 @@ function addToCart() {
                 let newProduct = cartArray.every(cartItem => cartItem.id !== Number(ev.target.dataset.id))
 
                 if (newProduct && product.quantity > 0) {
-                    cartArray.push({ "id": product.id, "price": product.price, "image": product.webformatURL, "name": product.tags, "amount": 1 });
+                    cartArray.push({ "id": product.id, "price": product.price, "image": product.webformatURL, "name": product.tags, "amount": 1, "shipping": product.shipping });
                     localStorage.setItem('cart', JSON.stringify(cartArray));
                     ev.target.classList.add("unavailable-btn", 'valid')
                     ev.target.innerHTML = `<span>Added <i class="fas fa-check"></i></span>
                 `
-                    displayCartItemCount()
+                    utils.displayCartItemCount()
 
                 } else return
 
             } else if (cartArray.length === 0 && product.quantity > 0) {
-                cartArray.push({ "id": product.id, "price": product.price, "image": product.webformatURL, "name": product.tags, "amount": 1 });
+                cartArray.push({ "id": product.id, "price": product.price, "image": product.webformatURL, "name": product.tags, "amount": 1, "shipping": product.shipping });
                 localStorage.setItem('cart', JSON.stringify(cartArray));
                 ev.target.classList.add("unavailable-btn", 'valid')
                 ev.target.innerHTML = `<span>Added <i class="fas fa-check"></i></span>
                 `
-                displayCartItemCount()
+                utils.displayCartItemCount()
             }
 
         })

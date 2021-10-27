@@ -1,6 +1,6 @@
 import '../../scss/main.scss'
 import 'regenerator-runtime/runtime.js';
-import { counter, generateStars, displayCartItemCount } from '../utils'
+import utils from '../utils'
 import form from './formProductPage';
 
 import render from '../renderService'
@@ -19,15 +19,15 @@ const init = async () => {
     let reviewedProducts = await renderService.getByIdReviews(Number(getId))
     const product = await renderService.getById(Number(getId))
     await renderProduct(product) // render product 
-    await counter(product)
-    await displayCartItemCount()
+    await utils.counter(product)
+    await utils.displayCartItemCount()
     //open products  from sliders
 
     //render reviews
     submitBtn.addEventListener('click', () => form.checkInputs(reviewedProducts))
     await form.renderReviews(reviewedProducts)
     let iconWrapper = document.querySelectorAll(".wrapper__description-icons");
-    await generateStars(reviewedProducts, iconWrapper)
+    await utils.generateStars(reviewedProducts, iconWrapper)
 
 
     const viewAllBtns = document.querySelectorAll('.section__view-button');
@@ -129,7 +129,7 @@ function addToCart() {
                 item.innerHTML = `<span>Added to cart <i class="fas fa-check"></i></span>       
                 `
                 document.querySelector(".product__info-counter").classList.add('hidden')
-                displayCartItemCount()
+                utils.displayCartItemCount()
             } else return
 
         } else if (cartArray.length === 0 && product.quantity > 0) {
@@ -139,7 +139,7 @@ function addToCart() {
             item.innerHTML = `<span>Added to cart <i class="fas fa-check"></i></span>       
                 `
             document.querySelector(".product__info-counter").classList.add('hidden')
-            displayCartItemCount()
+            utils.displayCartItemCount()
         }
 
     })

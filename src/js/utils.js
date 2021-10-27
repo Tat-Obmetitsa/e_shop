@@ -1,4 +1,4 @@
-import { init } from './cart/cart';
+import addToCartDOM from './cart/renderCart';
 import render from './renderService';
 import RenderService from './render';
 const renderService = new RenderService(render.commonArray);
@@ -127,17 +127,17 @@ function getItems() {
                     let newProduct = cartArray.every(cartItem => cartItem.id !== Number(parentElementID))
 
                     if (newProduct && product.quantity > 0) {
-                        cartArray.push({ "id": product.id, "price": product.price, "image": product.webformatURL, "name": product.tags, "amount": 1 });
+                        cartArray.push({ "id": product.id, "price": product.price, "image": product.webformatURL, "name": product.tags, "amount": 1, "shipping": product.shipping });
                         localStorage.setItem('cart', JSON.stringify(cartArray));
                         e.target.closest("button").classList.add("unavailable-btn", "valid")
                         e.target.closest("button").innerHTML = `<i class="fas fa-check  "></i>`
                         displayCartItemCount()
-                        init()
+                        addToCartDOM()
 
                     } else return
 
                 } else if (cartArray.length === 0 && product.quantity > 0) {
-                    cartArray.push({ "id": product.id, "price": product.price, "image": product.webformatURL, "name": product.tags, "amount": 1 });
+                    cartArray.push({ "id": product.id, "price": product.price, "image": product.webformatURL, "name": product.tags, "amount": 1, "shipping": product.shipping });
                     localStorage.setItem('cart', JSON.stringify(cartArray));
 
                     e.target.closest("button").innerHTML = `<i class="fas fa-check unavailable-btn valid"></i>`
@@ -150,6 +150,6 @@ function getItems() {
     })
 }
 
-export {
+export default {
     getElement, getStorageItem, setStorageItem, counter, generateStars, displayCartItemCount, getItems
 }

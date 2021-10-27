@@ -1,15 +1,14 @@
-import { getElement, getItems } from '../utils.js';
+import utils from '../utils.js';
 import render from '../renderService'
 import RenderService from '../render';
 const renderService = new RenderService(render.commonArray);
 import productGalleryTpl from '../../templates/productList.hbs'
 
 const cartTotalDOM = document.querySelector('.table__price');
-let addedCoupon = false
+let addedCoupon
 
 
 function displayCartTotal(obj) {
-
     const coupons = ['VALTECH5', 'ILoveJS10', 'myLostCreativity25'];
     const promoInput = document.querySelector(".promo-input");
     const submitCoupon = document.querySelector(".apply-btn");
@@ -17,17 +16,21 @@ function displayCartTotal(obj) {
     let total = obj.reduce((total, cartItem) => {
         return (total += cartItem.price * cartItem.amount);
     }, 0);
+    let maxShipping = obj.reduce((acc, curr) => acc.shipping > curr.shipping ? acc.shipping : curr);
     if (!addedCoupon || total < 1) {
         cartTotalDOM.innerHTML = `
+        <span>Pay for shipping only once! Shipping cost is &dollar;${maxShipping}</span>
         <span>Total</span>
-        <span class="price">&dollar;${total.toFixed(2)} </span> 
+        <span class="price">&dollar;${(total + maxShipping).toFixed(2)} </span>
     `
     } else {
         if (addedCoupon === 'VALTECH5') { discount = (total * 95) / 100 } else if (addedCoupon === 'ILoveJS10') { discount = (total * 90) / 100 } else if (addedCoupon === 'myLostCreativity25') { discount = (total * 75) / 100 }
         cartTotalDOM.innerHTML = `
+        <span>Pay for shipping only once! Shipping cost is &dollar;${maxShipping}</span>
+        <span>*Discount is not included in shipping cost</span>
         <span>Total</span>
-        <span class="price">&dollar;<strike>${total.toFixed(2)}</strike></span>
-        <p class="discount-price"><span>Price including discount</span> <span class="price discount">&dollar;${discount.toFixed(2)}</span></p>
+        <span class="price">&dollar;<strike>${(total + maxShipping).toFixed(2)}</strike></span>
+        <p class="discount-price"><span>Price including discount</span> <span class="price discount">&dollar;${(discount + maxShipping).toFixed(2)}</span></p>
     `
         document.querySelector(".total__promo").classList.add('hidden')
     }
@@ -35,7 +38,7 @@ function displayCartTotal(obj) {
     submitCoupon.addEventListener('click', () => {
         if (coupons.find(e => e === promoInput.value) && total > 0) {
             addedCoupon = promoInput.value;
-            displayCartTotal()
+            displayCartTotal(obj)
         } else {
             alert("Incorrect promo code")
         }
@@ -44,11 +47,10 @@ function displayCartTotal(obj) {
 
 const addToCartDOM = () => {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    console.log(cart)
-    const cartItemsMobile = getElement('.table.section.mobile');
+    const cartItemsMobile = utils.getElement('.table.section.mobile');
 
-    const cartItemsDesktop = getElement('.table__wrapper-desktop');
-    const cartItemCountDOM = getElement('.counter-amount');
+    const cartItemsDesktop = utils.getElement('.table__wrapper-desktop');
+    const cartItemCountDOM = utils.getElement('.counter-amount');
     cartItemsDesktop.innerHTML = "";
     cartItemsMobile.innerHTML = "";
 
@@ -62,6 +64,7 @@ const addToCartDOM = () => {
         <th>Product</th>
         <th>Quantity</th>
         <th>Price</th>
+        <th>Shipping</th>
         <th></th>
          `
 
@@ -69,7 +72,6 @@ const addToCartDOM = () => {
         const item = cart[index];
         let productQuantity = renderService.getById(Number(item.id)).quantity
         if (productQuantity < item.amount) {
-            console.log('ok')
             productQuantity === item.amount;
         }
 
@@ -89,6 +91,7 @@ const addToCartDOM = () => {
                                 <p>Available in stock: ${productQuantity} </p>
                             </td>
                             <td>&dollar;${(item.price * item.amount).toFixed(2)}</td>
+                            <td>&dollar;${item.shipping}</td>
                             <td><button class="cart-item-remove-btn button" data-id="${item.id}">&#128473;</button>
                             </td> 
         `
@@ -127,6 +130,11 @@ const addToCartDOM = () => {
                     <td>&dollar;${(item.price * item.amount).toFixed(2)}</td>
 
                 </tr>
+                <tr>
+                    <td class="table__heading">Shipping</td>
+                    <td>&dollar;${item.shipping}</td>
+
+                </tr>
         `
         cartItemsMobile.appendChild(tableMobile)
     }
@@ -156,7 +164,7 @@ function getSimilar(obj) {
         similarDescription.classList.add('hidden');
         similarSection.innerHTML = ''
     }
-    getItems()
+    utils.getItems()
     displayCartTotal(obj)
 
 }
