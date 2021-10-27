@@ -1,8 +1,7 @@
 import '../../scss/main.scss'
 import 'regenerator-runtime/runtime.js';
-import { counter } from '../utils.js';
+import { counter, generateStars, displayCartItemCount } from '../utils'
 import form from './formProductPage';
-import { generateStars } from '../utils'
 
 import render from '../renderService'
 import RenderService from '../render';
@@ -15,14 +14,13 @@ const productSection = document.querySelector('.product.section');
 const getId = window.location.search.replace("?", "").replace("=", "")
 const submitBtn = document.querySelector(".form__field-btn");
 
-
 const init = async () => {
     await render.init();
-    let reviewedProducts = await renderService.getByIdReviws(Number(getId))
+    let reviewedProducts = await renderService.getByIdReviews(Number(getId))
     const product = await renderService.getById(Number(getId))
-
     await renderProduct(product) // render product 
     await counter(product)
+    await displayCartItemCount()
     //open products  from sliders
 
     //render reviews
@@ -35,7 +33,7 @@ const init = async () => {
     const viewAllBtns = document.querySelectorAll('.section__view-button');
     viewAllBtns[0].addEventListener('click', () => window.location.href = `http://localhost:3000/productList.html?=${product.tags.split(', ')[0]}`)
     viewAllBtns[1].addEventListener('click', () => window.location.href = "http://localhost:3000/productList.html?=viewed");
-
+    await addToCart()
     $('.slides').slick({
         slidesToShow: 4,
         autoplay: true,
@@ -105,6 +103,45 @@ function getItems() {
             localStorage.setItem('viewed', JSON.stringify(viewedArray));
             window.location.href = `http://localhost:3000/productPage.html?=${item.dataset.id}`
         })
+    })
+
+}
+function addToCart() {
+    const item = document.querySelector('.add-button')
+    const amount = document.querySelector(".counter-amount")
+    const product = renderService.getById(Number(getId))
+    let cartArray = JSON.parse(localStorage.getItem('cart')) || [];
+    let newProduct = cartArray.every(cartItem => cartItem.id !== Number(getId));
+    if (!newProduct) {
+        item.classList.add("unavailable-btn", 'valid')
+        item.innerHTML = `<span>Added to cart <i class="fas fa-check"></i></span>       
+                `
+        document.querySelector(".product__info-counter").classList.add('hidden')
+
+    }
+    item.addEventListener('click', () => {
+
+        if (cartArray.length > 0) {
+            if (newProduct) {
+                cartArray.push({ "id": Number(product.id), "price": Number(product.price), "image": product.webformatURL, "name": product.tags, "amount": Number(amount.textContent) });
+                localStorage.setItem('cart', JSON.stringify(cartArray));
+                item.classList.add("unavailable-btn", 'valid')
+                item.innerHTML = `<span>Added to cart <i class="fas fa-check"></i></span>       
+                `
+                document.querySelector(".product__info-counter").classList.add('hidden')
+                displayCartItemCount()
+            } else return
+
+        } else if (cartArray.length === 0 && product.quantity > 0) {
+            cartArray.push({ "id": Number(product.id), "price": Number(product.price), "image": product.webformatURL, "name": product.tags, "amount": Number(amount.textContent) });
+            localStorage.setItem('cart', JSON.stringify(cartArray));
+            item.classList.add("unavailable-btn", 'valid')
+            item.innerHTML = `<span>Added to cart <i class="fas fa-check"></i></span>       
+                `
+            document.querySelector(".product__info-counter").classList.add('hidden')
+            displayCartItemCount()
+        }
+
     })
 
 }

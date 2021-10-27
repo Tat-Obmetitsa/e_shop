@@ -51,7 +51,16 @@ export default class RenderService {
     getById(id) {
         return this.arr.find(el => el.id == id);
     }
-    getByIdReviws(id) {
+    getArrayById(id) {
+        let newArray = []
+        for (let j = 0; j < id.length; j++) {
+            let pr1 = id[j];
+            let array = this.arr.filter((items) => items.id == pr1.productId)
+            newArray.push(...array);
+        }
+        return newArray
+    }
+    getByIdReviews(id) {
         let array = this.arr.find(el => el.id == id);
         return [...array.reviews]
     }

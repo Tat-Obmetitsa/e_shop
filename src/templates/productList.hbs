@@ -1,6 +1,17 @@
 {{#each this}}
-<li class="list__gallery-item">
-    <img class="list__gallery-img" src="{{webformatURL}}" alt="{{tags}}" data-id={{id}}>
+<li class="list__gallery-item" data-id={{id}}>
+    <div class="product-container" data-id={{id}}>
+        <img class="list__gallery-img" src="{{webformatURL}}" alt="{{tags}}" data-id={{id}}>
+        <div class="wrapper"></div>
+        <div class="product-icons" data-id={{id}}>
+            <a href="http://localhost:3000/productPage.html?={{id}}" class="product-icon details">
+                <i class="fas fa-search"></i>
+            </a>
+            <button class="product-cart-btn product-icon add-btn" data-id={{id}}>
+                <i class="fas fa-shopping-cart" data-id={{id}}></i>
+            </button>
+        </div>
+    </div>
     <div class="list__gallery-content">
         <h4 class="list__gallery-title" data-id={{id}}>{{tags}}</h4>
         <p class="list__gallery-price" data-id={{id}}>&dollar;{{price}}</p>

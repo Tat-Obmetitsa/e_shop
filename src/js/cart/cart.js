@@ -1,63 +1,124 @@
 import '../../scss/main.scss'
-import { getElement, setStorageItem, getStorageItem, counter } from '../utils.js';
-
-
-let store = getStorageItem('store');
+import 'regenerator-runtime/runtime.js';
+import render from '../renderService'
+import RenderService from '../render';
+const renderService = new RenderService(render.commonArray);
 let cart = getStorageItem('cart');
-const setupStore = (products) => {
-    store = products.map((product) => {
-        const {
-            id,
-            fields: { featured, name, price, company, colors, image: img },
-        } = product;
-        const image = img[0].thumbnails.large.url;
-        return { id, featured, name, price, company, colors, image };
+
+import {
+    getStorageItem,
+    setStorageItem,
+    getElement,
+    displayCartItemCount
+} from '../utils.js';
+
+import addToCartDOM from './renderCart';
+
+const cartItemsDesktop = getElement('.table__wrapper-desktop');
+const cartItemsMobile = getElement('.table.section.mobile');
+
+function removeItem(id) {
+    cart = cart.filter((cartItem) => cartItem.id !== id);
+}
+function increaseAmount(id) {
+    let newAmount;
+    const product = renderService.getById(Number(id))
+    cart = cart.map((cartItem) => {
+        if (cartItem.id === id && product.quantity > cartItem.amount) {
+            newAmount = cartItem.amount + 1;
+            cartItem = { ...cartItem, amount: newAmount };
+        }
+        return cartItem;
     });
-    setStorageItem('store', store);
-};
-
-
-const findProduct = (id) => {
-    let product = store.find((product) => product.id === id);
-    return product;
-};
-
-
-const tableSection = getElement('.table')
-
-const addToDOM = () => {
-    let item = getStorageItem('cartItem');
-    const table = document.createElement('table');
-    table.classList.add("table__wrapper-desktop");
-
-    table.innerHTML = `
-                <tr class="table__heading">
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th></th>
-                </tr>
-                <tr class="table__item">
-                    <td class="table__item-card">
-                        <img src="${item.image}" alt="${item.name}">
-                        <h3>${item.name}</h3>
-                    </td>
-                    <td>
-                        <div class="table__item-counter">
-                            <button class="counter-decrease button" data-id="${item.id}"><span>-</span></button>
-                            <p class="counter-amount" data-id="${item.id}">1</p>
-                            <button class="counter-increase button" data-id="${item.id}"><span>+</span></button>
-                        </div>
-                    </td>
-                    <td>${item.price}</td>
-                    <td> <button class="cart-item-remove-btn" data-id="${item.id}">remove</button>
-                    </td>
-                </tr>
-`
-    tableSection.prepend(table)
+    return newAmount;
+}
+function decreaseAmount(id) {
+    let newAmount;
+    cart = cart.map((cartItem) => {
+        if (cartItem.id === id) {
+            newAmount = cartItem.amount - 1;
+            if (newAmount < 1) {
+                newAmount = 1
+            }
+            cartItem = { ...cartItem, amount: newAmount };
+        }
+        return cartItem;
+    });
+    return newAmount;
 }
 
-addToDOM()
+const setupCartFunctionality = async () => {
+    cartItemsDesktop.addEventListener('click', function (e) {
+        const element = e.target;
+        const parentID = Number(e.target.dataset.id);
+        // remove
+        if (element.classList.contains('cart-item-remove-btn')) {
+            removeItem(parentID);
+            element.parentElement.parentElement.remove();
+        }
+        // increase
+        if (element.classList.contains('counter-increase')) {
+            const newAmount = increaseAmount(parentID);
+            element.previousElementSibling.textContent = newAmount;
 
+        }
+        // decrease
+        if (element.classList.contains('counter-decrease')) {
+            const newAmount = decreaseAmount(parentID);
+            element.nextElementSibling.textContent = newAmount;
+        }
+        setStorageItem('cart', cart);
+        addToCartDOM();
+        displayCartItemCount();
+    });
+    cartItemsMobile.addEventListener('click', function (e) {
+        const element = e.target;
+        const parentID = Number(e.target.dataset.id);
+        // remove
+        if (element.classList.contains('cart-item-remove-btn')) {
+            removeItem(parentID);
+            element.parentElement.parentElement.remove();
+        }
+        // increase
+        if (element.classList.contains('counter-increase')) {
+            const newAmount = increaseAmount(parentID);
+            element.previousElementSibling.textContent = newAmount;
+        }
+        // decrease
+        if (element.classList.contains('counter-decrease')) {
+            const newAmount = decreaseAmount(parentID);
+            element.nextElementSibling.textContent = newAmount;
+        }
+        setStorageItem('cart', cart);
+        addToCartDOM();
+        displayCartItemCount();
+    });
+}
 
-counter()
+function getItems() {
+    const items = document.querySelectorAll(".card_image");
+    items.forEach(item => {
+        item.addEventListener('click', () => {
+            let viewedArray = JSON.parse(localStorage.getItem('viewed')) || [];
+            if (viewedArray.length > 5) { viewedArray.shift(); }
+            viewedArray.push(item.dataset.id);
+            localStorage.setItem('viewed', JSON.stringify(viewedArray));
+            window.location.href = `http://localhost:3000/productPage.html?=${item.dataset.id}`
+        })
+    })
+
+}
+
+const init = async () => {
+    cart = getStorageItem('cart');
+    await render.init();
+    await addToCartDOM();
+    await displayCartItemCount();
+
+    await setupCartFunctionality();
+    await getItems()
+};
+
+window.addEventListener('DOMContentLoaded', init);
+
+export { displayCartItemCount, init }

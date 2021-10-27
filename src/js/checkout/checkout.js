@@ -1,5 +1,6 @@
 import '../../scss/main.scss'
 import flatpickr from "flatpickr";
+import { displayCartItemCount } from '../utils'
 import refs from './refs';
 let formData = new FormData(form);
 let object = {
@@ -18,29 +19,29 @@ let object = {
     "expirationMonth": "",
     "expirationYear": ""
 };
+displayCartItemCount()
+    // year and month select, short forms
+    (() => {
+        let today = new Date();
+        let year = today.getFullYear();
+        let yearArr = []
+        const monthsArr = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+        yearArr.push(year - 4, year - 3, year - 2, year - 1, year, year + 1, year + 2, year + 3, year + 4)
 
-// year and month select, short forms
-(() => {
-    let today = new Date();
-    let year = today.getFullYear();
-    let yearArr = []
-    const monthsArr = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-    yearArr.push(year - 4, year - 3, year - 2, year - 1, year, year + 1, year + 2, year + 3, year + 4)
-
-    for (let i = 0; i < monthsArr.length; i++) {
-        const el = document.createElement('option')
-        el.textContent += monthsArr[i];
-        el.setAttribute('value', monthsArr[i])
-        refs.monthSelect.appendChild(el)
-    }
-    for (let i = 0; i < 9; i++) {
-        const el = document.createElement('option')
-        let shortYear = yearArr[i].toString().slice(2)
-        el.textContent += Number(shortYear)
-        el.setAttribute('value', shortYear)
-        refs.yearSelect.appendChild(el)
-    }
-})();
+        for (let i = 0; i < monthsArr.length; i++) {
+            const el = document.createElement('option')
+            el.textContent += monthsArr[i];
+            el.setAttribute('value', monthsArr[i])
+            refs.monthSelect.appendChild(el)
+        }
+        for (let i = 0; i < 9; i++) {
+            const el = document.createElement('option')
+            let shortYear = yearArr[i].toString().slice(2)
+            el.textContent += Number(shortYear)
+            el.setAttribute('value', shortYear)
+            refs.yearSelect.appendChild(el)
+        }
+    })();
 
 // add value to card
 

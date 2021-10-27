@@ -6,6 +6,7 @@
     &__wrapper-desktop {
         width: 100%;
         display: table;
+
         @media screen and (max-width: 1199px) {
             display: none;
         }
@@ -35,71 +36,70 @@
         & .table__item-card {
             @include flex(flex-start);
             flex-direction: row;
-            & img {
-                height: 200px;
+            & .card_image {
+                width: 350px;
+                height: 90%;
+                object-fit: cover;
+                cursor: pointer;
             }
             & h3 {
                 @include font(22px, 500, 1);
                 margin-left: 50px;
+                display: block;
+                width: 30%;
+            }
+        }
+        & .cart-item-remove-btn {
+            background-color: $bg-light;
+            border: 3px solid $dark;
+            color: $dark;
+            &:hover {
+                background-color: $dark;
+                color: $bg-light;
             }
         }
     }
 
     &__wrapper-mobile {
         display: none;
-
+        text-align: end;
         & tr {
             height: 40px;
         }
+
         @media screen and (max-width: 1199px) {
             display: table;
         }
         & .table__heading {
-            width: 15%;
+            width: 10%;
             border-right: 1px solid $bg-gray;
+            text-align: start;
         }
-        & .cross {
-            text-align: end;
+        & .cart-item-remove-btn {
+            margin-left: auto;
+            background-color: $bg-light;
+            border: 3px solid $bg-gray;
+            color: $dark;
+            &:hover {
+                border: 3px solid $dark;
+            }
+        }
+        & .card_image {
+            width: 100%;
+            cursor: pointer;
+        }
+        & h3 {
+            @include font(1.5em, 700, 1);
+            margin: 10px 0;
         }
     }
 
-    & .table-btn {
+    .table__item-counter {
         @include flex(flex-end);
         flex-direction: row;
-        margin-top: 20px;
-
-        @media screen and (min-width: 1200px) {
-            margin-top: 80px;
-        }
-
-        & .button {
-            @include font(0.8rem, 500, 1.2);
-
-            position: relative;
-            margin-left: 10px;
-            width: 8rem;
-            height: 3rem;
-
-            @media screen and (min-width: 1200px) {
-                @include font(18px, 500, 1.5);
-                height: 50px;
-                width: 180px;
-                margin-left: 32px;
-            }
-
-            & span {
-                display: block;
-                width: 100%;
-                @include centerAbsolute();
-            }
-        }
-    }
-    .table__item-counter {
-        @include flex(flex-start);
-        flex-direction: row;
-
         @media screen and (min-width: 1200px) {
             width: 200px;
+            @include flex(flex-start);
         }
         & .counter-amount {
             @include font(1em, 500, 1.5);
@@ -112,19 +112,35 @@
                 @include font(1.8em, 500, 2);
             }
         }
+        & + p {
+            @include font(16px, 400, 1);
+            color: $text-gray;
 
-        & .button {
-            position: relative;
-            width: 20px;
-            height: 20px;
-            text-align: center;
-            @media screen and (min-width: 1200px) {
-                width: 40px;
-                height: 40px;
-            }
-            & span {
-                @include centerAbsolute();
-            }
+            margin-top: 22px;
+        }
+    }
+    & .cart-item-remove-btn {
+        @include font(15px, 500, 0.5);
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        text-align: center;
+        @media screen and (min-width: 1200px) {
+            @include font(20px, 500, 1);
+            width: 40px;
+            height: 40px;
+        }
+    }
+}
+
+.total.section {
+    margin-top: 0;
+    @include flex(space-between);
+    align-items: flex-start;
+    @media screen and (max-width: 1199px) {
+        flex-direction: column;
+        & div {
+            width: 100%;
         }
     }
     & .table__price {
@@ -143,9 +159,152 @@
         & .price {
             @include font(1rem, 700, 1.4);
             color: $dark;
+
             @media screen and (min-width: 1200px) {
                 @include font(36px, 700, 2);
             }
         }
+    }
+
+    & .table-btn {
+        @include flex(flex-end);
+        flex-direction: row;
+        margin-top: 60px;
+
+        @media screen and (min-width: 1200px) {
+            margin-top: 120px;
+        }
+
+        & .button {
+            @include font(0.8rem, 500, 1.2);
+            text-align: center;
+            margin-left: 15px;
+            width: 8rem;
+            height: 3rem;
+
+            @media screen and (min-width: 1200px) {
+                @include font(18px, 500, 1.5);
+                height: 50px;
+                width: 180px;
+                margin-left: 32px;
+            }
+        }
+    }
+    & .button {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        @media screen and (min-width: 1200px) {
+            width: 40px;
+            height: 40px;
+        }
+        & span {
+            @include centerAbsolute();
+        }
+    }
+}
+.table.section.mobile {
+    margin-top: 0;
+
+    @media screen and (max-width: 1199px) {
+        max-height: 310px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    @media screen and (min-width: 1200px) {
+        margin: 0;
+    }
+    & table {
+        margin: 10px 0;
+        padding: 10px 10px 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+    }
+}
+.table.section.desktop {
+    margin-top: 0;
+    @media screen and (max-width: 1199px) {
+        margin: 0;
+    }
+    max-height: 800px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.total__promo {
+    position: relative;
+    height: 5vh;
+    width: 40%;
+    @media screen and (max-width: 1199px) {
+        width: 100%;
+    }
+    & .promo-input {
+        @include font(20px, 400, 1);
+        padding: 4px 20px 4px 40px;
+        width: 100%;
+        height: 100%;
+        background-color: $bg-light;
+        border: 1px solid #9f9f9f;
+        cursor: pointer;
+        transition-duration: 500ms;
+        @media screen and (max-width: 1199px) {
+            @include font(10px, 400, 0.8);
+            padding: 4px;
+            margin: 0;
+        }
+    }
+    & .apply-btn.button {
+        @include flex(center);
+        position: absolute;
+        height: 100%;
+        width: 140px;
+        bottom: 0;
+        right: 0;
+        @media screen and (max-width: 1199px) {
+            width: 100px;
+        }
+    }
+}
+
+.similar__list {
+    @include flex(space-around);
+    & .list__gallery-item {
+        height: 100%;
+        padding: 32px;
+        border: 3px solid transparent;
+        transition-delay: 500ms;
+    }
+    & img {
+        display: block;
+        margin: 0 auto;
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        cursor: pointer;
+    }
+    & .list__gallery-content {
+        text-align: center;
+        & h4 {
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 1.2;
+            margin: 20px 0;
+        }
+        & p {
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 1;
+            color: #9f9f9f;
+        }
+    }
+}
+.discount-price {
+    @include font(16px, 400, 1);
+    @include flex(flex-end);
+    color: $text-gray;
+    & span:first-child {
+        margin-right: 2rem;
     }
 }
