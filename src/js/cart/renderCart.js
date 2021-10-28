@@ -16,21 +16,22 @@ function displayCartTotal(obj) {
     let total = obj.reduce((total, cartItem) => {
         return (total += cartItem.price * cartItem.amount);
     }, 0);
-    let maxShipping = obj.reduce((acc, curr) => acc.shipping > curr.shipping ? acc.shipping : curr);
+    let maxShipping = obj.reduce((prev, current) => Number(prev.shipping) > Number(current.shipping) ? prev : current, {});
+    if (obj.length < 1) { total = 0; maxShipping.shipping = 0 }
     if (!addedCoupon || total < 1) {
         cartTotalDOM.innerHTML = `
-        <span>Pay for shipping only once! Shipping cost is &dollar;${maxShipping}</span>
+        <span>Pay for shipping only once! Shipping cost is &dollar;${maxShipping.shipping}</span>
         <span>Total</span>
-        <span class="price">&dollar;${(total + maxShipping).toFixed(2)} </span>
+        <span class="price">&dollar;${(total + maxShipping.shipping).toFixed(2)} </span>
     `
     } else {
         if (addedCoupon === 'VALTECH5') { discount = (total * 95) / 100 } else if (addedCoupon === 'ILoveJS10') { discount = (total * 90) / 100 } else if (addedCoupon === 'myLostCreativity25') { discount = (total * 75) / 100 }
         cartTotalDOM.innerHTML = `
-        <span>Pay for shipping only once! Shipping cost is &dollar;${maxShipping}</span>
+        <span>Pay for shipping only once! Shipping cost is &dollar;${maxShipping.shipping}</span>
         <span>*Discount is not included in shipping cost</span>
         <span>Total</span>
-        <span class="price">&dollar;<strike>${(total + maxShipping).toFixed(2)}</strike></span>
-        <p class="discount-price"><span>Price including discount</span> <span class="price discount">&dollar;${(discount + maxShipping).toFixed(2)}</span></p>
+        <span class="price">&dollar;<strike>${(total + maxShipping.shipping).toFixed(2)}</strike></span>
+        <p class="discount-price"><span>Price including discount</span> <span class="price discount">&dollar;${(discount + maxShipping.shipping).toFixed(2)}</span></p>
     `
         document.querySelector(".total__promo").classList.add('hidden')
     }
@@ -74,7 +75,6 @@ const addToCartDOM = () => {
         if (productQuantity < item.amount) {
             productQuantity === item.amount;
         }
-
         const trProduct = document.createElement('tr');
         trProduct.classList.add("table__item");
         trProduct.innerHTML = `
