@@ -1,7 +1,38 @@
+import Toastify from 'toastify-js';
+import "toastify-js/src/toastify.css";
 import addToCartDOM from './cart/renderCart';
 import render from './renderService';
 import RenderService from './render';
 const renderService = new RenderService(render.commonArray);
+
+
+const toastSuccess = {
+    text: "",
+    duration: 2000,
+    newWindow: true,
+    close: true,
+    gravity: "top",
+    position: "right",
+    stopOnFocus: true,
+    style: {
+        background: "linear-gradient(to right, #00b09b, #96c93d)",
+        borderRadius: "10px"
+    },
+}
+const toastFail = {
+    text: "",
+    duration: 2000,
+    newWindow: true,
+    close: true,
+    gravity: "top",
+    position: "right",
+    stopOnFocus: true,
+    style: {
+        background: "linear-gradient(-45deg, red, yellow)",
+        borderRadius: "10px"
+    },
+}
+
 
 const getElement = (selection) => {
     const element = document.querySelector(selection)
@@ -113,16 +144,16 @@ function getItems() {
         })
 
         item.addEventListener('click', (e) => {
-            const parentElement = e.target.parentElement.parentElement;
+
             const parentElementID = e.target.parentElement.parentElement.dataset.id;
             const product = renderService.getById(Number(parentElementID));
-            if (parentElement.classList.contains('details') && e.target.parentElement.classList.contains('details')) {
+            if (e.target.parentElement.classList.contains('details')) {
                 let viewedArray = JSON.parse(localStorage.getItem('viewed')) || [];
                 if (viewedArray.length > 5) { viewedArray.shift(); }
                 viewedArray.push(parentElementID);
                 localStorage.setItem('viewed', JSON.stringify(viewedArray));
             }
-            if (parentElement.classList.contains('add-btn') || e.target.classList.contains('add-btn')) {
+            if (e.target.parentElement.parentElement.classList.contains('add-btn')) {
                 if (cartArray.length > 0) {
                     let newProduct = cartArray.every(cartItem => cartItem.id !== Number(parentElementID))
 
@@ -133,16 +164,17 @@ function getItems() {
                         e.target.closest("button").innerHTML = `<i class="fas fa-check  "></i>`
                         displayCartItemCount()
                         addToCartDOM()
-
+                        toastSuccess.text = "Success! Item was added"
+                        Toastify(toastSuccess).showToast();
                     } else return
 
                 } else if (cartArray.length === 0 && product.quantity > 0) {
                     cartArray.push({ "id": product.id, "price": product.price, "image": product.webformatURL, "name": product.tags, "amount": 1, "shipping": product.shipping });
                     localStorage.setItem('cart', JSON.stringify(cartArray));
-
                     e.target.closest("button").innerHTML = `<i class="fas fa-check unavailable-btn valid"></i>`
-
                     displayCartItemCount()
+                    toastSuccess.text = "Success! Item was added"
+                    Toastify(toastSuccess).showToast();
                 }
             }
 
@@ -150,6 +182,13 @@ function getItems() {
     })
 }
 
+function spinner() {
+    let mask = document.querySelector(".mask");
+    mask.classList.add("transparent-loader");
+    setTimeout(() => {
+        mask.remove()
+    }, 3000);
+}
 export default {
-    getElement, getStorageItem, setStorageItem, counter, generateStars, displayCartItemCount, getItems
+    getElement, getStorageItem, setStorageItem, counter, generateStars, displayCartItemCount, getItems, toastSuccess, toastFail, spinner
 }

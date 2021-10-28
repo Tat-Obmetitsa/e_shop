@@ -1,5 +1,7 @@
 import '../../scss/main.scss'
 import 'regenerator-runtime/runtime.js';
+import Toastify from 'toastify-js';
+import "toastify-js/src/toastify.css";
 import utils from '../utils.js';
 import list from './renderList';
 import render from '../renderService';
@@ -111,8 +113,8 @@ const sort = async () => {
     // sort by price
     upBtn.addEventListener('click', () => {
         productGallery.innerHTML = '';
-        upBtn.classList.add("hidden")
-        downBtn.classList.remove("hidden")
+        upBtn.classList.add("v-hidden")
+        downBtn.classList.remove("v-hidden")
 
 
         if (active.length > 0) {
@@ -133,8 +135,8 @@ const sort = async () => {
     })
     downBtn.addEventListener('click', () => {
         productGallery.innerHTML = '';
-        downBtn.classList.add("hidden")
-        upBtn.classList.remove("hidden")
+        downBtn.classList.add("v-hidden")
+        upBtn.classList.remove("v-hidden")
         if (active.length > 0) {
             priceSort()
         } else if (activeRating.length > 0) {
@@ -147,10 +149,9 @@ const sort = async () => {
         viewNumItems(index, data.length, 9)
         list.displayButtons(paginationContainer, pages, index)
         renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
-
         getItems()
     })
-    await getItems()
+
     // filter by price
     priceItem.forEach(e => {
         e.addEventListener('click', (ev) => {
@@ -198,7 +199,7 @@ const sort = async () => {
         })
 
     })
-
+    await getItems()
     await getData()
     await renderCategories()
     await utils.displayCartItemCount()
@@ -392,7 +393,8 @@ function getItems() {
                         e.target.closest("button").classList.add("unavailable-btn", "valid")
                         e.target.closest("button").innerHTML = `<i class="fas fa-check  "></i>`
                         utils.displayCartItemCount()
-
+                        utils.toastSuccess.text = "Item was added to cart!"
+                        Toastify(utils.toastSuccess).showToast();
                     } else return
 
                 } else if (cartArray.length === 0 && product.quantity > 0) {
@@ -400,13 +402,17 @@ function getItems() {
                     localStorage.setItem('cart', JSON.stringify(cartArray));
 
                     e.target.closest("button").innerHTML = `<i class="fas fa-check unavailable-btn valid"></i>`
-
                     utils.displayCartItemCount()
+                    utils.toastSuccess.text = "Item was added to cart!"
+                    Toastify(utils.toastSuccess).showToast();
                 }
             }
 
         })
     })
 }
+
+
+window.addEventListener('load', () => utils.spinner())
 window.addEventListener('DOMContentLoaded', sort);
 

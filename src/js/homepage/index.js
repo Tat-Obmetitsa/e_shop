@@ -1,6 +1,8 @@
 import '../../scss/main.scss';
 import 'slick-carousel';
 import 'regenerator-runtime/runtime.js';
+import Toastify from 'toastify-js';
+import "toastify-js/src/toastify.css";
 import utils from '../utils';
 import render from '../renderService';
 import './sliders'
@@ -83,6 +85,8 @@ function addToCart() {
                     ev.target.innerHTML = `<span>Added <i class="fas fa-check"></i></span>
                 `
                     utils.displayCartItemCount()
+                    utils.toastSuccess.text = "Item was added to cart!"
+                    Toastify(utils.toastSuccess).showToast();
 
                 } else return
 
@@ -93,6 +97,8 @@ function addToCart() {
                 ev.target.innerHTML = `<span>Added <i class="fas fa-check"></i></span>
                 `
                 utils.displayCartItemCount()
+                utils.toastSuccess.text = "Item was added to cart!"
+                Toastify(utils.toastSuccess).showToast();
             }
 
         })

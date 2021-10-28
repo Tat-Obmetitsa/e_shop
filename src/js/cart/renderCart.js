@@ -1,3 +1,5 @@
+import Toastify from 'toastify-js';
+import "toastify-js/src/toastify.css";
 import utils from '../utils.js';
 import render from '../renderService'
 import RenderService from '../render';
@@ -40,8 +42,11 @@ function displayCartTotal(obj) {
         if (coupons.find(e => e === promoInput.value) && total > 0) {
             addedCoupon = promoInput.value;
             displayCartTotal(obj)
+            utils.toastSuccess.text = "Success! Price was reduced"
+            Toastify(utils.toastSuccess).showToast();
         } else {
-            alert("Incorrect promo code")
+            utils.toastFail.text = "Ivalid code!"
+            Toastify(utils.toastFail).showToast();
         }
     })
 }
@@ -140,8 +145,7 @@ const addToCartDOM = () => {
     }
     cartItemsDesktop.prepend(headingTr)
     getSimilar(cart)
-    displayCartTotal(cart)
-
+    window.addEventListener('load', () => utils.spinner())
 }
 
 function getSimilar(obj) {

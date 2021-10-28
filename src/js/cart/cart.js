@@ -1,5 +1,7 @@
 import '../../scss/main.scss'
 import 'regenerator-runtime/runtime.js';
+import Toastify from 'toastify-js';
+import "toastify-js/src/toastify.css";
 import render from '../renderService'
 import RenderService from '../render';
 import utils from '../utils'
@@ -51,6 +53,8 @@ const setupCartFunctionality = async () => {
         if (element.classList.contains('cart-item-remove-btn')) {
             removeItem(parentID);
             element.parentElement.parentElement.remove();
+            utils.toastFail.text = "Item was removed from the cart!"
+            Toastify(utils.toastFail).showToast();
         }
         // increase
         if (element.classList.contains('counter-increase')) {
@@ -74,6 +78,8 @@ const setupCartFunctionality = async () => {
         if (element.classList.contains('cart-item-remove-btn')) {
             removeItem(parentID);
             element.parentElement.parentElement.remove();
+            utils.toastFail.text = "Item was removed from the cart!"
+            Toastify(utils.toastFail).showToast();
         }
         // increase
         if (element.classList.contains('counter-increase')) {
@@ -114,5 +120,5 @@ const cartSetup = async () => {
     await setupCartFunctionality();
     await getImageItems()
 };
-
+window.addEventListener('load', () => utils.spinner())
 window.addEventListener('DOMContentLoaded', cartSetup);

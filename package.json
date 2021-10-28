@@ -55,7 +55,8 @@
     "lazy-load": "0.0.2",
     "lorem-ipsum": "^2.0.4",
     "slick": "^1.12.2",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "toastify-js": "^1.11.2"
   },
   "author": "",
   "description": ""

@@ -1,5 +1,7 @@
 import '../../scss/main.scss'
 import 'regenerator-runtime/runtime.js';
+import Toastify from 'toastify-js';
+import "toastify-js/src/toastify.css";
 import utils from '../utils'
 import form from './formProductPage';
 
@@ -21,14 +23,12 @@ const init = async () => {
     await renderProduct(product) // render product 
     await utils.counter(product)
     await utils.displayCartItemCount()
-    //open products  from sliders
 
     //render reviews
     submitBtn.addEventListener('click', () => form.checkInputs(reviewedProducts))
     await form.renderReviews(reviewedProducts)
     let iconWrapper = document.querySelectorAll(".wrapper__description-icons");
     await utils.generateStars(reviewedProducts, iconWrapper)
-
 
     const viewAllBtns = document.querySelectorAll('.section__view-button');
     viewAllBtns[0].addEventListener('click', () => window.location.href = `http://localhost:3000/productList.html?=${product.tags.split(', ')[0]}`)
@@ -117,7 +117,8 @@ function addToCart() {
         item.innerHTML = `<span>Added to cart <i class="fas fa-check"></i></span>       
                 `
         document.querySelector(".product__info-counter").classList.add('hidden')
-
+        utils.toastSuccess.text = "Item was added to cart"
+        Toastify(utils.toastSuccess).showToast();
     }
     item.addEventListener('click', () => {
 

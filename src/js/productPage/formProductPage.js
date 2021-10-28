@@ -1,4 +1,6 @@
 //  comment form
+import Toastify from 'toastify-js';
+import "toastify-js/src/toastify.css";
 import utils from '../utils.js';
 const reviewsSection = document.querySelector(".reviews__wrapper");
 const formReview = document.querySelector(".review__form")
@@ -77,7 +79,8 @@ function checkInputs(ob) {
             formData.delete(key)
         });
         renderReviews(ob)
-
+        utils.toastSuccess.text = "Your comment is very important to us :) "
+        Toastify(utils.toastSuccess).showToast();
     }
 
 }
