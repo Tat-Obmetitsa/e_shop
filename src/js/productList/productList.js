@@ -374,9 +374,9 @@ function getItems() {
 
         item.addEventListener('click', (e) => {
             const parentElement = e.target.parentElement.parentElement;
-            const parentElementID = e.target.parentElement.parentElement.dataset.id;
+            const parentElementID = e.target.parentElement.dataset.id;
             const product = renderService.getById(Number(parentElementID));
-            if (parentElement.classList.contains('details') && e.target.parentElement.classList.contains('details')) {
+            if (e.target.parentElement.classList.contains('details')) {
                 let viewedArray = JSON.parse(localStorage.getItem('viewed')) || [];
                 if (viewedArray.length > 5) { viewedArray.shift(); }
                 viewedArray.push(parentElementID);
