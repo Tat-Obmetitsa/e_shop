@@ -164,11 +164,9 @@ function getItems() {
 
                         e.target.closest("button").classList.add("unavailable-btn", "valid")
                         e.target.closest("button").innerHTML = `<i class="fas fa-check  "></i>`
-                        localStorage.setItem('cart', JSON.stringify(cartArray));
                         displayCartItemCount()
                         addNewToCart(cartArray)
                         services.addServices(cartArray)
-                        renderCart.displayCartTotal(cartArray)
                         toastSuccess.text = "Success! Item was added"
                         Toastify(toastSuccess).showToast();
                         localStorage.setItem('cart', JSON.stringify(cartArray));
@@ -213,9 +211,9 @@ function addNewToCart(array) {
                                  
                                 <div class="services__wrapper">
                                     <form action="" class="services-form" data-id="${lastItem.id}" >
-                                    <label><input class="guarantee-check tree-m" value="0" type="radio" name="guarantee-check" checked > 3 months guarantee</label>
-                                    <label><input class="guarantee-check six-m" value="1" type="radio" name="guarantee-check" > 6 months guarantee</label>
-                                    <label><input class="guarantee-check twelve-m" value="5" type="radio" name="guarantee-check" > 12 months guarantee</label> 
+                                    <label><input class="guarantee-check tree-m" value="0" type="radio" name="guarantee-check" ${lastItem.services == 0 ? ` checked = "checked"` : ""} data-id="${lastItem.id}"  > 3 months guarantee</label>
+                                    <label><input class="guarantee-check six-m" value="1" type="radio" name="guarantee-check"  ${lastItem.services == 1 ? `checked = "checked"` : ""} data-id="${lastItem.id}" > 6 months guarantee</label>
+                                    <label><input class="guarantee-check twelve-m" value="5" type="radio" name="guarantee-check"  ${lastItem.services == 5 ? `checked = "checked"` : ""} data-id="${lastItem.id}"> 12 months guarantee</label>
                                     </form>
                                 </div>
                             </td>

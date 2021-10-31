@@ -17,7 +17,7 @@ function displayCartTotal(obj) {
     const submitCoupon = document.querySelector(".apply-btn");
     let discount;
 
-    let servicesTotal = obj.reduce(function (prev, curr) { return Number(prev) + Number((((curr.price * curr.amount) * Number(curr.services)) / 100).toFixed(2)) }, 0)
+    let servicesTotal = obj.reduce(function (prev, curr) { return Number(prev) + Number(((curr.price * curr.amount) * Number(curr.services)) / 100) }, 0)
 
     let total = obj.reduce((total, cartItem) => {
         return (total += cartItem.price * cartItem.amount);
@@ -27,7 +27,7 @@ function displayCartTotal(obj) {
     if (!addedCoupon || total < 1) {
         cartTotalDOM.innerHTML = `
         <span>Pay for shipping only once! Shipping cost is &dollar;${maxShipping.shipping}</span>
-        <span class="services-total">Additional guarantee services:  &dollar;${servicesTotal}</span>
+        <span class="services-total">Additional guarantee services:  &dollar;${servicesTotal.toFixed(2)}</span>
         <span>Total</span>
         <span class="price">&dollar;${(total + maxShipping.shipping).toFixed(2)} </span>
     `
@@ -35,7 +35,7 @@ function displayCartTotal(obj) {
         if (addedCoupon === 'VALTECH5') { discount = (total * 95) / 100 } else if (addedCoupon === 'ILoveJS10') { discount = (total * 90) / 100 } else if (addedCoupon === 'myLostCreativity25') { discount = (total * 75) / 100 }
         cartTotalDOM.innerHTML = `
         <span>Pay for shipping only once! Shipping cost is &dollar;${maxShipping.shipping}</span>
-        <span class="services-total">Additional guarantee services:  &dollar;${servicesTotal}</span>
+        <span class="services-total">Additional guarantee services:  &dollar;${servicesTotal.toFixed(2)}</span>
         <span>*Discount is not included in shipping and services cost</span>
         <span>Total</span>
         <span class="price">&dollar;<strike>${(total + maxShipping.shipping + servicesTotal).toFixed(2)}</strike></span>
@@ -48,8 +48,6 @@ function displayCartTotal(obj) {
         if (coupons.find(e => e === promoInput.value) && total > 0) {
             addedCoupon = promoInput.value;
             displayCartTotal(obj)
-            utils.toastSuccess.text = "Success! Price was reduced"
-            Toastify(utils.toastSuccess).showToast();
         } else {
             utils.toastFail.text = "Ivalid code!"
             Toastify(utils.toastFail).showToast();
@@ -110,9 +108,9 @@ const addToCartDOM = () => {
                                  
                                 <div class="services__wrapper">
                                     <form action="" class="services-form" data-id="${item.id}" >
-                                    <label><input class="guarantee-check tree-m" value="0" type="radio" name="guarantee-check"   > 3 months guarantee</label>
-                                    <label><input class="guarantee-check six-m" value="1" type="radio" name="guarantee-check" > 6 months guarantee</label>
-                                    <label><input class="guarantee-check twelve-m" value="5" type="radio" name="guarantee-check" > 12 months guarantee</label> 
+                                    <label><input class="guarantee-check tree-m" value="0" type="radio" name="guarantee-check" ${item.services == 0 ? ` checked = "checked"` : ""} data-id="${item.id}"  > 3 months guarantee</label>
+                                    <label><input class="guarantee-check six-m" value="1" type="radio" name="guarantee-check"  ${item.services == 1 ? `checked = "checked"` : ""} data-id="${item.id}" > 6 months guarantee</label>
+                                    <label><input class="guarantee-check twelve-m" value="5" type="radio" name="guarantee-check"  ${item.services == 5 ? `checked = "checked"` : ""} data-id="${item.id}"> 12 months guarantee</label>
                                     </form>
                                 </div>
                             </td>
@@ -128,7 +126,6 @@ const addToCartDOM = () => {
                             </td> 
         `
         cartItemsDesktop.appendChild(trProduct)
-
         const tableMobile = document.createElement('table');
         tableMobile.classList.add("table__wrapper-mobile");
         tableMobile.innerHTML = `
@@ -180,6 +177,8 @@ const addToCartDOM = () => {
                 </tr>
         `
         cartItemsMobile.appendChild(tableMobile)
+        const radioInputs = document.querySelectorAll(".guarantee-check")
+
     }
 
     cartItemsDesktop.prepend(headingTr)
