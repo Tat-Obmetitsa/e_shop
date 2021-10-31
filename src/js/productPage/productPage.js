@@ -124,7 +124,7 @@ function addToCart() {
 
         if (cartArray.length > 0) {
             if (newProduct) {
-                cartArray.push({ "id": Number(product.id), "price": Number(product.price), "image": product.webformatURL, "name": product.tags, "amount": Number(amount.textContent), "shipping": Number(product.shipping) });
+                cartArray.push({ "id": Number(product.id), "price": Number(product.price), "services": 0, "quantity": product.quantity, "image": product.webformatURL, "name": product.tags, "amount": Number(amount.textContent), "shipping": Number(product.shipping) });
                 localStorage.setItem('cart', JSON.stringify(cartArray));
                 item.classList.add("unavailable-btn", 'valid')
                 item.innerHTML = `<span>Added to cart <i class="fas fa-check"></i></span>       
@@ -134,7 +134,7 @@ function addToCart() {
             } else return
 
         } else if (cartArray.length === 0 && product.quantity > 0) {
-            cartArray.push({ "id": Number(product.id), "price": Number(product.price), "image": product.webformatURL, "name": product.tags, "amount": Number(amount.textContent), "shipping": Number(product.shipping) });
+            cartArray.push({ "id": Number(product.id), "price": Number(product.price), "services": 0, "quantity": product.quantity, "image": product.webformatURL, "name": product.tags, "amount": Number(amount.textContent), "shipping": Number(product.shipping) });
             localStorage.setItem('cart', JSON.stringify(cartArray));
             item.classList.add("unavailable-btn", 'valid')
             item.innerHTML = `<span>Added to cart <i class="fas fa-check"></i></span>       

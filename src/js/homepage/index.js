@@ -79,7 +79,7 @@ function addToCart() {
                 let newProduct = cartArray.every(cartItem => cartItem.id !== Number(ev.target.dataset.id))
 
                 if (newProduct && product.quantity > 0) {
-                    cartArray.push({ "id": product.id, "price": product.price, "image": product.webformatURL, "name": product.tags, "amount": 1, "shipping": product.shipping });
+                    cartArray.push({ "id": product.id, "price": product.price, "services": 0, "quantity": product.quantity, "image": product.webformatURL, "name": product.tags, "amount": 1, "shipping": product.shipping });
                     localStorage.setItem('cart', JSON.stringify(cartArray));
                     ev.target.classList.add("unavailable-btn", 'valid')
                     ev.target.innerHTML = `<span>Added <i class="fas fa-check"></i></span>
@@ -91,7 +91,7 @@ function addToCart() {
                 } else return
 
             } else if (cartArray.length === 0 && product.quantity > 0) {
-                cartArray.push({ "id": product.id, "price": product.price, "image": product.webformatURL, "name": product.tags, "amount": 1, "shipping": product.shipping });
+                cartArray.push({ "id": product.id, "price": product.price, "services": 0, "quantity": product.quantity, "image": product.webformatURL, "name": product.tags, "amount": 1, "shipping": product.shipping });
                 localStorage.setItem('cart', JSON.stringify(cartArray));
                 ev.target.classList.add("unavailable-btn", 'valid')
                 ev.target.innerHTML = `<span>Added <i class="fas fa-check"></i></span>

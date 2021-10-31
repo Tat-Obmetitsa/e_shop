@@ -15,7 +15,7 @@
 
             & th {
                 color: $text-gray;
-                text-align: start;
+                text-align: center;
             }
         }
         & .table__item {
@@ -36,6 +36,9 @@
         & .table__item-card {
             @include flex(flex-start);
             flex-direction: row;
+            padding: 0 25px;
+            width: 97%;
+            border-right: 1px solid $text-gray;
             & .card_image {
                 width: 350px;
                 height: 90%;
@@ -99,7 +102,7 @@
         flex-direction: row;
         @media screen and (min-width: 1200px) {
             width: 200px;
-            @include flex(flex-start);
+            @include flex(center);
         }
         & .counter-amount {
             @include font(1em, 500, 1.5);
@@ -232,6 +235,32 @@
     max-height: 800px;
     overflow-x: hidden;
     overflow-y: scroll;
+
+    & .counter-column {
+        @include flex(center);
+        flex-direction: column;
+        margin: 0;
+        height: 50%;
+        align-items: center;
+        justify-content: center;
+    }
+    & .services__wrapper {
+        // height: 50%;
+        @include flex(center);
+
+        & form {
+            @include flex(flex-start);
+            flex-direction: column;
+        }
+    }
+    & .item__info p,
+    .item__info div:last-child {
+        margin: 0;
+        height: 50%;
+        @include flex(center);
+        align-items: center;
+        justify-content: center;
+    }
 }
 .total__promo {
     position: relative;

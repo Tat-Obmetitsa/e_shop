@@ -5,7 +5,8 @@ import "toastify-js/src/toastify.css";
 import render from '../renderService'
 import RenderService from '../render';
 import utils from '../utils'
-import addToCartDOM from './renderCart';
+import services from './services';
+import renderCart from './renderCart';
 const renderService = new RenderService(render.commonArray);
 
 
@@ -18,8 +19,11 @@ function increaseAmount(id) {
     let newAmount;
     const product = renderService.getById(Number(id))
     cart = cart.map((cartItem) => {
-        if (cartItem.id === id && product.quantity > cartItem.amount) {
+        if (cartItem.id === id && cartItem.quantity > cartItem.amount) {
             newAmount = cartItem.amount + 1;
+            cartItem = { ...cartItem, amount: newAmount };
+        } else if (cartItem.id === id && cartItem.quantity == cartItem.amount) {
+            newAmount = cartItem.amount;
             cartItem = { ...cartItem, amount: newAmount };
         }
         return cartItem;
@@ -43,6 +47,7 @@ function decreaseAmount(id) {
 }
 
 const setupCartFunctionality = async () => {
+    cart = JSON.parse(localStorage.getItem('cart'));
     const cartItemsDesktop = document.querySelector('.table__wrapper-desktop');
 
     const cartItemsMobile = document.querySelector('.table.section.mobile');
@@ -68,7 +73,8 @@ const setupCartFunctionality = async () => {
             element.nextElementSibling.textContent = newAmount;
         }
         utils.setStorageItem('cart', cart);
-        addToCartDOM();
+        renderCart.displayCartTotal(cart)
+        services.addServices(cart)
         utils.displayCartItemCount();
     });
     cartItemsMobile.addEventListener('click', function (e) {
@@ -92,7 +98,7 @@ const setupCartFunctionality = async () => {
             element.nextElementSibling.textContent = newAmount;
         }
         utils.setStorageItem('cart', cart);
-        addToCartDOM();
+        services.addServices(cart)
         utils.displayCartItemCount();
     });
 }
@@ -110,13 +116,19 @@ function getImageItems() {
     })
 
 }
-
+function displayCartItemsDOM() {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    cart.forEach((cartItem) => {
+        renderCart.addToCartDOM(cartItem);
+    });
+}
 const cartSetup = async () => {
     cart = JSON.parse(localStorage.getItem('cart'));
     await render.init();
-    await addToCartDOM();
+    await displayCartItemsDOM()
+    await renderCart.displayCartTotal(cart)
     await utils.displayCartItemCount();
-
+    await services.addServices(cart)
     await setupCartFunctionality();
     await getImageItems()
 };

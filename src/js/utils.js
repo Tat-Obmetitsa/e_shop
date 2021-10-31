@@ -1,7 +1,8 @@
 import Toastify from 'toastify-js';
 import "toastify-js/src/toastify.css";
-import addToCartDOM from './cart/renderCart';
+import renderCart from './cart/renderCart';
 import render from './renderService';
+import services from './cart/services'
 import RenderService from './render';
 const renderService = new RenderService(render.commonArray);
 
@@ -121,6 +122,7 @@ function displayCartItemCount() {
         return (total += cartItem.amount);
     }, 0);
     document.querySelectorAll(".cart-amount").forEach(e => e.textContent = amount)
+
 }
 
 function getItems() {
@@ -158,21 +160,26 @@ function getItems() {
                     let newProduct = cartArray.every(cartItem => cartItem.id !== Number(parentElementID))
 
                     if (newProduct && product.quantity > 0) {
-                        cartArray.push({ "id": product.id, "price": product.price, "image": product.webformatURL, "name": product.tags, "amount": 1, "shipping": product.shipping });
-                        localStorage.setItem('cart', JSON.stringify(cartArray));
+                        cartArray.push({ "id": product.id, "price": product.price, "quantity": product.quantity, "services": 0, "image": product.webformatURL, "name": product.tags, "amount": 1, "shipping": product.shipping });
+
                         e.target.closest("button").classList.add("unavailable-btn", "valid")
                         e.target.closest("button").innerHTML = `<i class="fas fa-check  "></i>`
+                        localStorage.setItem('cart', JSON.stringify(cartArray));
                         displayCartItemCount()
-                        addToCartDOM()
+                        addNewToCart(cartArray)
+                        services.addServices(cartArray)
+                        renderCart.displayCartTotal(cartArray)
                         toastSuccess.text = "Success! Item was added"
                         Toastify(toastSuccess).showToast();
+                        localStorage.setItem('cart', JSON.stringify(cartArray));
                     } else return
 
                 } else if (cartArray.length === 0 && product.quantity > 0) {
-                    cartArray.push({ "id": product.id, "price": product.price, "image": product.webformatURL, "name": product.tags, "amount": 1, "shipping": product.shipping });
-                    localStorage.setItem('cart', JSON.stringify(cartArray));
+                    cartArray.push({ "id": product.id, "price": product.price, "image": product.webformatURL, "services": 0, "quantity": product.quantity, "name": product.tags, "amount": 1, "shipping": product.shipping });
+
                     e.target.closest("button").innerHTML = `<i class="fas fa-check unavailable-btn valid"></i>`
                     displayCartItemCount()
+                    renderCart.addToCartDOM()
                     toastSuccess.text = "Success! Item was added"
                     Toastify(toastSuccess).showToast();
                 }
@@ -181,6 +188,56 @@ function getItems() {
         })
     })
 }
+
+
+function addNewToCart(array) {
+
+    const lastItem = array[array.length - 1]
+    const cartItemsDesktop = getElement('.table__wrapper-desktop');
+    const trProduct = document.createElement('tr');
+    trProduct.classList.add("table__item");
+    trProduct.innerHTML = `
+                            <td class="table__item-card">
+                                <img  class="card_image"  src="${lastItem.image}" data-id="${lastItem.id}" alt="${lastItem.name}">
+                                <h3 data-id="${lastItem.id}">${lastItem.name}</h3>
+                            </td>
+                            <td class="item__info">
+                                <div class="counter-column">
+                                    <div class="table__item-counter">
+                                    <button class="counter-decrease button" data-id="${lastItem.id}" value="-">-</button>
+                                    <p class="counter-amount" data-id="${lastItem.id}">${lastItem.amount}</p>
+                                    <button class="counter-increase button" data-id="${lastItem.id}" value="+">+</button>
+                                    </div>
+                                    <p>Available in stock: ${lastItem.quantity} </p>
+                                </div>
+                                 
+                                <div class="services__wrapper">
+                                    <form action="" class="services-form" data-id="${lastItem.id}" >
+                                    <label><input class="guarantee-check tree-m" value="0" type="radio" name="guarantee-check" checked > 3 months guarantee</label>
+                                    <label><input class="guarantee-check six-m" value="1" type="radio" name="guarantee-check" > 6 months guarantee</label>
+                                    <label><input class="guarantee-check twelve-m" value="5" type="radio" name="guarantee-check" > 12 months guarantee</label> 
+                                    </form>
+                                </div>
+                            </td>
+                            <td class="item__info">
+                                <p>&dollar;<span class="item-price">${(lastItem.price * lastItem.amount).toFixed(2)}</span></p>
+                                <p><span class="services-percent">${lastItem.services}</span>%</p>
+                            </td>
+                            <td class="item__info">
+                                <p>&dollar;${lastItem.shipping}</p>
+                                <p>&dollar;<span class="services-price">${(((lastItem.price * lastItem.amount) * Number(lastItem.services)) / 100).toFixed(2)}</span></p>
+                            </td>
+                            <td><button class="cart-item-remove-btn button" data-id="${lastItem.id}">&#128473;</button>
+                            </td> 
+        `
+    cartItemsDesktop.appendChild(trProduct)
+
+}
+
+
+
+
+
 
 function spinner() {
     let mask = document.querySelector(".mask");
