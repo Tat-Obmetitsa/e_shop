@@ -122,6 +122,12 @@ function displayCartItemsDOM() {
         renderCart.addToCartDOM(cartItem);
     });
 }
+document.querySelector(".credit-btn").addEventListener('click', () => {
+    document.querySelector(".credit.section").classList.remove("modal-hidden")
+})
+document.querySelector(".close-button").addEventListener('click', () => {
+    document.querySelector(".credit.section").classList.add("modal-hidden")
+})
 const cartSetup = async () => {
     cart = JSON.parse(localStorage.getItem('cart'));
     await render.init();
@@ -129,8 +135,11 @@ const cartSetup = async () => {
     await renderCart.displayCartTotal(cart)
     await utils.displayCartItemCount();
     await services.addServices(cart)
+    await services.addPaymentMethod()
     await setupCartFunctionality();
     await getImageItems()
+
+
 };
 window.addEventListener('load', () => utils.spinner())
 window.addEventListener('DOMContentLoaded', cartSetup);

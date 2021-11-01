@@ -97,10 +97,76 @@
 
                 </div>
                 <div class="table-btn">
+                    <button type="button " class="button credit-btn">Payment by Installments</button>
                     <a type="button" class="button" href="./"><span>Continue Shopping</span></a>
                     <a type="button" class="button" href="./checkout.html"><span>Checkout</span></a>
                 </div>
             </div>
+        </section>
+        <section class="credit section modal-hidden">
+            <table class="payment__table">
+
+                <tbody>
+                    <tr>
+                        <td colspan="4">
+                            <h4>Available payment:</h4>
+                        </td>
+                        <td colspan="1">
+                            <button class="close-button">&#128473;</button>
+                        </td>
+                    </tr>
+                    <tr class="bank__item">
+                        <td> <img aria-hidden="true" class="bank-logo"
+                                src="https://content2.rozetka.com.ua/payments_methods/logo/original/195705272.jpg">
+                        </td>
+                        <td class="bank__name">Privat Bank</td>
+                        <td class="additional__info">
+                            <span class="payments__number">4</span> payments for <select class="payment__select"
+                                onfocus="this.selectedIndex = -1;">
+                                <option value="3" selected>3 months</option>
+                                <option value="6">6 months</option>
+                                <option value="12">12 months</option>
+
+                            </select>
+                        </td>
+                        <td class="additional__info">&dollar;<span class="payments__price"></span>/month</td>
+                        <td class="additional__info"><button class="payments__approve button">Submit</button></td>
+                    </tr>
+                    <tr class="bank__item">
+                        <td class="bank__name "> <img aria-hidden="true" class="bank-logo"
+                                src="https://content.rozetka.com.ua/payments_methods/logo/original/195695785.png">
+                        </td>
+                        <td class="bank__name">A-Bank</td>
+                        <td class="additional__info"><span class="payments__number">4</span> payments for <select
+                                class="payment__select" onfocus="this.selectedIndex = -1;">
+                                <option value="3">3 months</option>
+                                <option value="6" selected>6 months</option>
+                                <option value="12">12 months</option>
+
+                            </select> </td>
+                        <td class="additional__info">&dollar;<span class="payments__price"></span>/month</td>
+                        <td class="additional__info"><button class="payments__approve button">Submit</button></td>
+                    </tr>
+                    <tr class="bank__item">
+                        <td><img aria-hidden="true" class="bank-logo"
+                                src="https://content2.rozetka.com.ua/payments_methods/logo/original/195705271.jpg">
+                        </td>
+                        <td class="bank__name"> monobank </td>
+                        <td class="additional__info"><span class="payments__number">4</span> payments for <select
+                                class="payment__select" onfocus="this.selectedIndex = -1;">
+                                <option value="3"> 3 months
+                                </option>
+                                <option value="6">6 months</option>
+                                <option value="12" selected>12 months</option>
+
+                            </select>
+                        </td>
+                        <td class="additional__info">&dollar;<span class="payments__price"></span>/month</td>
+                        <td class="additional__info"><button class="payments__approve button">Submit</button></td>
+                    </tr>
+
+                </tbody>
+            </table>
         </section>
         <section class="similar section">
             <div class="similar__info">
@@ -221,7 +287,6 @@
     </footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 

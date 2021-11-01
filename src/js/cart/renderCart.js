@@ -13,34 +13,43 @@ let addedCoupon
 
 function displayCartTotal(obj) {
     const coupons = ['VALTECH5', 'ILoveJS10', 'myLostCreativity25'];
+    let payments = JSON.parse(localStorage.getItem('payments')) || {};
     const promoInput = document.querySelector(".promo-input");
     const submitCoupon = document.querySelector(".apply-btn");
     let discount;
-
+    let finalTotal;
+    let total;
     let servicesTotal = obj.reduce(function (prev, curr) { return Number(prev) + Number(((curr.price * curr.amount) * Number(curr.services)) / 100) }, 0)
 
-    let total = obj.reduce((total, cartItem) => {
-        return (total += cartItem.price * cartItem.amount);
-    }, 0);
+
     let maxShipping = obj.reduce((prev, current) => Number(prev.shipping) > Number(current.shipping) ? prev : current, {});
+
+    if (payments.installmentsPrice !== 0) { total = Number(payments.installmentsPrice) } else {
+        total = obj.reduce((total, cartItem) => {
+            return (total += cartItem.price * cartItem.amount);
+        }, 0);
+    }
     if (obj.length < 1) { total = 0; maxShipping.shipping = 0 }
     if (!addedCoupon || total < 1) {
+        finalTotal = (total + maxShipping.shipping + servicesTotal).toFixed(2)
         cartTotalDOM.innerHTML = `
         <span>Pay for shipping only once! Shipping cost is &dollar;${maxShipping.shipping}</span>
         <span class="services-total">Additional guarantee services:  &dollar;${servicesTotal.toFixed(2)}</span>
         <span>Total</span>
-        <span class="price">&dollar;${(total + maxShipping.shipping).toFixed(2)} </span>
+        <span class="price">&dollar;${finalTotal} </span>
     `
     } else {
         if (addedCoupon === 'VALTECH5') { discount = (total * 95) / 100 } else if (addedCoupon === 'ILoveJS10') { discount = (total * 90) / 100 } else if (addedCoupon === 'myLostCreativity25') { discount = (total * 75) / 100 }
+        finalTotal = (discount + maxShipping.shipping + servicesTotal).toFixed(2)
         cartTotalDOM.innerHTML = `
         <span>Pay for shipping only once! Shipping cost is &dollar;${maxShipping.shipping}</span>
         <span class="services-total">Additional guarantee services:  &dollar;${servicesTotal.toFixed(2)}</span>
         <span>*Discount is not included in shipping and services cost</span>
         <span>Total</span>
         <span class="price">&dollar;<strike>${(total + maxShipping.shipping + servicesTotal).toFixed(2)}</strike></span>
-        <p class="discount-price"><span>Price including discount</span> <span class="price discount">&dollar;${(discount + maxShipping.shipping).toFixed(2)}</span></p>
+        <p class="discount-price"><span>Price including discount</span> <span class="price discount">&dollar;${finalTotal}</span></p>
     `
+
         document.querySelector(".total__promo").classList.add('hidden')
     }
 
@@ -48,7 +57,7 @@ function displayCartTotal(obj) {
         if (coupons.find(e => e === promoInput.value) && total > 0) {
             addedCoupon = promoInput.value;
             displayCartTotal(obj)
-        } else {
+        } else if (!coupons.find(e => e === promoInput.value) || total == 0 && promoInput.value !== '') {
             utils.toastFail.text = "Ivalid code!"
             Toastify(utils.toastFail).showToast();
         }
@@ -62,6 +71,10 @@ function displayCartTotal(obj) {
         }
 
     }
+
+    Object.assign(payments, { installmentsPrice: 0, shipping: Number(maxShipping.shipping).toFixed(2), services: Number(servicesTotal).toFixed(2), totalPrice: `${(Number(finalTotal) - Number(servicesTotal) - Number(maxShipping.shipping)).toFixed(2)}`, finalTotal: Number(finalTotal).toFixed(2) })
+
+    utils.setStorageItem('payments', payments);
 }
 
 const addToCartDOM = () => {
@@ -157,17 +170,21 @@ const addToCartDOM = () => {
                 <tr>
                     <td class="table__heading">Services</td>
                     <td class="guarantee">
-                         <form action="">
-                        <label><input class="guarantee-check tree-m" value="0" type="radio" name="guarantee-check"  checked> 3 months guarantee</label>
-                        <label><input class="guarantee-check six-m" value="1" type="radio" name="guarantee-check" > 6 months guarantee</label>
-                        <label><input class="guarantee-check twelve-m" value="5" type="radio" name="guarantee-check"  > 12 months guarantee</label>
-                        </form>
+                        <form action="" class="services-form" data-id="${item.id}" >
+                                    <label><input class="guarantee-check tree-m" value="0" type="radio" name="guarantee-check" ${item.services == 0 ? ` checked = "checked"` : ""} data-id="${item.id}"  > 3 months guarantee</label>
+                                    <label><input class="guarantee-check six-m" value="1" type="radio" name="guarantee-check"  ${item.services == 1 ? `checked = "checked"` : ""} data-id="${item.id}" > 6 months guarantee</label>
+                                    <label><input class="guarantee-check twelve-m" value="5" type="radio" name="guarantee-check"  ${item.services == 5 ? `checked = "checked"` : ""} data-id="${item.id}"> 12 months guarantee</label>
+                                    </form>
                     </td>
 
                 </tr>
                 <tr>
+                    <td class="table__heading">Services Price</td>
+                    <td><span class="services-percent">${item.services}</span>%   &dollar;<span class="services-price">${(((item.price * item.amount) * Number(item.services)) / 100).toFixed(2)}</span></td>
+                    </tr>
+                <tr>
                     <td class="table__heading">Price</td>
-                    <td class="item-price">&dollar;${(item.price * item.amount).toFixed(2)}</td>
+                    <td class="item-price">  &dollar;${(item.price * item.amount).toFixed(2)}</td>
 
                 </tr>
                 <tr>
@@ -177,7 +194,6 @@ const addToCartDOM = () => {
                 </tr>
         `
         cartItemsMobile.appendChild(tableMobile)
-        const radioInputs = document.querySelectorAll(".guarantee-check")
 
     }
 

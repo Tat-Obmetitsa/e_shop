@@ -192,6 +192,15 @@
                 margin-left: 32px;
             }
         }
+        & .button:first-child {
+            width: 10rem;
+            height: 4rem;
+            @media screen and (min-width: 1200px) {
+                height: 70px;
+                width: 240px;
+                margin-right: 52px;
+            }
+        }
     }
     & .button {
         position: relative;
