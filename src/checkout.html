@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Checkout</title>
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhPznZ6TGzfMYmKfaVs3osLM_j78D953s&libraries=places"
+        async defer></script>
 </head>
 
 <body>
@@ -75,27 +77,23 @@
                 </li>
             </ul>
         </section>
-        <section class="section">
+
+        <section class="section checkout__section">
             <form class="form" action="javascript:;" id="form">
                 <fieldset class="form__field">
                     <legend class="form__field-title">Buyer Info</legend>
-                    <label for="name">Full Name
-                        <input type="text" placeholder="Full Name" name="name" class="name" minlength="2" id="name"
-                            required>
-                    </label>
-                    <label for="address">Address
-                        <input type="text" id="address" class="address" name="address" required>
-                    </label>
-                    <label for="contact">Contact
-                        <input name="contact" autocomplete="off" class="contact" id="contact" minlength="16" required>
-
-                    </label>
-
-                    <label for="city">City
-                        <input type="text" name="city" class="city" id="city" required>
-                    </label>
-
                     <div class="form__field-wrap">
+                        <label for="name">Full Name
+                            <input type="text" placeholder="Full Name" name="name" class="name" minlength="2" id="name"
+                                required>
+                        </label>
+                        <label for="contact">Contact
+                            <input name="contact" autocomplete="off" class="contact" id="contact" minlength="16"
+                                required>
+
+                        </label>
+                    </div>
+                    <!-- <div class="form__field-wrap">
                         <label for="state-choice">State<input placeholder="Select State" list="state" id="state-choice"
                                 required class="state-choice" title="Choose the State from the list below" name="state"
                                 autocomplete="country" /></label>
@@ -106,21 +104,122 @@
                             <option value="State4" class="state-option">State4</option>
                             <option value="State5" class="state-option">State5</option>
                         </datalist>
-                        <label for="code">Zip Code<input class="code" name="zip" id="code" autocomplete="postal-code"
-                                required></label>
-                    </div>
-                    <div class="form__field-date">
-                        <input type="datetime" class="datepick" readonly
-                            placeholder="Select Delivery Date from the Calendar" name="delivery_date" id="req_date"
-                            minlength="1" required>
-                        <div>
-                            <input type="checkbox" name="checkbox" id="agreement" class="agreement" required
-                                title="Must be checked">
 
-                            <label for="agreement"> I agree to have my personal data processed</label>
-                        </div>
-                    </div>
+                    </div> -->
+                    <div>
+                        <input type="checkbox" name="checkbox" id="agreement" class="agreement" required
+                            title="Must be checked">
 
+                        <label for="agreement"> I agree to have my personal data processed</label>
+                    </div>
+                </fieldset>
+                <fieldset class="form__field">
+                    <legend class="form__field-title">Delivery Method</legend>
+                    <ul class="delivery__list">
+                        <li class="delivery__list-option">
+                            <label class="delivery-label"><input class="delivery-check" value="0" type="radio"
+                                    name="delivery-check"> Pick
+                                Up</label>
+                            <div class="delivery-details">
+                                <p>Shipping is free!</p>
+                                <p class="delivery__text">You can pick up your order from our offices:</p>
+                            </div>
+                        </li>
+                        <li class="delivery__list-option">
+                            <label class="delivery-label"><input class="delivery-check" value="2" type="radio"
+                                    name="delivery-check"> Postal
+                                Office</label>
+                            <div class="delivery-details">
+                                <p>Shipping price: <span class="shipping__delivery-cost">$0</span></p>
+                                <p class="delivery__text">You can pick up your order from postal offices offices:</p>
+
+                            </div>
+                        </li>
+                        <li class="delivery__list-option">
+                            <label class="delivery-label"><input class="delivery-check" value="2" type="radio"
+                                    name="delivery-check"> Courier
+                                Delivery</label>
+                            <div class="delivery-details">
+                                <p>Shipping price: <span class="shipping__delivery-cost">$0</span></p>
+                                <div class="address-details ">
+                                    <div class="address-container" id="address-container">
+                                        <div class="form-group" id="address-mini-form">
+                                            <label for="address">Enter your address:
+                                                <input type="text" id="address"
+                                                    class="address form-control autocomplete-address" name="address"
+                                                    required>
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="flat">Apartment, unit, suite, or floor #<input
+                                                    class="code form-control" name="flat" id="flat" required></label>
+                                        </div>
+
+                                        <div id="address-full-form">
+                                            <div class="form-group">
+                                                <label for="bill_address">Street Address<input type="text"
+                                                        class="form-control" id="bill_address" name="bill_address"
+                                                        disabled /></label>
+
+                                            </div>
+                                            <div class="form__field-wrap">
+                                                <div class="form-group">
+                                                    <label for="code">Zip Code<input class="code form-control"
+                                                            name="zip" id="code" autocomplete="postal-code"
+                                                            disabled></label>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="bill_state">State/Province<input type="text"
+                                                            class=" state-choice form-control" id="bill_state"
+                                                            name="bill_state" disabled /></label>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form__field-wrap">
+                                                <div class="form-group">
+                                                    <label for="city">City
+                                                        <input type="text" name="city" class="city form-control"
+                                                            id="city" disabled>
+                                                    </label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="bill_country">Country<input type="text"
+                                                            class="form-control" placeholder="Ukraine" id="bill_country"
+                                                            name="bill_country" disabled /></label>
+
+                                                </div>
+                                            </div>
+
+
+
+
+                                        </div>
+                                        <div class="form__field-date">
+                                            <label for="delivery_date">Delivery Date<input type="datetime"
+                                                    class="datepick" readonly
+                                                    placeholder="Select the Date from the Calendar" name="delivery_date"
+                                                    id="req_date" minlength="1" required></label>
+
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div>
+                                        <div id="map"></div>
+
+                                        <div id="infowindow-content">
+                                            <span id="place-name" class="title"></span><br />
+                                            <span id="place-address"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </fieldset>
                 <fieldset class="form__field">
                     <legend class="form__field-title">Payment Method</legend>
@@ -199,29 +298,55 @@
                 </fieldset>
                 <button type="submit" class="form__field-btn">Checkout</button>
             </form>
-            <div class="form-overlay">
-                <div class="form-details">
-                    <button type="button" class="form-close" aria-expanded="false">
-                        <svg width="20px" height="20px">
-                            <use class="icon-cross" href="./assets/homepage/sprite.svg#cross"></use>
-                        </svg>
-                    </button>
-                    <h2>Success! Purchase details:</h2>
-                    <div class="dayils-list">
-                        <ul class="details-buyer"></ul>
-                        <ul class="details-payment"></ul>
-                    </div>
-                </div>
-            </div>
-            <div class="complete__wrapper">
-                <h2 class="complete__wrapper-title">Checkout Complete!</h2>
-                <p class="complete__wrapper-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.</p>
-                <a class="complete__wrapper-button button" type="button" href="./"><span>Go Shopping
-                        Again</span></a>
+            <div class="order">
+                <h3 class="order__title">Order details</h3>
+                <ul>
+                    <li class="order__info">
+                        <spa>Items Total:</spa>
+                        <spa class="items-total">$0.00</spa>
+                    </li>
+                    <li class="order__info">
+                        <spa>Discount</spa>
+                        <spa class="items-discount">0%</spa>
+                    </li>
+                    <li class="order__info">
+                        <spa>Services Total:</spa>
+                        <spa class="items-services">$0.00</spa>
+                    </li>
+                    <li class="order__info">
+                        <spa>Shipping:</spa>
+                        <spa class="items-shipping">$0.00</spa>
+                    </li>
+                    <li class="order__info">
+                        <spa>Total Price:</spa>
+                        <spa class="items-total-price">$0.00</spa>
+                    </li>
+
+                </ul>
             </div>
         </section>
+        <div class="form-overlay">
+            <div class="form-details">
+                <button type="button" class="form-close" aria-expanded="false">
+                    <svg width="20px" height="20px">
+                        <use class="icon-cross" href="./assets/homepage/sprite.svg#cross"></use>
+                    </svg>
+                </button>
+                <h2>Success! Purchase details:</h2>
+                <div class="dayils-list">
+                    <ul class="details-buyer"></ul>
+                    <ul class="details-payment"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="complete__wrapper">
+            <h2 class="complete__wrapper-title">Checkout Complete!</h2>
+            <p class="complete__wrapper-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna
+                aliqua.</p>
+            <a class="complete__wrapper-button button" type="button" href="./"><span>Go Shopping
+                    Again</span></a>
+        </div>
     </main>
     <footer class="footer">
         <ul class="footer__list section">

@@ -1,4 +1,5 @@
 import '../../scss/main.scss'
+import './maps';
 import flatpickr from "flatpickr";
 import utils from '../utils';
 import refs from './refs';

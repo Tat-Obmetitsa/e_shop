@@ -1,17 +1,23 @@
+.checkout__section {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    @media screen and (min-width: 1200px) {
+        flex-direction: row;
+    }
+}
 .form {
+    width: 100%;
     color: $text-gray;
     position: relative;
     padding-bottom: 8vh;
     display: grid;
     align-items: start;
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(max-content, max-content) repeat(2, 100%);
     grid-row-gap: 20px;
     @media screen and (min-width: 1200px) {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr;
-        grid-column-gap: 62px;
-        padding: 0;
+        width: 60%;
     }
 
     &__field {
@@ -22,7 +28,6 @@
 
         @media screen and (min-width: 1200px) {
             padding: 32px 0;
-            grid-template-rows: minmax(80px, max-content) repeat(6, 130px) 20%;
         }
 
         &-title {
@@ -52,7 +57,7 @@
                 padding: 4px;
                 margin-top: 4px;
                 width: 100%;
-                height: 5vh;
+                height: 3vh;
                 background-color: $bg-light;
                 border: 1px solid $text-gray;
                 cursor: pointer;
@@ -69,6 +74,40 @@
                 }
             }
         }
+        & input.delivery-check {
+            width: 40px;
+            height: 40px;
+
+            &:hover,
+            &:checked {
+                background-color: rgba(128, 128, 128, 0.137);
+                filter: grayscale(0);
+                & + svg {
+                    fill: green;
+                    & + label {
+                        color: green;
+                    }
+                }
+            }
+
+            &:focus {
+                outline: 0;
+            }
+        }
+
+        & input.delivery-check:valid {
+            box-shadow: 0 0 0 0 transparent;
+        }
+        & .delivery-details {
+            & p {
+                @include font(1em, 400, 1);
+            }
+            // visibility: hidden;
+        }
+        // & input.delivery-check:checked .delivery-details {
+        //     visibility: visible;
+        // }
+
         & input[type="checkbox"] {
             width: 15px;
             height: 15px;
@@ -135,7 +174,7 @@
                     }
                 }
 
-                & input[type="radio"] {
+                & input.radio_btn {
                     // -webkit-appearance: none;
                     opacity: 0;
                     position: absolute;
@@ -196,11 +235,12 @@
     }
     & .form__field-wrap {
         display: grid;
-        grid-template-columns: 2fr 1fr;
         grid-template-rows: 1fr;
+        grid-template-columns: 1fr 1fr;
         grid-column-gap: 5%;
         background-color: $bg-light;
     }
+
     & select {
         padding: 4px;
         margin-top: 4px;
@@ -225,16 +265,15 @@
         & .datepick {
             padding: 4px;
             margin: 4px 0 10px 0;
-            width: 75%;
-            height: 4vh;
+            width: 100%;
+            height: 3vh;
             background-color: $bg-light;
             border: 1px solid $text-gray;
             cursor: pointer;
 
             @media screen and (min-width: 1200px) {
-                width: 50%;
                 padding: 7px;
-                height: 40px;
+                height: 60px;
                 margin: 7px 0 20px 0;
             }
 
@@ -399,4 +438,60 @@
             z-index: 0;
         }
     }
+}
+
+.order {
+    width: 100%;
+    height: fit-content;
+    padding: 2em;
+    border: 1px solid #9f9f9f;
+    border-radius: 5px;
+    @include font(1em, 400, 1);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+    & li {
+        margin: 1em 0;
+        display: flex;
+        justify-content: space-between;
+
+        & span:nth-child(2) {
+            @include font(1em, 500, 1);
+        }
+    }
+
+    & li:nth-child(5) {
+        @include font(0.8em, 600, 1);
+        margin: 1.5em 0;
+        padding: 1.5em 0;
+        border-top: 1px solid $bg-gray;
+        border-bottom: 1px solid $bg-gray;
+    }
+    @media screen and (min-width: 1200px) {
+        width: 30%;
+        position: sticky;
+        top: 25%;
+        right: 0;
+    }
+}
+
+.address-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 2vw;
+    grid-template-rows: 1fr;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+#infowindow-content .title {
+    font-weight: bold;
+}
+
+#infowindow-content {
+    display: none;
+}
+
+#map #infowindow-content {
+    display: inline;
 }
