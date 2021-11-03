@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script>
+
+
 </head>
 
 <body>
@@ -18,32 +22,21 @@
                 <span class="header__wrapper-logo">Elliye</span>
             </div>
             <div class="header__wrapper header__wrapper-desktop" id="header__wrapper-desktop">
-
-                <button type="button" class="header__wrapper-button cart">
-                    <a href="./checkout.html"><svg width="24px" height="24px" aria-label="cart">
-                            <use href="./assets/homepage/sprite.svg#cart"></use>
-                        </svg></a>
-                </button>
-                <button type="button" class="header__wrapper-button cart">
-                    <a href="./checkout.html"><svg width="24px" height="24px" aria-label="envelope">
-                            <use href="./assets/checkout/sprite-checkout.svg#email"></use>
-                        </svg></a>
-                </button>
-
+                <a href="./cart.html" class="header__wrapper-button cart">
+                    <svg width="24px" height="24px" aria-label="cart">
+                        <use href="./assets/homepage/sprite.svg#cart"></use>
+                    </svg>
+                    <span class="cart-amount">0</span>
+                </a>
                 <button type="button" class="button">Login</button>
             </div>
             <div class="header__wrapper-mobile">
-
-                <button type="button" class="header__wrapper-button cart">
-                    <a href="./checkout.html"><svg width="24px" height="24px" aria-label="cart">
-                            <use href="./assets/homepage/sprite.svg#cart"></use>
-                        </svg></a>
-                </button>
-                <button type="button" class="header__wrapper-button cart">
-                    <a href="./checkout.html"><svg width="24px" height="24px" aria-label="envelope">
-                            <use href="./assets/checkout/sprite-checkout.svg#email"></use>
-                        </svg></a>
-                </button>
+                <a href="./cart.html" class="header__wrapper-button cart">
+                    <svg width="24px" height="24px" aria-label="cart">
+                        <use href="./assets/homepage/sprite.svg#cart"></use>
+                    </svg>
+                    <span class="cart-amount">0</span>
+                </a>
             </div>
         </div>
     </header>
@@ -80,49 +73,116 @@
                 </li>
             </ul>
         </section>
-        <section class="table section">
+        <section class="table section desktop">
+            <table class="table__wrapper-desktop"></table>
+        </section>
+        <section class="table section mobile ">
             <table class="table__wrapper-mobile">
-                <tr class="cross">
-                    <td colspan="1" class="table__heading"></td>
-                    <td>
-                        <svg width="20px" height="20px" aria-label="Menu switcher">
-                            <use class="icon-cross" href="./assets/homepage/sprite.svg#cross"></use>
-                        </svg>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="table__heading">Product</td>
-                    <td class="table__item-card">
-                        <img src="#" alt="">
-                        <h3></h3>
-                    </td>
 
-                </tr>
-                <tr>
-                    <td class="table__heading">Quantity</td>
-                    <td>
-                        <div class="table__item-counter">
-                            <button class="counter-decrease button"><span>-</span></button>
-                            <p class="counter-amount">1</p>
-                            <button class="counter-increase button"><span>+</span></button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="table__heading">Price</td>
-                    <td>here is price</td>
-
-                </tr>
+                <div class="table__item-counter">
+                    <input type="button" class="counter-decrease button" value="-" />
+                    <p class="counter-amount">1</p>
+                    <input class="counter-increase button" value="+" />
+                </div>
             </table>
-            <div class="table__price">
-                <span>Total</span>
-                <span class="price">$00.00</span>
+
+        </section>
+        <section class="total section">
+            <div class="total__promo">
+                <input type="text" name="promo" placeholder="Enter coupon code" id="promo" class="promo-input"><label
+                    for="promo" class="apply-btn button">Apply Code</label>
             </div>
-            <div class="table-btn">
-                <a type="button" class="button" href="./"><span>Continue Shopping</span></a>
-                <a type="button" class="button" href="./checkout.html"><span>Checkout</span></a>
+            <div>
+                <div class="table__price">
+
+                </div>
+                <div class="table-btn">
+                    <button type="button " class="button credit-btn">Payment by Installments</button>
+                    <a type="button" class="button" href="./"><span>Continue Shopping</span></a>
+                    <a type="button" class="button" href="./checkout.html"><span>Checkout</span></a>
+                </div>
             </div>
         </section>
+        <section class="credit section modal-hidden">
+            <table class="payment__table">
+
+                <tbody>
+                    <tr>
+                        <td colspan="4">
+                            <h4>Available payment:</h4>
+                        </td>
+                        <td colspan="1">
+                            <button class="close-button">&#128473;</button>
+                        </td>
+                    </tr>
+                    <tr class="bank__item">
+                        <td> <img aria-hidden="true" class="bank-logo"
+                                src="https://content2.rozetka.com.ua/payments_methods/logo/original/195705272.jpg">
+                        </td>
+                        <td class="bank__name">Privat Bank</td>
+                        <td class="additional__info">
+                            <span class="payments__number">4</span> payments for <select class="payment__select"
+                                onfocus="this.selectedIndex = -1;">
+                                <option value="3" selected>3 months</option>
+                                <option value="6">6 months</option>
+                                <option value="12">12 months</option>
+
+                            </select>
+                        </td>
+                        <td class="additional__info">&dollar;<span class="payments__price"></span>/month</td>
+                        <td class="additional__info"><button class="payments__approve button">Submit</button></td>
+                    </tr>
+                    <tr class="bank__item">
+                        <td class="bank__name "> <img aria-hidden="true" class="bank-logo"
+                                src="https://content.rozetka.com.ua/payments_methods/logo/original/195695785.png">
+                        </td>
+                        <td class="bank__name">A-Bank</td>
+                        <td class="additional__info"><span class="payments__number">4</span> payments for <select
+                                class="payment__select" onfocus="this.selectedIndex = -1;">
+                                <option value="3">3 months</option>
+                                <option value="6" selected>6 months</option>
+                                <option value="12">12 months</option>
+
+                            </select> </td>
+                        <td class="additional__info">&dollar;<span class="payments__price"></span>/month</td>
+                        <td class="additional__info"><button class="payments__approve button">Submit</button></td>
+                    </tr>
+                    <tr class="bank__item">
+                        <td><img aria-hidden="true" class="bank-logo"
+                                src="https://content2.rozetka.com.ua/payments_methods/logo/original/195705271.jpg">
+                        </td>
+                        <td class="bank__name"> monobank </td>
+                        <td class="additional__info"><span class="payments__number">4</span> payments for <select
+                                class="payment__select" onfocus="this.selectedIndex = -1;">
+                                <option value="3"> 3 months
+                                </option>
+                                <option value="6">6 months</option>
+                                <option value="12" selected>12 months</option>
+
+                            </select>
+                        </td>
+                        <td class="additional__info">&dollar;<span class="payments__price"></span>/month</td>
+                        <td class="additional__info"><button class="payments__approve button">Submit</button></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </section>
+        <section class="similar section">
+            <div class="similar__info">
+                <h3 class="section__title">Additional stuff</h3>
+                <button type="button" class="section__view-button">
+                    <span>View all</span>
+                    <svg width="30px" height="30px" aria-label="next">
+                        <use href="./assets/homepage/sprite.svg#small-arrow"></use>
+                    </svg>
+                </button>
+            </div>
+            <ul class="similar__list"></ul>
+        </section>
+        <div class="mask">
+            <div class="loader"></div>
+        </div>
     </main>
 
     <footer class="footer">
@@ -227,7 +287,7 @@
     </footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 
 </html>

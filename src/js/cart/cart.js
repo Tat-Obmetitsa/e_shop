@@ -1,63 +1,145 @@
 import '../../scss/main.scss'
-import { getElement, setStorageItem, getStorageItem, counter } from '../utils.js';
+import 'regenerator-runtime/runtime.js';
+import Toastify from 'toastify-js';
+import "toastify-js/src/toastify.css";
+import render from '../renderService'
+import RenderService from '../render';
+import utils from '../utils'
+import services from './services';
+import renderCart from './renderCart';
+const renderService = new RenderService(render.commonArray);
 
 
-let store = getStorageItem('store');
-let cart = getStorageItem('cart');
-const setupStore = (products) => {
-    store = products.map((product) => {
-        const {
-            id,
-            fields: { featured, name, price, company, colors, image: img },
-        } = product;
-        const image = img[0].thumbnails.large.url;
-        return { id, featured, name, price, company, colors, image };
+let cart = JSON.parse(localStorage.getItem('cart'));
+function removeItem(id) {
+    cart = cart.filter((cartItem) => cartItem.id !== id);
+}
+function increaseAmount(id) {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    let newAmount;
+    const product = renderService.getById(Number(id))
+    cart = cart.map((cartItem) => {
+        if (cartItem.id === id && cartItem.quantity > cartItem.amount) {
+            newAmount = cartItem.amount + 1;
+            cartItem = { ...cartItem, amount: newAmount };
+        } else if (cartItem.id === id && cartItem.quantity == cartItem.amount) {
+            newAmount = cartItem.amount;
+            cartItem = { ...cartItem, amount: newAmount };
+        }
+        return cartItem;
     });
-    setStorageItem('store', store);
-};
-
-
-const findProduct = (id) => {
-    let product = store.find((product) => product.id === id);
-    return product;
-};
-
-
-const tableSection = getElement('.table')
-
-const addToDOM = () => {
-    let item = getStorageItem('cartItem');
-    const table = document.createElement('table');
-    table.classList.add("table__wrapper-desktop");
-
-    table.innerHTML = `
-                <tr class="table__heading">
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th></th>
-                </tr>
-                <tr class="table__item">
-                    <td class="table__item-card">
-                        <img src="${item.image}" alt="${item.name}">
-                        <h3>${item.name}</h3>
-                    </td>
-                    <td>
-                        <div class="table__item-counter">
-                            <button class="counter-decrease button" data-id="${item.id}"><span>-</span></button>
-                            <p class="counter-amount" data-id="${item.id}">1</p>
-                            <button class="counter-increase button" data-id="${item.id}"><span>+</span></button>
-                        </div>
-                    </td>
-                    <td>${item.price}</td>
-                    <td> <button class="cart-item-remove-btn" data-id="${item.id}">remove</button>
-                    </td>
-                </tr>
-`
-    tableSection.prepend(table)
+    return newAmount;
+}
+function decreaseAmount(id) {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    let newAmount;
+    cart = cart.map((cartItem) => {
+        if (cartItem.id === id) {
+            newAmount = cartItem.amount - 1;
+            if (newAmount < 1) {
+                newAmount = 1
+            }
+            cartItem = { ...cartItem, amount: newAmount };
+        }
+        return cartItem;
+    });
+    return newAmount;
 }
 
-addToDOM()
+const setupCartFunctionality = async () => {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    const cartItemsDesktop = document.querySelector('.table__wrapper-desktop');
+
+    const cartItemsMobile = document.querySelector('.table.section.mobile');
+    cartItemsDesktop.addEventListener('click', function (e) {
+        const element = e.target;
+        const parentID = Number(e.target.dataset.id);
+        // remove
+        if (element.classList.contains('cart-item-remove-btn')) {
+            removeItem(parentID);
+            element.parentElement.parentElement.remove();
+            utils.toastFail.text = "Item was removed from the cart!"
+            Toastify(utils.toastFail).showToast();
+        }
+        // increase
+        if (element.classList.contains('counter-increase')) {
+            const newAmount = increaseAmount(parentID);
+            element.previousElementSibling.textContent = newAmount;
+
+        }
+        // decrease
+        if (element.classList.contains('counter-decrease')) {
+            const newAmount = decreaseAmount(parentID);
+            element.nextElementSibling.textContent = newAmount;
+        }
+        utils.setStorageItem('cart', cart);
+        renderCart.displayCartTotal(cart)
+        services.addServices(cart)
+        utils.displayCartItemCount();
+    });
+    cartItemsMobile.addEventListener('click', function (e) {
+        const element = e.target;
+        const parentID = Number(e.target.dataset.id);
+        // remove
+        if (element.classList.contains('cart-item-remove-btn')) {
+            removeItem(parentID);
+            element.parentElement.parentElement.remove();
+            utils.toastFail.text = "Item was removed from the cart!"
+            Toastify(utils.toastFail).showToast();
+        }
+        // increase
+        if (element.classList.contains('counter-increase')) {
+            const newAmount = increaseAmount(parentID);
+            element.previousElementSibling.textContent = newAmount;
+        }
+        // decrease
+        if (element.classList.contains('counter-decrease')) {
+            const newAmount = decreaseAmount(parentID);
+            element.nextElementSibling.textContent = newAmount;
+        }
+        utils.setStorageItem('cart', cart);
+        services.addServices(cart)
+        utils.displayCartItemCount();
+    });
+}
+
+function getImageItems() {
+    const items = document.querySelectorAll(".card_image");
+    items.forEach(item => {
+        item.addEventListener('click', () => {
+            let viewedArray = JSON.parse(localStorage.getItem('viewed')) || [];
+            if (viewedArray.length > 5) { viewedArray.shift(); }
+            viewedArray.push(item.dataset.id);
+            localStorage.setItem('viewed', JSON.stringify(viewedArray));
+            window.location.href = `http://localhost:3000/productPage.html?=${item.dataset.id}`
+        })
+    })
+
+}
+function displayCartItemsDOM() {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    cart.forEach((cartItem) => {
+        renderCart.addToCartDOM(cartItem);
+    });
+}
+document.querySelector(".credit-btn").addEventListener('click', () => {
+    document.querySelector(".credit.section").classList.remove("modal-hidden")
+})
+document.querySelector(".close-button").addEventListener('click', () => {
+    document.querySelector(".credit.section").classList.add("modal-hidden")
+})
+const cartSetup = async () => {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    await render.init();
+    await displayCartItemsDOM()
+    await renderCart.displayCartTotal(cart)
+    await utils.displayCartItemCount();
+    await services.addServices(cart)
+    await services.addPaymentMethod()
+    await setupCartFunctionality();
+    await getImageItems()
 
 
-counter()
+};
+window.addEventListener('load', () => utils.spinner())
+window.addEventListener('DOMContentLoaded', cartSetup);

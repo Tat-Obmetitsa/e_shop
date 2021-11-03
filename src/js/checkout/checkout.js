@@ -1,5 +1,6 @@
 import '../../scss/main.scss'
 import flatpickr from "flatpickr";
+import utils from '../utils';
 import refs from './refs';
 let formData = new FormData(form);
 let object = {
@@ -21,6 +22,7 @@ let object = {
 
 // year and month select, short forms
 (() => {
+    utils.displayCartItemCount()
     let today = new Date();
     let year = today.getFullYear();
     let yearArr = []
@@ -166,6 +168,7 @@ refs.form.addEventListener('input', (e) => {
 // add into to notification card
 
 function checkInputs() {
+
     formData.forEach(function (value, key) {
         object[key] = value;
     });

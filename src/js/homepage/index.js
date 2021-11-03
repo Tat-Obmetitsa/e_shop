@@ -1,14 +1,18 @@
 import '../../scss/main.scss';
 import 'slick-carousel';
 import 'regenerator-runtime/runtime.js';
-import { getStorageItem, setStorageItem, generateStars } from '../utils'
+import Toastify from 'toastify-js';
+import "toastify-js/src/toastify.css";
+import utils from '../utils';
 import render from '../renderService';
 import './sliders'
 import RenderService from '../render';
+
+
 import popularTpl from '../../templates/popularGallery.hbs';
 import featuredTpl from '../../templates/featuredGallery.hbs';
 import arrivalsTpl from '../../templates/arrivalsGallery.hbs';
-
+const renderService = new RenderService(render.commonArray);
 
 const init = async () => {
     const popularGallery = document.querySelector('.popular__list');
@@ -17,7 +21,6 @@ const init = async () => {
 
     await render.init()
 
-    const renderService = new RenderService(render.commonArray);
     const popularArr = await renderService.getHomeRating(popularGallery, popularTpl, 9)
 
     await renderService.getCategoryHome(featuredGallery, featuredTpl, 'cloth', 12)
@@ -25,12 +28,12 @@ const init = async () => {
     await getItems()
 
     const iconDiv = document.querySelectorAll(".wrapper__description-icons");
-    await generateStars(popularArr, iconDiv)
-
-
+    await utils.generateStars(popularArr, iconDiv)
+    await addToCart()
+    await utils.displayCartItemCount()
 };
 
-window.addEventListener('DOMContentLoaded', init);
+
 
 function getItems() {
     const items = document.querySelectorAll(".wrapper__image");
@@ -49,6 +52,59 @@ function getItems() {
     })
 
 }
+
+function addToCart() {
+    const items = document.querySelectorAll('.add-button')
+    let cartArray = JSON.parse(localStorage.getItem('cart')) || [];
+
+    items.forEach(item => {
+        if (renderService.getById(item.dataset.id).quantity == 0) {
+            item.textContent = 'Not available';
+            item.classList.add('unavailable-btn')
+        }
+        cartArray.forEach(cartItem => {
+
+            if (cartItem.id == Number(item.dataset.id)) {
+                item.classList.add("unavailable-btn", 'valid')
+                item.innerHTML = `<span>Added <i class="fas fa-check"></i></span>       
+                `
+            }
+        })
+
+        item.addEventListener('click', (ev) => {
+
+            const product = renderService.getById(Number(ev.target.dataset.id))
+
+            if (cartArray.length > 0) {
+                let newProduct = cartArray.every(cartItem => cartItem.id !== Number(ev.target.dataset.id))
+
+                if (newProduct && product.quantity > 0) {
+                    cartArray.push({ "id": product.id, "price": product.price, "services": 0, "quantity": product.quantity, "image": product.webformatURL, "name": product.tags, "amount": 1, "shipping": product.shipping });
+                    localStorage.setItem('cart', JSON.stringify(cartArray));
+                    ev.target.classList.add("unavailable-btn", 'valid')
+                    ev.target.innerHTML = `<span>Added <i class="fas fa-check"></i></span>
+                `
+                    utils.displayCartItemCount()
+                    utils.toastSuccess.text = "Item was added to cart!"
+                    Toastify(utils.toastSuccess).showToast();
+
+                } else return
+
+            } else if (cartArray.length === 0 && product.quantity > 0) {
+                cartArray.push({ "id": product.id, "price": product.price, "services": 0, "quantity": product.quantity, "image": product.webformatURL, "name": product.tags, "amount": 1, "shipping": product.shipping });
+                localStorage.setItem('cart', JSON.stringify(cartArray));
+                ev.target.classList.add("unavailable-btn", 'valid')
+                ev.target.innerHTML = `<span>Added <i class="fas fa-check"></i></span>
+                `
+                utils.displayCartItemCount()
+                utils.toastSuccess.text = "Item was added to cart!"
+                Toastify(utils.toastSuccess).showToast();
+            }
+
+        })
+    })
+}
+
 
 // redirect ro product list by "view all" btn
 (() => {
@@ -113,22 +169,4 @@ function getItems() {
     })
 })();
 
-// add to storage
-// window.addEventListener('click', e => {
-
-//     if (e.target.classList.contains("add-button")) {
-//         setStorageItem("chosen", e.target.parentElement.dataset.id)
-
-//     }
-//     let store = getStorageItem("item");
-//     let chosen = Number(getStorageItem("chosen"));
-//     store.map((el) => {
-//         if (el.id === chosen) {
-//             setStorageItem('cartItem', el)
-//         }
-
-//     })
-
-// });
-
-// redirect to product page
+window.addEventListener('DOMContentLoaded', init);

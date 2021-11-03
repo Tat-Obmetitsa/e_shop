@@ -1,5 +1,8 @@
 import '../../scss/main.scss'
 import 'regenerator-runtime/runtime.js';
+import Toastify from 'toastify-js';
+import "toastify-js/src/toastify.css";
+import utils from '../utils.js';
 import list from './renderList';
 import render from '../renderService';
 import RenderService from '../render';
@@ -110,8 +113,8 @@ const sort = async () => {
     // sort by price
     upBtn.addEventListener('click', () => {
         productGallery.innerHTML = '';
-        upBtn.classList.add("hidden")
-        downBtn.classList.remove("hidden")
+        upBtn.classList.add("v-hidden")
+        downBtn.classList.remove("v-hidden")
 
 
         if (active.length > 0) {
@@ -132,8 +135,8 @@ const sort = async () => {
     })
     downBtn.addEventListener('click', () => {
         productGallery.innerHTML = '';
-        downBtn.classList.add("hidden")
-        upBtn.classList.remove("hidden")
+        downBtn.classList.add("v-hidden")
+        upBtn.classList.remove("v-hidden")
         if (active.length > 0) {
             priceSort()
         } else if (activeRating.length > 0) {
@@ -146,10 +149,9 @@ const sort = async () => {
         viewNumItems(index, data.length, 9)
         list.displayButtons(paginationContainer, pages, index)
         renderService.getCategoryAll(productGallery, productListTpl, pages[index]);
-
         getItems()
     })
-    await getItems()
+
     // filter by price
     priceItem.forEach(e => {
         e.addEventListener('click', (ev) => {
@@ -169,6 +171,7 @@ const sort = async () => {
                 active.push(element);
             }
             priceSort()
+            getItems()
         })
     })
     // filter by rating
@@ -176,6 +179,7 @@ const sort = async () => {
     ratingItem.forEach(e => {
         e.addEventListener('click', (ev) => {
             let element = ev.target;
+
             if (!element.classList.contains('active-rating')) {
                 element.classList.add('active-rating')
             } else {
@@ -191,12 +195,15 @@ const sort = async () => {
                 activeRating.push(element);
             }
             ratingFiltered()
-        })
-    })
 
+        })
+
+    })
+    await getItems()
     await getData()
     await renderCategories()
-
+    await utils.displayCartItemCount()
+    await getItems()
 
 }
 
@@ -347,16 +354,65 @@ function renderCategories() {
 
 }
 function getItems() {
-    const items = document.querySelectorAll(".list__gallery-img");
+    let cartArray = JSON.parse(localStorage.getItem('cart')) || [];
+    const addBtns = document.querySelectorAll(".add-btn");
+    const items = document.querySelectorAll(".product-container");
+
     items.forEach(item => {
-        item.addEventListener('click', () => {
-            let viewedArray = JSON.parse(localStorage.getItem('viewed')) || [];
-            if (viewedArray.length > 5) { viewedArray.shift(); }
-            viewedArray.push(item.dataset.id);
-            localStorage.setItem('viewed', JSON.stringify(viewedArray));
-            window.location.href = `http://localhost:3000/productPage.html?=${item.dataset.id}`
+        addBtns.forEach(btn => {
+            let newProduct = cartArray.every(cartItem => cartItem.id !== Number(btn.dataset.id))
+
+            if (renderService.getById(btn.dataset.id).quantity == 0) {
+                btn.innerHTML = `
+                <i class="fas fa-times unavailable-btn"></i>`;
+                btn.classList.remove('add-btn')
+            }
+            if (!newProduct) {
+                btn.innerHTML = `<i class="fas fa-check unavailable-btn valid"></i>`
+                btn.classList.remove('add-btn')
+            }
+        })
+
+        item.addEventListener('click', (e) => {
+            const parentElement = e.target.parentElement.parentElement;
+            const parentElementID = e.target.parentElement.dataset.id;
+            const product = renderService.getById(Number(parentElementID));
+            if (e.target.parentElement.classList.contains('details')) {
+                let viewedArray = JSON.parse(localStorage.getItem('viewed')) || [];
+                if (viewedArray.length > 5) { viewedArray.shift(); }
+                viewedArray.push(parentElementID);
+                localStorage.setItem('viewed', JSON.stringify(viewedArray));
+            }
+            if (parentElement.classList.contains('add-btn') || e.target.classList.contains('add-btn')) {
+                if (cartArray.length > 0) {
+                    let newProduct = cartArray.every(cartItem => cartItem.id !== Number(parentElementID))
+
+                    if (newProduct && product.quantity > 0) {
+                        cartArray.push({ "id": product.id, "quantity": product.quantity, "price": product.price, "services": 0, "image": product.webformatURL, "name": product.tags, "amount": 1, "shipping": product.shipping });
+                        localStorage.setItem('cart', JSON.stringify(cartArray));
+                        e.target.closest("button").classList.add("unavailable-btn", "valid")
+                        e.target.closest("button").innerHTML = `<i class="fas fa-check  "></i>`
+                        utils.displayCartItemCount()
+                        utils.toastSuccess.text = "Item was added to cart!"
+                        Toastify(utils.toastSuccess).showToast();
+                    } else return
+
+                } else if (cartArray.length === 0 && product.quantity > 0) {
+                    cartArray.push({ "id": product.id, "quantity": product.quantity, "price": product.price, "services": 0, "image": product.webformatURL, "name": product.tags, "amount": 1, "shipping": product.shipping });
+                    localStorage.setItem('cart', JSON.stringify(cartArray));
+
+                    e.target.closest("button").innerHTML = `<i class="fas fa-check unavailable-btn valid"></i>`
+                    utils.displayCartItemCount()
+                    utils.toastSuccess.text = "Item was added to cart!"
+                    Toastify(utils.toastSuccess).showToast();
+                }
+            }
+
         })
     })
-
 }
+
+
+window.addEventListener('load', () => utils.spinner())
 window.addEventListener('DOMContentLoaded', sort);
+

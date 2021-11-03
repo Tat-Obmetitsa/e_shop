@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Product List</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script>
 </head>
 
@@ -33,16 +34,18 @@
                     <svg width="24px" height="24px" aria-label="cart">
                         <use href="./assets/homepage/sprite.svg#cart"></use>
                     </svg>
+                    <span class="cart-amount">0</span>
                 </a>
 
                 <button type="button" class="button">Login</button>
             </div>
             <div class="header__wrapper-mobile">
 
-                <a href="./checkout.html" class="header__wrapper-button cart">
+                <a href="./cart.html" class="header__wrapper-button cart">
                     <svg width="24px" height="24px" aria-label="cart">
                         <use href="./assets/homepage/sprite.svg#cart"></use>
                     </svg>
+                    <span class="cart-amount">0</span>
                 </a>
                 <button type="button" class="menu-button" aria-expanded="false" aria-controls="header__wrapper-desktop"
                     data-menu-button>
@@ -178,7 +181,7 @@
                     </ul>
                 </article>
             </aside>
-            <section>
+            <section class="main__section">
                 <div class="list__view">
                     <p class="list__view-results"></p>
                     <div>
@@ -190,7 +193,7 @@
                         <button type="button" class="sort-btn-price button up  ">Price <span
                                 class="arrow-up ">&#8593;</span>
                         </button>
-                        <button type="button" class="sort-btn-price down button hidden">Price <span
+                        <button type="button" class="sort-btn-price down button v-hidden">Price <span
                                 class="arrow-down ">&#8595;</span>
                         </button>
                     </div>
@@ -198,8 +201,12 @@
                 </div>
                 <ul id="gallery" class="list__gallery"></ul>
                 <div class="pagination"></div>
+                <div class="mask">
+                    <div class="loader"></div>
+                </div>
             </section>
         </div>
+
     </main>
     <footer class="footer">
         <ul class="footer__list section">
@@ -302,7 +309,7 @@
 
     </footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 
 </html>

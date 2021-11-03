@@ -1,6 +1,7 @@
 @import "./base/fonts";
 @import "./utils/variables";
 @import "./utils/mixins";
+@import "./utils/spinner";
 @import "./components/basic";
 @import "./base/normalize";
 @import "./components/header";
@@ -16,6 +17,7 @@
 @import "./components/checkout/complete";
 @import "./components/checkout/notification";
 @import "./components/cart/table";
+@import "./components/cart/payment";
 @import "./components/productList/filters";
 @import "./components/productList/gallery";
 @import "./components/productPage/product";

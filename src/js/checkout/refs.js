@@ -1,4 +1,4 @@
-import { getElement } from '../utils'
+import utils from '../utils'
 
 // Checkout Page
 
@@ -11,38 +11,38 @@ const regCard = /^[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}$/;
 const regPhone = /(?=.*\+[0-9]{3}\s?[0-9]{2}\s?[0-9]{3}\s?[0-9]{4,5}$)/;
 
 // variables checkout page form
-const form = getElement('.form')
-const checkBtn = getElement('.form__field-btn')
-const address = getElement('.address')
-const contact = getElement('.contact')
-const checkbox = getElement('.agreement')
+const form = utils.getElement('.form')
+const checkBtn = utils.getElement('.form__field-btn')
+const address = utils.getElement('.address')
+const contact = utils.getElement('.contact')
+const checkbox = utils.getElement('.agreement')
 const radio = document.querySelectorAll('.radio_btn')
-const datepick = getElement('.datepick')
-const state = getElement('.state-choice')
+const datepick = utils.getElement('.datepick')
+const state = utils.getElement('.state-choice')
 const stateOptions = document.querySelectorAll('.state-option')
 
 // form notification
-const detailsBuyer = getElement('.details-buyer')
-const detailsPayment = getElement('.details-payment')
-const formOverlay = getElement('.form-overlay');
-const closeFormBtn = getElement('.form-close');
-const completeWrapper = getElement('.complete__wrapper')
-const sectionTitle = getElement('.section__title')
+const detailsBuyer = utils.getElement('.details-buyer')
+const detailsPayment = utils.getElement('.details-payment')
+const formOverlay = utils.getElement('.form-overlay');
+const closeFormBtn = utils.getElement('.form-close');
+const completeWrapper = utils.getElement('.complete__wrapper')
+const sectionTitle = utils.getElement('.section__title')
 const spans = document.querySelectorAll('.progress__list span')
-const completeBtn = getElement('.complete__wrapper-button')
+const completeBtn = utils.getElement('.complete__wrapper-button')
 
 
 //  variables for card in form
-const nameInput = getElement('.card-name')
-const nameCard = getElement('.name-surname')
-const numInput = getElement('.card-number')
-const numCard = getElement('.card-number_input')
-const monthSelect = getElement('.month')
-const monthCard = getElement('.expiration-month')
-const yearSelect = getElement('.year')
-const yearCard = getElement('.expiration-year')
-const cvvInput = getElement('.cvv')
-const cvvCard = getElement('.cvv-card')
+const nameInput = utils.getElement('.card-name')
+const nameCard = utils.getElement('.name-surname')
+const numInput = utils.getElement('.card-number')
+const numCard = utils.getElement('.card-number_input')
+const monthSelect = utils.getElement('.month')
+const monthCard = utils.getElement('.expiration-month')
+const yearSelect = utils.getElement('.year')
+const yearCard = utils.getElement('.expiration-year')
+const cvvInput = utils.getElement('.cvv')
+const cvvCard = utils.getElement('.cvv-card')
 
 export default {
     checkBtn,
