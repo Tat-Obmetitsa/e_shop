@@ -1,0 +1,89 @@
+#map {
+    height: 100%;
+    width: 100%;
+}
+#infowindow-content .title {
+    font-weight: bold;
+}
+
+#infowindow-content {
+    display: none;
+}
+
+#map #infowindow-content {
+    display: inline;
+}
+
+#container {
+    height: 100%;
+    display: flex;
+    width: 100%;
+    position: relative;
+    width: 100%;
+    height: 30vh;
+}
+
+#sidebar {
+    flex-basis: 5rem;
+    flex-grow: 1;
+    padding: 1rem;
+    max-width: 30rem;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+#map-canvas {
+    flex-basis: 0;
+    flex-grow: 4;
+    height: 100%;
+    width: 100%;
+}
+
+#sidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+.map-results {
+    font-size: 1.5rem;
+    margin: 0 0 5px 0;
+    flex-grow: 0;
+}
+
+.map-places {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: scroll;
+    flex-grow: 1;
+
+    & li {
+        background-color: #f1f1f1;
+        padding: 4px 10px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+    & li:nth-child(odd) {
+        background-color: #fcfcfc;
+    }
+}
+
+.load-button {
+    width: 100%;
+    padding: 0.8rem;
+    flex-grow: 0;
+    cursor: pointer;
+    font-size: 1rem;
+    border: none;
+}
+
+.load-button:disabled {
+    background-color: #d2d9e2;
+    color: $dark;
+    cursor: auto;
+}

@@ -2,6 +2,7 @@ import renderCart from './renderCart'
 import utils from '../utils.js';
 
 function addServices(obj) {
+    console.log(obj)
     const radioCheck = document.querySelectorAll(".guarantee-check");
     const percentWrapper = document.querySelectorAll(".services-percent");
     const priceWrapper = document.querySelectorAll(".services-price");
@@ -10,7 +11,6 @@ function addServices(obj) {
         percentWrapper[index].textContent = obj[index].services;
         priceWrapper[index].textContent = (((obj[index].price * obj[index].amount) * Number(obj[index].services)) / 100).toFixed(2)
         radioCheck.forEach(e => {
-
             e.addEventListener("change", (ev) => {
                 if (e.parentElement.parentElement.dataset.id == element.id) {
                     obj[index].services = Number(ev.target.value);
@@ -18,8 +18,6 @@ function addServices(obj) {
                     priceWrapper[index].textContent = (((obj[index].price * obj[index].amount) * Number(ev.target.value)) / 100).toFixed(2)
                     localStorage.setItem('cart', JSON.stringify(obj));
                     renderCart.displayCartTotal(obj)
-
-
                 }
             })
 
@@ -28,7 +26,7 @@ function addServices(obj) {
 
 }
 
-function addPaymentMethod() {
+function addPaymentMethod(obj) {
     let payments = utils.getStorageItem("payments")
     const allPaymentNumbers = document.querySelectorAll(".payments__number");
     const allSelects = document.querySelectorAll("select");
@@ -36,27 +34,35 @@ function addPaymentMethod() {
     const allBankNames = document.querySelectorAll(".bank__name")
     const allSubmitBtns = document.querySelectorAll(".payments__approve")
     let totalPrice = [];
+    let total = obj.reduce((total, cartItem) => {
+        return (total += cartItem.price * cartItem.amount);
+    }, 0);
+
+
     for (let index = 0; index < allSelects.length; index++) {
         const element = allSelects[index]
-
         allPaymentNumbers[index].textContent = Number(allSelects[index].value) + 1
-        totalPrice.push(((Number(payments.finalTotal) * (100 + Number(allSelects[index].value))) / 100).toFixed(2))
+        totalPrice.push(((Number(total) * (100 + Number(allSelects[index].value))) / 100).toFixed(2))
+        console.log(total, totalPrice)
         allPrices[index].textContent = (Number(totalPrice[index]) / (Number(allSelects[index].value) + 1)).toFixed(2)
-
+        payments.installmentsPrice = {
+            paymentsNumber: allPaymentNumbers[index].textContent, paymentPrice: allPrices[index].textContent, paymentsDuration: `${Number(allPaymentNumbers[index].textContent)}`, bank: allBankNames[index].textContent, totalPrice: totalPrice[index]
+        }
+        utils.setStorageItem('payments', payments)
         $(function () {
             $(element).alwaysChange(function (val) {
                 val = Number(val)
                 allPaymentNumbers[index].textContent = Number(val) + 1;
-                allPrices[index].textContent = (((Number(payments.finalTotal) * (100 + val)) / 100) / (Number(val) + 1)).toFixed(2);
+                allPrices[index].textContent = (((Number(total) * (100 + val)) / 100) / (Number(val) + 1)).toFixed(2);
 
 
             });
         })
         allSubmitBtns[index].addEventListener('click', () => {
             if (document.querySelector(".payment-info") !== null) { document.querySelector(".table__price").lastChild.remove() }
-            payments.installmentsPrice = totalPrice[index]
-            utils.setStorageItem('payments', payments)
-            document.querySelector(".price").textContent = `$${payments.installmentsPrice}`
+
+
+            document.querySelector(".price").textContent = `$${totalPrice[index]}`
             document.querySelector(".price").classList.add('free')
             const paymentInfo = document.createElement('span')
             document.querySelector(".table__price").appendChild(paymentInfo);
@@ -65,6 +71,8 @@ function addPaymentMethod() {
 
             if (document.querySelector(".discount-price") !== null) { document.querySelector(".discount-price").classList.add('v-hidden') }
             document.querySelector(".credit.section").classList.add("modal-hidden")
+
+
         })
 
     }

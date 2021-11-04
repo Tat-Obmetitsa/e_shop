@@ -1,5 +1,79 @@
 
 
+function initMapStores() {
+    const kyiv = { lat: 50.230, lng: 30.596 };
+    const mapStores = new google.maps.Map(document.getElementById("map-canvas"), {
+        center: kyiv,
+        zoom: 9,
+        mapId: "8d193001f940fde3",
+    });
+    const service = new google.maps.places.PlacesService(mapStores);
+    let getNextPage;
+    const moreButton = document.getElementById("more");
+
+    moreButton.onclick = function () {
+        moreButton.disabled = true;
+        if (getNextPage) {
+            getNextPage();
+        }
+    };
+    service.nearbySearch(
+        { location: kyiv, radius: 50000, name: "Rozetka", type: "store" },
+        (results, status, pagination) => {
+            if (status !== "OK" || !results) return;
+            console.log(results)
+            addPlaces(results, mapStores);
+            moreButton.disabled = !pagination || !pagination.hasNextPage;
+            if (pagination && pagination.hasNextPage) {
+                getNextPage = () => {
+                    // Note: nextPage will call the same handler function as the initial call
+                    pagination.nextPage();
+                };
+            }
+        }
+    );
+}
+
+function addPlaces(places, map) {
+    const placesList = document.getElementById("places");
+
+    for (const place of places) {
+        if (place.geometry && place.geometry.location) {
+            const image = {
+                url: place.icon,
+
+                size: new google.maps.Size(71, 71),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(25, 25),
+            };
+            const infoWindow = new google.maps.InfoWindow();
+            const marker = new google.maps.Marker({
+                map,
+                placeId: place.place_id,
+                address: place.vicinity,
+                icon: image,
+                title: place.name + "   " + place.vicinity,
+                position: place.geometry.location,
+            });
+            marker.addListener("click", () => {
+                infoWindow.close();
+                infoWindow.setContent(marker.getTitle());
+                infoWindow.open(marker.getMap(), marker);
+            });
+
+            const li = document.createElement("li");
+            li.textContent = place.name;
+            placesList.appendChild(li);
+
+            li.addEventListener("click", () => {
+                map.setCenter(place.geometry.location);
+            });
+        }
+    }
+}
+
+
 var placeSearch, autocomplete;
 var componentForm = {
     street_number: 'long_name',
@@ -10,16 +84,12 @@ var componentForm = {
     postal_code: 'short_name'
 };
 
-
-
-
-function initAutocomplete() {
+function initAutocompleteForm() {
     const map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: 40.749933, lng: -73.98633 },
         zoom: 13,
         mapTypeControl: false,
     });
-
     autocomplete = new google.maps.places.Autocomplete(
         (document.getElementById('address')), {
         types: ['address'],
@@ -29,8 +99,7 @@ function initAutocomplete() {
     autocomplete.bindTo("bounds", map);
 
     const infowindow = new google.maps.InfoWindow();
-    const infowindowContent = document.getElementById("infowindow-content");
-
+    const infowindowContent = document.getElementById("infowindow-content")
     infowindow.setContent(infowindowContent);
 
     const marker = new google.maps.Marker({
@@ -38,27 +107,17 @@ function initAutocomplete() {
         anchorPoint: new google.maps.Point(0, -29),
     });
 
-
     autocomplete.addListener('place_changed', fillInAddress);
-
-
-
-
-
-
 
     function fillInAddress() {
         infowindow.close();
         marker.setVisible(false);
-
         const place = autocomplete.getPlace();
 
         if (!place.geometry || !place.geometry.location) {
             window.alert("No details available for input: '" + place.name + "'");
             return;
         }
-
-        // If the place has a geometry, then present it on a map.
         if (place.geometry.viewport) {
             map.fitBounds(place.geometry.viewport);
         } else {
@@ -73,8 +132,6 @@ function initAutocomplete() {
             place.formatted_address;
         infowindow.open(map, marker);
 
-
-
         var fetched_address = [];
         for (var i = 0; i < place.address_components.length; i++) {
             var addressType = place.address_components[i].types[0];
@@ -83,7 +140,6 @@ function initAutocomplete() {
                 fetched_address[addressType] = val;
             }
         }
-
         // Prefill
         var combined_address = "";
 
@@ -95,7 +151,6 @@ function initAutocomplete() {
             if (combined_address != "") {
                 combined_address += " ";
             }
-
             combined_address += fetched_address['route'];
         }
         if (typeof (fetched_address['postal_code']) == "undefined") {
@@ -126,8 +181,6 @@ function initAutocomplete() {
 
 
 $(function () {
-
-
     var geolocate = function () {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
@@ -143,7 +196,6 @@ $(function () {
             });
         }
     };
-
     $('.address-container').on('focus', '#address', function (e) {
         geolocate();
     });
@@ -167,4 +219,6 @@ $(function () {
 });
 
 
-google.maps.event.addDomListener(window, 'load', initAutocomplete);
+google.maps.event.addDomListener(window, 'load', initMapStores,);
+
+google.maps.event.addDomListener(window, 'load', initAutocompleteForm,);

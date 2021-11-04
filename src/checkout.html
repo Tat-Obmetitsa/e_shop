@@ -117,17 +117,29 @@
                     <legend class="form__field-title">Delivery Method</legend>
                     <ul class="delivery__list">
                         <li class="delivery__list-option">
+
                             <label class="delivery-label"><input class="delivery-check" value="0" type="radio"
                                     name="delivery-check"> Pick
                                 Up</label>
-                            <div class="delivery-details">
-                                <p>Shipping is free!</p>
-                                <p class="delivery__text">You can pick up your order from our offices:</p>
+                            <div class="delivery-details ">
+                                <div class="pick-up">
+                                    <p>Shipping is free!</p>
+                                    <p class="delivery__text">You can pick up your order from our offices:</p>
+                                </div>
+                                <div id="container">
+                                    <div id="map-canvas"></div>
+                                    <div id="sidebar">
+                                        <h2 class="map-results">Results</h2>
+                                        <ul class="map-places" id="places"></ul>
+                                        <button class="load-button button" id="more">Load more results</button>
+                                    </div>
+                                </div>
                             </div>
+
                         </li>
                         <li class="delivery__list-option">
                             <label class="delivery-label"><input class="delivery-check" value="2" type="radio"
-                                    name="delivery-check"> Postal
+                                    name="delivery-check"> Post
                                 Office</label>
                             <div class="delivery-details">
                                 <p>Shipping price: <span class="shipping__delivery-cost">$0</span></p>
@@ -152,7 +164,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="flat">Apartment, unit, suite, or floor #<input
-                                                    class="code form-control" name="flat" id="flat" required></label>
+                                                    class="flat form-control" name="flat" id="flat"></label>
                                         </div>
 
                                         <div id="address-full-form">
@@ -321,7 +333,9 @@
                         <spa>Total Price:</spa>
                         <spa class="items-total-price">$0.00</spa>
                     </li>
+                    <li class="order__info installment-payment hidden">
 
+                    </li>
                 </ul>
             </div>
         </section>

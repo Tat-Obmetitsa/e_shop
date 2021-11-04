@@ -6,6 +6,14 @@
     @media screen and (min-width: 1200px) {
         flex-direction: row;
     }
+    & .pick-up {
+        & p {
+            @include font(1em, 500, 1);
+            color: $dark;
+        }
+    }
+    & .pick-up__wrapper {
+    }
 }
 .form {
     width: 100%;
@@ -478,20 +486,4 @@
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 2vw;
     grid-template-rows: 1fr;
-}
-
-#map {
-    height: 100%;
-    width: 100%;
-}
-#infowindow-content .title {
-    font-weight: bold;
-}
-
-#infowindow-content {
-    display: none;
-}
-
-#map #infowindow-content {
-    display: inline;
 }

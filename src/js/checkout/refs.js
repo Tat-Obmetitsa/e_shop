@@ -2,6 +2,14 @@ import utils from '../utils'
 
 // Checkout Page
 
+// order
+const itemsPrice = utils.getElement(".items-total")
+const itemsDiscount = utils.getElement(".items-discount");
+const itemsServices = utils.getElement(".items-services");
+const itemsShipping = utils.getElement(".items-shipping");
+const itemsTotalPrice = utils.getElement(".items-total-price");
+const installmetPrice = utils.getElement(".installment-payment")
+
 // validation  regular exp.
 const regName = /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
 const regCvv = /^[0-9]{3}$/;
@@ -77,5 +85,11 @@ export default {
     completeWrapper,
     sectionTitle,
     spans,
-    completeBtn
+    completeBtn,
+    itemsPrice,
+    itemsDiscount,
+    itemsServices,
+    itemsShipping,
+    itemsTotalPrice,
+    installmetPrice
 }

@@ -2,10 +2,10 @@ import '../../scss/main.scss'
 import 'regenerator-runtime/runtime.js';
 import Toastify from 'toastify-js';
 import "toastify-js/src/toastify.css";
+import services from './services';
 import render from '../renderService'
 import RenderService from '../render';
 import utils from '../utils'
-import services from './services';
 import renderCart from './renderCart';
 const renderService = new RenderService(render.commonArray);
 
@@ -17,7 +17,6 @@ function removeItem(id) {
 function increaseAmount(id) {
     cart = JSON.parse(localStorage.getItem('cart'));
     let newAmount;
-    const product = renderService.getById(Number(id))
     cart = cart.map((cartItem) => {
         if (cartItem.id === id && cartItem.quantity > cartItem.amount) {
             newAmount = cartItem.amount + 1;
@@ -73,9 +72,12 @@ const setupCartFunctionality = async () => {
             element.nextElementSibling.textContent = newAmount;
         }
         utils.setStorageItem('cart', cart);
-        renderCart.displayCartTotal(cart)
+
         services.addServices(cart)
+        services.addPaymentMethod(cart)
+        renderCart.displayCartTotal(cart)
         utils.displayCartItemCount();
+
     });
     cartItemsMobile.addEventListener('click', function (e) {
         const element = e.target;
@@ -96,6 +98,11 @@ const setupCartFunctionality = async () => {
         if (element.classList.contains('counter-decrease')) {
             const newAmount = decreaseAmount(parentID);
             element.nextElementSibling.textContent = newAmount;
+        }
+
+        if (payments.installmentsPrice !== undefined) {
+            services.addServices(cart)
+            services.addPaymentMethod(cart)
         }
         utils.setStorageItem('cart', cart);
         services.addServices(cart)
@@ -135,7 +142,7 @@ const cartSetup = async () => {
     await renderCart.displayCartTotal(cart)
     await utils.displayCartItemCount();
     await services.addServices(cart)
-    await services.addPaymentMethod()
+    await services.addPaymentMethod(cart)
     await setupCartFunctionality();
     await getImageItems()
 
