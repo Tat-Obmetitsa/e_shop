@@ -129,12 +129,11 @@
                                     <input type="text" id="address" class="address store-address" name="address"
                                         disabled required>
                                 </div>
-                                <div id="container">
+                                <div class="container">
                                     <div id="map-canvas"></div>
-                                    <div id="sidebar">
+                                    <div class="sidebar">
                                         <h2 class="map-results">Results</h2>
                                         <ul class="map-places" id="places"></ul>
-                                        <button class="load-button button" id="more">Load more results</button>
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +146,23 @@
                             <div class="delivery-details v-hidden">
                                 <p>Shipping price: <span class="shipping__delivery-cost">$0</span></p>
                                 <p class="delivery__text">You can pick up your order from postal offices offices:</p>
+                                <label>City<input type="text" id="office-address"
+                                        placeholder="Type Сity Name in Russian or Ukrainian" class="address "
+                                        name="address" required></label>
 
+
+                                <label>Address<input type="text" class="address office-address" disabled></label>
+                                <label>Type of the Post Office<input type="text" class="address office-type"
+                                        disabled></label>
+
+                                <button class="search-address">search</button>
+                                <div class="container">
+                                    <div id="map-offices"></div>
+                                    <div class="sidebar">
+                                        <h2 class="map-results">Results</h2>
+                                        <ul class="map-places" id="offices"></ul>
+                                    </div>
+                                </div>
                             </div>
                         </li>
                         <li class="delivery__list-option">

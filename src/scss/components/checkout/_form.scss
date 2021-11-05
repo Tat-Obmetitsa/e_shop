@@ -110,7 +110,8 @@
             }
             // visibility: hidden;
         }
-        & .store-address {
+        & .store-address,
+        & .office-address {
             display: block;
             margin: 1em 0;
             width: 50%;

@@ -14,7 +14,7 @@
     display: inline;
 }
 
-#container {
+.container {
     height: 100%;
     display: flex;
     width: 100%;
@@ -23,7 +23,9 @@
     height: 30vh;
 }
 
-#sidebar {
+.sidebar {
+    display: flex;
+    flex-direction: column;
     flex-basis: 5rem;
     flex-grow: 1;
     padding: 1rem;
@@ -33,16 +35,12 @@
     overflow: auto;
 }
 
-#map-canvas {
+#map-canvas,
+#map-offices {
     flex-basis: 0;
     flex-grow: 4;
     height: 100%;
     width: 100%;
-}
-
-#sidebar {
-    display: flex;
-    flex-direction: column;
 }
 
 .map-results {
@@ -51,7 +49,8 @@
     flex-grow: 0;
 }
 
-.map-places {
+.map-places,
+.map-offices {
     list-style-type: none;
     padding: 0;
     margin: 0;

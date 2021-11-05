@@ -1,5 +1,6 @@
 import '../../scss/main.scss'
 import './maps';
+import './np-map';
 import object from './validation'
 import flatpickr from "flatpickr";
 import utils from '../utils';
