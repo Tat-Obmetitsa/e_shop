@@ -146,16 +146,18 @@
                             <div class="delivery-details v-hidden">
                                 <p>Shipping price: <span class="shipping__delivery-cost">$0</span></p>
                                 <p class="delivery__text">You can pick up your order from postal offices offices:</p>
-                                <label>City<input type="text" id="office-address"
-                                        placeholder="Type Сity Name in Russian or Ukrainian" class="address "
-                                        name="address" required></label>
+                                <div class="form__field-wrap">
+                                    <label>City<input type="text" id="office-address"
+                                            placeholder="Type Сity Name in Russian or Ukrainian" class="address "
+                                            name="address" required></label>
+                                    <button class="search-address button">Search</button>
+                                </div>
 
-
-                                <label>Address<input type="text" class="address office-address" disabled></label>
-                                <label>Type of the Post Office<input type="text" class="address office-type"
-                                        disabled></label>
-
-                                <button class="search-address">search</button>
+                                <div class="form__field-wrap">
+                                    <label>Address<input type="text" class="address office-address" disabled></label>
+                                    <label>Type of the Post Office<input type="text" class="address office-type"
+                                            disabled></label>
+                                </div>
                                 <div class="container">
                                     <div id="map-offices"></div>
                                     <div class="sidebar">
