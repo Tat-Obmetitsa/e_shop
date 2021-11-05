@@ -2,6 +2,14 @@ import utils from '../utils'
 
 // Checkout Page
 
+//  delivery 
+const deliveryRadio = document.querySelectorAll(".delivery-check");
+const deliveryDetails = document.querySelectorAll(".delivery-details");
+const deliveryPrice = document.querySelectorAll(".shipping__delivery-cost");
+
+const paymentRadio = document.querySelectorAll(".payment-check");
+const paymentWrap = document.querySelectorAll(".payment__wrap");
+const paymentPrice = utils.getElement(".postage__price")
 // order
 const itemsPrice = utils.getElement(".items-total")
 const itemsDiscount = utils.getElement(".items-discount");
@@ -91,5 +99,11 @@ export default {
     itemsServices,
     itemsShipping,
     itemsTotalPrice,
-    installmetPrice
+    installmetPrice,
+    deliveryRadio,
+    deliveryDetails,
+    deliveryPrice,
+    paymentWrap,
+    paymentRadio,
+    paymentPrice
 }

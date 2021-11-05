@@ -3,6 +3,7 @@ import './maps';
 import './validation'
 import flatpickr from "flatpickr";
 import utils from '../utils';
+import data from './checkout'
 import refs from './refs';
 let formData = new FormData(form);
 let object = {
@@ -102,13 +103,36 @@ refs.form.addEventListener('input', (e) => {
         }
     };
 
+
     refs.radio.forEach(el => {
         if (el.checked) {
             formData.append('radio', el.value);
         }
     });
 
+    // changes shipping and total in order section according to delivery method
+    for (let i = 0; i < refs.deliveryRadio.length; i++) {
 
+        if (refs.deliveryRadio[i].checked) {
+            refs.deliveryDetails[i].classList.remove('v-hidden')
+            refs.itemsShipping.textContent = refs.deliveryPrice[i].textContent
+            data.getData()
+        } else if (!refs.deliveryRadio[i].checked) {
+            refs.deliveryDetails[i].classList.add('v-hidden')
+        }
+    }
+    // changes total in order section according to payment method
+
+
+    for (let i = 0; i < refs.paymentRadio.length; i++) {
+
+        if (refs.paymentRadio[i].checked) {
+            refs.paymentWrap[i].classList.remove('v-hidden')
+        } else if (!refs.paymentRadio[i].checked) {
+            refs.paymentWrap[i].classList.add('v-hidden')
+        }
+        data.getData()
+    }
     // check if input === option in datalist
     for (const opt of refs.stateOptions) {
         if (refs.state.value === opt.value) {

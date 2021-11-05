@@ -21,12 +21,10 @@ function initMapStores() {
         { location: kyiv, radius: 50000, name: "Rozetka", type: "store" },
         (results, status, pagination) => {
             if (status !== "OK" || !results) return;
-            console.log(results)
             addPlaces(results, mapStores);
             moreButton.disabled = !pagination || !pagination.hasNextPage;
             if (pagination && pagination.hasNextPage) {
                 getNextPage = () => {
-                    // Note: nextPage will call the same handler function as the initial call
                     pagination.nextPage();
                 };
             }
@@ -60,6 +58,7 @@ function addPlaces(places, map) {
                 infoWindow.close();
                 infoWindow.setContent(marker.getTitle());
                 infoWindow.open(marker.getMap(), marker);
+                document.querySelector(".store-address").value = marker.address
             });
 
             const li = document.createElement("li");
@@ -68,6 +67,7 @@ function addPlaces(places, map) {
 
             li.addEventListener("click", () => {
                 map.setCenter(place.geometry.location);
+                document.querySelector(".store-address").value = place.vicinity
             });
         }
     }
@@ -91,7 +91,7 @@ function initAutocompleteForm() {
         mapTypeControl: false,
     });
     autocomplete = new google.maps.places.Autocomplete(
-        (document.getElementById('address')), {
+        (document.getElementById('autocomplete-address')), {
         types: ['address'],
         strictBounds: false,
         componentRestrictions: { country: 'ua' }
@@ -175,9 +175,6 @@ function initAutocompleteForm() {
     }
 
 }
-
-
-
 
 
 $(function () {

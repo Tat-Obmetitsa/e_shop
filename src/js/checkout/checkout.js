@@ -62,10 +62,23 @@ function getData() {
     let payments = utils.getStorageItem("payments");
     refs.itemsPrice.textContent = `$${payments.totalItemsPrice}`
     refs.itemsDiscount.textContent = `${payments.discount ? payments.discount : 0}%`
-    refs.itemsShipping.textContent = `$${payments.shipping}`
+
+
     refs.itemsServices.textContent = `$${payments.services}`
     refs.itemsTotalPrice.textContent = `$${payments.finalTotal}`
-    console.log(payments.installmentsPrice)
+    refs.deliveryPrice[0].textContent = `$${Number(0).toFixed(2)}`;
+    refs.deliveryPrice[1].textContent = `$${payments.shipping}`;
+    refs.deliveryPrice[2].textContent = `$${(Number(payments.shipping) + 20).toFixed(2)} `;
+    refs.itemsTotalPrice.textContent = `$${(Number(payments.finalTotal) - Number(payments.shipping) + Number(refs.itemsShipping.textContent.slice(1))).toFixed(2)}`
+
+    refs.paymentPrice.textContent = `${((Number(refs.itemsTotalPrice.textContent.slice(1)) * 5) / 100).toFixed(2)}`;
+    if (!refs.paymentRadio[0].checked) {
+        refs.itemsTotalPrice.textContent = `$${(Number(payments.finalTotal) - Number(payments.shipping) + Number(refs.itemsShipping.textContent.slice(1))).toFixed(2)}`
+    } else {
+        refs.itemsTotalPrice.textContent = `${Number(refs.itemsTotalPrice.textContent.slice(1)) + Number(refs.paymentPrice.textContent)}`
+    }
+
+
     if (payments.installmentsPrice !== undefined) {
         refs.installmetPrice.innerHTML = `
         * ${payments.installmentsPrice.paymentsNumber} payments $${payments.installmentsPrice.paymentPrice} for ${payments.installmentsPrice.paymentsDuration} months via ${payments.installmentsPrice.bank} `
@@ -83,8 +96,7 @@ function checkInputs() {
 
 
     const json = JSON.stringify(object);
-    //  json with data for future submit 
-    console.log(json)
+    //  json with data for future submit  
     refs.detailsBuyer.innerHTML = `
         < li ><h3>Full Name:</h3><span>${object.name}</span></li >
     <li><h3>Address:</h3><span>${object.address}</span></li>
@@ -116,6 +128,7 @@ function checkInputs() {
 }
 
 
+
 refs.checkBtn.addEventListener('click', () => {
     checkInputs();
 })
@@ -127,3 +140,4 @@ refs.closeFormBtn.addEventListener('click', () => {
     refs.form.action = "checkout.html"
 });
 
+export default { getData }
