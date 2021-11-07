@@ -20,6 +20,7 @@ const installmetPrice = utils.getElement(".installment-payment")
 
 // validation  regular exp.
 const regName = /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
+const regCity = /^[а-яА-Я]+(([' -][а-яА-Я ])?[а-яА-Я]*)*$/;
 const regCvv = /^[0-9]{3}$/;
 const regMonthYear = /[\d][0-9]{1}/;
 const regZip = /^[0-9]{5}$/;
@@ -80,6 +81,7 @@ export default {
     cvvCard,
     stateOptions,
     regName,
+    regCity,
     regCvv,
     regMonthYear,
     regZip,

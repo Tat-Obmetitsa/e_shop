@@ -93,23 +93,9 @@
 
                         </label>
                     </div>
-                    <!-- <div class="form__field-wrap">
-                        <label for="state-choice">State<input placeholder="Select State" list="state" id="state-choice"
-                                required class="state-choice" title="Choose the State from the list below" name="state"
-                                autocomplete="country" /></label>
-                        <datalist id="state">
-                            <option value="State1" class="state-option">State1</option>
-                            <option value="State2" class="state-option">State2</option>
-                            <option value="State3" class="state-option">State3</option>
-                            <option value="State4" class="state-option">State4</option>
-                            <option value="State5" class="state-option">State5</option>
-                        </datalist>
-
-                    </div> -->
                     <div>
                         <input type="checkbox" name="checkbox" id="agreement" class="agreement" required
                             title="Must be checked">
-
                         <label for="agreement"> I agree to have my personal data processed</label>
                     </div>
                 </fieldset>
@@ -117,7 +103,6 @@
                     <legend class="form__field-title">Delivery Method</legend>
                     <ul class="delivery__list">
                         <li class="delivery__list-option">
-
                             <label class="delivery-label"><input class="delivery-check" type="radio"
                                     name="delivery-check" required> Pick
                                 Up</label>
@@ -125,9 +110,8 @@
                                 <div class="pick-up">
                                     <p>Shipping is <span class="shipping__delivery-cost">free!</span></p>
                                     <p class="delivery__text">You can pick up your order from our offices:</p>
-
-                                    <input type="text" id="address" class="address store-address" name="address"
-                                        disabled required>
+                                    <input type="text" id="address" class="address store-address" minlength="1"
+                                        name="address" placeholder="Choose the store from the list">
                                 </div>
                                 <div class="container">
                                     <div id="map-canvas"></div>
@@ -148,15 +132,15 @@
                                 <p class="delivery__text">You can pick up your order from postal offices offices:</p>
                                 <div class="form__field-wrap">
                                     <label>City<input type="text" id="office-address"
-                                            placeholder="Type Сity Name in Russian or Ukrainian" class="address "
-                                            name="address" required></label>
+                                            placeholder="Type Сity Name in Russian or Ukrainian" class="city"></label>
                                     <button class="search-address button">Search</button>
                                 </div>
 
                                 <div class="form__field-wrap">
-                                    <label>Address<input type="text" class="address office-address" disabled></label>
+                                    <label>Address<input type="text" class="address office-address"
+                                            name="address"></label>
                                     <label>Type of the Post Office<input type="text" class="address office-type"
-                                            disabled></label>
+                                            readonly></label>
                                 </div>
                                 <div class="container">
                                     <div id="map-offices"></div>
@@ -178,7 +162,7 @@
                                         <div class="form-group" id="address-mini-form">
                                             <label for="address">Enter your address:
                                                 <input type="text" class="address form-control autocomplete-address"
-                                                    name="address" required>
+                                                    id="autocomplete-address" minlength="1" name="address">
                                             </label>
                                         </div>
                                         <div class="form-group">
@@ -188,9 +172,8 @@
 
                                         <div id="address-full-form">
                                             <div class="form-group">
-                                                <label for="bill_address">Street Address<input type="text"
-                                                        class="form-control" id="bill_address" name="bill_address"
-                                                        disabled /></label>
+                                                <label>Street Address<input type="text" class="form-control"
+                                                        id="bill_address" name="address" disabled /></label>
 
                                             </div>
                                             <div class="form__field-wrap">
@@ -207,7 +190,6 @@
 
                                                 </div>
                                             </div>
-
                                             <div class="form__field-wrap">
                                                 <div class="form-group">
                                                     <label for="city">City
@@ -222,26 +204,17 @@
 
                                                 </div>
                                             </div>
-
-
-
-
                                         </div>
                                         <div class="form__field-date">
                                             <label for="delivery_date">Delivery Date<input type="datetime"
-                                                    class="datepick" readonly
-                                                    placeholder="Select the Date from the Calendar" name="delivery_date"
-                                                    id="req_date" minlength="1" required></label>
+                                                    class="datepick" placeholder="Select the Date from the Calendar"
+                                                    name="delivery_date" id="req_date" minlength="1"></label>
 
 
                                         </div>
-
                                     </div>
-
-
                                     <div>
                                         <div id="map"></div>
-
                                         <div id="infowindow-content">
                                             <span id="place-name" class="title"></span><br />
                                             <span id="place-address"></span>
@@ -258,7 +231,7 @@
                             required> Pay on Delivery</label>
                     <div class="payment__wrap v-hidden">
                         <p>Postage 5% is paid by recipient upon arrival</p>
-                        <p>Total price including postage fees is $<span class="postage__price">0</span></p>
+                        <p>Postage fees is $<span class="postage__price">0</span></p>
                     </div>
                     <label class="delivery-label"><input class="payment-check" type="radio" name="payment-check"
                             required> Pay Online</label>
@@ -266,8 +239,7 @@
                         <div class="form__field-payment ">
                             <div class="form__radio-btn">
 
-                                <input id="radio_1" type="radio" class="radio_btn" required name="radio"
-                                    value="Credit Card">
+                                <input id="radio_1" type="radio" class="radio_btn" name="radio" value="Credit Card">
                                 <svg width="40px" height="40px" aria-label="next">
                                     <use href="./assets/checkout/sprite-checkout.svg#card"></use>
                                 </svg>
@@ -275,7 +247,7 @@
                             </div>
                             <div class="form__radio-btn">
 
-                                <input id="radio-2" type="radio" class="radio_btn" required checked name="radio"
+                                <input id="radio-2" type="radio" class="radio_btn" checked name="radio"
                                     value="Bank Transfer">
                                 <svg width="40px" height="40px" aria-label="next">
                                     <use href="./assets/checkout/sprite-checkout.svg#transfer"></use>
@@ -284,7 +256,7 @@
                             </div>
                             <div class="form__radio-btn">
 
-                                <input id="radio-3" type="radio" class="radio_btn" required name="radio" value="Paypal">
+                                <input id="radio-3" type="radio" class="radio_btn" name="radio" value="Paypal">
                                 <svg width="40px" height="40px" aria-label="next">
                                     <use href="./assets/checkout/sprite-checkout.svg#paypal"></use>
                                 </svg>
@@ -294,7 +266,7 @@
                         <label for="card-name">Name on Card
                             <input type="text" name="nameSurname"
                                 title="Can contain 2 or more words with special signs(- ') and no digits"
-                                class="card-name" id="card-name" required>
+                                class="card-name" id="card-name">
 
                         </label>
 
@@ -302,38 +274,37 @@
                             <label for="card-number">Card Number
                                 <input name="cardNumber" minlength="19"
                                     pattern="^[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}$"
-                                    title="Can contain only 16 digits and spaces" class="card-number" id="card-number"
-                                    required>
+                                    title="Can contain only 16 digits and spaces" class="card-number" id="card-number">
 
                             </label>
-
                             <label for="cvv">cvv
-                                <input class="cvv" name="cvv" title="Must contain only 3 digits" required id="cvv">
+                                <input class="cvv" name="cvv" title="Must contain only 3 digits" id="cvv">
                             </label>
 
                         </div>
                         <div class="form__field-wrap ">
-                            <select name="expirationMonth" class="month" id="month" title="Must be seleced" required>
+                            <select name="expirationMonth" class="month" id="month" title="Must be seleced">
                                 <option value="" selected disabled>Month</option>
                             </select>
 
-                            <select id="year" class="year" name="expirationYear" required>
+                            <select id="year" class="year" name="expirationYear">
                                 <option value="" selected disabled>Year</option>
                             </select>
                         </div>
-                        <div></div>
-                        <div class="card">
-                            <div class="front">
-                                <div class="magnetic"></div>
-                                <div><span class="card-number_input">**** **** **** ****</span></div>
-                                <div> <span class="name-surname">NAME SURNAME</span> </div>
-                                <div class="expiration-date"><span class="expiration-month">**</span>/<span
-                                        class="expiration-year">**</span>
+                        <div class="card__wrapper">
+                            <div class="card">
+                                <div class="front">
+                                    <div class="magnetic"></div>
+                                    <div><span class="card-number_input">**** **** **** ****</span></div>
+                                    <div> <span class="name-surname">NAME SURNAME</span> </div>
+                                    <div class="expiration-date"><span class="expiration-month">**</span>/<span
+                                            class="expiration-year">**</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="back">
-                                <div class="strip"></div>
-                                <div class="cvv-card">***</div>
+                                <div class="back">
+                                    <div class="strip"></div>
+                                    <div class="cvv-card">***</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -376,7 +347,7 @@
                         <use class="icon-cross" href="./assets/homepage/sprite.svg#cross"></use>
                     </svg>
                 </button>
-                <h2>Success! Purchase details:</h2>
+                <h2>Success! Delivery details:</h2>
                 <div class="dayils-list">
                     <ul class="details-buyer"></ul>
                     <ul class="details-payment"></ul>
@@ -386,10 +357,8 @@
         <div class="complete__wrapper">
             <h2 class="complete__wrapper-title">Checkout Complete!</h2>
             <p class="complete__wrapper-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna
-                aliqua.</p>
-            <a class="complete__wrapper-button button" type="button" href="./"><span>Go Shopping
-                    Again</span></a>
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <a class="complete__wrapper-button button" type="button" href="./"><span>Go Shopping Again</span></a>
         </div>
     </main>
     <footer class="footer">

@@ -90,52 +90,75 @@ function getData() {
 }
 getData()
 
-
 // add info to notification card
 
 function checkInputs() {
 
-
-    const json = JSON.stringify(object);
-    //  json with data for future submit  
-    refs.detailsBuyer.innerHTML = `
-        < li ><h3>Full Name:</h3><span>${object.name}</span></li >
-    <li><h3>Address:</h3><span>${object.address}</span></li>
+    // add into to submit notification
+    const notificationDOM = `
+    <li><h3>Full Name:</h3><span>${object.name}</span></li >
     <li><h3>Contact</h3><span>${object.contact}</span></li>
-    <li><h3>City:</h3><span>${object.city}</span></li>
-    <li><h3>State:</h3><span>${object.state}</span></li>
-    <li><h3>Zip Code:</h3><span>${object.zip}</span></li>
-    <li><h3>Delivery date</h3><span>${object.delivery_date}</span></li>
-    `
-    refs.detailsPayment.innerHTML = `
-        < li ><h3>Payment Method:</h3><span>${object.radio}</span></li >
-    <li><h3>Name on Card:</h3><span>${object.nameSurname}</span></li>
-    <li><h3>Card Number:</h3><span>${object.cardNumber}</span></li>
-    <li><h3>CVV Code:</h3><span>${object.cvv}</span></li>
-    <li><h3>Expiration Month:</h3><span>${object.expirationMonth}</span></li>
-    <li><h3>Expiration Year:</h3><span>${object.expirationYear}</span></li>
-    `
-    let finalObj = Object.values(object).every(e => e !== "" && e !== undefined)
+    <li><h3>Delivery Method:</h3><span>${object.deliveryMethod}</span></li>
+    <li><h3>Address:</h3><span>${object.address}</span></li>    `;
 
-    if (finalObj && refs.checkbox.checked) {
+    if (object.deliveryMethod === 'Courier Delivery') {
+        refs.detailsBuyer.innerHTML = notificationDOM + `<li><h3>Zip Code:</h3><span>${object.zip}</span></li>
+        <li><h3>Delivery date</h3><span>${object.delivery_date}</span></li>`
+    } else {
+        refs.detailsBuyer.innerHTML = notificationDOM
+    }
+
+    if (object.payment.paymentMethod === 'Online') {
+        refs.detailsPayment.innerHTML = `
+        <li><h3>Payment Method:</h3><span>${object.payment.paymentMethod}</span></li >
+        <li><h3>Pay by:</h3><span>${object.payment.payBy}</span></li>
+         <li><h3>Name on Card:</h3><span>${object.payment.cardName}</span></li>
+          <li><h3>Card Number:</h3><span>${object.payment.cardNumber}</span></li>
+           <li><h3>CVV Code:</h3><span>${object.payment.cvv}</span></li>
+         <li><h3>Expiration Month:</h3><span>${object.payment.expirationMonth}</span></li>
+          <li><h3>Expiration Year:</h3><span>${object.payment.expirationYear}</span></li>`
+    } else if (object.payment.paymentMethod === 'On Delivery') {
+        refs.detailsPayment.innerHTML = `
+            <li><h3>Payment Method:</h3><span>${object.payment.paymentMethod}</span></li >
+            <li><h3>Postage Percent Method:</h3><span>5%</span></li >
+            <li><h3>Postage fees:</h3><span>$${object.payment.postageFees}</span></li >
+        `
+    }
+    let finalObj = Object.values(object).every(e => e !== "" && e !== undefined)
+    let payments = utils.getStorageItem("payments");
+    payments.shipping = document.querySelector(".items-shipping").textContent;
+    payments.finalTotal = document.querySelector(".items-total-price").textContent;
+    if (finalObj) {
         refs.formOverlay.classList.add('show')
         refs.completeWrapper.classList.add('show')
         refs.form.classList.add('hide')
         refs.sectionTitle.classList.add('hidden')
         refs.spans.forEach(el => el.classList.add('active'))
-    }
 
+        let cart = utils.getStorageItem("cart");
+        // make single json of the order
+        let order = {}
+        order.items = cart
+        order.delivery = object
+        order.payments = payments;
+        localStorage.clear();
+        utils.setStorageItem("order", JSON.stringify(order));
+    };
 
 }
 
-
-
 refs.checkBtn.addEventListener('click', () => {
+    document.getElementsByName("address").forEach(e => {
+        if (e.value !== '') {
+            object.address = e.value + " " + document.getElementById("flat").value;
+        }
+    })
     checkInputs();
+
+
 })
 
 // on close notification
-
 refs.closeFormBtn.addEventListener('click', () => {
     refs.formOverlay.classList.remove('show');
     refs.form.action = "checkout.html"

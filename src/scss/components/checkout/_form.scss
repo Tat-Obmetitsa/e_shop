@@ -3,6 +3,11 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    & form {
+        @media screen and (max-width: 1199px) {
+            margin-bottom: 1rem;
+        }
+    }
     @media screen and (min-width: 1200px) {
         flex-direction: row;
     }
@@ -348,6 +353,12 @@
 }
 
 // card
+.card__wrapper {
+    padding: 3rem;
+    @media screen and (min-width: 1200px) {
+        padding: 2rem 8rem;
+    }
+}
 .card {
     width: 100%;
     height: 200px;

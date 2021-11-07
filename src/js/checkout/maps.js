@@ -1,4 +1,4 @@
-
+//  map with Rozetka Stores
 function initMapStores() {
     const kyiv = { lat: 50.230, lng: 30.596 };
     const mapStores = new google.maps.Map(document.getElementById("map-canvas"), {
@@ -16,7 +16,6 @@ function initMapStores() {
         }
     );
 }
-
 
 function addPlaces(places, map) {
     const placesList = document.getElementById("places");
@@ -53,7 +52,8 @@ function addPlaces(places, map) {
 
             li.addEventListener("click", () => {
                 map.setCenter(place.geometry.location);
-                document.querySelector(".store-address").value = place.vicinity
+                document.querySelector(".store-address").value = place.vicinity;
+                // document.querySelector(".store-address").setAttribute('readonly', true);
             });
         }
     }

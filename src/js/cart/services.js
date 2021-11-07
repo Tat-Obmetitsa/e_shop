@@ -2,7 +2,6 @@ import renderCart from './renderCart'
 import utils from '../utils.js';
 
 function addServices(obj) {
-    console.log(obj)
     const radioCheck = document.querySelectorAll(".guarantee-check");
     const percentWrapper = document.querySelectorAll(".services-percent");
     const priceWrapper = document.querySelectorAll(".services-price");
@@ -43,7 +42,6 @@ function addPaymentMethod(obj) {
         const element = allSelects[index]
         allPaymentNumbers[index].textContent = Number(allSelects[index].value) + 1
         totalPrice.push(((Number(total) * (100 + Number(allSelects[index].value))) / 100).toFixed(2))
-        console.log(total, totalPrice)
         allPrices[index].textContent = (Number(totalPrice[index]) / (Number(allSelects[index].value) + 1)).toFixed(2)
         payments.installmentsPrice = {
             paymentsNumber: allPaymentNumbers[index].textContent, paymentPrice: allPrices[index].textContent, paymentsDuration: `${Number(allPaymentNumbers[index].textContent)}`, bank: allBankNames[index].textContent, totalPrice: totalPrice[index]
