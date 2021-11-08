@@ -133,7 +133,7 @@
                                 <div class="form__field-wrap">
                                     <label>City<input type="text" id="office-address"
                                             placeholder="Type Сity Name in Russian or Ukrainian" class="city"></label>
-                                    <button class="search-address button">Search</button>
+                                    <button type="button" class="search-address button">Search</button>
                                 </div>
 
                                 <div class="form__field-wrap">
@@ -272,9 +272,7 @@
 
                         <div class="form__field-wrap ">
                             <label for="card-number">Card Number
-                                <input name="cardNumber" minlength="19"
-                                    pattern="^[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}$"
-                                    title="Can contain only 16 digits and spaces" class="card-number" id="card-number">
+                                <input name="cardNumber" minlength="19" class="card-number" id="card-number">
 
                             </label>
                             <label for="cvv">cvv
@@ -283,12 +281,12 @@
 
                         </div>
                         <div class="form__field-wrap ">
-                            <select name="expirationMonth" class="month" id="month" title="Must be seleced">
-                                <option value="" selected disabled>Month</option>
+                            <select name="expirationMonth" class="month" id="month">
+                                <option value="" disabled>Month</option>
                             </select>
 
                             <select id="year" class="year" name="expirationYear">
-                                <option value="" selected disabled>Year</option>
+                                <option value="" disabled>Year</option>
                             </select>
                         </div>
                         <div class="card__wrapper">

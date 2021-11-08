@@ -8,11 +8,13 @@ import RenderService from '../render';
 import utils from '../utils'
 import renderCart from './renderCart';
 const renderService = new RenderService(render.commonArray);
-
-
 let cart = JSON.parse(localStorage.getItem('cart'));
+
+
 function removeItem(id) {
+    let cart = JSON.parse(localStorage.getItem('cart'));
     cart = cart.filter((cartItem) => cartItem.id !== id);
+    return cart
 }
 function increaseAmount(id) {
     cart = JSON.parse(localStorage.getItem('cart'));
@@ -55,7 +57,7 @@ const setupCartFunctionality = async () => {
         const parentID = Number(e.target.dataset.id);
         // remove
         if (element.classList.contains('cart-item-remove-btn')) {
-            removeItem(parentID);
+            cart = removeItem(parentID);
             element.parentElement.parentElement.remove();
             utils.toastFail.text = "Item was removed from the cart!"
             Toastify(utils.toastFail).showToast();
@@ -72,11 +74,10 @@ const setupCartFunctionality = async () => {
             element.nextElementSibling.textContent = newAmount;
         }
         utils.setStorageItem('cart', cart);
-
         services.addServices(cart)
         services.addPaymentMethod(cart)
         renderCart.displayCartTotal(cart)
-        utils.displayCartItemCount();
+        utils.displayCartItemCount(cart);
 
     });
     cartItemsMobile.addEventListener('click', function (e) {
@@ -84,8 +85,8 @@ const setupCartFunctionality = async () => {
         const parentID = Number(e.target.dataset.id);
         // remove
         if (element.classList.contains('cart-item-remove-btn')) {
-            removeItem(parentID);
-            element.parentElement.parentElement.remove();
+            cart = removeItem(parentID);
+            element.parentElement.parentElement.parentElement.parentElement.remove();
             utils.toastFail.text = "Item was removed from the cart!"
             Toastify(utils.toastFail).showToast();
         }
@@ -99,14 +100,12 @@ const setupCartFunctionality = async () => {
             const newAmount = decreaseAmount(parentID);
             element.nextElementSibling.textContent = newAmount;
         }
-
-        if (payments.installmentsPrice !== undefined) {
-            services.addServices(cart)
-            services.addPaymentMethod(cart)
-        }
         utils.setStorageItem('cart', cart);
         services.addServices(cart)
-        utils.displayCartItemCount();
+        services.addPaymentMethod(cart)
+        renderCart.displayCartTotal(cart)
+        utils.displayCartItemCount(cart);
+
     });
 }
 
@@ -124,10 +123,21 @@ function getImageItems() {
 
 }
 function displayCartItemsDOM() {
-    cart = JSON.parse(localStorage.getItem('cart'));
-    cart.forEach((cartItem) => {
-        renderCart.addToCartDOM(cartItem);
-    });
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    if (cart) {
+        cart.forEach((cartItem) => {
+            renderCart.addToCartDOM(cartItem);
+        });
+        document.querySelector(".total.section").classList.remove("hidden")
+        document.querySelector(".similar.section").classList.remove("hidden")
+        document.querySelectorAll(".table.section").forEach(e => e.classList.remove("hidden"))
+
+    } else {
+        document.querySelector(".total.section").classList.add("hidden")
+        document.querySelector(".similar.section").classList.add("hidden")
+        document.querySelectorAll(".table.section").forEach(e => e.classList.add("hidden"))
+    }
+
 }
 document.querySelector(".credit-btn").addEventListener('click', () => {
     document.querySelector(".credit.section").classList.remove("modal-hidden")
@@ -136,7 +146,7 @@ document.querySelector(".close-button").addEventListener('click', () => {
     document.querySelector(".credit.section").classList.add("modal-hidden")
 })
 const cartSetup = async () => {
-    cart = JSON.parse(localStorage.getItem('cart'));
+    let cart = JSON.parse(localStorage.getItem('cart'));
     await render.init();
     await displayCartItemsDOM()
     await renderCart.displayCartTotal(cart)

@@ -140,7 +140,7 @@ img {
     }
 
     &__title {
-        @include font(1.8em, 700, 1.7);
+        @include font(1.3em, 700, 1.7);
 
         @media screen and (min-width: 1920px) {
             @include font(36px, 700, 2);
@@ -163,6 +163,9 @@ img {
         @media screen and (min-width: 1920px) {
             @include font(18px, 500, 1.5);
             padding: 10px;
+        }
+        @media screen and (max-width: 1199px) {
+            width: 150px;
         }
         &:hover {
             border: 2px solid $dark;

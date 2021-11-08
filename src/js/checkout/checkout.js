@@ -132,6 +132,8 @@ function checkInputs() {
         refs.formOverlay.classList.add('show')
         refs.completeWrapper.classList.add('show')
         refs.form.classList.add('hide')
+        document.querySelector(".order").classList.add('v-hidden')
+        document.querySelector(".cart-amount").textContent = 0;
         refs.sectionTitle.classList.add('hidden')
         refs.spans.forEach(el => el.classList.add('active'))
 

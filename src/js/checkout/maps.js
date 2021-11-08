@@ -53,7 +53,6 @@ function addPlaces(places, map) {
             li.addEventListener("click", () => {
                 map.setCenter(place.geometry.location);
                 document.querySelector(".store-address").value = place.vicinity;
-                // document.querySelector(".store-address").setAttribute('readonly', true);
             });
         }
     }

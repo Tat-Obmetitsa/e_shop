@@ -40,12 +40,10 @@ refs.form.addEventListener('input', (e) => {
 
     // delivery
     refs.deliveryRadio.forEach(e => {
-        e.addEventListener('change', ev => {
+        e.addEventListener('change', () => {
             document.getElementsByName("address").forEach(e => {
                 e.value = ''
             })
-            // refs.deliveryRadio.forEach(e => e.classList.remove('active'))
-            // ev.target.classList.add("active")
             validateDelivery(el);
 
         })
@@ -65,60 +63,12 @@ refs.form.addEventListener('input', (e) => {
 
     // payment
 
-    if (refs.paymentRadio[1].checked) { // validation of online payment
-        const paymentOnline = {}
-        object.payment = ''
-        document.querySelectorAll(".payment__wrap input").forEach(el => {
-            let elValue = el.value
-            el.required = true
+    refs.paymentRadio.forEach(e => {
+        e.addEventListener('change', () => {
+            validatePayment(el)
 
-            if (el.classList.contains("card-name")) {
-                elValue.replace(/[0-9]/g, '');
-                elValue !== '' && refs.regName.test(elValue) ? (el.setCustomValidity(''), paymentOnline.cardName = elValue) : el.setCustomValidity("Fill in your full name(min.2 words). It can have letters, - ' ");
-
-            } else if (el.classList.contains("card-number")) {
-                if (elValue !== '' && refs.regCard.test(elValue)) {
-                    refs.numInput.setCustomValidity('');
-                    paymentOnline.cardNumber = elValue;
-                } else if (elValue.length > 19) {
-                    elValue = elValue.slice(0, 19);
-                }
-
-            } else if (el.classList.contains("cvv")) {
-                if (elValue !== '' && refs.regCvv.test(elValue)) {
-                    el.setCustomValidity('');
-                    paymentOnline.cvv = elValue;
-                } else if (elValue.length > 3) {
-                    elValue = elValue.slice(0, 3);
-                }
-                else if (!refs.regCvv.test(elValue)) {
-                    el.setCustomValidity("Must contain only 3 digits");
-                }
-
-            }
-
-
-        }
-        )
-        refs.radio.forEach(el => {
-            if (el.checked) {
-                paymentOnline.payBy = el.value;
-            }
-        });
-        const monthSelect = document.querySelector(".month")
-        const yearSelect = document.querySelector(".year")
-
-        monthSelect.required = true
-        monthSelect.value !== '' && refs.regMonthYear.test(monthSelect.value) ? (monthSelect.setCustomValidity(''), paymentOnline.expirationMonth = monthSelect.value) : monthSelect.setCustomValidity("Select expiration month");
-
-        yearSelect.required = true
-        yearSelect.value !== '' && refs.regMonthYear.test(yearSelect.value) ? (yearSelect.setCustomValidity(''), paymentOnline.expirationYear = yearSelect.value) : yearSelect.setCustomValidity("Select expiration year");
-        paymentOnline.paymentMethod = 'Online';
-        object.payment = paymentOnline;
-    } else if (refs.paymentRadio[0].checked) {
-        object.payment = ''
-        object.payment = { paymentMethod: 'On Delivery', postagePercent: "5%", postageFees: Number(document.querySelector(".postage__price").textContent) }
-    }
+        })
+    })
     for (let i = 0; i < refs.paymentRadio.length; i++) {
 
         if (refs.paymentRadio[i].checked) {
@@ -194,7 +144,63 @@ function validateDelivery(el) {
     }
 
 }
+function validatePayment(el) {
+    if (refs.paymentRadio[1].checked) { // validation of online payment
+        const paymentOnline = {}
+        object.payment = ''
+        let elValue = el.value
+        el.required = true
 
+        if (el.classList.contains("card-name")) {
+            elValue.replace(/[0-9]/g, '');
+            elValue !== '' && refs.regName.test(elValue) ? (el.setCustomValidity(''), paymentOnline.cardName = elValue) : el.setCustomValidity("Fill in your full name(min.2 words). It can have letters, - ' ");
+
+        } else if (el.classList.contains("card-number")) {
+            if (elValue !== '' && refs.regCard.test(elValue)) {
+                refs.numInput.setCustomValidity('');
+                paymentOnline.cardNumber = elValue;
+            } else if (elValue.length > 19) {
+                elValue = elValue.slice(0, 19);
+            }
+
+        } else if (el.classList.contains("cvv")) {
+            if (elValue !== '' && refs.regCvv.test(elValue)) {
+                el.setCustomValidity('');
+                paymentOnline.cvv = elValue;
+            } else if (elValue.length > 3) {
+                elValue = elValue.slice(0, 3);
+            }
+            else if (!refs.regCvv.test(elValue)) {
+                el.setCustomValidity("Must contain only 3 digits");
+            }
+
+        }
+
+
+
+        refs.radio.forEach(el => {
+            if (el.checked) {
+                paymentOnline.payBy = el.value;
+            }
+        });
+        const monthSelect = document.querySelector(".month")
+        const yearSelect = document.querySelector(".year")
+
+        monthSelect.required = true
+        monthSelect.value !== '' && refs.regMonthYear.test(monthSelect.value) ? (monthSelect.setCustomValidity(''), paymentOnline.expirationMonth = monthSelect.value) : monthSelect.setCustomValidity("Select expiration month");
+
+        yearSelect.required = true
+        yearSelect.value !== '' && refs.regMonthYear.test(yearSelect.value) ? (yearSelect.setCustomValidity(''), paymentOnline.expirationYear = yearSelect.value) : yearSelect.setCustomValidity("Select expiration year");
+        paymentOnline.paymentMethod = 'Online';
+        object.payment = paymentOnline;
+    } else {
+        el.required = false
+    }
+    if (refs.paymentRadio[0].checked) {
+        object.payment = ''
+        object.payment = { paymentMethod: 'On Delivery', postagePercent: "5%", postageFees: Number(document.querySelector(".postage__price").textContent) }
+    }
+}
 // add mask on inputs
 
 $(document).ready(function () {

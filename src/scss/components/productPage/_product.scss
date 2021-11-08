@@ -14,13 +14,18 @@
         object-fit: cover;
         width: 100%;
         height: 100%;
+        @media screen and (max-width: 1199px) {
+            width: 80%;
+            height: 80%;
+            margin: 0 auto;
+        }
     }
 
     & .product__info {
         &-title {
             @include font(56px, bold, 1);
             @media screen and (max-width: 1199px) {
-                @include font(2em, bold, 1.2);
+                @include font(1.8em, bold, 1.2);
                 text-align: center;
             }
         }
@@ -28,12 +33,16 @@
             @include font(36px, 400, 2);
             color: $text-gray;
             @media screen and (max-width: 1199px) {
-                @include font(1.5em, 400, 1);
+                @include font(1.3em, 400, 1);
                 text-align: center;
             }
         }
         & .free {
             color: red;
+            @media screen and (max-width: 1199px) {
+                @include font(0.8rem, bold, 1.2);
+                text-align: center;
+            }
         }
 
         &-description,

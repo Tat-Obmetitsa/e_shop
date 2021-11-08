@@ -21,15 +21,6 @@
                 </svg>
                 <span class="header__wrapper-logo">Elliye</span>
             </div>
-            <form action="post" class="header__wrapper-form">
-                <input class="header__wrapper-input product" type="search" name="search" placeholder="Search..."
-                    aria-label="search" />
-                <button type="button" class="header__wrapper-button search">
-                    <svg width="24px" height="24px" aria-label="search">
-                        <use href="./assets/homepage/sprite.svg#search"></use>
-                    </svg>
-                </button>
-            </form>
             <div class="header__wrapper header__wrapper-desktop" id="header__wrapper-desktop" data-menu>
 
                 <a href="./cart.html" class="header__wrapper-button cart">
@@ -49,13 +40,7 @@
                     </svg>
                     <span class="cart-amount">0</span>
                 </a>
-                <button type="button" class="menu-button" aria-expanded="false" aria-controls="header__wrapper-desktop"
-                    data-menu-button>
-                    <svg width="20px" height="20px" aria-label="Menu switcher">
-                        <use class="icon-menu" href="./assets/homepage/sprite.svg#menu"></use>
-                        <use class="icon-cross" href="./assets/homepage/sprite.svg#cross"></use>
-                    </svg>
-                </button>
+
             </div>
         </div>
     </header>
@@ -139,7 +124,9 @@
             </div>
 
         </section>
-
+        <div class="mask">
+            <div class="loader"></div>
+        </div>
     </main>
     <footer class="footer">
         <ul class="footer__list section">

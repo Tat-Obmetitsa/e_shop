@@ -12,17 +12,18 @@ let addedCoupon
 
 
 function displayCartTotal(obj) {
+    if (!obj) return
     const coupons = ['VALTECH5', 'ILoveJS10', 'myLostCreativity25'];
     let payments = JSON.parse(localStorage.getItem('payments')) || {};
     const promoInput = document.querySelector(".promo-input");
     const submitCoupon = document.querySelector(".apply-btn");
     let discount = 0;
-    let finalTotal;
-    let total;
-    let servicesTotal = obj.reduce(function (prev, curr) { return Number(prev) + Number(((curr.price * curr.amount) * Number(curr.services)) / 100) }, 0)
+    let total, finalTotal;
 
-
+    let servicesTotal = obj.reduce(function (prev, curr) { return Number(prev) + Number(((curr.price * curr.amount) * Number(curr.services)) / 100) }, 0);
     let maxShipping = obj.reduce((prev, current) => Number(prev.shipping) > Number(current.shipping) ? prev : current, {});
+
+
 
     if (payments.installmentsPrice !== undefined) {
         total = Number(payments.installmentsPrice.totalPrice)
@@ -111,6 +112,7 @@ const addToCartDOM = () => {
     for (let index = 0; index < cart.length; index++) {
         const item = cart[index];
 
+        // add desktop cart
         const trProduct = document.createElement('tr');
         trProduct.classList.add("table__item");
         trProduct.innerHTML = `
@@ -148,6 +150,8 @@ const addToCartDOM = () => {
                             </td> 
         `
         cartItemsDesktop.appendChild(trProduct)
+
+        // add mobile cart
         const tableMobile = document.createElement('table');
         tableMobile.classList.add("table__wrapper-mobile");
         tableMobile.innerHTML = `
@@ -233,7 +237,6 @@ function getSimilar(obj) {
         similarSection.innerHTML = ''
     }
     utils.getItems()
-    // displayCartTotal(obj)
 
 }
 export default { addToCartDOM, displayCartTotal }
