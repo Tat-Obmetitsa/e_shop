@@ -75,7 +75,10 @@ const setupCartFunctionality = async () => {
         }
         utils.setStorageItem('cart', cart);
         services.addServices(cart)
-        services.addPaymentMethod(cart)
+        let payments = utils.getStorageItem("payments")
+        if (payments.installmentsPrice) {
+            services.addPaymentMethod(cart)
+        }
         renderCart.displayCartTotal(cart)
         utils.displayCartItemCount(cart);
 
@@ -102,7 +105,10 @@ const setupCartFunctionality = async () => {
         }
         utils.setStorageItem('cart', cart);
         services.addServices(cart)
-        services.addPaymentMethod(cart)
+        let payments = utils.getStorageItem("payments")
+        if (payments.installmentsPrice) {
+            services.addPaymentMethod(cart)
+        }
         renderCart.displayCartTotal(cart)
         utils.displayCartItemCount(cart);
 
@@ -152,7 +158,10 @@ const cartSetup = async () => {
     await renderCart.displayCartTotal(cart)
     await utils.displayCartItemCount();
     await services.addServices(cart)
-    await services.addPaymentMethod(cart)
+    let payments = utils.getStorageItem("payments")
+    if (payments.installmentsPrice) {
+        await services.addPaymentMethod(cart)
+    }
     await setupCartFunctionality();
     await getImageItems()
 

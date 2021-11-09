@@ -20,6 +20,8 @@ const paymentOnline = {
 let date, zip
 // validation  
 refs.form.addEventListener('input', (e) => {
+
+
     let el = e.target;
     let elValue = e.target.value;
     elValue.trim();
@@ -67,8 +69,7 @@ refs.form.addEventListener('input', (e) => {
 
     }
 
-    // payment
-
+    // payment 
 
     if (el.classList.contains("card-name")) {
         el.value.replace(/[0-9]/g, '');
@@ -76,22 +77,24 @@ refs.form.addEventListener('input', (e) => {
 
     }
     if (el.classList.contains("card-number")) {
-        if (el.value !== '' && refs.regCard.test(el.value)) {
+        if (el.value !== '' && el.value.length == 19) {
             el.setCustomValidity('');
             paymentOnline.cardNumber = el.value;
         } else if (el.value.length > 19) {
             el.value = el.value.slice(0, 19);
+        } else if (el.value.length < 19) {
+            el.setCustomValidity('Enter full card number');
         }
-
     }
     if (el.classList.contains("cvv")) {
+        el.value.replace(/[a-zA-Zа-яА-Я]/g, '');
         if (el.value !== '' && refs.regCvv.test(el.value)) {
             el.setCustomValidity('');
             paymentOnline.cvv = el.value;
         } else if (el.value.length > 3) {
             el.value = el.value.slice(0, 3);
         }
-        else if (!refs.regCvv.test(el.value)) {
+        else if (!refs.regCvv.test(el.value) || el.value.length < 3 || el.value > 3) {
             el.setCustomValidity("Must contain only 3 digits");
         }
     }
@@ -213,30 +216,4 @@ function validatePayment() {
 }
 // add mask on inputs
 
-$(document).ready(function () {
-    $('#contact').mask('+380 00 000 0000');
-    $('#code').mask('00000');
-    $("#card-number").mask("0000 0000 0000 0000");
-    $("#cvv").mask('000')
-
-    $(".cvv").focus(function () {
-        $(".card").addClass('flipped')
-    });
-    $(".cvv").blur(function () {
-        $(".card").removeClass(('flipped'))
-    });
-
-    $("#req_date").flatpickr({
-        altInput: true,
-        enableTime: true,
-        altFormat: "d.m.Y / H:i",
-        dateFormat: "d-m-Y H:i",
-        disableMobile: true,
-        minDate: "today",
-        maxDate: new Date().fp_incr(14),
-        minTime: "09:00",
-        maxTime: "20:30",
-        allowInput: true,
-    });
-});
 export default object

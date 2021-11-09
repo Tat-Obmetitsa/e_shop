@@ -174,12 +174,16 @@ function getItems() {
                         e.target.closest("button").innerHTML = `<i class="fas fa-check  "></i>`
                         addNewToCart(cartArray)
                         services.addServices(cartArray);
-                        services.addPaymentMethod(cartArray)
+                        let payments = getStorageItem("payments")
+                        if (payments.installmentsPrice) {
+                            services.addPaymentMethod(cartArray)
+                        }
                         renderCart.displayCartTotal(cartArray)
                         toastSuccess.text = "Success! Item was added"
                         Toastify(toastSuccess).showToast();
                         localStorage.setItem('cart', JSON.stringify(cartArray));
                         displayCartItemCount()
+
                     } else return
 
                 } else if (cartArray.length === 0 && product.quantity > 0) {
@@ -189,7 +193,10 @@ function getItems() {
                     displayCartItemCount()
                     renderCart.addToCartDOM()
                     services.addServices(cartArray);
-                    services.addPaymentMethod(cartArray)
+                    let payments = utils.getStorageItem("payments")
+                    if (payments.installmentsPrice) {
+                        services.addPaymentMethod(cartArray)
+                    }
                     renderCart.displayCartTotal(cartArray)
                     toastSuccess.text = "Success! Item was added"
                     Toastify(toastSuccess).showToast();

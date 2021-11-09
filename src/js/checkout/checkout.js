@@ -37,10 +37,13 @@ import refs from './refs';
 refs.nameInput.oninput = function () {
     refs.nameCard.textContent = refs.nameInput.value.toLocaleUpperCase();
 };
-
+$('.card-number').on('input', function () {
+    $(this).val($(this).val().replace(/[A-Za-zА-Яа-яЁё]/, ''))
+});
+$('.card-number').mask("0000 0000 0000 0000");
 refs.numInput.oninput = function () {
-    $('.card-number').mask("0000 0000 0000 0000");
     refs.numCard.textContent = refs.numInput.value;
+
 };
 
 refs.monthSelect.onchange = function () {
@@ -51,6 +54,10 @@ refs.yearSelect.onchange = function () {
     refs.yearCard.textContent = refs.yearSelect.value
 };
 
+$('.cvv').on('input', function () {
+    $(this).val($(this).val().replace(/[A-Za-zА-Яа-яЁё]/, ''))
+});
+$('.cvv').mask('000');
 refs.cvvInput.oninput = function () {
     if (refs.cvvInput.value.length > 3) {
         refs.cvvInput.value = refs.cvvInput.value.slice(0, 3)
@@ -61,14 +68,14 @@ refs.cvvInput.oninput = function () {
 
 function getData() {
     let payments = utils.getStorageItem("payments");
-    refs.itemsPrice.textContent = `$${payments.totalItemsPrice}`
+    refs.itemsPrice.textContent = `$${Number(payments.totalItemsPrice).toFixed(2)}`
     refs.itemsDiscount.textContent = `${payments.discount ? payments.discount : 0}%`
 
 
-    refs.itemsServices.textContent = `$${payments.services}`
-    refs.itemsTotalPrice.textContent = `$${payments.finalTotal}`
+    refs.itemsServices.textContent = `$${Number(payments.services).toFixed(2)}`
+    refs.itemsTotalPrice.textContent = `$${Number(payments.finalTotal).toFixed(2)}`
     refs.deliveryPrice[0].textContent = `$${Number(0).toFixed(2)}`;
-    refs.deliveryPrice[1].textContent = `$${payments.shipping}`;
+    refs.deliveryPrice[1].textContent = `$${Number(payments.shipping).toFixed(2)}`;
     refs.deliveryPrice[2].textContent = `$${(Number(payments.shipping) + 20).toFixed(2)} `;
     refs.itemsTotalPrice.textContent = `$${(Number(payments.finalTotal) - Number(payments.shipping) + Number(refs.itemsShipping.textContent.slice(1))).toFixed(2)}`
 
@@ -76,7 +83,7 @@ function getData() {
     if (!refs.paymentRadio[0].checked) {
         refs.itemsTotalPrice.textContent = `$${(Number(payments.finalTotal) - Number(payments.shipping) + Number(refs.itemsShipping.textContent.slice(1))).toFixed(2)}`
     } else {
-        refs.itemsTotalPrice.textContent = `${Number(refs.itemsTotalPrice.textContent.slice(1)) + Number(refs.paymentPrice.textContent)}`
+        refs.itemsTotalPrice.textContent = `${(Number(refs.itemsTotalPrice.textContent.slice(1)) + Number(refs.paymentPrice.textContent)).toFixed(2)}`
     }
 
 
@@ -192,7 +199,6 @@ function checkInputs() {
 refs.checkBtn.addEventListener('click', () => {
 
     checkInputs();
-
 })
 
 // on close notification
@@ -217,4 +223,31 @@ function validatePayment() {
         cardCvv.required = false
     }
 }
+
+$(document).ready(function () {
+    $('#contact').mask('+380 00 000 0000');
+    $('#code').mask('00000');
+    // $("#card-number").mask("0000 0000 0000 0000");
+
+    $(".cvv").focus(function () {
+        $(".card").addClass('flipped')
+    });
+    $(".cvv").blur(function () {
+        $(".card").removeClass(('flipped'))
+    });
+
+    $("#req_date").flatpickr({
+        altInput: true,
+        enableTime: true,
+        altFormat: "d.m.Y / H:i",
+        dateFormat: "d-m-Y H:i",
+        disableMobile: true,
+        minDate: "today",
+        maxDate: new Date().fp_incr(14),
+        minTime: "09:00",
+        maxTime: "20:30",
+        allowInput: true,
+    });
+});
+
 export default { getData }

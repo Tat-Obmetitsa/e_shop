@@ -383,11 +383,11 @@ function getItems() {
                 viewedArray.push(parentElementID);
                 localStorage.setItem('viewed', JSON.stringify(viewedArray));
             }
-            if (parentElement.classList.contains('add-btn') || e.target.classList.contains('add-btn')) {
+            if (parentElement && parentElement.classList.contains('add-btn') || e.target.classList.contains('add-btn')) {
                 if (cartArray.length > 0) {
                     let newProduct = cartArray.every(cartItem => cartItem.id !== Number(parentElementID))
 
-                    if (newProduct && product.quantity > 0) {
+                    if (newProduct && product && product.quantity > 0) {
                         cartArray.push({ "id": product.id, "quantity": product.quantity, "price": product.price, "services": 0, "image": product.webformatURL, "name": product.tags, "amount": 1, "shipping": product.shipping });
                         localStorage.setItem('cart', JSON.stringify(cartArray));
                         e.target.closest("button").classList.add("unavailable-btn", "valid")

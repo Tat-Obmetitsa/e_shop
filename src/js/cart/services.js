@@ -10,11 +10,16 @@ function addServices(obj) {
     const priceWrapperMobile = document.querySelectorAll(".mobile .services-price");
     for (let index = 0; index < obj.length; index++) {
         const element = obj[index];
-        percentWrapperDesktop[index].textContent = obj[index].services;
-        percentWrapperMobile[index].textContent = obj[index].services;
-        priceWrapperDesktop[index].textContent = (((obj[index].price * obj[index].amount) * Number(obj[index].services)) / 100).toFixed(2);
-        priceWrapperMobile[index].textContent = (((obj[index].price * obj[index].amount) * Number(obj[index].services)) / 100).toFixed(2)
-
+        if (percentWrapperDesktop[index]) {
+            percentWrapperDesktop[index].textContent = obj[index].services;
+        } else if (percentWrapperMobile[index]) {
+            percentWrapperMobile[index].textContent = obj[index].services;
+        }
+        if (priceWrapperDesktop[index]) {
+            priceWrapperDesktop[index].textContent = (((obj[index].price * obj[index].amount) * Number(obj[index].services)) / 100).toFixed(2);
+        } else if (priceWrapperMobile[index]) {
+            priceWrapperMobile[index].textContent = (((obj[index].price * obj[index].amount) * Number(obj[index].services)) / 100).toFixed(2)
+        }
 
         radioCheck.forEach(e => {    //change services
             e.addEventListener("change", (ev) => {
@@ -36,6 +41,7 @@ function addServices(obj) {
 
 function addPaymentMethod(obj) {
     if (!obj) return
+
     let payments = utils.getStorageItem("payments")
     const allPaymentNumbers = document.querySelectorAll(".payments__number");
     const allSelects = document.querySelectorAll("select");
@@ -99,7 +105,6 @@ function addPaymentMethod(obj) {
             });
         });
     }
-
 }
 
 
