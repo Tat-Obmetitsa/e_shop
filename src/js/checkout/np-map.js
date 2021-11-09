@@ -34,12 +34,13 @@ function addPlaces(places, map) {
         });
 
         const li = document.createElement("li");
-        li.textContent = place.description;
+        li.textContent = place.address;
         placesList.appendChild(li);
 
+        li.classList.add("office_item")
         li.addEventListener("click", () => {
             map.setCenter({ lat: place.lat, lng: place.lng });
-            document.querySelector(".office-address").value = place.address
+            document.querySelector(".office-num").value = place.description
             document.querySelector(".office-type").value = place.description.split(":")[0]
         });
 

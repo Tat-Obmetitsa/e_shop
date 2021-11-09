@@ -9,7 +9,7 @@ function initMapStores() {
     const service = new google.maps.places.PlacesService(mapStores);
 
     service.nearbySearch(
-        { location: kyiv, radius: 20000, name: "Rozetka", type: "store" },
+        { location: kyiv, radius: 15000, name: "Rozetka", type: "store" },
         (results, status) => {
             if (status !== "OK" || !results) return;
             addPlaces(results, mapStores);
@@ -49,10 +49,12 @@ function addPlaces(places, map) {
             const li = document.createElement("li");
             li.textContent = place.name;
             placesList.appendChild(li);
-
+            li.classList.add("store_item")
             li.addEventListener("click", () => {
                 map.setCenter(place.geometry.location);
                 document.querySelector(".store-address").value = place.vicinity;
+                document.getElementById("address").setAttribute("readonly", true);
+
             });
         }
     }

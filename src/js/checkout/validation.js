@@ -12,6 +12,11 @@ let object = {
     "address": "",
     "payment": ""
 };
+const paymentOnline = {
+    cardName: "",
+    cardNumber: "",
+    cvv: ""
+}
 let date, zip
 // validation  
 refs.form.addEventListener('input', (e) => {
@@ -42,7 +47,8 @@ refs.form.addEventListener('input', (e) => {
     refs.deliveryRadio.forEach(e => {
         e.addEventListener('change', () => {
             document.getElementsByName("address").forEach(e => {
-                e.value = ''
+                e.value = '';
+                e.required = false
             })
             validateDelivery(el);
 
@@ -63,9 +69,51 @@ refs.form.addEventListener('input', (e) => {
 
     // payment
 
+
+    if (el.classList.contains("card-name")) {
+        el.value.replace(/[0-9]/g, '');
+        el.value !== '' && refs.regName.test(elValue) ? (el.setCustomValidity(''), paymentOnline.cardName = elValue) : el.setCustomValidity("Fill in your full name(min.2 words). It can have letters, - ' ");
+
+    }
+    if (el.classList.contains("card-number")) {
+        if (el.value !== '' && refs.regCard.test(el.value)) {
+            el.setCustomValidity('');
+            paymentOnline.cardNumber = el.value;
+        } else if (el.value.length > 19) {
+            el.value = el.value.slice(0, 19);
+        }
+
+    }
+    if (el.classList.contains("cvv")) {
+        if (el.value !== '' && refs.regCvv.test(el.value)) {
+            el.setCustomValidity('');
+            paymentOnline.cvv = el.value;
+        } else if (el.value.length > 3) {
+            el.value = el.value.slice(0, 3);
+        }
+        else if (!refs.regCvv.test(el.value)) {
+            el.setCustomValidity("Must contain only 3 digits");
+        }
+    }
+
+
+    refs.radio.forEach(el => {
+        if (el.checked) {
+            paymentOnline.payBy = el.value;
+        }
+    });
+    const monthSelect = document.querySelector(".month")
+    const yearSelect = document.querySelector(".year")
+
+    monthSelect.value !== '' && refs.regMonthYear.test(monthSelect.value) ? (monthSelect.setCustomValidity(''), paymentOnline.expirationMonth = monthSelect.value) : monthSelect.setCustomValidity("Select expiration month");
+
+
+    yearSelect.value !== '' && refs.regMonthYear.test(yearSelect.value) ? (yearSelect.setCustomValidity(''), paymentOnline.expirationYear = yearSelect.value) : yearSelect.setCustomValidity("Select expiration year");
+
+
     refs.paymentRadio.forEach(e => {
         e.addEventListener('change', () => {
-            validatePayment(el)
+            validatePayment()
 
         })
     })
@@ -87,38 +135,37 @@ refs.form.addEventListener('input', (e) => {
         object.zip = document.querySelector(".code").value
     }
 
+    paymentOnline.paymentMethod = 'Online';
+    object.payment = paymentOnline;
 })
 
 
 function validateDelivery(el) {
+    el.required = false
     if (refs.deliveryRadio[0].checked) {     // validates pick-up delivery
-        document.querySelector(".store-address").required = true;
+        el = document.querySelector(".store-address")
+        el.required = true;
         object.deliveryMethod = 'Pick from Store';
-        if (el.classList.contains("store-address")) {
-            el.value !== '' ? (el.setCustomValidity(''), object.address = el.value) : el.setCustomValidity("Choose the store");
+        if (el.value === '' || (el.value !== "Akademika Hlushkova Ave, 31А, Kyiv" && el.value !== "вул. Оптимістична, 1, Hatne" && el.value !== "Kyivska St, 166, Obukhiv")) {
+            el.setCustomValidity("Choose the store from the list")
+        } else if ((el.value === "Akademika Hlushkova Ave, 31А, Kyiv" || el.value === "вул. Оптимістична, 1, Hatne" || el.value === "Kyivska St, 166, Obukhiv")) {
+            el.setCustomValidity('');
+            el.setAttribute("readonly", true);
         }
-
     } else {
         document.querySelector(".store-address").required = false;
-
     }
     if (refs.deliveryRadio[1].checked) {      // validates Post delivery 
         object.deliveryMethod = 'Pick from Post Office';
         const cityInput = document.querySelector(".city")
-        const addressInput = document.querySelector(".office-address")
         cityInput.required = true;
-        addressInput.required = true
         if (el.classList.contains("city")) {
             el.value !== '' && refs.regCity.test(el.value) ? el.setCustomValidity('') : el.setCustomValidity("Can contain only letters, - ' in Russian or Ukrainian.Choose address from the list ");
-        }
-        if (el.classList.contains("office-address")) {
-            el.value !== '' ? (el.setCustomValidity(''), object.address = el.value, el.setAttribute('readonly', true)) : el.setCustomValidity("Choose the office from the list");
         }
 
 
     } else {
         document.querySelector(".city").required = false;
-        document.querySelector(".office-address").required = false;
     }
     if (refs.deliveryRadio[2].checked) {     // validates courier delivery
         object.deliveryMethod = 'Courier Delivery';
@@ -144,61 +191,24 @@ function validateDelivery(el) {
     }
 
 }
-function validatePayment(el) {
+
+function validatePayment() {
+    let cardName = document.querySelector(".card-name");
+
+    let cardCvv = document.querySelector(".cvv")
+    let cardNum = document.querySelector(".card-number")
     if (refs.paymentRadio[1].checked) { // validation of online payment
-        const paymentOnline = {}
         object.payment = ''
-        let elValue = el.value
-        el.required = true
-
-        if (el.classList.contains("card-name")) {
-            elValue.replace(/[0-9]/g, '');
-            elValue !== '' && refs.regName.test(elValue) ? (el.setCustomValidity(''), paymentOnline.cardName = elValue) : el.setCustomValidity("Fill in your full name(min.2 words). It can have letters, - ' ");
-
-        } else if (el.classList.contains("card-number")) {
-            if (elValue !== '' && refs.regCard.test(elValue)) {
-                refs.numInput.setCustomValidity('');
-                paymentOnline.cardNumber = elValue;
-            } else if (elValue.length > 19) {
-                elValue = elValue.slice(0, 19);
-            }
-
-        } else if (el.classList.contains("cvv")) {
-            if (elValue !== '' && refs.regCvv.test(elValue)) {
-                el.setCustomValidity('');
-                paymentOnline.cvv = elValue;
-            } else if (elValue.length > 3) {
-                elValue = elValue.slice(0, 3);
-            }
-            else if (!refs.regCvv.test(elValue)) {
-                el.setCustomValidity("Must contain only 3 digits");
-            }
-
-        }
-
-
-
-        refs.radio.forEach(el => {
-            if (el.checked) {
-                paymentOnline.payBy = el.value;
-            }
-        });
-        const monthSelect = document.querySelector(".month")
-        const yearSelect = document.querySelector(".year")
-
-        monthSelect.required = true
-        monthSelect.value !== '' && refs.regMonthYear.test(monthSelect.value) ? (monthSelect.setCustomValidity(''), paymentOnline.expirationMonth = monthSelect.value) : monthSelect.setCustomValidity("Select expiration month");
-
-        yearSelect.required = true
-        yearSelect.value !== '' && refs.regMonthYear.test(yearSelect.value) ? (yearSelect.setCustomValidity(''), paymentOnline.expirationYear = yearSelect.value) : yearSelect.setCustomValidity("Select expiration year");
-        paymentOnline.paymentMethod = 'Online';
+        cardName.required = true
+        cardNum.required = true
+        cardCvv.required = true
         object.payment = paymentOnline;
-    } else {
-        el.required = false
     }
     if (refs.paymentRadio[0].checked) {
+        cardName.required = false
+        cardNum.required = false
+        cardCvv.required = false
         object.payment = ''
-        object.payment = { paymentMethod: 'On Delivery', postagePercent: "5%", postageFees: Number(document.querySelector(".postage__price").textContent) }
     }
 }
 // add mask on inputs

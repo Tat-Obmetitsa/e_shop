@@ -93,7 +93,46 @@ getData()
 // add info to notification card
 
 function checkInputs() {
+    validatePayment()
+    if (refs.paymentRadio[0].checked) {
+        object.payment = { paymentMethod: 'On Delivery', postagePercent: "5%", postageFees: Number(document.querySelector(".postage__price").textContent) }
+    }
+    document.getElementsByName("address").forEach(el => {
+        el.required = false
+        if (el.value !== '' && refs.deliveryRadio[0].checked) {
+            if (el.value !== "Akademika Hlushkova Ave, 31А, Kyiv" && el.value !== "вул. Оптимістична, 1, Hatne" && el.value !== "Kyivska St, 166, Obukhiv") {
+                el.setCustomValidity("Choose the store from the list")
+            } else {
+                object.address = el.value
+                el.setCustomValidity('');
+                el.setAttribute("readonly", true);
+            }
 
+
+        }
+        if (document.querySelectorAll(".map-places")[1].length == 0 && refs.deliveryRadio[1].checked) {
+            el.setCustomValidity("Type city name in Russian on Ukrainian and click Search")
+        } else {
+            document.querySelectorAll(".office_item").forEach(e => {
+                e.addEventListener("click", () => object.address = e.textContent)
+                el.setCustomValidity("")
+            })
+        }
+
+        if (el.value !== '' && refs.deliveryRadio[2].checked) {
+            object.address = el.value + ", apartment: " + document.getElementById("flat").value;
+        } else if (el.value == '' && refs.deliveryRadio[2].checked) {
+            el.setCustomValidity("Choose address from the list ")
+        }
+        if (el.required && e.value == '') {
+            el.setCustomValidity('');
+        } else if (el.required && e.value !== '') {
+            object.address = el.value
+        }
+
+
+
+    })
     // add into to submit notification
     const notificationDOM = `
     <li><h3>Full Name:</h3><span>${object.name}</span></li >
@@ -125,10 +164,11 @@ function checkInputs() {
         `
     }
     let finalObj = Object.values(object).every(e => e !== "" && e !== undefined)
+    let paymentObj = Object.values(object.payment).every(e => e !== "" && e !== undefined)
     let payments = utils.getStorageItem("payments");
     payments.shipping = document.querySelector(".items-shipping").textContent;
     payments.finalTotal = document.querySelector(".items-total-price").textContent;
-    if (finalObj) {
+    if (finalObj && paymentObj) {
         refs.formOverlay.classList.add('show')
         refs.completeWrapper.classList.add('show')
         refs.form.classList.add('hide')
@@ -150,13 +190,8 @@ function checkInputs() {
 }
 
 refs.checkBtn.addEventListener('click', () => {
-    document.getElementsByName("address").forEach(e => {
-        if (e.value !== '') {
-            object.address = e.value + " " + document.getElementById("flat").value;
-        }
-    })
-    checkInputs();
 
+    checkInputs();
 
 })
 
@@ -166,4 +201,20 @@ refs.closeFormBtn.addEventListener('click', () => {
     refs.form.action = "checkout.html"
 });
 
+function validatePayment() {
+    let cardName = document.querySelector(".name");
+
+    let cardCvv = document.querySelector(".cvv")
+    let cardNum = document.querySelector(".card-number")
+    if (refs.paymentRadio[1].checked) { // validation of online payment 
+        cardName.required = true
+        cardNum.required = true
+        cardCvv.required = true
+    }
+    if (refs.paymentRadio[0].checked) {
+        cardName.required = false
+        cardNum.required = false
+        cardCvv.required = false
+    }
+}
 export default { getData }
