@@ -251,7 +251,7 @@ function getSimilar(obj) {
     if (similarProducts.length > 4) {
       renderService.getCategoryAll(similarSection, _templates_productList_hbs__WEBPACK_IMPORTED_MODULE_6___default.a, similarProducts.slice(0, 4));
       viewAllBtn.addEventListener('click', function () {
-        return window.location.href = "http://localhost:3000/productList.html?=".concat(obj[0].name.split(', ')[0]);
+        return window.location.href = "http://tat-obmetitsa.github.io/e_shop/productList.html?=".concat(obj[0].name.split(', ')[0]);
       });
     } else if (similarProducts.length > 0 && similarProducts.length < 5) {
       renderService.getCategoryAll(similarSection, _templates_productList_hbs__WEBPACK_IMPORTED_MODULE_6___default.a, similarProducts);
@@ -1188,7 +1188,7 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
     + alias4(((helper = (helper = lookupProperty(helpers,"id") || (depth0 != null ? lookupProperty(depth0,"id") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":4,"column":85},"end":{"line":4,"column":91}}}) : helper)))
     + ">\r\n        <div class=\"wrapper\"></div>\r\n        <div class=\"product-icons\" data-id="
     + alias4(((helper = (helper = lookupProperty(helpers,"id") || (depth0 != null ? lookupProperty(depth0,"id") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":6,"column":43},"end":{"line":6,"column":49}}}) : helper)))
-    + ">\r\n            <a href=\"http://localhost:3000/productPage.html?="
+    + ">\r\n            <a href=\"http://tat-obmetitsa.github.io/e_shop/productPage.html?="
     + alias4(((helper = (helper = lookupProperty(helpers,"id") || (depth0 != null ? lookupProperty(depth0,"id") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":7,"column":61},"end":{"line":7,"column":67}}}) : helper)))
     + "\" class=\"product-icon details\">\r\n                <i class=\"fas fa-search\"></i>\r\n            </a>\r\n            <button class=\"product-cart-btn product-icon add-btn\" data-id="
     + alias4(((helper = (helper = lookupProperty(helpers,"id") || (depth0 != null ? lookupProperty(depth0,"id") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":10,"column":74},"end":{"line":10,"column":80}}}) : helper)))

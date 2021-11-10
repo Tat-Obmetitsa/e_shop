@@ -272,7 +272,7 @@ function getItems() {
       viewedArray.push(item.dataset.id);
       localStorage.setItem('viewed', JSON.stringify(viewedArray));
       localStorage.setItem('comment', JSON.stringify(commentArray));
-      window.location.href = "http://localhost:3000/productPage.html?=".concat(item.dataset.id);
+      window.location.href = "http://tat-obmetitsa.github.io/e_shop/productPage.html?=".concat(item.dataset.id);
     });
   });
 }
@@ -348,34 +348,34 @@ function addToCart() {
   var bannerBtn = document.querySelector(".button.all");
   var categoriesBtns = document.querySelectorAll('.categories-btn');
   featuredBtn.addEventListener('click', function () {
-    return window.location.href = "http://localhost:3000/productList.html?=featured";
+    return window.location.href = "http://tat-obmetitsa.github.io/e_shop/productList.html?=featured";
   });
   arrivalsBtn.addEventListener('click', function () {
-    return window.location.href = "http://localhost:3000/productList.html?=arrivals";
+    return window.location.href = "http://tat-obmetitsa.github.io/e_shop/productList.html?=arrivals";
   });
   popularBtn.addEventListener('click', function () {
-    return window.location.href = "http://localhost:3000/productList.html?=popular";
+    return window.location.href = "http://tat-obmetitsa.github.io/e_shop/productList.html?=popular";
   });
   bannerBtn.addEventListener('click', function () {
-    return window.location.href = "http://localhost:3000/productList.html";
+    return window.location.href = "http://tat-obmetitsa.github.io/e_shop/productList.html";
   });
   categoriesBtns[0].addEventListener('click', function () {
-    return window.location.href = "http://localhost:3000/productList.html?=jacket";
+    return window.location.href = "http://tat-obmetitsa.github.io/e_shop/productList.html?=jacket";
   });
   categoriesBtns[1].addEventListener('click', function () {
-    return window.location.href = "http://localhost:3000/productList.html?=shirt";
+    return window.location.href = "http://tat-obmetitsa.github.io/e_shop/productList.html?=shirt";
   });
   categoriesBtns[2].addEventListener('click', function () {
-    return window.location.href = "http://localhost:3000/productList.html?=jeans";
+    return window.location.href = "http://tat-obmetitsa.github.io/e_shop/productList.html?=jeans";
   });
   categoriesBtns[3].addEventListener('click', function () {
-    return window.location.href = "http://localhost:3000/productList.html?=shoes";
+    return window.location.href = "http://tat-obmetitsa.github.io/e_shop/productList.html?=shoes";
   });
   categoriesBtns[4].addEventListener('click', function () {
-    return window.location.href = "http://localhost:3000/productList.html?=dress";
+    return window.location.href = "http://tat-obmetitsa.github.io/e_shop/productList.html?=dress";
   });
   categoriesBtns[5].addEventListener('click', function () {
-    return window.location.href = "http://localhost:3000/productList.html?=fashion";
+    return window.location.href = "http://tat-obmetitsa.github.io/e_shop/productList.html?=fashion";
   });
 })(); // burger menu appearing click
 
@@ -403,7 +403,7 @@ function addToCart() {
 
           if (e.value !== '') {
             el.onclick = function () {
-              window.location.href = "http://localhost:3000/productList.html?=".concat(e.value);
+              window.location.href = "http://tat-obmetitsa.github.io/e_shop/productList.html?=".concat(e.value);
             };
           }
         });
