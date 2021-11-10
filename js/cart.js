@@ -353,7 +353,7 @@ function getImageItems() {
 
       viewedArray.push(item.dataset.id);
       localStorage.setItem('viewed', JSON.stringify(viewedArray));
-      window.location.href = "http://tat-obmetitsa.github.io/e_shop/productPage.html?=".concat(item.dataset.id);
+      window.location.href = "http://localhost:3000/productPage.html?=".concat(item.dataset.id);
     });
   });
 }
@@ -381,6 +381,7 @@ function displayCartItemsDOM() {
 
 document.querySelector(".credit-btn").addEventListener('click', function () {
   document.querySelector(".credit.section").classList.remove("modal-hidden");
+  _services__WEBPACK_IMPORTED_MODULE_4__["default"].addPaymentMethod(cart);
 });
 document.querySelector(".close-button").addEventListener('click', function () {
   document.querySelector(".credit.section").classList.add("modal-hidden");

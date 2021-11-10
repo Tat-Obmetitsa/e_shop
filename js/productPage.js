@@ -348,10 +348,10 @@ var init = /*#__PURE__*/function () {
           case 20:
             viewAllBtns = document.querySelectorAll('.section__view-button');
             viewAllBtns[0].addEventListener('click', function () {
-              return window.location.href = "http://tat-obmetitsa.github.io/e_shop/productList.html?=".concat(product.tags.split(', ')[0]);
+              return window.location.href = "http://localhost:3000/productList.html?=".concat(product.tags.split(', ')[0]);
             });
             viewAllBtns[1].addEventListener('click', function () {
-              return window.location.href = "http://tat-obmetitsa.github.io/e_shop/productList.html?=viewed";
+              return window.location.href = "http://localhost:3000/productList.html?=viewed";
             });
             _context.next = 25;
             return addToCart();
@@ -418,7 +418,7 @@ function getItems() {
 
       viewedArray.push(item.dataset.id);
       localStorage.setItem('viewed', JSON.stringify(viewedArray));
-      window.location.href = "http://tat-obmetitsa.github.io/e_shop/productPage.html?=".concat(item.dataset.id);
+      window.location.href = "http://localhost:3000/productPage.html?=".concat(item.dataset.id);
     });
   });
 }
