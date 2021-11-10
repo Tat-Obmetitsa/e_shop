@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:5000/';
+const baseUrl = 'http://localhost:3030/';
 const baseImgUrl = 'https://pixabay.com/api/?image_type=photo&orientation=horizontal&category=fashion+industry'
 const apiKeyImg = '19817444-e2944238b0133b6bab479e2af';
 
