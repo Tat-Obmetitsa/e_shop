@@ -116,11 +116,19 @@ function generateStars(obj, wrapper) {
     })
 }
 
-function displayCartItemCount() {
-    let cart = getStorageItem('cart');
-    const amount = cart.reduce((total, cartItem) => {
-        return (total += cartItem.amount);
-    }, 0);
+function displayCartItemCount(array) {
+    let amount
+    if (array) {
+        amount = array.reduce((total, cartItem) => {
+            return (total += cartItem.amount);
+        }, 0);
+    } else {
+        let cart = getStorageItem('cart');
+        amount = cart.reduce((total, cartItem) => {
+            return (total += cartItem.amount);
+        }, 0);
+    }
+
     document.querySelectorAll(".cart-amount").forEach(e => e.textContent = amount)
 
 }
@@ -164,12 +172,18 @@ function getItems() {
 
                         e.target.closest("button").classList.add("unavailable-btn", "valid")
                         e.target.closest("button").innerHTML = `<i class="fas fa-check  "></i>`
-                        displayCartItemCount()
                         addNewToCart(cartArray)
-                        services.addServices(cartArray)
+                        services.addServices(cartArray);
+                        let payments = getStorageItem("payments")
+                        if (payments.installmentsPrice) {
+                            services.addPaymentMethod(cartArray)
+                        }
+                        renderCart.displayCartTotal(cartArray)
                         toastSuccess.text = "Success! Item was added"
                         Toastify(toastSuccess).showToast();
                         localStorage.setItem('cart', JSON.stringify(cartArray));
+                        displayCartItemCount()
+
                     } else return
 
                 } else if (cartArray.length === 0 && product.quantity > 0) {
@@ -178,6 +192,12 @@ function getItems() {
                     e.target.closest("button").innerHTML = `<i class="fas fa-check unavailable-btn valid"></i>`
                     displayCartItemCount()
                     renderCart.addToCartDOM()
+                    services.addServices(cartArray);
+                    let payments = utils.getStorageItem("payments")
+                    if (payments.installmentsPrice) {
+                        services.addPaymentMethod(cartArray)
+                    }
+                    renderCart.displayCartTotal(cartArray)
                     toastSuccess.text = "Success! Item was added"
                     Toastify(toastSuccess).showToast();
                 }
@@ -194,7 +214,8 @@ function addNewToCart(array) {
     const cartItemsDesktop = getElement('.table__wrapper-desktop');
     const trProduct = document.createElement('tr');
     trProduct.classList.add("table__item");
-    trProduct.innerHTML = `
+    // add new item from "Similar products" without rerender the whole cart. Desktop
+    trProduct.innerHTML = ` 
                             <td class="table__item-card">
                                 <img  class="card_image"  src="${lastItem.image}" data-id="${lastItem.id}" alt="${lastItem.name}">
                                 <h3 data-id="${lastItem.id}">${lastItem.name}</h3>
@@ -230,6 +251,62 @@ function addNewToCart(array) {
         `
     cartItemsDesktop.appendChild(trProduct)
 
+    const cartItemsMobile = getElement('.table.section.mobile');
+    const tableMobile = document.createElement('table');
+    tableMobile.classList.add("table__wrapper-mobile");
+    tableMobile.innerHTML = `
+                <tr class="cross">
+                    <td colspan="1" class="table__heading"></td>
+                    <td>
+                        <button class="cart-item-remove-btn button" data-id="${lastItem.id}">&#128473;</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table__heading">Product</td>
+                    <td class="table__item-card">
+                        <img class="card_image" src="${lastItem.image}" data-id="${lastItem.id}" alt="${lastItem.name}">
+                        <h3 data-id="${lastItem.id}">${lastItem.name}</h3>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="table__heading">Quantity</td>
+                    <td>
+                        <div class="table__item-counter">
+                                    <button class="counter-decrease button" data-id="${lastItem.id}" value="-">-</button>
+                                    <p class="counter-amount" data-id="${lastItem.id}">${lastItem.amount}</p>
+                                    <button class="counter-increase button" data-id="${lastItem.id}" value="+">+</button>
+                        </div>
+                        <p>Available in stock: ${lastItem.quantity} </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table__heading">Services</td>
+                    <td class="guarantee">
+                        <form action="" class="services-form" data-id="${lastItem.id}" >
+                                    <label><input class="guarantee-check tree-m" value="0" type="radio" name="guarantee-check" ${lastItem.services == 0 ? ` checked = "checked"` : ""} data-id="${lastItem.id}"  > 3 months guarantee</label>
+                                    <label><input class="guarantee-check six-m" value="1" type="radio" name="guarantee-check"  ${lastItem.services == 1 ? `checked = "checked"` : ""} data-id="${lastItem.id}" > 6 months guarantee</label>
+                                    <label><input class="guarantee-check twelve-m" value="5" type="radio" name="guarantee-check"  ${lastItem.services == 5 ? `checked = "checked"` : ""} data-id="${lastItem.id}"> 12 months guarantee</label>
+                                    </form>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="table__heading">Services Price</td>
+                    <td><span class="services-percent">${lastItem.services}</span>%   &dollar;<span class="services-price">${(((lastItem.price * lastItem.amount) * Number(lastItem.services)) / 100).toFixed(2)}</span></td>
+                    </tr>
+                <tr>
+                    <td class="table__heading">Price</td>
+                    <td class="item-price">  &dollar;${(lastItem.price * lastItem.amount).toFixed(2)}</td>
+
+                </tr>
+                <tr>
+                    <td class="table__heading">Shipping</td>
+                    <td>&dollar;${lastItem.shipping}</td>
+
+                </tr>
+        `
+    cartItemsMobile.appendChild(tableMobile)
 }
 
 
@@ -242,7 +319,7 @@ function spinner() {
     mask.classList.add("transparent-loader");
     setTimeout(() => {
         mask.remove()
-    }, 3000);
+    }, 2000);
 }
 export default {
     getElement, getStorageItem, setStorageItem, counter, generateStars, displayCartItemCount, getItems, toastSuccess, toastFail, spinner

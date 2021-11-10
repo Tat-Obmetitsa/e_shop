@@ -146,4 +146,6 @@ function addToCart() {
     })
 
 }
+
+window.addEventListener('load', () => utils.spinner())
 window.addEventListener('DOMContentLoaded', init);

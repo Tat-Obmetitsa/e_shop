@@ -12,25 +12,29 @@ let addedCoupon
 
 
 function displayCartTotal(obj) {
+    if (!obj) return
     const coupons = ['VALTECH5', 'ILoveJS10', 'myLostCreativity25'];
     let payments = JSON.parse(localStorage.getItem('payments')) || {};
     const promoInput = document.querySelector(".promo-input");
     const submitCoupon = document.querySelector(".apply-btn");
-    let discount;
-    let finalTotal;
-    let total;
-    let servicesTotal = obj.reduce(function (prev, curr) { return Number(prev) + Number(((curr.price * curr.amount) * Number(curr.services)) / 100) }, 0)
+    let discount = 0;
+    let total, finalTotal;
 
-
+    let servicesTotal = obj.reduce(function (prev, curr) { return Number(prev) + Number(((curr.price * curr.amount) * Number(curr.services)) / 100) }, 0);
     let maxShipping = obj.reduce((prev, current) => Number(prev.shipping) > Number(current.shipping) ? prev : current, {});
 
-    if (payments.installmentsPrice !== 0) { total = Number(payments.installmentsPrice) } else {
+
+
+    if (payments.installmentsPrice !== undefined) {
+        total = Number(payments.installmentsPrice.totalPrice)
+    } else {
         total = obj.reduce((total, cartItem) => {
             return (total += cartItem.price * cartItem.amount);
         }, 0);
     }
     if (obj.length < 1) { total = 0; maxShipping.shipping = 0 }
-    if (!addedCoupon || total < 1) {
+    if (total < 1 || !payments.discount) {
+
         finalTotal = (total + maxShipping.shipping + servicesTotal).toFixed(2)
         cartTotalDOM.innerHTML = `
         <span>Pay for shipping only once! Shipping cost is &dollar;${maxShipping.shipping}</span>
@@ -38,24 +42,32 @@ function displayCartTotal(obj) {
         <span>Total</span>
         <span class="price">&dollar;${finalTotal} </span>
     `
-    } else {
-        if (addedCoupon === 'VALTECH5') { discount = (total * 95) / 100 } else if (addedCoupon === 'ILoveJS10') { discount = (total * 90) / 100 } else if (addedCoupon === 'myLostCreativity25') { discount = (total * 75) / 100 }
-        finalTotal = (discount + maxShipping.shipping + servicesTotal).toFixed(2)
+    } else if (payments.discount || addedCoupon) {
+
+        finalTotal = (((total * (100 - payments.discount)) / 100) + maxShipping.shipping + servicesTotal).toFixed(2)
         cartTotalDOM.innerHTML = `
         <span>Pay for shipping only once! Shipping cost is &dollar;${maxShipping.shipping}</span>
         <span class="services-total">Additional guarantee services:  &dollar;${servicesTotal.toFixed(2)}</span>
         <span>*Discount is not included in shipping and services cost</span>
         <span>Total</span>
-        <span class="price">&dollar;<strike>${(total + maxShipping.shipping + servicesTotal).toFixed(2)}</strike></span>
+        <span class="price">&dollar;<strike>${(Number(total) + Number(maxShipping.shipping) + Number(servicesTotal)).toFixed(2)}</strike></span>
         <p class="discount-price"><span>Price including discount</span> <span class="price discount">&dollar;${finalTotal}</span></p>
     `
 
         document.querySelector(".total__promo").classList.add('hidden')
     }
-
     submitCoupon.addEventListener('click', () => {
         if (coupons.find(e => e === promoInput.value) && total > 0) {
             addedCoupon = promoInput.value;
+            if (addedCoupon === 'VALTECH5') {
+                discount = 5;
+            } else if (addedCoupon === 'ILoveJS10') {
+                discount = 10;
+            } else if (addedCoupon === 'myLostCreativity25') {
+                discount = 25;
+            }
+            payments.discount = discount
+            utils.setStorageItem('payments', payments);
             displayCartTotal(obj)
         } else if (!coupons.find(e => e === promoInput.value) || total == 0 && promoInput.value !== '') {
             utils.toastFail.text = "Ivalid code!"
@@ -71,9 +83,7 @@ function displayCartTotal(obj) {
         }
 
     }
-
-    Object.assign(payments, { installmentsPrice: 0, shipping: Number(maxShipping.shipping).toFixed(2), services: Number(servicesTotal).toFixed(2), totalPrice: `${(Number(finalTotal) - Number(servicesTotal) - Number(maxShipping.shipping)).toFixed(2)}`, finalTotal: Number(finalTotal).toFixed(2) })
-
+    Object.assign(payments, { shipping: Number(maxShipping.shipping).toFixed(2), services: Number(servicesTotal).toFixed(2), totalItemsPrice: `${(Number(finalTotal) - Number(servicesTotal) - Number(maxShipping.shipping)).toFixed(2)}`, finalTotal: Number(finalTotal).toFixed(2) })
     utils.setStorageItem('payments', payments);
 }
 
@@ -102,6 +112,7 @@ const addToCartDOM = () => {
     for (let index = 0; index < cart.length; index++) {
         const item = cart[index];
 
+        // add desktop cart
         const trProduct = document.createElement('tr');
         trProduct.classList.add("table__item");
         trProduct.innerHTML = `
@@ -139,6 +150,8 @@ const addToCartDOM = () => {
                             </td> 
         `
         cartItemsDesktop.appendChild(trProduct)
+
+        // add mobile cart
         const tableMobile = document.createElement('table');
         tableMobile.classList.add("table__wrapper-mobile");
         tableMobile.innerHTML = `
@@ -224,7 +237,6 @@ function getSimilar(obj) {
         similarSection.innerHTML = ''
     }
     utils.getItems()
-    // displayCartTotal(obj)
 
 }
 export default { addToCartDOM, displayCartTotal }

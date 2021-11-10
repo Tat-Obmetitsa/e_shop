@@ -2,8 +2,25 @@ import utils from '../utils'
 
 // Checkout Page
 
+//  delivery 
+const deliveryRadio = document.querySelectorAll(".delivery-check");
+const deliveryDetails = document.querySelectorAll(".delivery-details");
+const deliveryPrice = document.querySelectorAll(".shipping__delivery-cost");
+
+const paymentRadio = document.querySelectorAll(".payment-check");
+const paymentWrap = document.querySelectorAll(".payment__wrap");
+const paymentPrice = utils.getElement(".postage__price")
+// order
+const itemsPrice = utils.getElement(".items-total")
+const itemsDiscount = utils.getElement(".items-discount");
+const itemsServices = utils.getElement(".items-services");
+const itemsShipping = utils.getElement(".items-shipping");
+const itemsTotalPrice = utils.getElement(".items-total-price");
+const installmetPrice = utils.getElement(".installment-payment")
+
 // validation  regular exp.
 const regName = /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
+const regCity = /^[а-яА-Я]+(([' -][а-яА-Я ])?[а-яА-Я]*)*$/;
 const regCvv = /^[0-9]{3}$/;
 const regMonthYear = /[\d][0-9]{1}/;
 const regZip = /^[0-9]{5}$/;
@@ -64,6 +81,7 @@ export default {
     cvvCard,
     stateOptions,
     regName,
+    regCity,
     regCvv,
     regMonthYear,
     regZip,
@@ -77,5 +95,17 @@ export default {
     completeWrapper,
     sectionTitle,
     spans,
-    completeBtn
+    completeBtn,
+    itemsPrice,
+    itemsDiscount,
+    itemsServices,
+    itemsShipping,
+    itemsTotalPrice,
+    installmetPrice,
+    deliveryRadio,
+    deliveryDetails,
+    deliveryPrice,
+    paymentWrap,
+    paymentRadio,
+    paymentPrice
 }

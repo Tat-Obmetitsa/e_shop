@@ -28,7 +28,7 @@
         }
 
         &-item {
-            @include flex(center);
+            @include flex(space-between);
             flex-direction: column;
             padding: 1vh 2vw;
 
@@ -49,6 +49,7 @@
 
             @media screen and (max-width: 764px) {
                 border: 3px solid $bg-gray;
+                height: 250px;
             }
 
             @media screen and (min-width: 765px) and (max-width: 1919px) {
@@ -62,6 +63,9 @@
             & img {
                 height: 250px;
                 object-fit: cover;
+                @media screen and (max-width: 764px) {
+                    height: 40%;
+                }
             }
 
             &:hover {
@@ -77,10 +81,9 @@
     & .add-button {
         @include font(13px, 700, 1.5);
 
-        margin: 0 auto;
+        margin: auto auto 0 auto;
         width: 6.5rem;
         height: 2rem;
-
         opacity: 0;
         text-align: center;
 
@@ -102,14 +105,23 @@
             height: 60px;
         }
     }
-
+    & .wrapper__description {
+        @include flex(space-between);
+        flex-direction: column;
+        @media screen and (max-width: 767px) {
+            height: 60%;
+        }
+    }
     & .wrapper__description-title {
         @include font(24px, 500, 1.5);
 
         margin-top: 16px;
 
-        @media screen and (max-width: 1919px) {
+        @media screen and (min-width: 768px) and (max-width: 1919px) {
             font-size: 1rem;
+        }
+        @media screen and (max-width: 767px) {
+            font-size: 0.8rem;
         }
     }
 }

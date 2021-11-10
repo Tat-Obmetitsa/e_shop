@@ -56,6 +56,11 @@
                 transition: all 500ms ease-out;
             }
         }
+        & .manufacturers-sort {
+            @media screen and (max-width: 1199px) {
+                display: none;
+            }
+        }
     }
 
     & .list__gallery {
