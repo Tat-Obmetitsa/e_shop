@@ -13,23 +13,23 @@
 /******/ 			if (Object.prototype.hasOwnProperty.call(installedChunks, chunkId) && installedChunks[chunkId]) {
 /******/ 				resolves.push(installedChunks[chunkId][0]);
         /******/
-}
+      }
 /******/ 			installedChunks[chunkId] = 0;
       /******/
-}
+    }
 /******/ 		for (moduleId in moreModules) {
 /******/ 			if (Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
 /******/ 				modules[moduleId] = moreModules[moduleId];
         /******/
-}
+      }
       /******/
-}
+    }
 /******/ 		if (parentJsonpFunction) parentJsonpFunction(data);
 /******/
 /******/ 		while (resolves.length) {
 /******/ 			resolves.shift()();
       /******/
-}
+    }
 /******/
 /******/ 		// add entry modules from loaded chunk to deferred list
 /******/ 		deferredModules.push.apply(deferredModules, executeModules || []);
@@ -37,7 +37,7 @@
 /******/ 		// run deferred modules when all chunks ready
 /******/ 		return checkDeferredModules();
     /******/
-};
+  };
 /******/ 	function checkDeferredModules() {
 /******/ 		var result;
 /******/ 		for (var i = 0; i < deferredModules.length; i++) {
@@ -47,18 +47,18 @@
 /******/ 				var depId = deferredModule[j];
 /******/ 				if (installedChunks[depId] !== 0) fulfilled = false;
         /******/
-}
+      }
 /******/ 			if (fulfilled) {
 /******/ 				deferredModules.splice(i--, 1);
 /******/ 				result = __webpack_require__(__webpack_require__.s = deferredModule[0]);
         /******/
-}
+      }
       /******/
-}
+    }
 /******/
 /******/ 		return result;
     /******/
-}
+  }
 /******/
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -69,7 +69,7 @@
 /******/ 	var installedChunks = {
 /******/ 		"cart": 0
     /******/
-};
+  };
 /******/
 /******/ 	var deferredModules = [];
 /******/
@@ -80,14 +80,14 @@
 /******/ 		if (installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
       /******/
-}
+    }
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
       /******/
-};
+    };
 /******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
@@ -98,7 +98,7 @@
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
     /******/
-}
+  }
 /******/
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
@@ -112,19 +112,19 @@
 /******/ 		if (!__webpack_require__.o(exports, name)) {
 /******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
       /******/
-}
+    }
     /******/
-};
+  };
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function (exports) {
 /******/ 		if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
       /******/
-}
+    }
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
     /******/
-};
+  };
 /******/
 /******/ 	// create a fake namespace object
 /******/ 	// mode & 1: value is a module id, require it
@@ -141,7 +141,7 @@
 /******/ 		if (mode & 2 && typeof value != 'string') for (var key in value) __webpack_require__.d(ns, key, function (key) { return value[key]; }.bind(null, key));
 /******/ 		return ns;
     /******/
-};
+  };
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function (module) {
@@ -151,7 +151,7 @@
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
     /******/
-};
+  };
 /******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function (object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
@@ -374,7 +374,7 @@
 
             viewedArray.push(item.dataset.id);
             localStorage.setItem('viewed', JSON.stringify(viewedArray));
-            window.location.href = "http://github.com/Tat-Obmetitsa/e_shop/productPage.html?=".concat(item.dataset.id);
+            window.location.href = "http://tat-obmetitsa.github.io/e_shop/productPage.html?=".concat(item.dataset.id);
           });
         });
       }
@@ -473,7 +473,7 @@
       window.addEventListener('DOMContentLoaded', cartSetup);
 
       /***/
-})
+    })
 
   /******/
 });
