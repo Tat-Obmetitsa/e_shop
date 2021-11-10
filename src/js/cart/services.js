@@ -58,11 +58,12 @@ function addPaymentMethod(obj) {
         const element = allSelects[index]
         allPaymentNumbers[index].textContent = Number(allSelects[index].value) + 1
         totalPrice.push(((Number(total) * (100 + Number(allSelects[index].value))) / 100).toFixed(2))
-        allPrices[index].textContent = (Number(totalPrice[index]) / (Number(allSelects[index].value) + 1)).toFixed(2)
+        allPrices[index].textContent = (Number(totalPrice[index]) / (Number(allSelects[index].value) + 1)).toFixed(2);
+
         payments.installmentsPrice = {
             paymentsNumber: allPaymentNumbers[index].textContent, paymentPrice: allPrices[index].textContent, paymentsDuration: `${Number(allPaymentNumbers[index].textContent)}`, bank: allBankNames[index].textContent, totalPrice: totalPrice[index]
         }
-        utils.setStorageItem('payments', payments)
+
         $(function () {
             $(element).alwaysChange(function (val) {
                 val = Number(val)
@@ -85,7 +86,7 @@ function addPaymentMethod(obj) {
 
             if (document.querySelector(".discount-price") !== null) { document.querySelector(".discount-price").classList.add('v-hidden') }
             document.querySelector(".credit.section").classList.add("modal-hidden")
-
+            utils.setStorageItem('payments', payments)
 
         })
 
@@ -106,7 +107,6 @@ function addPaymentMethod(obj) {
         });
     }
 }
-
 
 
 export default {

@@ -147,6 +147,7 @@ function displayCartItemsDOM() {
 }
 document.querySelector(".credit-btn").addEventListener('click', () => {
     document.querySelector(".credit.section").classList.remove("modal-hidden")
+    services.addPaymentMethod(cart)
 })
 document.querySelector(".close-button").addEventListener('click', () => {
     document.querySelector(".credit.section").classList.add("modal-hidden")
