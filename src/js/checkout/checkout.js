@@ -104,42 +104,42 @@ function checkInputs() {
     if (refs.paymentRadio[0].checked) {
         object.payment = { paymentMethod: 'On Delivery', postagePercent: "5%", postageFees: Number(document.querySelector(".postage__price").textContent) }
     }
-    document.getElementsByName("address").forEach(el => {
-        el.required = false
-        if (el.value !== '' && refs.deliveryRadio[0].checked) {
-            if (el.value !== "Akademika Hlushkova Ave, 31А, Kyiv" && el.value !== "вул. Оптимістична, 1, Hatne" && el.value !== "Kyivska St, 166, Obukhiv") {
-                el.setCustomValidity("Choose the store from the list")
+    let el =document.getElementsByName("address")
+    el.forEach(elem => {
+        elem.required = false
+    })
+     
+    if (el[0].value !== '' && refs.deliveryRadio[0].checked) {
+                
+        utils.getElement(".office-num").value = '';
+        utils.getElement(".office-type").value = ''
+            if (el[0].value !== "Akademika Hlushkova Ave, 31А, Kyiv" && el[0].value !== "вул. Оптимістична, 1, Hatne" && el[0].value !== "Kyivska St, 166, Obukhiv") {
+                el[0].setCustomValidity("Choose the store from the list")
             } else {
-                object.address = el.value
-                el.setCustomValidity('');
-                el.setAttribute("readonly", true);
+                object.address = el[0].value
+                el[0].setCustomValidity('');
+                el[0].setAttribute("readonly", true);
             }
 
 
         }
         if (document.querySelectorAll(".map-places")[1].length == 0 && refs.deliveryRadio[1].checked) {
-            el.setCustomValidity("Type city name in Russian on Ukrainian and click Search")
-        } else {
-            document.querySelectorAll(".office_item").forEach(e => {
-                e.addEventListener("click", () => object.address = e.textContent)
-                el.setCustomValidity("")
-            })
+            el[1].setCustomValidity("Type city name in Russian on Ukrainian and click Search")
+        } else if (document.querySelector(".office-num").value) {
+            
+               object.address = document.querySelector(".office-num").value
+                  el[1].setCustomValidity("") 
         }
-
-        if (el.value !== '' && refs.deliveryRadio[2].checked) {
-            object.address = el.value + ", apartment: " + document.getElementById("flat").value;
-        } else if (el.value == '' && refs.deliveryRadio[2].checked) {
+         
+        if ( el[2].value !== '' && refs.deliveryRadio[2].checked) {
+            utils.getElement(".office-num").value = '';
+        utils.getElement(".office-type").value = ''
+            object.address = el[2].value + "   " + document.getElementById("flat").value;
+        } else if (el[2].value == '' && refs.deliveryRadio[2].checked) {
+            console.log(el[2])
             el.setCustomValidity("Choose address from the list ")
-        }
-        if (el.required && e.value == '') {
-            el.setCustomValidity('');
-        } else if (el.required && e.value !== '') {
-            object.address = el.value
-        }
-
-
-
-    })
+        } 
+     
     // add into to submit notification
     const notificationDOM = `
     <li><h3>Full Name:</h3><span>${object.name}</span></li >

@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Checkout</title>
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhPznZ6TGzfMYmKfaVs3osLM_j78D953s&libraries=places"
-        async defer></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhPznZ6TGzfMYmKfaVs3osLM_j78D953s&libraries=places"  
+         ></script>
 </head>
 
 <body>
@@ -133,7 +133,7 @@
                                 <p class="delivery__text">You can pick up your order from postal offices offices:</p>
                                 <div class="form__field-wrap">
                                     <label>City<input type="text" id="office-address"
-                                            placeholder="Type Сity Name in Russian or Ukrainian" class="city"></label>
+                                            placeholder="Type Сity Name in Russian or Ukrainian" class="city" name="address"></label>
                                     <button type="button" class="search-address button">Search</button>
                                 </div>
 
@@ -162,7 +162,7 @@
                                         <div class="form-group" id="address-mini-form">
                                             <label for="address">Enter your address:
                                                 <input type="text" class="address form-control autocomplete-address"
-                                                    id="autocomplete-address" minlength="1" name="address">
+                                                    id="autocomplete-address" minlength="1" name=" autocomplete-address">
                                             </label>
                                         </div>
                                         <div class="form-group">
@@ -173,7 +173,7 @@
                                         <div id="address-full-form">
                                             <div class="form-group">
                                                 <label>Street Address<input type="text" class="form-control"
-                                                        id="bill_address" name="address" disabled /></label>
+                                                        id="bill_address" name="address"    /></label>
 
                                             </div>
                                             <div class="form__field-wrap">
@@ -459,8 +459,7 @@
         </ul>
 
     </footer>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </body>
