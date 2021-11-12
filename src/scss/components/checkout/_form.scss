@@ -294,6 +294,7 @@
         grid-template-columns: 1fr 1fr;
         grid-column-gap: 5%;
         background-color: $bg-light;
+        padding-bottom: 1em;
 
         & label {
             @media screen and (max-width: 1199px) {

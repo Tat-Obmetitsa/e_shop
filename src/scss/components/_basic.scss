@@ -176,8 +176,9 @@ img {
     }
 }
 
-.hidden {
+.total__promo.hidden {
     visibility: hidden;
+    display: block;
 }
 
 .wrapper__image,
